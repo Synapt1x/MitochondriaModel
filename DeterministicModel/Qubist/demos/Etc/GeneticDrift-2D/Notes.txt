@@ -1,0 +1,13 @@
+Genetic Drift:
+=============
+
+A simple example showing the minimization of a function with 2 parameters.
+In this example, Ferret functions as a normal GA, without niching or elitism.  
+
+Notice that the solution settles to one minimum at random.  This illustrates
+the process of genetic drift, which is the main effect that a multi-objective
+genetic algorithm must combat using niching and other diversity-preserving
+strategies.
+
+NOTE THAT THE RESULTS ARE INTENTIONALLY POOR IN THIS EXAMPLE TO DEMONSTRATE
+GENETIC DRIFT.  THIS IS CORRECTED IN THE EXAMPLE "ISOLATEDNICHES-2D".

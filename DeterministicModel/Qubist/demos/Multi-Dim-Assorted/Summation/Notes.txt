@@ -1,0 +1,5 @@
+Summation - An Exploration of Degeneracy
+==================================================
+
+This example is a simple problem, where one minimizes f=abs(sum(x_i)), i=[1..N].
+The solution set is highly degenerate, containing any set of {x_i} that sums to zero.

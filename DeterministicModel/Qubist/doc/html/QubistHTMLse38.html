@@ -1,0 +1,430 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>Starting a Parallel Run from Ferret/Locust</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 3763--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse39.html" >next</a>] [<a 
+href="QubistHTMLse37.html" >prev</a>] [<a 
+href="QubistHTMLse37.html#tailQubistHTMLse37.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLse38.html">tail</a>] [<a 
+href="QubistHTMLch6.html#QubistHTMLse38.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">6.2   </span> <a 
+ id="x58-820006.2"></a>Starting a Parallel Run from Ferret/Locust</h3>
+<a 
+ id="dx58-82001"></a>
+<!--l. 3767--><p class="noindent" >The easiest way to start a parallel run on multi-core machines is by starting the &#8216;node manager&#8217; from the Control
+menu in the Ferret or Locust console window. This can be done after a project has been initialized, or
+at any time during a run. Starting the node manager will pop up a window like the one shown in
+Figure <a 
+href="#x58-820022">6.2<!--tex4ht:ref: fig:QubistNodeManager --></a>. This is a very simple interface, but it contains everything that you need to manage parallel
+runs.
+<!--l. 3769--><p class="noindent" ><hr class="figure"><div class="figure" 
+>
+                                                                                         
+
+                                                                                         
+<a 
+ id="x58-820022"></a>
+                                                                                         
+
+                                                                                         
+<div class="center" 
+>
+<!--l. 3770--><p class="noindent" >
+
+<!--l. 3771--><p class="noindent" ><img 
+src="figures/QubistNodeManager/QubistNodeManager.png" alt="PIC"  
+></div>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;6.2: </span><span  
+class="content">Qubist&#8217;s node manager running on a Windows quad-core computer. The &#8216;status.0&#8217; line refers to
+the console node, and the three other status lines refer to the three worker nodes. Note that each status line
+is followed by a time, indicating when each node last wrote to its status file to indicate that it is still alive.</span></div><!--tex4ht:label?: x58-820022 -->
+                                                                                         
+
+                                                                                         
+<!--l. 3775--><p class="noindent" ></div><hr class="endfigure">
+<a 
+ id="dx58-82003"></a>
+<!--l. 3778--><p class="noindent" >If  you plan to run on multiple computers, rather than a single multi-core machine, the nodes that are intended to
+run on the same machine as the Ferret or Locust console can be started directly from Ferret or Locust, but the
+nodes on other machines must be started from the Qubist Node Manager, which can be launched from the
+component selector using the <span 
+class="cmtt-10">launchQubist </span>command. Runs involving a cluster of machines are discussed in Section
+<a 
+href="QubistHTMLse39.html#x61-890006.3">6.3<!--tex4ht:ref: sec:multimachine --></a>.
+<a 
+ id="dx58-82004"></a>
+<a 
+ id="dx58-82005"></a>
+<!--l. 3782--><p class="noindent" >Before you begin to experiment with parallel runs, I recommend turning off MATLAB&#8217;s built-in multi-threading by
+unchecking the box labelled &#8216;Enable multithreaded computation&#8217; in the MATLAB Preferences
+menu.<span class="footnote-mark"><a 
+href="QubistHTML59.html#fn1x67"><sup class="textsuperscript">1</sup></a></span><a 
+ id="x58-82006f1"></a> 
+This option can be accessed from the MATLAB desktop from the File <span 
+class="cmsy-10">&#x2192; </span>Preferences menu, and looking for
+&#8216;Multithreading&#8217; under the tab labelled &#8216;General&#8217;. Parallel processing in Qubist <span 
+class="cmti-10">will </span>still work with multithreading
+turned on, but this is less efficient, especially if you plan to &#8216;max out&#8217; your machine by using the node
+manager to match the number of MATLAB processes to the number of cores on your system (see
+below).
+<h4 class="subsectionHead"><span class="titlemark">6.2.1   </span> <a 
+ id="x58-830006.2.1"></a>The Launch Command and Options Panel</h4>
+<a 
+ id="dx58-83001"></a>
+<!--l. 3788--><p class="noindent" >Each <span 
+class="cmti-10">worker node </span>contributing to the calculation runs in a separate MATLAB session. These extra MATLAB
+processes run in the background under the MacIntosh and Linux operating systems, but you will see
+extra windows appear under Windows. The node manager must be given the command that starts
+MATLAB on your system from a command line (Windows), Terminal window (MacIntosh), or shell
+(Linux).
+<!--l. 3790--><p class="noindent" >
+<h5 class="subsubsectionHead"><a 
+ id="x58-840006.2.1"></a>Examples of Launch Commands</h5>
+<a 
+ id="dx58-84001"></a>
+<a 
+ id="dx58-84002"></a>
+<!--l. 3794--><p class="noindent" >The &#8216;Launch Command &amp; Options&#8217; panel is near the top of the node manager GUI. Here are some examples of the
+commands that I use to start MATLAB on some of the systems that I have used:
+     <ul class="itemize1">
+                                                                                         
+
+                                                                                         
+     <li class="itemize">
+     On
+     my
+     Windows
+     computer,
+     the
+     default
+     command
+     &#8216;matlab&#8217;
+     works.
+     </li>
+     <li class="itemize">
+     On
+     Linux,
+     the
+     default
+     command
+     &#8216;matlab&#8217;
+     also
+     works,
+     if
+     the
+     command
+     is
+     on
+     my
+     path.
+     However,
+     I
+     sometimes
+     use
+     machines
+     where
+     it
+     is
+     not
+     directly
+     on
+     my
+     path.
+     On
+     these
+     machines,
+     I
+     qualify
+                                                                                         
+
+                                                                                         
+     the
+     &#8216;matlab&#8217;
+     command
+     with
+     the
+     full
+     path:
+     &#8216;/user/local/matlab/bin/matlab&#8217;
+     for
+     example.
+     Of
+     course,
+     the
+     path
+     will
+     vary
+     from
+     one
+     system
+     to
+     another,
+     so
+     you
+     should
+     consult
+     your
+     system
+     administrator
+     to
+     obtain
+     your
+     full
+     MATLAB
+     path
+     if
+     you
+     don&#8217;t
+     know
+     it.
+     </li>
+     <li class="itemize">
+     On
+     my
+     MacIntosh
+     computer,
+     the
+                                                                                         
+
+                                                                                         
+     default
+     command
+     &#8216;matlab&#8217;
+     works
+     with
+     the
+     R2009
+     MATLAB
+     versions.
+     However,
+     I
+     required
+     a
+     more
+     elaborate
+     command
+     for
+     the
+     R2008a
+     64-bit
+     beta
+     version:
+     &#8216;export
+     MACI64=1;
+     /Applications/MATLAB_R2008a/bin/matlab&#8217;.
+     The
+     &#8216;export&#8217;
+     part
+     of
+     the
+     command
+     is
+     required
+     to
+     set
+     a
+     system
+     variable
+     that
+     is
+     required
+     to
+     launch
+     MATLAB
+     from
+     the
+     command
+     line
+                                                                                         
+
+                                                                                         
+     with
+     this
+     version.<span class="footnote-mark"><a 
+href="QubistHTML60.html#fn2x67"><sup class="textsuperscript">2</sup></a></span><a 
+ id="x58-84003f2"></a> 
+     Starting
+     older
+     MATLAB
+     versions
+     would
+     require
+     a
+     similar
+     command,
+     except
+     that
+     the
+     &#8216;export&#8217;
+     part
+     would
+     not
+     be
+     required.
+     Note
+     that
+     the
+     exact
+     command
+     will
+     vary
+     from
+     one
+     computer
+     to
+     another
+     and
+     possibly
+     even
+     from
+     one
+     MATLAB
+     version
+     to
+     another.
+     A
+     full
+     path
+     to
+                                                                                         
+
+                                                                                         
+     MATLAB&#8217;s
+     location
+     within
+     your
+     Applications
+     folder
+     may
+     be
+     required
+     for
+     pre-R2009
+     versions.</li></ul>
+<!--l. 3800--><p class="noindent" >The basic rule is that the launch command box should contain whatever command you use to start MATLAB from
+your shell in Linux, Terminal in Mac OS X, or the command window (CMD) in Windows. If you are able to launch
+MATLAB from a command line by typing this command, then it should work with the Qubist node
+manager.
+<!--l. 3802--><p class="noindent" >
+<h5 class="subsubsectionHead"><a 
+ id="x58-850006.2.1"></a>Is Java Required?</h5>
+<a 
+ id="dx58-85001"></a>
+<a 
+ id="dx58-85002"></a>
+<a 
+ id="dx58-85003"></a>
+<!--l. 3808--><p class="noindent" >Java is tightly integrated with the MATLAB language and some projects might be written partly in Java. The node
+manager contains a check box labelled as &#8216;Java virtual machine required?&#8217;. If your project contains any explicit calls
+to Java, you should check this box. If not, then you can uncheck this box to save memory, although leaving it
+checked will do no harm.
+<a 
+ id="dx58-85004"></a>
+<!--l. 3812--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">6.2.2   </span> <a 
+ id="x58-860006.2.2"></a>The Worker Nodes Panel</h4>
+<a 
+ id="dx58-86001"></a>
+<!--l. 3816--><p class="noindent" >The &#8216;Worker Nodes&#8217; panel contains a drop-down menu where you can select the number of worker nodes to launch.
+<span 
+class="cmti-10">Note that the numbers here refer to worker nodes only, and do not include the main MATLAB session running the</span>
+<span 
+class="cmti-10">Ferret or Locust console, which will also be engaged in evaluating your fitness function. </span>Usually, the
+number of nodes selected should not exceed the number of cores on your system. Therefore a single
+worker node is reasonable for a dual-core system, up to three workers for a quad-core system, seven
+workers for an eight-core system, etc. Chances are good that you will crash your computer if you try to
+launch 127 workers on your dual core laptop, so beware. This panel contains a button labelled &#8216;Start
+Nodes&#8217;, whose purpose is self-explanatory; worker nodes will not actually be started until this button is
+clicked.
+                                                                                         
+
+                                                                                         
+<!--l. 3818--><p class="noindent" >Your decision regarding the number of nodes is not final. You can launch more at any time using the method
+outlined above, shut them down using the &#8216;Stop Worker Node&#8217; button, as discussed below, or pause parallel
+processing at any time during your run without re-starting.
+<!--l. 3820--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">6.2.3   </span> <a 
+ id="x58-870006.2.3"></a>The Evaluation Mode Panel</h4>
+<a 
+ id="dx58-87001"></a>
+<!--l. 3824--><p class="noindent" >The &#8216;Evaluation Mode&#8217; panel contains a single button that allows you to flip between parallel and single-process
+evaluation. Turning parallel evaluation off here will not shut down your worker nodes. However, they will go into an
+idle mode where they use minimal CPU resources. Another click of the same button will turn parallel evaluation
+back on. A good use for this button is if you need to do something else briefly on a system that is very
+busy with your Qubist run. However, it is usually better to just shut down a node or two if you need
+your system for other purposes for more than a few minutes. Note that you can always restart nodes
+later.
+<!--l. 3826--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">6.2.4   </span> <a 
+ id="x58-880006.2.4"></a>The Active Nodes Panel</h4>
+<a 
+ id="dx58-88001"></a>
+<a 
+ id="dx58-88002"></a>
+<!--l. 3831--><p class="noindent" >The node manager contains a panel labelled &#8216;Active Worker Nodes&#8217;, which lists the nodes that are currently
+available to evaluate your fitness function. Every node is assigned a node number when it is started, and each node
+frequently &#8216;touches&#8217; its status file in the project&#8217;s scratch directory to updates its time stamp and indicate that it is
+alive. The status files present, along with their timestamps, are shown in this panel. Note that &#8216;status.1&#8217; refers to the
+status file for worker node 1, &#8216;status.2&#8217; to the status file for worker node 2, etc. The process running the Ferret or
+Locust console is not counted as a worker node. However, it is assigned node number 0, and shows up in this window
+as &#8216;status.0&#8217;.
+<!--l. 3833--><p class="noindent" >If a node runs into a problem and crashes or hangs, then the Qubist node manager will normally
+recover by disconnecting it and continuing on with the remaining nodes. There is a FerretSetup (or
+LocustSetup) line <span 
+class="cmtt-10">par.parallel.timeout=</span><span 
+class="cmitt-10">n</span>, which specifies the time <span 
+class="cmmi-10">n </span>in seconds to wait for an
+unresponsive node before disconnecting it and attempting to kill the process. Don&#8217;t be too greedy with
+this setting. You can afford to wait fifteen seconds or a minute for an unresponsive node to recover if
+your run requires hours or days to complete. Setting this low (i.e. less than a few seconds) is fine if
+there are no other processes running on your computer and it runs MATLAB perfectly without ever
+swapping to disk or temporarily hanging. Perhaps your system is that well-tuned but mine certainly
+isn&#8217;t, and I find it useful to set the timeout parameter to at least fifteen seconds to avoid unnecessary
+disconnections.
+<a 
+ id="dx58-88003"></a>
+<!--l. 3836--><p class="noindent" >You can stop a node manually at any time by selecting it in the window and clicking the &#8216;Stop Worker Node&#8217;
+button. You should briefly see a line &#8216;node.<span 
+class="cmti-10">n</span>.killed&#8217;, where <span 
+class="cmti-10">n </span>is the target node. The .killed file is a signal from the
+GUI to shut down the target node. The target status file, as well as the corresponding .killed file should disappear if
+                                                                                         
+
+                                                                                         
+the node shuts down cleanly. If an unforeseen problem occurs and the node does not shut down cleanly, then these
+files may not disappear from the list. Your run will not be affected by this, but it is possible (though
+unlikely) that you may still have an idle MATLAB process running. You can kill this process from the
+operating system, or you can just leave it alone, since it probably isn&#8217;t using many system resources
+anyway.
+<!--l. 3838--><p class="noindent" ><span 
+class="cmti-10">Finally, please note that node numbers are not recycled.  </span>If you start node number 1 and shut it down, then the next
+node that you start will be number 2. I have received bug reports regarding this behaviour, but it is
+actually by design. It is simply too risky to recycle node numbers because a serious error would result if
+a node failed to shut down properly and a new one was started with the same number - two active
+nodes with the same identification number would wreak havoc on Qubist&#8217;s parallel computing system
+and almost certainly cause it to hang. It is much better to always use a fresh node number because
+then a node that fails to shut down after being sent a &#8216;.killed&#8217; signal, for whatever reason, can do no
+harm.
+                                                                                         
+
+                                                                                         
+<!--l. 3840--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse39.html" >next</a>] [<a 
+href="QubistHTMLse37.html" >prev</a>] [<a 
+href="QubistHTMLse37.html#tailQubistHTMLse37.html" >prev-tail</a>] [<a 
+href="QubistHTMLse38.html" >front</a>] [<a 
+href="QubistHTMLch6.html#QubistHTMLse38.html" >up</a>] </p></div>
+<!--l. 3840--><p class="noindent" ><a 
+ id="tailQubistHTMLse38.html"></a>  
+</body></html> 

@@ -1,0 +1,21 @@
+Notes on FerretSetup.m file
+===========================
+
+Every Ferret run requires a setup file, which is names 'FerretSetup.m' by default
+This is usually coded as a Matlab structure, as in these template files.
+
+Other names are possible for the setup file if the user sends a 2nd argument to
+Ferret when the profram is called:
+
+% Ferret accepts 0, 1, or 2 arguments.
+% [XPhys,F,varargout]=Ferret(externalParameterStructure, setupFileName)
+% 0 --> Use defaultFerretSetup
+% 1 --> Use FerretSetup
+% 2 --> Use arbitrarily named setup file setupFile
+%       (either .m or .txt file) 
+
+Note that FerretSetup calls SemiGloSS_setup.  This line can be removed
+if the user wants to use the default settings.
+
+Note that FerretSetup files can also be coded as simple text files
+that are automatically parsed by Ferret.  See examples for this usage.

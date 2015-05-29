@@ -1,0 +1,578 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>par.link</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 4726--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse57.html" >next</a>] [<a 
+href="QubistHTMLse55.html" >prev</a>] [<a 
+href="QubistHTMLse55.html#tailQubistHTMLse55.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLse56.html">tail</a>] [<a 
+href="QubistHTMLch8.html#QubistHTMLse56.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">8.13   </span> <a 
+ id="x82-1180008.13"></a>par.link</h3>
+<a 
+ id="dx82-118001"></a>
+<!--l. 4730--><p class="noindent" >Ferret&#8217;s linkage learning system is perhaps its most innovative feature, and certainly a feature that sets it apart from
+other GAs. The general philosophy of linkage learning is described in Section <a 
+href="QubistHTMLse2.html#x8-150002.2.7">2.2.7<!--tex4ht:ref: sec:LL --></a>, but this section will provide a
+few more details, and most importantly, show you how to set up linkage learning for your problems. At
+first sight, the list of options in <span 
+class="cmtt-10">par.link </span>looks somewhat daunting, but the default settings are fine
+for most problems and the linkage learning algorithm is not particularly sensitive to these settings.
+For most problems, you can expect to modify perhaps one of these control parameters, or at most a
+few.
+<!--l. 4763--><p class="noindent" ><span 
+class="colorbox" id="colorbox80"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Linkage</span><span 
+class="cmtt-10">&#x00A0;Learning</span><br /><span 
+class="cmtt-10">par.link.PLink=1;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Probability</span><span 
+class="cmtt-10">&#x00A0;that</span><span 
+class="cmtt-10">&#x00A0;an</span><span 
+class="cmtt-10">&#x00A0;individual</span><span 
+class="cmtt-10">&#x00A0;will</span><span 
+class="cmtt-10">&#x00A0;be</span><span 
+class="cmtt-10">&#x00A0;chosen</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML57x.png" alt="        `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;linkage</span><span 
+class="cmtt-10">&#x00A0;learning.</span><br /><span 
+class="cmtt-10">par.link.FAbsTol=1e-6;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Absolute</span><span 
+class="cmtt-10">&#x00A0;fitness</span><span 
+class="cmtt-10">&#x00A0;range</span><span 
+class="cmtt-10">&#x00A0;(+/-</span><span 
+class="cmtt-10">&#x00A0;FAbsTol)</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;use</span><span 
+class="cmtt-10">&#x00A0;as</span><span 
+class="cmtt-10">&#x00A0;a</span><span 
+class="cmtt-10">&#x00A0;fuzzy</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML58x.png" alt="                                                                                                                       `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;band.</span><br /><span 
+class="cmtt-10">par.link.FRelTol=1e-10;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Fraction</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;fitness</span><span 
+class="cmtt-10">&#x00A0;range</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;use</span><span 
+class="cmtt-10">&#x00A0;as</span><span 
+class="cmtt-10">&#x00A0;a</span><span 
+class="cmtt-10">&#x00A0;fuzzy</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML59x.png" alt="                                                                                                                                                                                                                        `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;fitness</span><span 
+class="cmtt-10">&#x00A0;band.</span><br /><span 
+class="cmtt-10">par.link.FRankTol=0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Fraction</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;rank</span><span 
+class="cmtt-10">&#x00A0;range</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;use</span><span 
+class="cmtt-10">&#x00A0;as</span><span 
+class="cmtt-10">&#x00A0;a</span><span 
+class="cmtt-10">&#x00A0;fuzzy</span><span 
+class="cmtt-10">&#x00A0;fitness</span><span 
+class="cmtt-10">&#x00A0;band.</span><br /><span 
+class="cmtt-10">par.link.maxStrongLinkFrac=0.33;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]</span><br /><span 
+class="cmtt-10">par.link.NLinkMax=100;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer</span><span 
+class="cmtt-10">&#x00A0;&#x003E;=</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Maximum</span><span 
+class="cmtt-10">&#x00A0;number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;linkage</span><span 
+class="cmtt-10">&#x00A0;attempts</span><span 
+class="cmtt-10">&#x00A0;per</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML60x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;generation.</span><br /><span 
+class="cmtt-10">par.link.lifetime=100;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer</span><span 
+class="cmtt-10">&#x00A0;&#x003E;=</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Lifetime</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;linkages.</span><br /><span 
+class="cmtt-10">par.link.useOptimalDonors=false;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[logical]:</span><span 
+class="cmtt-10">&#x00A0;Should</span><span 
+class="cmtt-10">&#x00A0;a</span><span 
+class="cmtt-10">&#x00A0;member</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;Optimal</span><span 
+class="cmtt-10">&#x00A0;set</span><span 
+class="cmtt-10">&#x00A0;be</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML61x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;used</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;donor?</span><br /><span 
+class="cmtt-10">par.link.acceleration=2;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real</span><span 
+class="cmtt-10">&#x00A0;&#x003E;=</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Accelerate</span><span 
+class="cmtt-10">&#x00A0;decay</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;weak</span><span 
+class="cmtt-10">&#x00A0;links.</span><br /><span 
+class="cmtt-10">par.link.failureCost=1;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real</span><span 
+class="cmtt-10">&#x00A0;~1]:</span><span 
+class="cmtt-10">&#x00A0;Cost</span><span 
+class="cmtt-10">&#x00A0;associated</span><span 
+class="cmtt-10">&#x00A0;with</span><span 
+class="cmtt-10">&#x00A0;higher-order</span><span 
+class="cmtt-10">&#x00A0;links.</span><br /><span 
+class="cmtt-10">par.link.initialLinkage=0.5;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;How</span><span 
+class="cmtt-10">&#x00A0;linked</span><span 
+class="cmtt-10">&#x00A0;are</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;parameters</span><span 
+class="cmtt-10">&#x00A0;initially?</span><br /><span 
+class="cmtt-10">par.link.maxPass=20;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer</span><span 
+class="cmtt-10">&#x00A0;&#x003E;=</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Max</span><span 
+class="cmtt-10">&#x00A0;number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;passes</span><span 
+class="cmtt-10">&#x00A0;through</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;linkage</span><span 
+class="cmtt-10">&#x00A0;queue.</span><br /><span 
+class="cmtt-10">par.link.searchThreshold=0.9;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Stop</span><span 
+class="cmtt-10">&#x00A0;looking</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;linkages</span><span 
+class="cmtt-10">&#x00A0;when</span><span 
+class="cmtt-10">&#x00A0;links</span><span 
+class="cmtt-10">&#x00A0;are</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML62x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;stronger</span><span 
+class="cmtt-10">&#x00A0;than</span><span 
+class="cmtt-10">&#x00A0;this</span><span 
+class="cmtt-10">&#x00A0;value.</span><br /><span 
+class="cmtt-10">par.link.PMultiLink=0.5;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Linkage</span><span 
+class="cmtt-10">&#x00A0;strategy.</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;0</span><span 
+class="cmtt-10">&#x00A0;--&#x003E;</span><span 
+class="cmtt-10">&#x00A0;simple</span><span 
+class="cmtt-10">&#x00A0;links</span><span 
+class="cmtt-10">&#x00A0;only.</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML63x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;1</span><span 
+class="cmtt-10">&#x00A0;--&#x003E;</span><span 
+class="cmtt-10">&#x00A0;general,</span><span 
+class="cmtt-10">&#x00A0;higher</span><span 
+class="cmtt-10">&#x00A0;order</span><span 
+class="cmtt-10">&#x00A0;links</span><span 
+class="cmtt-10">&#x00A0;possible.</span><br /><span 
+class="cmtt-10">par.link.PXOverDonor=1;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Probability</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;engage</span><span 
+class="cmtt-10">&#x00A0;in</span><span 
+class="cmtt-10">&#x00A0;XOver</span><span 
+class="cmtt-10">&#x00A0;with</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;donor.</span><br /><span 
+class="cmtt-10">par.link.strategy=0.5;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;0</span><span 
+class="cmtt-10">&#x00A0;--&#x003E;</span><span 
+class="cmtt-10">&#x00A0;opportunistic,</span><span 
+class="cmtt-10">&#x00A0;1</span><span 
+class="cmtt-10">&#x00A0;--&#x003E;</span><span 
+class="cmtt-10">&#x00A0;aggressive.</span><br /><span 
+class="cmtt-10">par.link.PRandomizeNewBBs=1;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Randomize</span><span 
+class="cmtt-10">&#x00A0;BBs</span><span 
+class="cmtt-10">&#x00A0;when</span><span 
+class="cmtt-10">&#x00A0;they</span><span 
+class="cmtt-10">&#x00A0;form?</span><br /><span 
+class="cmtt-10">par.link.mixDim=0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[usually</span><span 
+class="cmtt-10">&#x00A0;0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1,</span><span 
+class="cmtt-10">&#x00A0;possibly</span><span 
+class="cmtt-10">&#x00A0;higher]:</span><span 
+class="cmtt-10">&#x00A0;Greater</span><span 
+class="cmtt-10">&#x00A0;than</span><span 
+class="cmtt-10">&#x00A0;0</span><span 
+class="cmtt-10">&#x00A0;if</span><span 
+class="cmtt-10">&#x00A0;mixing</span><span 
+class="cmtt-10">&#x00A0;is</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML64x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;desired.</span><br /><span 
+class="cmtt-10">par.link.BB=;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[linkage</span><span 
+class="cmtt-10">&#x00A0;matrix</span><span 
+class="cmtt-10">&#x00A0;(0-1),</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;cell</span><span 
+class="cmtt-10">&#x00A0;array</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;integer</span><span 
+class="cmtt-10">&#x00A0;vectors]:</span><span 
+class="cmtt-10">&#x00A0;Known</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML65x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;building</span><span 
+class="cmtt-10">&#x00A0;blocks.</span><span 
+class="cmtt-10">&#x00A0;Empty</span><span 
+class="cmtt-10">&#x00A0;list</span><span 
+class="cmtt-10">&#x00A0;if</span><span 
+class="cmtt-10">&#x00A0;none</span><span 
+class="cmtt-10">&#x00A0;are</span><span 
+class="cmtt-10">&#x00A0;known.</span></div>
+</div></span>
+<!--l. 4769--><p class="noindent" >Generally speaking, finding that a problem has fewer linkages is good news because it means that
+the problem is intrinsically easier. However, the division between linked and non-linked is not quite
+as cut and dried as one might like. In general, the linkage map is contextual in the sense that what
+seems linked early on in the evolution may not be linked after many generations, since Ferret will
+likely be sampling only a small part of the problem&#8217;s initial parameter space near the optimal region
+late in the optimization process. The opposite is sometimes also true; links that are not seen early on
+in a run may become apparent later on when Ferret zooms in on the optimal region. The point is
+then that the linkage map should never be viewed as a static feature of a problem. Rather, it is more
+productive to view it as a dynamic map of the parameter space that changes and evolves as Ferret
+zeros in the optimal region. Ferret incorporates dynamic linkages by setting an exponential lifetime
+<span 
+class="cmtt-10">par.link.lifetime </span>on all newly discovered links. When a new link is discovered, the corresponding cell in the
+linkage map increased abruptly, but then gradually decays over the exponential lifetime unless it is
+rediscovered.
+<!--l. 4771--><p class="noindent" >All linkages have a value ranging from 0 (totally unlinked, black in the display) to 1 (totally linked, white in the
+display). At the start of the run, the linkage between all parameters is set to a value of <span 
+class="cmtt-10">par.link.initialLinkage</span>,
+which is 0.5 by default. This shows up on the linkage map display as a white diagonal on a half-tone grey
+background, which indicated that every parameter is 100% linked to itself, and assumed to be liked with 50%
+probability to all others. Why not set the initial linkage to zero and only add linkages as they are discovered?  This
+is usually a <span 
+class="cmti-10">very </span>bad idea because it tells Ferret to behave as if all parameters are independent. Ferret will try to
+take advantage of this information, which is probably false, and there is a good chance that it will converge
+rapidly to the wrong solution. Setting the initial linkage to 0.5 seems to be a good choice for most
+problems. A truly cautious user might prefer to set this control parameter to 100%, which causes
+Ferret to assume complete linkage initially, and and links gradually decay over the linkage lifetime
+for those that fail to be discovered. However, this is overly cautious for every optimization problem
+that I have ever tried. An initial linkage of 50% is adequate, and higher decrease the efficiency of
+the early part of the run, before the initial linkages decay by approximately the generation given by
+                                                                                         
+
+                                                                                         
+<span 
+class="cmtt-10">par.link.lifetime</span>.
+<!--l. 4773--><p class="noindent" >The most important parameter in the par.link structure is the linkage search probability <span 
+class="cmtt-10">par.link.PLink</span>, which
+should be between 0 and 1 (inclusive). This is the probability that Ferret will examine any individual solution for
+evidence of linkage, and a judicious choice of this parameter is important to the successful solution of most
+complex problems. Linkage-learning is turned off when <span 
+class="cmtt-10">par.link.PLink=0</span>. In this case, the linkage map
+is still determined by <span 
+class="cmtt-10">par.link.initialLinkage </span>at the start of the run, but it does not evolve as
+the run progresses. This can still be useful, because it effectively determines how many parameters
+are swapped during an evaluation of the building block crossover operator, as discussed in Section
+<a 
+href="QubistHTMLse51.html#x77-1090008.8.2">8.8.2<!--tex4ht:ref: sec:par_XOverBB --></a>. When linkage learning is enabled, values of <span 
+class="cmtt-10">par.link.PLink </span>between 0.25 and 1 are usually
+appropriate. Values on the higher end will cause Ferret to spend more time evaluating the fitness
+function while hunting for linkages, but the linkage map may be more accurate. Try changing <span 
+class="cmmi-10">PLink</span>
+to a higher setting if your results seem inconsistent and the linkage map varies <span 
+class="cmti-10">drastically </span>between
+runs.<span class="footnote-mark"><a 
+href="QubistHTML83.html#fn3x71"><sup class="textsuperscript">3</sup></a></span><a 
+ id="x82-118031f3"></a> 
+Note that the linkage probability can be modified by <span 
+class="cmtt-10">par.link.NLinkMax</span>, which sets the maximum number of
+linkages tested per generation.
+<!--l. 4775--><p class="noindent" >Ferret&#8217;s linkage learning system is designed to dramatically improve the efficiency of the parameter search by
+dividing large problems into smaller, easier problems. However, the search for parameter space linkage is
+computationally expensive because it requires extra evaluations of the fitness function. Therefore, the
+choice of a value for <span 
+class="cmmi-10">PLink </span>represents a trade-off between gains made by a more intelligent search
+strategy, and the cost of extra evaluations. Part of the extra cost of linkage-learning is offset because
+the extra evaluations are recycled and used directly in the optimization. For example, new optimal
+solutions are often discovered during linkage learning, and these new optimals are never wasted. For most
+problems that I have encountered in astrophysics, the gains made by setting <span 
+class="cmmi-10">PLink </span>close to (or often
+equal to) 100% (<span 
+class="cmtt-10">par.link.PLink=1</span>) outweigh the cost quite dramatically, but this may not be true
+for other problems. I would therefore recommend that you start by setting <span 
+class="cmtt-10">par.link.PLink=1</span>, and
+gradually decrease it as you gain experience with your problem. At some point you may find that
+your parameter space search becomes unreliable. This is a clear sign that you have set <span 
+class="cmmi-10">PLink </span>too
+low.
+<!--l. 4777--><p class="noindent" >Ferret&#8217;s linkage-learning system employs two different strategies, which are selected by the probability
+<span 
+class="cmtt-10">par.link.strategy</span>, which should be set to a value between 0 and 1. Setting <span 
+class="cmtt-10">par.link.strategy=0 </span>causes Ferret
+to always choose an &#8216;opportunistic&#8217; strategy, while <span 
+class="cmtt-10">par.link.strategy=1 </span>results in an &#8216;aggressive&#8217;
+strategy with 100% probability. Intermediate values are treated as the probability of choosing the
+aggressive mode. In aggressive mode, a link is considered to be detected anytime that Ferret notices the
+type of non-linearity that it associates with an indivisible sub-problem in the parameter space. In
+opportunistic mode, a link is only counted if this type of non-linearity exists, <span 
+class="cmti-10">and </span>the linkage test directly
+resulted in an improved solution. Generally, the aggressive mode finds many more linkages than the
+opportunistic mode, but it may be argued that many links found in aggressive mode are are not useful,
+because the population has already discovered a region of parameter space where these linkages no
+longer matter for the improvement of the fitness. The opposing argument is that the mathematical
+non-linearity has still been shown to exist, and could still be important; just because it did not result
+                                                                                         
+
+                                                                                         
+in improvement during the single linkage test that found it, does not mean that it is incapable of
+doing so in future tests. I can see the validity of both arguments and I have tested Ferret using both
+strategies. Usually, this parameter does not make or break a run, and I usually just use the default value of
+<span 
+class="cmtt-10">par.link.strategy=0.5</span>.
+<!--l. 4779--><p class="noindent" >The <span 
+class="cmtt-10">par.link.FAbsTol </span>and <span 
+class="cmtt-10">par.link.FRelTol </span>parameters are absolute and relative fitness tolerances that are
+used by Ferret during linkage detection. Differences in fitness are ignored when they are smaller than these values.
+This is useful for functions whose evaluation is inherently noisy. Linkage can be viewed as a particular type of
+non-linearity, which can be mimicked by noise in some circumstances. It is therefore advisable to specify a tolerance
+if your function is noisy and you have characterized the error on each evaluation. If spurious linkages are detected,
+this could decrease the efficiency of the parameter search because more linkages mean that the problem is not
+divided into as many smaller sub-problems, and the sub-problems are larger. Note that Ferret usually does a good
+job at filtering out spurious linkage signals. Non-zero linkage tolerances are really only recommended
+when you have significant computational errors in your evaluation (i.e. stochastic fitness functions or a
+lot of roundoff error) and you know them well. <span 
+class="cmtt-10">par.link.FRankTol </span>is a relative tolerance in rank,
+ranging from 0 to 1, which works like <span 
+class="cmtt-10">par.selection.FRankTol</span>. I almost always leave this value set to
+zero.
+<!--l. 4781--><p class="noindent" >Searching for linkage is a computationally expensive process, and the user can use <span 
+class="cmtt-10">par.link.searchThreshold </span>to
+limit the effort spent to enhance the strength of linkages that are already quite strong. The searchThreshold
+parameter is a threshold between 0 and 1. Ferret will not search for new linkages between any pair of parameters
+when the associated linkage is already greater than <span 
+class="cmmi-10">searchThreshold</span>.
+<!--l. 4783--><p class="noindent" >Ferret&#8217;s linkage learning system tests for linkage by comparing two individuals: the primary individual being tested,
+and a &#8216;donor&#8217;. The control parameter <span 
+class="cmtt-10">par.link.useOptimalDonors </span>determines whether the donor is
+chosen randomly, or if an optimal donor is chosen from the best solutions found to date. By default,
+<span 
+class="cmtt-10">par.link.useOptimalDonors=false</span>, which emphasizes the most widespread search for linkages. Setting
+<span 
+class="cmtt-10">par.link.useOptimalDonors=true </span>may not find as many linkages, but may result in faster convergence on some
+problems.
+<!--l. 4785--><p class="noindent" >One part of the linkage detection algorithm is mathematically similar to a building block crossover
+between the primary individual and the donor. Ferret allows the user to insert solutions formed as a
+result of this crossover operator into the population if they are superior to both parents. This insertion
+occurs with probability equal to <span 
+class="cmtt-10">par.link.PXOverDonor</span>, which is set to 100% by default. Note that
+these crossovers must be done anyway when searching for linkage. Keeping any superior solutions
+that result can be viewed as an opportunistic side-effect of linkage-learning, and I normally leave this
+parameter set to 100%. The only reason to decrease it is if linkages are discovered <span 
+class="cmti-10">very </span>frequently, so that
+this operation becomes the dominant source of an undesirably high selection pressure. I have never
+actually seen this happen, but you may consider decreasing <span 
+class="cmmi-10">PXOverDonor </span>if you suspect that this is
+occurring.
+<!--l. 4787--><p class="noindent" >As discussed above, finding relatively few linkages is &#8216;good news&#8217; because it means that a problem can
+effectively be broken down more effectively into smaller sub-problems. How well a problem can be broken
+into sub-problems depends entirely on the nature of the problem, so it is not usually a good idea to
+tinker with the linkage map. Nevertheless, Ferret does allow a certain amount of tinkering via the
+<span 
+class="cmtt-10">par.link.maxStrongLinkFrac </span>and <span 
+class="cmtt-10">par.link.BB </span>control parameters. The maxStrongLinkFrac parameter is a
+fraction from 0 to 1 that limits the number of &#8216;strong&#8217; linkages in the problem, where a strong linkage
+is defined as one whose value is greater than <span 
+class="cmmi-10">par.link.searchThreshold&#x2215;</span>2 (0.5 by default). This is
+accomplished by accelerating the rate that linkages decay whenever the fraction of strong linkages exceeds
+<span 
+class="cmmi-10">maxStrongLinkFrac</span>. I have never found this feature very useful because most problems aren&#8217;t really <span 
+class="cmti-10">that </span>strongly
+                                                                                         
+
+                                                                                         
+linked. However, the option is there for problems that are very strongly linked, and users who want
+to try to tune their linkage maps. I would not recommend setting <span 
+class="cmmi-10">maxStrongLinkFrac </span>less than
+about 1/3, since this would severely cripple the linkage learning system. Note that it is also possible to
+accelerate the decay of weak linkages by setting <span 
+class="cmtt-10">par.link.acceleration &#x003E; 1</span>. Linkages normally
+have a lifetime equal to <span 
+class="cmtt-10">par.link.lifetime</span>, but the lifetime of the weakest linkages is reduced to
+<span 
+class="cmmi-10">par.link.lifetime&#x2215;par.link.acceleration</span>.
+<!--l. 4789--><p class="noindent" >Initial known linkages can be set by hand using the <span 
+class="cmtt-10">par.link.BB </span>control parameter. This can be either a cell array
+of linkages or a linkage matrix. For example, <span 
+class="cmtt-10">par.link.BB=</span><span 
+class="cmsy-10">{</span><span 
+class="cmtt-10">[1,2,3],[4,5,6]</span><span 
+class="cmsy-10">} </span>links together parameters 1, 2, and
+3, as well as parameters 4, 5, and 6. The same linkages can be established by building the linkage matrix
+directly:
+<!--l. 4796--><p class="noindent" ><span 
+class="colorbox" id="colorbox81"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">par.link.BB=zeros(6);</span><br /><span 
+class="cmtt-10">par.link.BB(1:3,1:3)=1;</span><br /><span 
+class="cmtt-10">par.link.BB(4:6,4:6)=1;</span></div>
+</div></span>
+<!--l. 4802--><p class="noindent" >The matrix usage is more flexible because linkage values less than 1 are allowed. Note that this sets the initial
+linkage values only, and the linkages evolve if linkage learning is turned on. The functionality allowed by
+<span 
+class="cmtt-10">par.link.BB </span>should be used sparingly, and only when you are certain that you understand the linkage structure of
+your problem. For most problems, it is best to allow linkage learning to discover the linkage structure automatically
+without setting values by hand.
+<!--l. 4804--><p class="noindent" >Ferret actually contains two distinct (and mutually exclusive) linkage-learning algorithms. The simpler
+mechanism tries to determine whether a single parameter is linked to some other parameter. The more
+complex method tries to detect linkage between two <span 
+class="cmti-10">groups </span>of parameters, which makes it potentially
+faster and more powerful because each linkage test casts a wider net for linked parameters. However,
+this &#8216;multi-link&#8217; method has a significant drawback. When two groups of parameters are detected as
+being linked, the code does not really know <span 
+class="cmti-10">which </span>parameters within the two sets were responsible, or
+even if the detection represents multiple linkages between the two parameter sets - all it can do is
+assume that at least one link exists <span 
+class="cmti-10">somewhere </span>within the sets of parameters that were tested. Ferret
+contains algorithms to isolate the linked parameters, but the multi-link method remains somewhat
+probabilistic in nature. Both methods are powerful, robust, and very well-tested. I have used both
+the linkage modes successfully on a variety of problems, and I cannot offer universal advice on which
+technique is better. The multi-link method is certainly more sophisticated and probably more powerful
+for most problems, but the single linkage mode results in more certain detections. For this reason, I
+implemented a multi-link probability controlled by <span 
+class="cmtt-10">par.link.PMultiLink</span>, which selects between the
+single and multi-link methods stochastically. I set this probability to 50% by default, but you can
+set it higher to more frequently choose the multi-link method, or lower to choose the simple linkage
+scheme more often. Normally, I hedge my bets by leaving this parameter set to its default value of
+0.5.
+<!--l. 4806--><p class="noindent" >Since the multi-link method associates a detected linkage with two stochastically chosen groups of parameters, it is
+inevitable that mathematically non-linked parameters within these groups will occasionally gain linkage strength by
+virtue of being chosen in the same groups as truly linked parameters. Therefore, the multi-link method contains a
+slight natural bias towards erroneously linking parameters that have no real linkage. Ferret attempts to isolate the
+parameters responsible for linkage by recursively passing them through a &#8216;linkage detection queue&#8217;
+for further tests and analysis. This is an expensive process, and the number of passes is limited to
+<span 
+class="cmtt-10">par.link.maxPass</span>, which is set to 20 by default. Ferret contains effective algorithms to filter out false linkage
+detections in multi-link mode, but it is also useful to counter the natural bias by directly suppressing them.
+The essential idea is that mathematically unlinked parameters may occasionally be flagged as linked,
+but it is more likely that a linkage test involving these parameters will fail. Therefore, we directly
+                                                                                         
+
+                                                                                         
+punish failed linkages by decreasing the strength of the associated linkages by an amount equal to
+<span 
+class="cmmi-10">par.link.failureCost&#x2215;par.link.lifetime</span>. I find it adequate to leave <span 
+class="cmtt-10">par.link.failureCost </span>set to its default value
+of 1 and rarely play with this parameter. Note that <span 
+class="cmtt-10">par.link.failureCost </span>does not affect the simple (single)
+linkage method.
+<!--l. 4808--><p class="noindent" >After reading this section on <span 
+class="cmtt-10">par.link</span>, you might conclude that linkage detection is a complicated, treacherous
+business that is full of pitfalls and uncertainty. In some ways, this is true. I have admitted several times in the above
+paragraphs to not fully understanding which options are best or which values to choose for certain parameters.
+However, the reason for this uncertainty is often due to the robustness of the linkage-learning system. For example, I
+can&#8217;t definitively choose between an aggressive (<span 
+class="cmtt-10">par.link.strategy=1</span>) or opportunistic (<span 
+class="cmtt-10">par.link.strategy=0</span>)
+linkage strategy, because <span 
+class="cmti-10">both </span>normally work very well. Likewise, it&#8217;s difficult to decide between the simple linkage
+and multi-link algorithms because both work exceptionally well on most problems! In general, you
+should try to avoid extreme values for the linkage control parameters, and take heart that the default
+values will normally work just fine. Nevertheless, I have left these options in place for adventurous
+users.
+<a 
+ id="dx82-118035"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 4813--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse57.html" >next</a>] [<a 
+href="QubistHTMLse55.html" >prev</a>] [<a 
+href="QubistHTMLse55.html#tailQubistHTMLse55.html" >prev-tail</a>] [<a 
+href="QubistHTMLse56.html" >front</a>] [<a 
+href="QubistHTMLch8.html#QubistHTMLse56.html" >up</a>] </p></div>
+<!--l. 4813--><p class="noindent" ><a 
+ id="tailQubistHTMLse56.html"></a>  
+</body></html> 

@@ -1,0 +1,8 @@
+Zoom-OUT Feature:
+=================
+
+Same as the Ring-2D-Zoom Example, EXCEPT that par.zoom.allowZoomOut=1.
+When this control parameter is true (1), Ferret is allowed to violate the initial
+boundary conditions and ZOOM OUT to expand beyond its initial bounds.
+
+Parameters may be continuous, discrete, or cyclic.

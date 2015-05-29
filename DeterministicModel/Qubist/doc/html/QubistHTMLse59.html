@@ -1,0 +1,539 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>par.analysis</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 4913--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse60.html" >next</a>] [<a 
+href="QubistHTMLse58.html" >prev</a>] [<a 
+href="QubistHTMLse58.html#tailQubistHTMLse58.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLse59.html">tail</a>] [<a 
+href="QubistHTMLch8.html#QubistHTMLse59.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">8.16   </span> <a 
+ id="x86-1210008.16"></a>par.analysis</h3>
+<a 
+ id="dx86-121001"></a>
+<!--l. 4917--><p class="noindent" >As Ferret runs, it writes a History file to disk every <span 
+class="cmtt-10">par.history.NGenPerHistoryFile </span>generations (see Section
+<a 
+href="QubistHTMLse45.html#x69-1010008.2">8.2<!--tex4ht:ref: sec:par_history --></a>), which contains information about Ferret&#8217;s state at each generation since the last History file was saved. History
+files are discussed in detail in Section <a 
+href="QubistHTMLse26.html#x43-680004.16.4">4.16.4<!--tex4ht:ref: sec:History_files --></a>. Analysis is the process that reloads all of these History files, computes
+the final set of optimal solutions from the run, and saves this information as an OptimalSolutions.mat file. The
+analysis process is discussed in Section <a 
+href="QubistHTMLse25.html#x42-630004.15">4.15<!--tex4ht:ref: sec:analysis --></a>, and the structure of an OptimalSolutions.mat file is given in Section
+<a 
+href="QubistHTMLse28.html#x46-700004.18">4.18<!--tex4ht:ref: sec:OptimalSolutions_file --></a>. The <span 
+class="cmtt-10">par.analysis </span>branch of the setup file contains a few options that affect how analysis is
+done.
+<!--l. 4930--><p class="noindent" ><span 
+class="colorbox" id="colorbox86"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Analysis</span><br /><span 
+class="cmtt-10">par.analysis.analyzeWhenDone=false;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[logical]:</span><span 
+class="cmtt-10">&#x00A0;Do</span><span 
+class="cmtt-10">&#x00A0;analysis</span><span 
+class="cmtt-10">&#x00A0;automatically</span><span 
+class="cmtt-10">&#x00A0;when</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML68x.png" alt=" `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;evolution</span><span 
+class="cmtt-10">&#x00A0;stops.</span><br /><span 
+class="cmtt-10">par.analysis.conserveMemory=false;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[logical]:</span><span 
+class="cmtt-10">&#x00A0;Minimize</span><span 
+class="cmtt-10">&#x00A0;memory</span><span 
+class="cmtt-10">&#x00A0;usage</span><span 
+class="cmtt-10">&#x00A0;during</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML69x.png" alt="                                                                                                            `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;analysis?</span><span 
+class="cmtt-10">&#x00A0;(Analysis</span><span 
+class="cmtt-10">&#x00A0;will</span><span 
+class="cmtt-10">&#x00A0;be</span><span 
+class="cmtt-10">&#x00A0;slower)</span><br /><span 
+class="cmtt-10">par.analysis.maxItNoProgress=100;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer</span><span 
+class="cmtt-10">&#x00A0;&#x003E;=</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Max</span><span 
+class="cmtt-10">&#x00A0;iterations</span><span 
+class="cmtt-10">&#x00A0;with</span><span 
+class="cmtt-10">&#x00A0;no</span><span 
+class="cmtt-10">&#x00A0;progress</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML70x.png" alt="                                                                                                                                                                                                                                                `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;before</span><span 
+class="cmtt-10">&#x00A0;analysis</span><span 
+class="cmtt-10">&#x00A0;stops.</span><br /><span 
+class="cmtt-10">par.analysis.postProcess=&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[string]:</span><span 
+class="cmtt-10">&#x00A0;Name</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;code</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;process</span><span 
+class="cmtt-10">&#x00A0;OptimalSolutions</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML71x.png" alt="                                                                                                                                                                                                                                                                                                                                                                     `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;when</span><span 
+class="cmtt-10">&#x00A0;analysis</span><span 
+class="cmtt-10">&#x00A0;is</span><span 
+class="cmtt-10">&#x00A0;done.</span></div>
+</div></span>
+<!--l. 4936--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">8.16.1   </span> <a 
+ id="x86-1220008.16.1"></a>Manual vs. Automatic Analysis</h4>
+<a 
+ id="dx86-122001"></a>
+<!--l. 4939--><p class="noindent" ><span 
+class="cmtt-10">par.analysis.analyzeWhenDone </span>is a logical variable that determines whether or not analysis occurs automatically
+when the run terminates. This control parameter is set to false by default, which requires you to initiate the analysis
+manually using Ferret&#8217;s GUI, or the &#8216;Analyze History&#8217; tool, which can be found under the &#8216;Other Tools&#8217; heading in
+the main component selector (see Section <a 
+href="QubistHTMLse95.html#x127-21600012.2">12.2<!--tex4ht:ref: sec:analyzeHistoryTool --></a>).
+<!--l. 4941--><p class="noindent" >Analyzing many solutions manually when they finish can be quite tedious, and I recommend setting
+<span 
+class="cmtt-10">par.analysis.analyzeWhenDone=true </span>in such situations. Automatic analysis is also useful if you plan to run
+Ferret from the command line, without graphics, as discussed in Section <a 
+href="QubistHTMLse24.html#x41-610004.14.2">4.14.2<!--tex4ht:ref: sec:customLauncher --></a>. Without the Ferret
+interface, such runs must be analyzed using the Analyze History tool, or automatically by setting
+<span 
+class="cmtt-10">par.analysis.analyzeWhenDone=true</span>. Chances are good that you want automatic analysis if you have gone to the
+effort of setting up a batch job with a custom launcher.
+<!--l. 4943--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">8.16.2   </span> <a 
+ id="x86-1230008.16.2"></a>The Analysis Algorithm</h4>
+<a 
+ id="dx86-123001"></a>
+<!--l. 4947--><p class="noindent" >Analyzing a long run requires Ferret to compare a very large number of solutions loaded from the History files to
+determine the final optimal set. This is done by means of an iterative algorithm for multi-objective problems,
+                                                                                         
+
+                                                                                         
+because methods based on directly ranking solutions to obtain the optimal set (<span 
+class="cmmi-10">rank </span>= 1) are too slow to be of
+practical use for large numbers of solutions. Such methods would require Ferret to compare every individual loaded
+with every other individual, and hence the time requirements would scale as the square of the number of
+solutions in the optimal set, and this can be a very large number sometimes. Note that an iterative
+algorithm is not required for single-objective problems, which can be analyzed efficiently using a direct
+approach.
+<!--l. 4949--><p class="noindent" >Ferret&#8217;s iterative analysis algorithm is designed to handle very large runs efficiently, but its iterative nature means
+that it is technically possible for the algorithm to miss a few solutions when iteratively weeding out sub-optimal
+solutions from the Pareto surface. Once the History files are loaded, the algorithm works by dividing the solution set
+in half and applying a binary tournament operator to each pair of solutions, using their saved fitness values, and
+removing any solution that loses a competition. The tournament priorities discussed in Section <a 
+href="QubistHTMLse49.html#x74-1050008.6">8.6<!--tex4ht:ref: sec:par_selection --></a> do not apply;
+only the fitness matters. Fuzzy tolerances <span 
+class="cmtt-10">par.selection.FAbsTol </span>and <span 
+class="cmtt-10">par.selection.FRelTol </span>are
+taken into account, but <span 
+class="cmtt-10">par.selection.FRankTol </span>is ignored. This iterative process is repeated until
+convergence, which is declared when no solution has been removed for <span 
+class="cmtt-10">par.analysis.maxItNoProgress</span>
+steps.
+<!--l. 4951--><p class="noindent" >The convergence criterion does not guarantee that Ferret has eliminated every single non-optimal
+solution with 100% accuracy, since a chance tournament between two highly optimized solutions on
+step number (<span 
+class="cmmi-10">maxItNoProgress </span>+ 1) <span 
+class="cmti-10">could</span>, in principle, detect that one is superior to the other in a
+Pareto-optimal sense. I have never seen an application where this has been a real problem, but try re-analyzing
+with an increased value of <span 
+class="cmmi-10">maxItNoProgress </span>if you notice any suspicious outliers in your optimal
+set.
+<!--l. 4954--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">8.16.3   </span> <a 
+ id="x86-1240008.16.3"></a>Memory Requirements</h4>
+<a 
+ id="dx86-124001"></a>
+<!--l. 4958--><p class="noindent" >Loading many History files from a long run can result in very high memory requirements. You should suspect
+memory problems if you observe any of the following behaviour:
+     <ul class="itemize1">
+     <li class="itemize">
+     the
+     analysis
+     is
+     taking
+     much
+     longer
+     than
+     you
+     think
+     it
+     ought
+     to.
+                                                                                         
+
+                                                                                         
+     </li>
+     <li class="itemize">
+     you
+     see
+     the
+     Ferret
+     GUI
+     and
+     other
+     applications
+     becoming
+     very
+     sluggish
+     or
+     completely
+     unresponsive.
+     </li>
+     <li class="itemize">
+     you
+     see
+     memory
+     error
+     messages
+     on
+     the
+     MATLAB
+     console.
+     </li>
+     <li class="itemize">
+     MATLAB
+     is
+     using
+     only
+     a
+     small
+     percentage
+     of
+     the
+     available
+     CPU
+     time,
+     but
+     large
+     amounts
+                                                                                         
+
+                                                                                         
+     of
+     memory.</li></ul>
+<!--l. 4965--><p class="noindent" >You can verify how much CPU time and memory MATLAB is using by using the Task Manager on Windows
+computers, the Activity Monitor on a MacIntosh, or by running &#8216;top&#8217; on Linux machines. You have a few options to
+analyze your run if you notice memory problems.
+     <ul class="itemize1">
+     <li class="itemize">
+     The
+     first
+     thing
+     to
+     try
+     is
+     to
+     set
+     <span 
+class="cmtt-10">par.analysis.conserveMemory=true</span>
+     in
+     your
+     code,
+     which
+     tells
+     Ferret&#8217;s
+     analysis
+     algorithm
+     that
+     memory
+     is
+     a
+     major
+     issue
+     and
+     that
+     it
+     should
+     use
+     the
+     bare
+     minimum
+     required
+     to
+     get
+     the
+     job
+                                                                                         
+
+                                                                                         
+     done.<span class="footnote-mark"><a 
+href="QubistHTML87.html#fn4x71"><sup class="textsuperscript">4</sup></a></span><a 
+ id="x86-124002f4"></a> 
+     However,
+     the
+     price
+     of
+     running
+     in
+     this
+     mode
+     is
+     that
+     the
+     analysis
+     will
+     take
+     a
+     somewhat
+     longer
+     time
+     to
+     complete.
+     </li>
+     <li class="itemize">
+     If
+     you
+     still
+     can&#8217;t
+     analyze
+     your
+     run,
+     try
+     clicking
+     on
+     the
+     &#8216;Stop
+     Analysis&#8217;
+     button
+     <span 
+class="cmti-10">before</span>
+     all
+     of
+     your
+     History
+     files
+                                                                                         
+
+                                                                                         
+     load.
+     Note
+     that
+     History
+     files
+     load
+     in
+     reverse
+     order;
+     the
+     last
+     one
+     generated
+     is
+     loaded
+     first,
+     and
+     the
+     first
+     one
+     generated
+     is
+     loaded
+     last.
+     Therefore,
+     the
+     first
+     History
+     files
+     loaded,
+     which
+     were
+     generated
+     near
+     the
+     end
+     of
+     the
+     run,
+     will
+     likely
+     be
+     rich
+     with
+     optimal
+     solutions,
+     while
+     those
+                                                                                         
+
+                                                                                         
+     from
+     the
+     start
+     of
+     the
+     run
+     will
+     contain
+     very
+     few
+     good
+     solutions.
+     You
+     usually
+     won&#8217;t
+     lose
+     many
+     good
+     solutions
+     by
+     stopping
+     the
+     loading
+     process
+     before
+     the
+     end.
+     Note
+     that
+     analysis
+     won&#8217;t
+     <span 
+class="cmti-10">actually</span>
+     stop
+     (despite
+     the
+     label
+     on
+     the
+     button),
+     but
+     will
+     use
+     whatever
+     has
+     been
+     loaded
+     already
+     to
+                                                                                         
+
+                                                                                         
+     generate
+     the
+     optimal
+     set.
+     </li>
+     <li class="itemize">
+     Finally,
+     if
+     neither
+     of
+     these
+     options
+     work
+     for
+     you,
+     then
+     chances
+     are
+     good
+     that
+     you
+     are
+     attempting
+     a
+     truly
+     massive
+     calculation
+     and
+     you
+     should
+     consider
+     buying
+     more
+     memory
+     or
+     copying
+     your
+     run
+     directory,
+     which
+     includes
+     the
+     History
+     files,
+     to
+     a
+                                                                                         
+
+                                                                                         
+     machine
+     with
+     more
+     memory.
+     You
+     can
+     then
+     analyze
+     your
+     run
+     with
+     the
+     memory-rich
+     machine
+     using
+     the
+     &#8216;Analyze
+     History&#8217;
+     tool,
+     which
+     is
+     described
+     in
+     Section
+     <a 
+href="QubistHTMLse95.html#x127-21600012.2">12.2<!--tex4ht:ref: sec:analyzeHistoryTool --></a>.</li></ul>
+<!--l. 4972--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">8.16.4   </span> <a 
+ id="x86-1250008.16.4"></a>Post-Processing of Results</h4>
+<a 
+ id="dx86-125001"></a>
+<!--l. 4976--><p class="noindent" >Ferret can automatically run user-defined post-processing code on the optimal solution set when the analysis process
+is complete. This is done by setting <span 
+class="cmtt-10">par.analysis.postProcess </span>to a string that corresponds to the name of the
+user&#8217;s post-processing code, which must be a valid MATLAB function in the project directory or another
+path loaded by the project&#8217;s init file (see Section <a 
+href="QubistHTMLse16.html#x30-410004.6">4.6<!--tex4ht:ref: sec:init --></a>). By default, <span 
+class="cmtt-10">par.analysis.postProcess </span>is
+set to an empty string (<span 
+class="cmtt-10">par.analysis.postProcess=&#8217;&#8217;</span>) to indicate that no post-processing code is
+defined.
+<!--l. 4978--><p class="noindent" >Automatic post-processing is discussed in Section <a 
+href="QubistHTMLse29.html#x47-710004.19">4.19<!--tex4ht:ref: sec:postProcess --></a>, where the signature of the post-processing function is give.
+The post-processing code must accept the <span 
+class="cmmi-10">OptimalSolutions </span>structure as an argument, or require no arguments,
+and no return arguments are allowed.
+<a 
+ id="dx86-125002"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 4983--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse60.html" >next</a>] [<a 
+href="QubistHTMLse58.html" >prev</a>] [<a 
+href="QubistHTMLse58.html#tailQubistHTMLse58.html" >prev-tail</a>] [<a 
+href="QubistHTMLse59.html" >front</a>] [<a 
+href="QubistHTMLch8.html#QubistHTMLse59.html" >up</a>] </p></div>
+<!--l. 4983--><p class="noindent" ><a 
+ id="tailQubistHTMLse59.html"></a>  
+</body></html> 

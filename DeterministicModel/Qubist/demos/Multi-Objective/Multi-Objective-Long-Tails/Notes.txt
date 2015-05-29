@@ -1,0 +1,13 @@
+Tricky Multi-Objective Problem:
+===============================
+
+This is a tricky multi-objective problem with a discontinuous trade-off
+surface.  This problem is particularly tricky because the trade-off surface,
+as viewed in the F1-F2 projection is divided in two pieces that differ in
+their dimensionality.  One part of the trade-off surface is a filled
+1-dimensional curve, while the other in a single point.  In cases like this,
+the bulk of the optimal set will be found on the curve, at the expense of
+the point solution.  This can be problematic if a full exploration near the
+point-like solution is required, or if this is the true region of interest.
+If this is the case, it is best to change the bounds of the problem to
+exclude the line, and concentrate all effort on the point-like solution.

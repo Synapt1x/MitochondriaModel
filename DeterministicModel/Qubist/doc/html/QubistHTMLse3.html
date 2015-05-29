@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>Locust</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 658--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse4.html" >next</a>] [<a 
+href="QubistHTMLse2.html" >prev</a>] [<a 
+href="QubistHTMLse2.html#tailQubistHTMLse2.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLse3.html">tail</a>] [<a 
+href="QubistHTMLch2.html#QubistHTMLse3.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">2.3   </span> <a 
+ id="x12-210002.3"></a>Locust</h3>
+<a 
+ id="dx12-21001"></a>
+<a 
+ id="dx12-21002"></a>
+<a 
+ id="dx12-21003"></a>
+<!--l. 664--><p class="noindent" >Locust is Qubist&#8217;s multi-objective particle swarm optimizer (PSO). Like Ferret, this is a biologically inspired global
+optimizer, which searches a parameter space using a swarm of interacting particles. PSOs are often discussed in
+terms of the dynamics of flocks of birds, schools of fish, or swarms of social insects searching for food. The
+commonality is that intelligent behaviour is an emergent property of the system as a whole, even if the
+component parts are modeled as relatively simple automata that interact with each other through simple
+rules.<span class="footnote-mark"><a 
+href="QubistHTML13.html#fn4x2"><sup class="textsuperscript">4</sup></a></span><a 
+ id="x12-21004f4"></a> 
+Particle swarm optimizers (PSOs) are a relatively new class of global optimizers that are a topic of intense research.
+<a 
+href="QubistHTMLli1.html#Xeberhart01">Eberhart</a>&#x00A0;[<a 
+href="QubistHTMLli1.html#Xeberhart01">2001</a>] provides a good introduction to the PSO technique, along with an interesting discussion of how
+human intelligence derives from social interactions. The basic PSO technique is relatively simple, and there are
+many other excellent introductions on the web.
+<a 
+ id="dx12-21005"></a>
+<a 
+ id="dx12-21006"></a>
+<a 
+ id="dx12-21007"></a>
+<a 
+ id="dx12-21008"></a>
+<!--l. 670--><p class="noindent" >I began developing Locust in 2007 and it has developed rapidly because many of its internal functions borrow
+heavily from Ferret. Of all of the Qubist optimizers, Locust is the one that has undergone the most fundamental
+recent developments. I only developed the new Locust-2 code in the summer of 2009, as I wrote the bulk of this
+user&#8217;s guide. Locust has surprised me because it is beginning to rival Ferret on tough global optimization problems.
+It does this without Ferret&#8217;s linkage learning capabilities, critical parameter detection, strategy parameter
+auto-adaptation, or other fancy features. Locust has far, far fewer options than Ferret and is probably the simplest
+to configure of all of the Qubist optimizers. This is the most beautiful aspect of the PSO technique - particle
+swarm dynamics result in extremely powerful optimizers with relatively little messing around. In some
+ways, Locust is the opposite of Ferret. Ferret is a huge, pondering machine that crushes problems by
+analyzing their mathematical structure in detail, but Locust is a smaller, snappier code that does much
+less analysis internally, and yet has the uncanny ability to perform almost as well as Ferret on many
+problems.
+<a 
+ id="dx12-21009"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 673--><p class="noindent" >I see Locust as absolutely complementary to Ferret, and it will be the target of considerable future development.
+However, these are still early days for this code - especially the new features in Locust-2. Ferret remains the most
+powerful optimizer in the Qubist package and by far the most thoroughly tested. You should definitely try Locust if
+you are interested in exploring alternatives, but I recommend Ferret for the toughest and most &#8216;mission-critical&#8217;
+applications.
+<h4 class="subsectionHead"><span class="titlemark">2.3.1   </span> <a 
+ id="x12-220002.3.1"></a>Locust&#8217;s Features</h4>
+<a 
+ id="dx12-22001"></a>
+<a 
+ id="dx12-22002"></a>
+<a 
+ id="dx12-22003"></a>
+<!--l. 681--><p class="noindent" >Locust is unique as a PSO because it is based on an exact analytical solution to the equations governing the
+behaviour of the swarm, which improves the stability of the algorithm. &#8216;Particle explosions&#8217; are a well-known
+instability that affects PSOs, in which errors accumulate and particles tend to wander off to infinity.
+An exact analytical solution helps to control particle solutions, and they do not occur in the Locust
+code.
+<a 
+ id="dx12-22004"></a>
+<a 
+ id="dx12-22005"></a>
+<a 
+ id="dx12-22006"></a>
+<a 
+ id="dx12-22007"></a>
+<!--l. 687--><p class="noindent" >As a multi-objective code, Locust is built with unique features that enable it to map the trade-off surfaces of
+multi-objective problems and the optimal solution set of fuzzy single-objective problems. It accomplishes this by
+means of a novel algorithm that divides the parameter space into &#8216;neighbourhoods&#8217;, which represent self-contained
+&#8216;sub-swarms&#8217; that do not interact with particles outside of the neighbourhood. These neighbourhoods are dynamic;
+they move and possibly merge together as the code converges toward the optimal set. Mergers happen quickly for
+non-fuzzy problems with only one objective, and all of the neighbourhoods normally merge together so that all
+particles focus on the same optimal solution. Fewer mergers occur for parameter space-mapping problems, and the
+particle neighbourhoods will tend to spread out on the trade-off surface or within the optimal set. This was in fact
+the key innovation that makes the Locust-2 code so much more powerful than the previous Locust-1
+code.
+<a 
+ id="dx12-22008"></a>
+<!--l. 690--><p class="noindent" >Locust has all of Ferret&#8217;s features for pausing and resuming runs, as well as access to the same visualization system.
+Locust typically uses a different setup file than Ferret, but it can read Ferret&#8217;s setup files and combine this
+information with default Locust settings. Moreover, the formats for the initialization, fitness, and custom graphics
+functions are identical. This makes it easy to swap optimizers for comparison purposes. Locust is discussed in
+Chapter <a 
+href="QubistHTMLch11.html#x113-18300011">11<!--tex4ht:ref: ch:Locust --></a>.
+<a 
+ id="dx12-22009"></a>
+<a 
+ id="dx12-22010"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 696--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse4.html" >next</a>] [<a 
+href="QubistHTMLse2.html" >prev</a>] [<a 
+href="QubistHTMLse2.html#tailQubistHTMLse2.html" >prev-tail</a>] [<a 
+href="QubistHTMLse3.html" >front</a>] [<a 
+href="QubistHTMLch2.html#QubistHTMLse3.html" >up</a>] </p></div>
+<!--l. 696--><p class="noindent" ><a 
+ id="tailQubistHTMLse3.html"></a>  
+</body></html> 

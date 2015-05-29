@@ -1,0 +1,3 @@
+Rastrigin functions are classic functions used to test global
+optimization routines.  They have MANY local minima. The
+solution is F(0,...0)=0.

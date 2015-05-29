@@ -1,0 +1,1706 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>Visualizing Results with the Analysis Window</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 3307--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse33.html" >next</a>] [<a 
+href="QubistHTMLse31.html" >prev</a>] [<a 
+href="QubistHTMLse31.html#tailQubistHTMLse31.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLse32.html">tail</a>] [<a 
+href="QubistHTMLch5.html#QubistHTMLse32.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">5.2   </span> <a 
+ id="x51-750005.2"></a>Visualizing Results with the Analysis Window</h3>
+<a 
+ id="dx51-75001"></a>
+<a 
+ id="dx51-75002"></a>
+<!--l. 3312--><p class="noindent" >Figure <a 
+href="#x51-750051">5.1<!--tex4ht:ref: fig:FerretBinaryConsole --></a> shows the Ferret console window at the end of a long run of the binary star modeling project. I used four
+populations of 250 individuals each and ran for 500 generations. This is really overkill for this problem, but I wanted
+nice figures with a very well-defined optimal set and a lot of points. It is clear from the &#8216;Optimal Fitness Bounds&#8217;
+panel that a stable population emerged very early on in the run, since the lower curve, which is the <span 
+class="cmmi-10">&#x03C7;</span><sub><span 
+class="cmmi-7">reduced</span></sub><sup><span 
+class="cmr-7">2</span></sup> of the
+best model in the population, is almost completely flat past about 40 generations. The upper curve represents the
+<span 
+class="cmmi-10">&#x03C7;</span><sub><span 
+class="cmmi-7">reduced</span></sub><sup><span 
+class="cmr-7">2</span></sup> of the worst model in the optimal set at a given generation, which is just <span 
+class="cmmi-10">&#x03C7;</span><sub><span 
+class="cmmi-7">min,reduced</span></sub><sup><span 
+class="cmr-7">2</span></sup> + 1 in this
+case.
+<a 
+ id="dx51-75003"></a>
+<a 
+ id="dx51-75004"></a>
+<!--l. 3316--><p class="noindent" >For more than 90% of this run, there was no significant improvement in <span 
+class="cmmi-10">&#x03C7;</span><sub><span 
+class="cmmi-7">reduced</span></sub><sup><span 
+class="cmr-7">2</span></sup>. However, this is a common for
+projects where the goal is to map the structure of an extended optimal set. Additional solutions are discovered as
+the code continues to run past the time of convergence, and these extra solutions help to define the structure of the
+optimal set. Analysis and visualization of the optimal set reveal greater detail as the run progresses past
+convergence. <hr class="figure"><div class="figure" 
+>
+                                                                                         
+
+                                                                                         
+<a 
+ id="x51-750051"></a>
+                                                                                         
+
+                                                                                         
+<div class="center" 
+>
+<!--l. 3318--><p class="noindent" >
+
+<!--l. 3319--><p class="noindent" ><img 
+src="figures/Ferret/binary_new/Binary1Console.png" alt="PIC"  
+></div>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;5.1: </span><span  
+class="content">The Ferret console window after running the binary modeling project for 1000 generations.</span></div><!--tex4ht:label?: x51-750051 -->
+                                                                                         
+
+                                                                                         
+<!--l. 3323--><p class="noindent" ></div><hr class="endfigure">
+<!--l. 3325--><p class="noindent" >The four main views of the Ferret analysis window are shown in Figure <a 
+href="#x51-750112">5.2<!--tex4ht:ref: fig:analysisViews --></a>. You can toggle between these views
+using the buttons in the &#8216;View&#8217; button group in the upper right hand side of the figure.
+     <ul class="itemize1">
+     <li class="itemize">
+     <a 
+ id="dx51-75006"></a>
+     Clicking
+     on
+     the
+     button
+     labelled
+     &#8216;X-F
+     Space&#8217;
+     produces
+     a
+     parameter
+     space
+     plot
+     like
+     the
+     one
+     shown
+     in
+     panel
+     a).
+     Any
+     two
+     or
+     three
+     dimensional
+     projection
+     of
+     the
+     parameters
+     or
+     objectives
+     is
+     possible,
+     and
+     several
+     different
+     plot
+     types
+     can
+     be
+     generated.
+                                                                                         
+
+                                                                                         
+     This
+     is
+     the
+     richest
+     view
+     in
+     the
+     interface,
+     and
+     we
+     will
+     return
+     to
+     its
+     discussion
+     later
+     in
+     this
+     section.
+     </li>
+     <li class="itemize">
+     <a 
+ id="dx51-75007"></a>
+     The
+     &#8216;Linkage&#8217;
+     button
+     shows
+     a
+     two-dimensional
+     view
+     of
+     Ferret&#8217;s
+     linkage
+     matrix,
+     averaged
+     over
+     all
+     of
+     the
+     solutions
+     present
+     in
+     the
+     optimal
+     set.
+     I
+     often
+                                                                                         
+
+                                                                                         
+     joke
+     with
+     new
+     users
+     that
+     this
+     figure
+     is
+     an
+     &#8216;X-ray
+     of
+     Ferret&#8217;s
+     brain&#8217;,
+     which
+     is
+     true
+     in
+     the
+     sense
+     that
+     the
+     linkage
+     map
+     represents
+     what
+     Ferret
+     has
+     learned
+     about
+     the
+     problem&#8217;s
+     mathematical
+     structure.
+     It
+     visually
+     represents
+     Ferret&#8217;s
+     best
+     working
+     model
+     of
+     how
+     the
+     problem
+     at
+     hand
+     can
+     be
+                                                                                         
+
+                                                                                         
+     divided
+     into
+     sub-problems,
+     and
+     therefore
+     Ferret&#8217;s
+     strategy
+     for
+     solving
+     it.
+     The
+     linkage
+     map
+     shown
+     in
+     the
+     analysis
+     window
+     differs
+     from
+     the
+     corresponding
+     panel
+     of
+     the
+     console
+     window
+     (see
+     Figure
+     <a 
+href="#x51-750051">5.1<!--tex4ht:ref: fig:FerretBinaryConsole --></a>)
+     in
+     that
+     the
+     console
+     window
+     shows
+     a
+     snapshot
+     of
+     the
+     current
+     linkage
+     map
+     at
+     every
+     generation,
+     while
+     the
+                                                                                         
+
+                                                                                         
+     analysis
+     window
+     shows
+     a
+     linkage
+     map
+     that
+     is
+     averaged
+     over
+     all
+     solutions
+     in
+     the
+     final
+     optimal
+     set.<br />
+     To
+     understand
+     the
+     linkage
+     map,
+     note
+     that
+     the
+     shading
+     of
+     each
+     square
+     is
+     proportional
+     to
+     the
+     probability
+     of
+     linkage:
+     light
+     coloured
+     squares
+     indicate
+     strongly
+     linked
+     parameters,
+     while
+     dark
+     squares
+     indicate
+                                                                                         
+
+                                                                                         
+     that
+     parameters
+     are
+     unlinked
+     or
+     linked
+     with
+     low
+     probability.
+     The
+     overall
+     brightness
+     of
+     the
+     figure
+     is
+     a
+     good
+     indication
+     of
+     the
+     difficulty
+     of
+     the
+     problem.
+     When
+     the
+     figure
+     is
+     very
+     dark
+     and
+     only
+     a
+     small
+     fraction
+     of
+     the
+     squares
+     are
+     lit
+     up
+     significantly,
+     this
+     means
+     that
+     Ferret
+     found
+                                                                                         
+
+                                                                                         
+     the
+     problem
+     to
+     be
+     quite
+     easy
+     because
+     it
+     naturally
+     divides
+     into
+     many
+     smaller
+     sub-problems.
+     On
+     the
+     other
+     hand,
+     a
+     bright
+     linkage
+     map
+     with
+     many
+     cells
+     lit
+     up
+     indicates
+     that
+     Ferret
+     could
+     not
+     find
+     many
+     natural
+     sub-problems,
+     so
+     the
+     problem
+     had
+     to
+     be
+     solved
+     as
+     a
+     whole.
+     This
+     usually
+                                                                                         
+
+                                                                                         
+     implies
+     that
+     the
+     problem
+     is
+     more
+     difficult.<br />
+     Failure
+     to
+     partition
+     a
+     problem
+     into
+     subproblems
+     does
+     not
+     indicate
+     that
+     Ferret&#8217;s
+     linkage-learning
+     system
+     has
+     failed,
+     because
+     some
+     problems
+     are
+     not
+     solvable
+     by
+     partitioning
+     the
+     parameter
+     space.
+     Our
+     binary
+     star
+     modeling
+     example
+     cannot
+     be
+     partitioned,
+     and
+     the
+     linkage
+     map
+     shown
+                                                                                         
+
+                                                                                         
+     in
+     panel
+     b)
+     of
+     Figure
+     <a 
+href="#x51-750112">5.2<!--tex4ht:ref: fig:analysisViews --></a>
+     is
+     very
+     bright.
+     However,
+     with
+     only
+     six
+     parameters,
+     Ferret
+     had
+     no
+     trouble
+     solving
+     this
+     problem
+     as
+     a
+     whole.
+     Linkage
+     learning
+     becomes
+     more
+     important
+     for
+     larger
+     problems,
+     where
+     some
+     partitioning
+     is
+     usually
+     possible.
+     Some
+     good
+     examples
+     are
+     given
+     in
+     the
+     &#8216;Linkage-Learning&#8217;
+     demos,
+     which
+                                                                                         
+
+                                                                                         
+     are
+     available
+     from
+     the
+     Demo
+     menu
+     of
+     the
+     Ferret
+     console
+     window.
+     </li>
+     <li class="itemize">
+     <a 
+ id="dx51-75008"></a>
+     <a 
+ id="dx51-75009"></a>The
+     &#8216;C.P.D.
+     Plot&#8217;
+     button
+     shows
+     a
+     histogram
+     of
+     the
+     number
+     of
+     each
+     fully
+     specified
+     gene
+     (or
+     parameter)
+     for
+     every
+     solution
+     present
+     in
+     the
+     optimal
+     set.
+     Ferret&#8217;s
+     critical
+     parameter
+     detection
+     (CPD)
+     feature
+     is
+                                                                                         
+
+                                                                                         
+     turned
+     on
+     by
+     setting
+     <span 
+class="cmtt-10">par.CPD.PDeactivateGenes</span>
+     <span 
+class="cmtt-10">&#x003E;</span>
+     <span 
+class="cmtt-10">0</span>.
+     Whenever
+     CPD
+     is
+     enabled,
+     Ferret
+     attempts
+     to
+     minimize
+     the
+     size
+     of
+     its
+     parameter
+     space
+     by
+     turning
+     genes
+     (parameters)
+     off,
+     and
+     storing
+     a
+     <span 
+class="cmmi-10">NaN</span>
+     as
+     a
+     placeholder
+     for
+     each
+     deactivated
+     parameter.
+     Such
+     <span 
+class="cmmi-10">NaN</span>
+     values
+     are
+     interpreted
+     as
+     parameters
+     that
+     are
+     unspecified
+     because
+                                                                                         
+
+                                                                                         
+     they
+     are
+     unimportant,
+     and
+     are
+     normally
+     replaced
+     by
+     random
+     numbers
+     (when
+     <span 
+class="cmtt-10">par.CPD.NaN2Random=1</span>)
+     chosen
+     within
+     the
+     range
+     of
+     the
+     search
+     (<span 
+class="cmtt-10">par.general.min</span>
+     to
+     <span 
+class="cmtt-10">par.general.max</span>).
+     All
+     parameters
+     were
+     important
+     for
+     this
+     problem.
+     The
+     Multi-Objective/Triangle-Subspace-CPD
+     demo
+     is
+     a
+     good
+     example
+     of
+     a
+     problem
+     where
+     CPD
+     simplifies
+     the
+     parameter
+     space
+     rather
+     dramatically.
+                                                                                         
+
+                                                                                         
+     </li>
+     <li class="itemize">
+     <a 
+ id="dx51-75010"></a>
+     The
+     &#8216;User
+     Plot&#8217;
+     button
+     causes
+     Ferret
+     to
+     evaluate
+     and
+     display
+     a
+     custom
+     graphics
+     plot,
+     if
+     <span 
+class="cmtt-10">par.interface.myPlot</span>
+     is
+     the
+     name
+     of
+     a
+     valid
+     user-defined
+     m-file
+     containing
+     graphics
+     commands.
+     This
+     same
+     functionality
+     is
+     also
+     available
+     in
+     the
+     console
+     window
+     through
+     the
+     &#8216;User
+     Plot&#8217;
+     button
+     there.
+     A
+                                                                                         
+
+                                                                                         
+     message
+     is
+     displayed
+     on
+     the
+     user
+     plot
+     axes
+     if
+     the
+     myPlot
+     function
+     has
+     not
+     been
+     specified,
+     or
+     if
+     an
+     error
+     occurs
+     during
+     its
+     evaluation.</li></ul>
+<!--l. 3336--><p class="noindent" ><hr class="figure"><div class="figure" 
+><a 
+ id="x51-750112"></a>
+<div class="center" 
+>
+<!--l. 3337--><p class="noindent" >
+
+<!--l. 3338--><p class="noindent" ><img 
+src="figures/Ferret/binary_new/Binary_M1M2.png" alt="PIC"  
+> <img 
+src="figures/Ferret/binary_new/BinaryLM.png" alt="PIC"  
+> <img 
+src="figures/Ferret/binary_new/BinaryCPD.png" alt="PIC"  
+> <img 
+src="figures/Ferret/binary_new/BinaryUserPlot.png" alt="PIC"  
+></div>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;5.2: </span><span  
+class="content"><a 
+ id="dx51-75012"></a> The four main views of the Ferret analysis window. Panel a) (top left) &#8216;X-F Space&#8217;: two and
+three-dimensional projections of parameter and fitness space. The shading in points indicates the rank of the
+solution. Better solutions (lower rank) are shaded darker blue than relatively poor solutions (lighter blue).
+The bright blue dot is the best solution that was discovered. Panel b) (top right) &#8216;Linkage&#8217;: A view of the
+cumulative linkage map, averaged over the solutions in the optimal set. Panel c) (lower left) &#8216;C.P.D. Plot&#8217;
+A histogram showing the number of fully specified values present for each parameter (gene) in the optimal
+set of solutions. This can be thought of qualitatively as the relative importance of each parameter. Panel d)
+(lower right) &#8216;User Plot&#8217;: An optional plot that can be drawn by the user if <span 
+class="cmtt-10">par.interface.myPlot </span>is the
+name of a valid user-defined m-file containing graphics commands.</span></div><!--tex4ht:label?: x51-750112 -->
+<!--l. 3345--><p class="noindent" ></div><hr class="endfigure">
+<a 
+ id="dx51-75013"></a>
+<!--l. 3348--><p class="noindent" >Panel a) of Figure <a 
+href="#x51-750112">5.2<!--tex4ht:ref: fig:analysisViews --></a> is only one possible way to view projections of the optimal set. On Windows and Linux
+systems, there is a small drop-down menu in the upper-left of the analysis window that allows you to select between
+several types of graphs. This is replaced by a button on MacIntosh systems, which causes the same options
+to pop up as a separate window containing a listbox control. These options include the following:
+<a 
+ id="dx51-75014"></a>
+                                                                                         
+
+                                                                                         
+     <ul class="itemize1">
+     <li class="itemize">
+     <a 
+ id="dx51-75015"></a>
+     2-D
+     Scatter:
+     Scatter
+     plots
+     of
+     all
+     members
+     of
+     the
+     optimal
+     set,
+     or
+     the
+     fuzzy
+     optimal
+     set
+     if
+     fuzziness
+     is
+     enabled
+     (<span 
+class="cmtt-10">par.selection.FAbsTol</span>
+     <span 
+class="cmtt-10">&#x003E;</span>
+     <span 
+class="cmtt-10">0</span>
+     or
+     <span 
+class="cmtt-10">par.selection.FRelTol</span>
+     <span 
+class="cmtt-10">&#x003E;</span>
+     <span 
+class="cmtt-10">0</span>),
+     as
+     discussed
+     in
+     Section
+     <a 
+href="QubistHTMLse36.html#x55-790005.6">5.6<!--tex4ht:ref: sec:fuzziness --></a>.
+     If
+     fuzziness
+     is
+     turned
+     on,
+     then
+     points
+     are
+     shaded
+     according
+     to
+     their
+                                                                                         
+
+                                                                                         
+     true
+     (non-fuzzy)
+     rank,
+     such
+     that
+     darker
+     points
+     have
+     better
+     (lower)
+     rank
+     than
+     points
+     displayed
+     in
+     lighter,
+     more
+     washed
+     out
+     colours.
+     Points
+     are
+     shown
+     in
+     orange
+     if
+     one
+     of
+     the
+     two
+     parameters
+     in
+     the
+     current
+     projection
+     is
+     not
+     specified
+     due
+     to
+     Ferret&#8217;s
+     CPD
+     system.
+     <a 
+ id="dx51-75016"></a>Points
+     are
+     displayed
+     in
+     red
+                                                                                         
+
+                                                                                         
+     when
+     neither
+     of
+     the
+     projections
+     parameters
+     shown
+     in
+     the
+     projection
+     are
+     specified.
+     The
+     projection
+     can
+     be
+     chosen
+     from
+     the
+     X-Axis
+     and
+     Y-Axis
+     menus,
+     and
+     any
+     combination
+     if
+     parameters
+     or
+     fitness
+     values
+     is
+     possible.
+     </li>
+     <li class="itemize">
+     <a 
+ id="dx51-75017"></a>
+     3-D
+     Scatter:
+     A
+     scatter
+     plot
+     showing
+     members
+     of
+     the
+     optimal
+                                                                                         
+
+                                                                                         
+     set.
+     The
+     projection
+     can
+     be
+     chosen
+     from
+     the
+     X-Axis,
+     Y-Axis,
+     and
+     Z-Axis
+     menus,
+     and
+     any
+     combination
+     of
+     parameters
+     or
+     fitness
+     values
+     is
+     possible.
+     This
+     option
+     is
+     not
+     recommended
+     for
+     large
+     optimal
+     sets
+     on
+     systems
+     that
+     do
+     not
+     have
+     much
+     memory,
+     and
+     a
+     warning
+     dialog
+     pops
+     up
+     when
+     this
+                                                                                         
+
+                                                                                         
+     option
+     is
+     selected
+     if
+     there
+     are
+     more
+     than
+     1000
+     points.
+     <a 
+ id="dx51-75018"></a>In
+     my
+     experience,
+     you
+     can
+     reasonably
+     plot
+     up
+     to
+     about
+     10,000
+     points
+     with
+     some
+     patience,
+     but
+     you
+     may
+     not
+     be
+     able
+     to
+     interactively
+     rotate
+     the
+     axes
+     using
+     the
+     MATLAB
+     figure
+     controls.
+     </li>
+     <li class="itemize">
+     <a 
+ id="dx51-75019"></a>
+     Contour:
+     A
+                                                                                         
+
+                                                                                         
+     contour
+     plot
+     showing
+     the
+     optimal
+     set.
+     Any
+     combination
+     of
+     parameters
+     or
+     fitness
+     values
+     can
+     be
+     displayed;
+     the
+     X-Axis,
+     Y-Axis
+     and
+     Z-Axis
+     menus
+     control
+     the
+     projection,
+     and
+     it
+     is
+     the
+     parameter
+     or
+     fitness
+     value
+     specified
+     by
+     the
+     Z-Axis
+     that
+     is
+     actually
+     contoured.
+     The
+     <span 
+class="cmmi-10">z</span>
+     values
+     are
+     interpolated
+     onto
+     a
+                                                                                         
+
+                                                                                         
+     uniform
+     grid
+     prior
+     to
+     contouring.
+     The
+     grid
+     size,
+     contour
+     levels,
+     colormap,
+     and
+     shading
+     options
+     are
+     chosen
+     using
+     the
+     &#8216;Contour/Image
+     Plot
+     Options&#8217;
+     control
+     panel,
+     shown
+     in
+     Figure
+     <a 
+href="QubistHTMLse34.html#x53-770026">5.6<!--tex4ht:ref: fig:imageOptions --></a>,
+     which
+     pops
+     up
+     when
+     this
+     option
+     is
+     chosen.
+     These
+     options
+     and
+     the
+     Contour/Image
+     Plot
+     Options
+     control
+     panel
+     are
+     discussed
+     in
+     Section
+                                                                                         
+
+                                                                                         
+     <a 
+href="QubistHTMLse34.html#x53-770005.4">5.4<!--tex4ht:ref: sec:imageOptions --></a>.
+     </li>
+     <li class="itemize">
+     <a 
+ id="dx51-75020"></a>
+     Image:
+     A
+     two-dimensional
+     image
+     plot
+     showing
+     members
+     of
+     the
+     optimal
+     set.
+     The
+     Contour/Image
+     Plot
+     Options
+     control
+     panel
+     also
+     pops
+     up
+     when
+     this
+     option
+     is
+     selected.
+     <a 
+ id="dx51-75021"></a>
+     </li>
+     <li class="itemize">
+     2-D
+     Combo
+     #1:
+     A
+     combination
+     of
+     the
+     contour
+     and
+     2-D
+     scatter
+     plot.
+                                                                                         
+
+                                                                                         
+     </li>
+     <li class="itemize">
+     2-D
+     Combo
+     #2:
+     A
+     combination
+     of
+     the
+     contour
+     and
+     2-D
+     image
+     plot.
+     </li>
+     <li class="itemize">
+     3-D
+     Combo:
+     A
+     combination
+     of
+     a
+     3-D
+     scatter
+     plot,
+     with
+     a
+     scatter
+     plot
+     shown
+     in
+     the
+     z=0
+     plane.
+     three-dimensional
+     plotting
+     should
+     be
+     avoided
+     on
+     computers
+     that
+     do
+     not
+     have
+                                                                                         
+
+                                                                                         
+     a
+     lot
+     of
+     memory
+     if
+     the
+     optimal
+     set
+     is
+     very
+     large.
+     The
+     user
+     is
+     warned
+     of
+     this
+     whenever
+     more
+     than
+     1000
+     points
+     are
+     about
+     to
+     be
+     plotted.</li></ul>
+<!--l. 3360--><p class="noindent" >Figure <a 
+href="#x51-750253">5.3<!--tex4ht:ref: fig:plotOptions --></a> shows a few examples of these plot options. The two-dimensional plots shown here contain about 170,000
+points and can be displayed very nicely as image and contour plots. However, this is far too many to
+display as a three-dimensional plot, so I stopped the analysis after loading only the final History file
+generated by the run (Note that History files load in reverse order during analysis, starting with the best
+solutions from near the end of the run), which resulted in about 9,100 points. <a 
+ id="dx51-75022"></a>This still exceeds the
+recommended maximum number for plotting, but I was able to render the image and manipulate it with
+some patience. Rotating the figure interactively is not practical for this many points, so I recommend
+using MATLAB&#8217;s &#8216;view&#8217; command to rotate it from the command line. For example, the default view
+was not very good for the plot shown in panel d) of Figure <a 
+href="#x51-750253">5.3<!--tex4ht:ref: fig:plotOptions --></a>, so I rotated it manually using the
+command
+<!--l. 3364--><p class="noindent" ><span 
+class="colorbox" id="colorbox58"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">view(37.5,30)</span></div>
+</div></span>
+<!--l. 3370--><p class="noindent" >I also scaled the axes manually using the command
+<!--l. 3374--><p class="noindent" ><span 
+class="colorbox" id="colorbox59"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">set(gca,&#8217;XLim&#8217;,[-0.65,1],&#8217;YLim&#8217;,[-0.3,1],&#8217;ZLim&#8217;,[0.4,1])</span></div>
+</div></span>
+<!--l. 3380--><p class="noindent" ><hr class="figure"><div class="figure" 
+>
+                                                                                         
+
+                                                                                         
+<a 
+ id="x51-750253"></a>
+                                                                                         
+
+                                                                                         
+
+<!--l. 3382--><p class="noindent" ><img 
+src="figures/Ferret/binary_new/Binary_sini_M1_b_zoom.png" alt="PIC"  
+>  <img 
+src="figures/Ferret/binary_new/Binary_sini_M1_c_zoom.png" alt="PIC"  
+>
+
+<!--l. 3386--><p class="noindent" ><img 
+src="figures/Ferret/binary_new/Binary_sini_M1_d_zoom.png" alt="PIC"  
+>  <img 
+src="figures/Ferret/binary_new/Binary3D.png" alt="PIC"  
+>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;5.3: </span><span  
+class="content">Examples of several types of plots that are possible with the Ferret analysis interface. Panel
+a) (top left): An image plot with a logarithmic stretch, using the default &#8216;bone&#8217; colour map. Panel b) (top
+right): A contour plot with a logarithmic stretch. <a 
+ id="dx51-75026"></a>The black and white contours are selected using the
+&#8216;Contour/Image Plot Options&#8217; interface discussed in Section <a 
+href="QubistHTMLse34.html#x53-770005.4">5.4<!--tex4ht:ref: sec:imageOptions --></a> below. Panel c) (lower left): Same as panel
+b), except using the &#8216;hot&#8217; colour map. Most of the standard MATLAB colour maps are available in the plot
+options interface. Panel d) (lower right): A three-dimensional plot.</span></div><!--tex4ht:label?: x51-750253 -->
+                                                                                         
+
+                                                                                         
+<!--l. 3391--><p class="noindent" ></div><hr class="endfigure">
+<a 
+ id="dx51-75027"></a>
+<a 
+ id="dx51-75028"></a>
+<a 
+ id="dx51-75029"></a>
+<!--l. 3396--><p class="noindent" >After I analyze a run, I usually go to the &#8216;X-F Space&#8217; projection and begin flipping through various two-dimensional
+projections looking for interesting relationships between the parameters and the objective functions. I generally
+prefer to use the scatter plot or image plot options for problems with many points in the optimal set. Figure <a 
+href="#x51-750304">5.4<!--tex4ht:ref: fig:binaryProjections --></a>
+shows several two-dimensional projections of the optimal set for the spectroscopic binary modeling problem.
+<hr class="figure"><div class="figure" 
+>
+                                                                                         
+
+                                                                                         
+<a 
+ id="x51-750304"></a>
+                                                                                         
+
+                                                                                         
+
+<!--l. 3399--><p class="noindent" ><img 
+src="figures/Ferret/binary_new/Binary_phi_e.png" alt="PIC"  
+>  <img 
+src="figures/Ferret/binary_new/Binary_sini_a.png" alt="PIC"  
+>
+
+<!--l. 3403--><p class="noindent" ><img 
+src="figures/Ferret/binary_new/Binary_a_M1.png" alt="PIC"  
+>  <img 
+src="figures/Ferret/binary_new/Binary_a_M2.png" alt="PIC"  
+>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;5.4: </span><span  
+class="content"><a 
+ id="dx51-75031"></a> Several two-dimensional projections of the optimal set for the spectroscopic binary problem
+using the image plot option. All solutions shown are within the &#8216;observational errors&#8217; of the noisy artificial
+data in the sense that they are within 1 of the reduced <span 
+class="cmmi-10">&#x03C7;</span><sub><span 
+class="cmmi-7">reduced</span></sub><sup><span 
+class="cmr-7">2</span></sup> minimum value: <span 
+class="cmmi-10">&#x03C7;</span><sub><span 
+class="cmmi-7">reduced</span></sub><sup><span 
+class="cmr-7">2</span></sup> <span 
+class="cmsy-10">&#x2264; </span><span 
+class="cmmi-10">&#x03C7;</span><sub><span 
+class="cmmi-7">min,reduced</span></sub><sup><span 
+class="cmr-7">2</span></sup>+1.
+Contours can be drawn optionally on any two-dimensional plot, as shown in panel a). Panel a) of Figure <a 
+href="#x51-750112">5.2<!--tex4ht:ref: fig:analysisViews --></a>
+shows another projection.</span></div><!--tex4ht:label?: x51-750304 -->
+                                                                                         
+
+                                                                                         
+<!--l. 3408--><p class="noindent" ></div><hr class="endfigure">
+<a 
+ id="dx51-75032"></a>
+<a 
+ id="dx51-75033"></a>
+<a 
+ id="dx51-75034"></a>
+<!--l. 3413--><p class="noindent" >Panel a) of Figure <a 
+href="#x51-750112">5.2<!--tex4ht:ref: fig:analysisViews --></a> and panels b) through d) of Figure <a 
+href="#x51-750304">5.4<!--tex4ht:ref: fig:binaryProjections --></a> indicate that something quite interesting is going on
+with this model. It is clear that the distribution of points fills out an essentially <span 
+class="cmti-10">linear </span>region of parameter space,
+which <span 
+class="cmti-10">contains </span>the real solution, along with many other models. This is an example of <span 
+class="cmti-10">degeneracy </span>in a
+data-modeling problem, which arises because we are attempting to determine model parameters from incomplete
+information. Recall that only the component of the motion along the line of sight toward or away from the
+observer can be observed in a spectroscopic binary, while motion in the plane of the sky cannot be
+resolved. It turns out that this does not provide quite enough information to fully constrain the physical
+parameters of our model. It can, in fact, be shown that there really does exist a one parameter family
+of spectroscopic binary models that look exactly alike, and Ferret has discovered this relationship
+numerically!
+<a 
+ id="dx51-75035"></a>
+<a 
+ id="dx51-75036"></a>
+<a 
+ id="dx51-75037"></a>
+<!--l. 3418--><p class="noindent" >There are two approaches that you can take if your plots show evidence of mathematical degeneracy. If the
+relationship seems simple, you can try to discover it by plotting projections and various functions of
+the parameters, trying to find a relationship that collapses a degenerate extended structure into a
+well defined cluster of points. This can be time-consuming and requires some intuition, but power
+law scaling relationships are common in nature and quite easy to find by this method. Alternatively,
+once you <span 
+class="cmti-10">know </span>that mathematical degeneracy exists in your problem, it is usually not too difficult
+to find the source by examining your equations carefully. In our example, one of the relationships is
+obvious from panel a) of Figure <a 
+href="#x51-750112">5.2<!--tex4ht:ref: fig:analysisViews --></a>, which shows points distributed about a straight line with a slope of
+one:
+<table 
+class="equation"><tr><td><a 
+ id="x51-75038r2"></a>
+<center class="math-display" >
+<img 
+src="QubistHTML12x.png" alt="log10m2 = log10m1 + k
+" class="math-display" ></center></td><td class="equation-label">(5.2)</td></tr></table>
+<!--l. 3421--><p class="nopar" >
+for some constant <span 
+class="cmmi-10">k</span>. Equivalently, this relationship can be expressed as
+<table 
+class="equation"><tr><td><a 
+ id="x51-75039r3"></a>
+                                                                                         
+
+                                                                                         
+<center class="math-display" >
+<img 
+src="QubistHTML13x.png" alt="    m2
+q1 = m-= constant.
+      1
+" class="math-display" ></center></td><td class="equation-label">(5.3)</td></tr></table>
+<!--l. 3426--><p class="nopar" >
+Thus, the data can uniquely determine the mass ratio <span 
+class="cmmi-10">m</span><sub><span 
+class="cmr-7">2</span></sub><span 
+class="cmmi-10">&#x2215;m</span><sub><span 
+class="cmr-7">1</span></sub>, even though the masses cannot be
+determined independently. There are two other relationships that can be found with somewhat greater
+effort:
+<table 
+class="equation"><tr><td><a 
+ id="x51-75040r4"></a>
+<center class="math-display" >
+<img 
+src="QubistHTML14x.png" alt="q  = ---a3---
+ 2   m1 + m2
+" class="math-display" ></center></td><td class="equation-label">(5.4)</td></tr></table>
+<!--l. 3431--><p class="nopar" >
+<table 
+class="equation"><tr><td><a 
+ id="x51-75041r5"></a>
+<center class="math-display" >
+<img 
+src="QubistHTML15x.png" alt="     &#x2218;-m--+-m-
+q3 =   -1----2-sini,
+          a
+" class="math-display" ></center></td><td class="equation-label">(5.5)</td></tr></table>
+<!--l. 3435--><p class="nopar" >
+where <span 
+class="cmmi-10">q</span><sub><span 
+class="cmr-7">1</span></sub>, <span 
+class="cmmi-10">q</span><sub><span 
+class="cmr-7">2</span></sub>, and <span 
+class="cmmi-10">q</span><sub><span 
+class="cmr-7">3</span></sub> are well defined quantities that can be determined from the data. Figure <a 
+href="#x51-750425">5.5<!--tex4ht:ref: fig:collapsedPlots --></a> shows these <span 
+class="cmmi-10">q</span>
+functions plotted against each other to show that they really do collapse our extended solution set into a compact
+cluster of points. <hr class="figure"><div class="figure" 
+>
+                                                                                         
+
+                                                                                         
+<a 
+ id="x51-750425"></a>
+                                                                                         
+
+                                                                                         
+<div class="center" 
+>
+<!--l. 3438--><p class="noindent" >
+
+<!--l. 3439--><p class="noindent" ><img 
+src="figures/Ferret/binary_new/q1q2.png" alt="PIC"  
+>                                                               <img 
+src="figures/Ferret/binary_new/q2q3.png" alt="PIC"  
+>                                                               <img 
+src="figures/Ferret/binary_new/q3q1.png" alt="PIC"  
+></div>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;5.5:  </span><span  
+class="content">Three  different  projections  of  the  &#8216;q&#8217;  functions  defined  by  equations  <a 
+href="#x51-75039r3">5.3<!--tex4ht:ref: eq:massRatio --></a>  to  <a 
+href="#x51-75041r5">5.5<!--tex4ht:ref: eq:vscale --></a>.  As  our
+analysis predicts, all three functions are well-determined by the model, and therefore collapse the extended
+distribution of points found by Ferret into a compact cluster of points.</span></div><!--tex4ht:label?: x51-750425 -->
+                                                                                         
+
+                                                                                         
+<!--l. 3445--><p class="noindent" ></div><hr class="endfigure">
+<!--l. 3447--><p class="noindent" >The relationships given above can also be thought of as a set of similarity transformations that map one set of
+parameters onto a new set that produces <span 
+class="cmti-10">exactly </span>the same velocity curves. For some arbitrary scaling
+parameter <span 
+class="cmmi-10">S &#x003E; </span>0, equations <a 
+href="#x51-75039r3">5.3<!--tex4ht:ref: eq:massRatio --></a> to <a 
+href="#x51-75041r5">5.5<!--tex4ht:ref: eq:vscale --></a> are equivalent to the following one-parameter scaling relationship:
+<div class="eqnarray">
+<center class="math-display" >
+<img 
+src="QubistHTML16x.png" alt="  a  &#x2192;   Sa
+m1   &#x2192;   S3m1
+m    &#x2192;   S3m
+  2       -12
+sini  &#x2192;   S  sin i                                (5.6)
+" class="math-display" ></center>
+</div>This explains why we see extended linear structures in our optimal set, because a line, or a more general curve, is a
+set of points that can be described by a single parameter. The Advanced/Spectroscopic-Binaries demo included with
+Qubist contains a function called testSimilarity.m, which allows you to test this similarity relationship for different
+orbit parameters and values of <span 
+class="cmmi-10">S</span>.
+<a 
+ id="dx51-75044"></a>
+<a 
+ id="dx51-75045"></a>
+<a 
+ id="dx51-75046"></a>
+<!--l. 3459--><p class="noindent" >Ferret, plus some <span 
+class="cmti-10">a posteriori </span>analysis of the solution set, has determined the mathematical nature of this problem&#8217;s
+degeneracy, which tells us what can and cannot be learned about binary stars from spectroscopic data alone. I get
+excited when I see evidence of a mathematical degeneracy, because it means that there is an interesting relationship
+or symmetry in my problem, and I begin to search for it in my equations. As it turns out, equation <a 
+href="#x51-75039r3">5.3<!--tex4ht:ref: eq:massRatio --></a> comes from
+the basic fact that the stars orbit about a common centre of mass, which is at the origin by construction.
+Thus,
+<table 
+class="equation"><tr><td><a 
+ id="x51-75047r7"></a>
+<center class="math-display" >
+<img 
+src="QubistHTML17x.png" alt="m1x1 = - m2x2
+                                                                                         
+
+                                                                                         
+" class="math-display" ></center></td><td class="equation-label">(5.7)</td></tr></table>
+<!--l. 3462--><p class="nopar" >
+and
+<table 
+class="equation"><tr><td><a 
+ id="x51-75048r8"></a>
+<center class="math-display" >
+<img 
+src="QubistHTML18x.png" alt="m v  = - m v,
+ 1 1      2 2
+" class="math-display" ></center></td><td class="equation-label">(5.8)</td></tr></table>
+<!--l. 3466--><p class="nopar" >
+where <span 
+class="cmbx-10">x </span>and <span 
+class="cmbx-10">v </span>are the position and velocity vectors respectively. It follows that
+<table 
+class="equation"><tr><td><a 
+ id="x51-75049r9"></a>
+<center class="math-display" >
+<img 
+src="QubistHTML19x.png" alt="m2   max {|v1,obs|}
+---= ------------,
+m1   max {|v2,obs|}
+" class="math-display" ></center></td><td class="equation-label">(5.9)</td></tr></table>
+<!--l. 3470--><p class="nopar" >
+where <span 
+class="cmmi-10">max</span><span 
+class="cmsy-10">{|</span><span 
+class="cmmi-10">v</span><sub><span 
+class="cmr-7">1</span><span 
+class="cmmi-7">,obs</span></sub><span 
+class="cmsy-10">|} </span>and <span 
+class="cmmi-10">max</span><span 
+class="cmsy-10">{|</span><span 
+class="cmmi-10">v</span><sub><span 
+class="cmr-7">2</span><span 
+class="cmmi-7">,obs</span></sub><span 
+class="cmsy-10">|} </span>are respectively the maximum magnitudes of the observed Doppler velocities
+as the stars go about their orbits. Equation <a 
+href="#x51-75040r4">5.4<!--tex4ht:ref: eq:kepler --></a> comes from Keppler&#8217;s Law, which tells us that the period of the
+orbits is given by
+<table 
+class="equation"><tr><td><a 
+ id="x51-75050r10"></a>
+<center class="math-display" >
+<img 
+src="QubistHTML20x.png" alt="    &#x2218; -----------
+P =   ---4&#x03C0;a3----.
+      G (m1 + m2 )
+" class="math-display" ></center></td><td class="equation-label">(5.10)</td></tr></table>
+<!--l. 3474--><p class="nopar" >
+Since we can observationally measure the period, the data must determine <span 
+class="cmmi-10">a</span><sup><span 
+class="cmr-7">3</span></sup><span 
+class="cmmi-10">&#x2215;</span>(<span 
+class="cmmi-10">m</span><sub><span 
+class="cmr-7">1</span></sub> + <span 
+class="cmmi-10">m</span><sub><span 
+class="cmr-7">2</span></sub>) accurately, and hence
+<span 
+class="cmmi-10">q</span><sub><span 
+class="cmr-7">2</span></sub> must be well-determined by the model. Finally, the model tells us that the orbit velocity scales
+like
+<table 
+class="equation"><tr><td><a 
+ id="x51-75051r11"></a>
+<center class="math-display" >
+<img 
+src="QubistHTML21x.png" alt="   &#x2218; -----------
+v &#x221D;   G(m1-+-m2),
+          a
+" class="math-display" ></center></td><td class="equation-label">(5.11)</td></tr></table>
+<!--l. 3478--><p class="nopar" >
+but the observed Doppler velocity is given by <span 
+class="cmmi-10">v</span><sub><span 
+class="cmmi-7">obs</span></sub> = <span 
+class="cmmi-10">v</span> sin<span 
+class="cmmi-10">i</span>. Thus, we expect that the amplitude of the velocity
+curves should accurately determine the <span 
+class="cmmi-10">q</span><sub><span 
+class="cmr-7">3</span></sub> function given by equation <a 
+href="#x51-75041r5">5.5<!--tex4ht:ref: eq:vscale --></a>.
+<a 
+ id="dx51-75052"></a>
+<a 
+ id="dx51-75053"></a>
+<a 
+ id="dx51-75054"></a>
+<!--l. 3485--><p class="noindent" >Degeneracy is common in many real-world problems and the ability to identify degeneracy and determine its
+mathematical structure, even approximately, is key to understanding how a physical system works. The example
+given in this section illustrates how Ferret can be used to probe the mathematical structure of models in a
+complicated multi-dimensional parameter space, in the presence of noisy data. In addition to being an extremely
+powerful optimizer, Ferret&#8217;s ability to map and visually explore entire classes of optimal solutions in a
+multi-dimensional parameter space is one of the features that makes it an extremely powerful research tool.
+These features can point out real degeneracies in a model, and inform the user what is and what is not
+<span 
+class="cmti-10">knowable </span>about a model from a given data set. The information learned from such an exploratory
+approach may result in new insights about the mathematical structure of the model, as they did for
+our simple example, or they may point the way to an improved non-degenerate model with fewer
+parameters.
+<a 
+ id="dx51-75055"></a>
+<a 
+ id="dx51-75056"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 3491--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse33.html" >next</a>] [<a 
+href="QubistHTMLse31.html" >prev</a>] [<a 
+href="QubistHTMLse31.html#tailQubistHTMLse31.html" >prev-tail</a>] [<a 
+href="QubistHTMLse32.html" >front</a>] [<a 
+href="QubistHTMLch5.html#QubistHTMLse32.html" >up</a>] </p></div>
+<!--l. 3491--><p class="noindent" ><a 
+ id="tailQubistHTMLse32.html"></a>  
+</body></html> 

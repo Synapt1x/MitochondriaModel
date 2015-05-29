@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>Anvil</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 719--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse6.html" >next</a>] [<a 
+href="QubistHTMLse4.html" >prev</a>] [<a 
+href="QubistHTMLse4.html#tailQubistHTMLse4.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLse5.html">tail</a>] [<a 
+href="QubistHTMLch2.html#QubistHTMLse5.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">2.5   </span> <a 
+ id="x15-240002.5"></a>Anvil</h3>
+<a 
+ id="dx15-24001"></a>
+<a 
+ id="dx15-24002"></a>
+<a 
+ id="dx15-24003"></a>
+<a 
+ id="dx15-24004"></a>
+<a 
+ id="dx15-24005"></a>
+<!--l. 727--><p class="noindent" >Anvil is a multi-objective simulated annealing code in the Qubist toolbox, which is enhanced significantly by genetic
+algorithm techniques borrowed from Ferret. This code may be used as a reasonably powerful stand-alone optimizer,
+as an alternate multi-objective polisher to SAMOSA, or in place of MATLAB&#8217;s built-in fminsearch routine,
+as a polisher for single-objective problems. Anvil can be called transparently from both Ferret and
+Locust.
+<a 
+ id="dx15-24006"></a>
+<!--l. 730--><p class="noindent" >Simulated annealing codes are inspired by the statistical physics of a slowly cooling metal. Intuitively, the atoms in a
+hot metal are in constant motion and large thermal fluctuations cause large variations in the energy of the system.
+As the metal cools, these fluctuations decrease, and the energy stabilizes to a constant value. If the system is
+cooled slowly, then the system should find its ground state energy, which is characterized by the lowest
+energy possible for the system. Thus, simulated annealing provides an excellent paradigm for global
+minimization.
+<!--l. 732--><p class="noindent" >Simulated annealing codes explore a parameter space stochastically by allowing the acceptance of &#8216;bad&#8217; fluctuations
+that cause an increase in the energy function with relatively high probability early in the run. As the system cools,
+fluctuations that increase the energy are accepted less frequently, until late in the run, almost all of the allowed
+fluctuations decrease the energy. The occasional acceptance of fluctuations that increase energy is absolutely
+essential to the success of the technique, since this allows the code to hop over &#8216;mountain ranges&#8217;
+in the energy landscape in order to find possibly deeper valleys on the other side. This is especially
+important for exploration early in the run. Without the acceptance of fluctuations that increase the
+energy function, a simulated annealing code would perform something akin to a stochastic version of a
+steepest descent minimization algorithm, which would likely find itself stuck in the first local minimum
+encountered.
+<a 
+ id="dx15-24007"></a>
+<a 
+ id="dx15-24008"></a>
+<!--l. 736--><p class="noindent" >A simple simulated annealing code accepts a fluctuation &#x0394;<span 
+class="cmmi-10">E </span>with probability given by
+<table 
+class="equation"><tr><td><a 
+ id="x15-24009r3"></a>
+                                                                                         
+
+                                                                                         
+<center class="math-display" >
+<img 
+src="QubistHTML2x.png" alt="         {
+P (&#x0394;E  ) =  1-&#x0394;E &#x2215;T  &#x0394;E  &#x003C; 0
+           e      , &#x0394;E  &#x2265; 0.
+" class="math-display" ></center></td><td class="equation-label">(2.3)</td></tr></table>
+<!--l. 744--><p class="nopar" >
+Where <span 
+class="cmmi-10">T </span>is analogous to the temperature of the system. Clearly, fluctuations that increase energy are
+accepted with high probability when &#x0394;<span 
+class="cmmi-10">E </span><span 
+class="msam-10">&#x2272; </span><span 
+class="cmmi-10">T </span>and almost never accepted when &#x0394;<span 
+class="cmmi-10">E </span><span 
+class="cmsy-10">&#x226B; </span><span 
+class="cmmi-10">T</span>. Typically, the
+temperature starts off high during the run and gradually decreased according to a <span 
+class="cmti-10">cooling schedule</span>
+as the run progresses. This establishes a gradual transition from the initial exploration phase of the
+algorithm, when the search point jumps wildly through the parameter space, to the much more orderly
+and directed exploitation phase of the optimization process, when most of the accepted perturbations
+either decrease the energy or result in only very small increases. Various recipes exist for setting the
+cooling schedule, and these are discussed thoroughly in the literature, various textbooks, and many
+websites.
+<a 
+ id="dx15-24010"></a>
+<a 
+ id="dx15-24011"></a>
+<!--l. 749--><p class="noindent" >The arbitrariness introduced by the cooling schedule is a clear weakness of the simulated annealing
+technique, and both the quality of results and performance of the code depend strongly on how the
+system is cooled. Cooling too rapidly &#8216;quenches&#8217; the system, and may result in the search becoming
+trapped in a local minimum. On the other hand, cooling the system too slowly makes the code very
+inefficient, because the search will settle too slowly into a minimum. Anvil remedies this situation using a
+<span 
+class="cmti-10">self-adaptive </span>cooling schedule, which dynamically sets the temperature to optimize the performance of the
+algorithm.
+<a 
+ id="dx15-24012"></a>
+<a 
+ id="dx15-24013"></a>
+<a 
+ id="dx15-24014"></a>
+<!--l. 754--><p class="noindent" >Most simulated annealing codes use a single search point that wanders through the parameter space until it settles
+down into a minimum on the energy surface. Anvil differs from a typical simulated annealing code
+because it uses multiple simultaneous search points that communicate with each other using crossover,
+mutation and selection operators borrowed from GAs. Moreover, Anvil also borrows heavily from
+Ferret&#8217;s multi-objective optimization system and is capable of mapping out trade-off surfaces. The
+result is a code that is significantly more powerful and versatile than a typical simulated annealing
+code.
+<a 
+ id="dx15-24015"></a>
+<a 
+ id="dx15-24016"></a>
+<a 
+ id="dx15-24017"></a>
+<a 
+ id="dx15-24018"></a>
+<a 
+ id="dx15-24019"></a>
+<a 
+ id="dx15-24020"></a>
+<!--l. 764--><p class="noindent" >Anvil does not map solution sets as thoroughly as Ferret, but Anvil is a light-weight code with much less
+computational overhead. It is most suitable for problems of moderate difficulty, or problems where thorough
+mapping is not crucial. Anvil may also be a good choice for problems characterized by a fitness or energy function
+that can be evaluated rapidly, because if its lower overhead. However, if the problem is characterized by an
+optimization criterion that is computationally expensive, then Ferret would almost certainly be the better
+                                                                                         
+
+                                                                                         
+choice, since the extra computational overhead required by Ferret is likely to be insignificant compared
+to the computational cost of the fitness or energy function. Anvil is discussed in detail in Chapter
+<a 
+href="QubistHTMLch10.html#x103-15600010">10<!--tex4ht:ref: ch:Anvil --></a>.
+                                                                                         
+
+                                                                                         
+<!--l. 766--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse6.html" >next</a>] [<a 
+href="QubistHTMLse4.html" >prev</a>] [<a 
+href="QubistHTMLse4.html#tailQubistHTMLse4.html" >prev-tail</a>] [<a 
+href="QubistHTMLse5.html" >front</a>] [<a 
+href="QubistHTMLch2.html#QubistHTMLse5.html" >up</a>] </p></div>
+<!--l. 766--><p class="noindent" ><a 
+ id="tailQubistHTMLse5.html"></a>  
+</body></html> 

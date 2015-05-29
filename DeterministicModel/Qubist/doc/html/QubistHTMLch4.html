@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>4 Running Ferret</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 1150--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLch5.html" >next</a>] [<a 
+href="QubistHTMLch3.html" >prev</a>] [<a 
+href="QubistHTMLch3.html#tailQubistHTMLch3.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLch4.html">tail</a>] [<a 
+href="QubistHTML3.html#QubistHTMLch4.html" >up</a>] </p></div>
+<h2 class="chapterHead"><span class="titlemark">Chapter&#x00A0;4</span><br /><a 
+ id="x22-310004"></a>Running Ferret</h2>
+<a 
+ id="dx22-31001"></a>
+     <div class="quote">
+     <!--l. 1157--><p class="noindent" ><span 
+class="cmti-10">&#8216;The</span>
+     <span 
+class="cmti-10">theory</span>
+     <span 
+class="cmti-10">of</span>
+     <span 
+class="cmti-10">evolution</span>
+     <span 
+class="cmti-10">by</span>
+     <span 
+class="cmti-10">cumulative</span>
+     <span 
+class="cmti-10">natural</span>
+     <span 
+class="cmti-10">selection</span>
+     <span 
+class="cmti-10">is</span>
+     <span 
+class="cmti-10">the</span>
+     <span 
+class="cmti-10">only</span>
+     <span 
+class="cmti-10">theory</span>
+     <span 
+class="cmti-10">we</span>
+     <span 
+class="cmti-10">know</span>
+     <span 
+class="cmti-10">of</span>
+     <span 
+class="cmti-10">that</span>
+     <span 
+class="cmti-10">is</span>
+     <span 
+class="cmti-10">in</span>
+     <span 
+class="cmti-10">principle</span>
+     <span 
+class="cmti-10">capable</span>
+     <span 
+class="cmti-10">of</span>
+     <span 
+class="cmti-10">explaining</span>
+     <span 
+class="cmti-10">the</span>
+     <span 
+class="cmti-10">existence</span>
+     <span 
+class="cmti-10">of</span>
+     <span 
+class="cmti-10">organized</span>
+     <span 
+class="cmti-10">complexity&#8217;</span><br />
+     -Richard
+     Dawkins,
+     <span 
+class="cmti-10">The</span>
+     <span 
+class="cmti-10">Blind</span>
+     <span 
+class="cmti-10">Watchmaker</span></div>
+<!--l. 1161--><p class="noindent" >This chapter covers the essential information that you need to start running Ferret, the advanced genetic algorithm
+                                                                                         
+
+                                                                                         
+at the heart of the Qubist package. As discussed in Chapter <a 
+href="QubistHTMLch2.html#x6-60002">2<!--tex4ht:ref: ch:tour --></a>, Ferret is the optimizer of choice within the
+current Qubist version for difficult real-world or research-level problem. You may have noticed that
+the chapters on Ferret occupy the bulk of this user&#8217;s guide. This is partly because Ferret is the most
+flexible and complex tool in the package, but also because the other optimizers are very similar in
+their usage. Once you have mastered Ferret, you should have an excellent grasp of the entire Qubist
+package.
+<div class="sectionTOCS">
+&#x00A0;<span class="sectionToc" >4.1 <a 
+href="QubistHTMLse11.html#x23-320004.1">Overview</a></span>
+<br />&#x00A0;<span class="sectionToc" >4.2 <a 
+href="QubistHTMLse12.html#x26-330004.2">The Ferret Console Window</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >4.2.1 <a 
+href="QubistHTMLse12.html#x26-340004.2.1" id="QQ2-26-40">Full Graphics vs. Minimal Graphics Mode</a></span>
+<br />&#x00A0;<span class="sectionToc" >4.3 <a 
+href="QubistHTMLse13.html#x27-350004.3">Running Demos</a></span>
+<br />&#x00A0;<span class="sectionToc" >4.4 <a 
+href="QubistHTMLse14.html#x28-360004.4">Adding User-Defined Projects</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >4.4.1 <a 
+href="QubistHTMLse14.html#x28-370004.4.1" id="QQ2-28-48">Local Projects</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >4.4.2 <a 
+href="QubistHTMLse14.html#x28-380004.4.2" id="QQ2-28-49">Globally Accessible Projects</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >4.4.3 <a 
+href="QubistHTMLse14.html#x28-390004.4.3" id="QQ2-28-50">The Project Definition Fields</a></span>
+<br />&#x00A0;<span class="sectionToc" >4.5 <a 
+href="QubistHTMLse15.html#x29-400004.5">Stopping Your Run - The Simple Approach</a></span>
+<br />&#x00A0;<span class="sectionToc" >4.6 <a 
+href="QubistHTMLse16.html#x30-410004.6">The init Function</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >4.6.1 <a 
+href="QubistHTMLse16.html#x30-420004.6.1" id="QQ2-30-53">The Standard Technique</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >4.6.2 <a 
+href="QubistHTMLse16.html#x30-430004.6.2" id="QQ2-30-54">Advanced Technique: <span 
+class="cmmi-10">extPar</span>_ as a Global Variable</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >4.6.3 <a 
+href="QubistHTMLse16.html#x30-440004.6.3" id="QQ2-30-55">Advanced Technique: Specifying Members of the Initial Population by Hand</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >4.6.4 <a 
+href="QubistHTMLse16.html#x30-450004.6.4" id="QQ2-30-56">Minimizing Disk Usage</a></span>
+<br />&#x00A0;<span class="sectionToc" >4.7 <a 
+href="QubistHTMLse17.html#x32-460004.7">The Setup File</a></span>
+<br />&#x00A0;<span class="sectionToc" >4.8 <a 
+href="QubistHTMLse18.html#x33-470004.8">The Fitness Function</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >4.8.1 <a 
+href="QubistHTMLse18.html#x33-480004.8.1" id="QQ2-33-60">auxOutput - the Auxiliary Output Cell Array &amp; Application to Penalty Functions</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >4.8.2 <a 
+href="QubistHTMLse18.html#x33-490004.8.2" id="QQ2-33-61">saveData - Extra Data Saved during a Run</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >4.8.3 <a 
+href="QubistHTMLse18.html#x33-500004.8.3" id="QQ2-33-62">XMod - Parameter Values Modified by the Fitness Function &amp; Application
+to Normalization Constraints</a></span>
+<br />&#x00A0;<span class="sectionToc" >4.9 <a 
+href="QubistHTMLse19.html#x34-510004.9">The Output Function</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >4.9.1 <a 
+href="QubistHTMLse19.html#x34-520004.9.1" id="QQ2-34-64">Organization of the World Data Structure</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >4.9.2 <a 
+href="QubistHTMLse19.html#x34-530004.9.2" id="QQ2-34-65">Implementing a Custom Stopping Criterion</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >4.9.3 <a 
+href="QubistHTMLse19.html#x34-540004.9.3" id="QQ2-34-66">Advanced Features: Modifying <span 
+class="cmmi-10">extPar </span>and the <span 
+class="cmmi-10">world</span></a></span>
+<br />&#x00A0;<span class="sectionToc" >4.10 <a 
+href="QubistHTMLse20.html#x36-550004.10">The myPlot Function</a></span>
+<br />&#x00A0;<span class="sectionToc" >4.11 <a 
+href="QubistHTMLse21.html#x37-560004.11">Running Your Project</a></span>
+                                                                                         
+
+                                                                                         
+<br />&#x00A0;<span class="sectionToc" >4.12 <a 
+href="QubistHTMLse22.html#x38-570004.12">What Do the Figures Represent?</a></span>
+<br />&#x00A0;<span class="sectionToc" >4.13 <a 
+href="QubistHTMLse23.html#x40-580004.13">Movies</a></span>
+<br />&#x00A0;<span class="sectionToc" >4.14 <a 
+href="QubistHTMLse24.html#x41-590004.14">Running Ferret Without Graphics</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >4.14.1 <a 
+href="QubistHTMLse24.html#x41-600004.14.1" id="QQ2-41-73">Turning Graphics Off</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >4.14.2 <a 
+href="QubistHTMLse24.html#x41-610004.14.2" id="QQ2-41-74">Running Ferret from the Command Line</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >4.14.3 <a 
+href="QubistHTMLse24.html#x41-620004.14.3" id="QQ2-41-75">Returning Values from Ferret</a></span>
+<br />&#x00A0;<span class="sectionToc" >4.15 <a 
+href="QubistHTMLse25.html#x42-630004.15">Analysis: Generating Your Final Results</a></span>
+<br />&#x00A0;<span class="sectionToc" >4.16 <a 
+href="QubistHTMLse26.html#x43-640004.16">Polishing Solutions at the End of a Run</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >4.16.1 <a 
+href="QubistHTMLse26.html#x43-650004.16.1" id="QQ2-43-78">History File Options and Crash Recovery</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >4.16.2 <a 
+href="QubistHTMLse26.html#x43-660004.16.2" id="QQ2-43-80">Problems Encountered with Very Large History Files</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >4.16.3 <a 
+href="QubistHTMLse26.html#x43-670004.16.3" id="QQ2-43-81">Crash Recovery - General Comments</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >4.16.4 <a 
+href="QubistHTMLse26.html#x43-680004.16.4" id="QQ2-43-82">Anatomy of a History File</a></span>
+<br />&#x00A0;<span class="sectionToc" >4.17 <a 
+href="QubistHTMLse27.html#x45-690004.17">Resuming a Run</a></span>
+<br />&#x00A0;<span class="sectionToc" >4.18 <a 
+href="QubistHTMLse28.html#x46-700004.18">The OptimalSolutions.mat File</a></span>
+<br />&#x00A0;<span class="sectionToc" >4.19 <a 
+href="QubistHTMLse29.html#x47-710004.19">Automatic Post-Processing of Results</a></span>
+<br />&#x00A0;<span class="sectionToc" >4.20 <a 
+href="QubistHTMLse30.html#x48-720004.20">Non-Parametric Problems</a></span>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                                         
+
+                                                                                         
+<!--l. 3127--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLch5.html" >next</a>] [<a 
+href="QubistHTMLch3.html" >prev</a>] [<a 
+href="QubistHTMLch3.html#tailQubistHTMLch3.html" >prev-tail</a>] [<a 
+href="QubistHTMLch4.html" >front</a>] [<a 
+href="QubistHTML3.html#QubistHTMLch4.html" >up</a>] </p></div>
+<!--l. 3127--><p class="noindent" ><a 
+ id="tailQubistHTMLch4.html"></a>  
+</body></html> 

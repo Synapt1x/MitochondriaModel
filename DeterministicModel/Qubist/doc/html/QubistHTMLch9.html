@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>9 SAMOSA</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 5263--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLch10.html" >next</a>] [<a 
+href="QubistHTMLch8.html" >prev</a>] [<a 
+href="QubistHTMLch8.html#tailQubistHTMLch8.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLch9.html">tail</a>] [<a 
+href="QubistHTML3.html#QubistHTMLch9.html" >up</a>] </p></div>
+<h2 class="chapterHead"><span class="titlemark">Chapter&#x00A0;9</span><br /><a 
+ id="x92-1330009"></a>SAMOSA</h2>
+<a 
+ id="dx92-133001"></a>
+     <div class="quote">
+     <!--l. 5270--><p class="noindent" ><span 
+class="cmti-10">&#8216;Pound</span>
+     <span 
+class="cmti-10">for</span>
+     <span 
+class="cmti-10">pound,</span>
+     <span 
+class="cmti-10">the</span>
+     <span 
+class="cmti-10">amoeba</span>
+     <span 
+class="cmti-10">is</span>
+     <span 
+class="cmti-10">the</span>
+     <span 
+class="cmti-10">most</span>
+     <span 
+class="cmti-10">vicious</span>
+     <span 
+class="cmti-10">animal</span>
+     <span 
+class="cmti-10">on</span>
+     <span 
+class="cmti-10">Earth.&#8217;</span><br />
+     -Anonymous</div>
+<div class="sectionTOCS">
+&#x00A0;<span class="sectionToc" >9.1 <a 
+href="QubistHTMLse64.html#x93-1340009.1">Introduction</a></span>
+<br />&#x00A0;<span class="sectionToc" >9.2 <a 
+href="QubistHTMLse65.html#x94-1350009.2">SAMOSA as a Standalone Optimizer</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >9.2.1 <a 
+href="QubistHTMLse65.html#x94-1360009.2.1" id="QQ2-94-168">Starting SAMOSA</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >9.2.2 <a 
+href="QubistHTMLse65.html#x94-1370009.2.2" id="QQ2-94-170">SAMOSA&#8217;s Graphical Interface</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >9.2.3 <a 
+href="QubistHTMLse65.html#x94-1380009.2.3" id="QQ2-94-171">Setup File &amp; Defaults</a></span>
+<br />&#x00A0;<span class="sectionToc" >9.3 <a 
+href="QubistHTMLse66.html#x95-1390009.3">SAMOSA as a Polisher</a></span>
+<br />&#x00A0;<span class="sectionToc" >9.4 <a 
+href="QubistHTMLse67.html#x96-1400009.4">The init Function</a></span>
+<br />&#x00A0;<span class="sectionToc" >9.5 <a 
+href="QubistHTMLse68.html#x97-1410009.5">The Fitness Function</a></span>
+<br />&#x00A0;<span class="sectionToc" >9.6 <a 
+href="QubistHTMLse69.html#x98-1420009.6">The Output Function and the Simplex Data structure</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >9.6.1 <a 
+href="QubistHTMLse69.html#x98-1430009.6.1" id="QQ2-98-176">The Simplex Data Structure</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >9.6.2 <a 
+href="QubistHTMLse69.html#x98-1440009.6.2" id="QQ2-98-177">Built-in Stopping Criteria</a></span>
+                                                                                         
+
+                                                                                         
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >9.6.3 <a 
+href="QubistHTMLse69.html#x98-1450009.6.3" id="QQ2-98-178">Custom Stopping Criterion</a></span>
+<br />&#x00A0;<span class="sectionToc" >9.7 <a 
+href="QubistHTMLse70.html#x99-1460009.7">The myPlot function</a></span>
+<br />&#x00A0;<span class="sectionToc" >9.8 <a 
+href="QubistHTMLse71.html#x100-1470009.8">The OptimalSolutions File</a></span>
+<br />&#x00A0;<span class="sectionToc" >9.9 <a 
+href="QubistHTMLse72.html#x101-1480009.9">Running SAMOSA from the Command Line</a></span>
+<br />&#x00A0;<span class="sectionToc" >9.10 <a 
+href="QubistHTMLse73.html#x102-1490009.10">The SAMOSA_setup File</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >9.10.1 <a 
+href="QubistHTMLse73.html#x102-1500009.10.1" id="QQ2-102-183">par.user</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >9.10.2 <a 
+href="QubistHTMLse73.html#x102-1510009.10.2" id="QQ2-102-184">par.history</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >9.10.3 <a 
+href="QubistHTMLse73.html#x102-1520009.10.3" id="QQ2-102-185">par.general</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >9.10.4 <a 
+href="QubistHTMLse73.html#x102-1530009.10.4" id="QQ2-102-186">par.simplex</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >9.10.5 <a 
+href="QubistHTMLse73.html#x102-1540009.10.5" id="QQ2-102-187">par.stopping</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >9.10.6 <a 
+href="QubistHTMLse73.html#x102-1550009.10.6" id="QQ2-102-188">par.interface</a></span>
+</div>
+
+
+
+
+
+
+
+
+
+                                                                                         
+
+                                                                                         
+<!--l. 5992--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLch10.html" >next</a>] [<a 
+href="QubistHTMLch8.html" >prev</a>] [<a 
+href="QubistHTMLch8.html#tailQubistHTMLch8.html" >prev-tail</a>] [<a 
+href="QubistHTMLch9.html" >front</a>] [<a 
+href="QubistHTML3.html#QubistHTMLch9.html" >up</a>] </p></div>
+<!--l. 5992--><p class="noindent" ><a 
+ id="tailQubistHTMLch9.html"></a>  
+</body></html> 

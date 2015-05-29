@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>11 Locust</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 6794--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLch12.html" >next</a>] [<a 
+href="QubistHTMLch10.html" >prev</a>] [<a 
+href="QubistHTMLch10.html#tailQubistHTMLch10.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLch11.html">tail</a>] [<a 
+href="QubistHTML3.html#QubistHTMLch11.html" >up</a>] </p></div>
+<h2 class="chapterHead"><span class="titlemark">Chapter&#x00A0;11</span><br /><a 
+ id="x113-18300011"></a>Locust</h2>
+<a 
+ id="dx113-183001"></a>
+     <div class="quote">
+     <!--l. 6801--><p class="noindent" ><span 
+class="cmti-10">&#8216;We</span>
+     <span 
+class="cmti-10">hope</span>
+     <span 
+class="cmti-10">that,</span>
+     <span 
+class="cmti-10">when</span>
+     <span 
+class="cmti-10">the</span>
+     <span 
+class="cmti-10">insects</span>
+     <span 
+class="cmti-10">take</span>
+     <span 
+class="cmti-10">over</span>
+     <span 
+class="cmti-10">the</span>
+     <span 
+class="cmti-10">world,</span>
+     <span 
+class="cmti-10">they</span>
+     <span 
+class="cmti-10">will</span>
+     <span 
+class="cmti-10">remember</span>
+     <span 
+class="cmti-10">with</span>
+     <span 
+class="cmti-10">gratitude</span>
+     <span 
+class="cmti-10">how</span>
+     <span 
+class="cmti-10">we</span>
+     <span 
+class="cmti-10">took</span>
+     <span 
+class="cmti-10">them</span>
+     <span 
+class="cmti-10">along</span>
+     <span 
+class="cmti-10">on</span>
+     <span 
+class="cmti-10">all</span>
+     <span 
+class="cmti-10">our</span>
+     <span 
+class="cmti-10">picnics.&#8217;</span><br />
+     -Bill
+     Vaughan</div>
+<div class="sectionTOCS">
+&#x00A0;<span class="sectionToc" >11.1 <a 
+href="QubistHTMLse83.html#x114-18400011.1">Introduction</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >11.1.1 <a 
+href="QubistHTMLse83.html#x114-18500011.1.1" id="QQ2-114-219">History</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >11.1.2 <a 
+href="QubistHTMLse83.html#x114-18600011.1.2" id="QQ2-114-220">PSO Basics</a></span>
+                                                                                         
+
+                                                                                         
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >11.1.3 <a 
+href="QubistHTMLse83.html#x114-18700011.1.3" id="QQ2-114-221">Locust as an Enhanced Multi-Objective PSO</a></span>
+<br />&#x00A0;<span class="sectionToc" >11.2 <a 
+href="QubistHTMLse84.html#x115-18800011.2">Running Locust from the Graphical User Interface</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >11.2.1 <a 
+href="QubistHTMLse84.html#x115-18900011.2.1" id="QQ2-115-224">Locust Figures</a></span>
+<br />&#x00A0;<span class="sectionToc" >11.3 <a 
+href="QubistHTMLse85.html#x116-19000011.3">Running Locust from the Command Line</a></span>
+<br />&#x00A0;<span class="sectionToc" >11.4 <a 
+href="QubistHTMLse86.html#x117-19100011.4">Analysis and Polishing</a></span>
+<br />&#x00A0;<span class="sectionToc" >11.5 <a 
+href="QubistHTMLse87.html#x118-19200011.5">The Locust History File</a></span>
+<br />&#x00A0;<span class="sectionToc" >11.6 <a 
+href="QubistHTMLse88.html#x119-19300011.6">The Init Function</a></span>
+<br />&#x00A0;<span class="sectionToc" >11.7 <a 
+href="QubistHTMLse89.html#x120-19400011.7">The Fitness Function</a></span>
+<br />&#x00A0;<span class="sectionToc" >11.8 <a 
+href="QubistHTMLse90.html#x121-19500011.8">The Output Function and the Swarm Data Structure</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >11.8.1 <a 
+href="QubistHTMLse90.html#x121-19600011.8.1" id="QQ2-121-231">The Swarm Data Structure</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >11.8.2 <a 
+href="QubistHTMLse90.html#x121-19700011.8.2" id="QQ2-121-232">Built-In Stopping Criteria</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >11.8.3 <a 
+href="QubistHTMLse90.html#x121-19800011.8.3" id="QQ2-121-233">Custom Stopping Criterion</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >11.8.4 <a 
+href="QubistHTMLse90.html#x121-19900011.8.4" id="QQ2-121-234">Advanced Features: Modifying <span 
+class="cmmi-10">extPar </span>and the <span 
+class="cmmi-10">swarm</span></a></span>
+<br />&#x00A0;<span class="sectionToc" >11.9 <a 
+href="QubistHTMLse91.html#x122-20000011.9">The myPlot Function</a></span>
+<br />&#x00A0;<span class="sectionToc" >11.10 <a 
+href="QubistHTMLse92.html#x123-20100011.10">Analysis and the OptimalSolutions File</a></span>
+<br />&#x00A0;<span class="sectionToc" >11.11 <a 
+href="QubistHTMLse93.html#x124-20200011.11">The LocustSetup File</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >11.11.1 <a 
+href="QubistHTMLse93.html#x124-20300011.11.1" id="QQ2-124-239">par.user</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >11.11.2 <a 
+href="QubistHTMLse93.html#x124-20400011.11.2" id="QQ2-124-240">par.history</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >11.11.3 <a 
+href="QubistHTMLse93.html#x124-20500011.11.3" id="QQ2-124-241">par.general</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >11.11.4 <a 
+href="QubistHTMLse93.html#x124-20600011.11.4" id="QQ2-124-242">par.parallel</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >11.11.5 <a 
+href="QubistHTMLse93.html#x124-20700011.11.5" id="QQ2-124-243">par.swarm</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >11.11.6 <a 
+href="QubistHTMLse93.html#x124-20800011.11.6" id="QQ2-124-244">par.selection</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >11.11.7 <a 
+href="QubistHTMLse93.html#x124-20900011.11.7" id="QQ2-124-245">par.stopping</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >11.11.8 <a 
+href="QubistHTMLse93.html#x124-21000011.11.8" id="QQ2-124-246">par.niching</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >11.11.9 <a 
+href="QubistHTMLse93.html#x124-21100011.11.9" id="QQ2-124-247">par.analysis</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >11.11.10 <a 
+href="QubistHTMLse93.html#x124-21200011.11.10" id="QQ2-124-248">par.polish</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >11.11.11 <a 
+href="QubistHTMLse93.html#x124-21300011.11.11" id="QQ2-124-249">par.interface</a></span>
+</div>
+
+
+
+
+
+
+
+
+
+
+                                                                                         
+
+                                                                                         
+<!--l. 7891--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLch12.html" >next</a>] [<a 
+href="QubistHTMLch10.html" >prev</a>] [<a 
+href="QubistHTMLch10.html#tailQubistHTMLch10.html" >prev-tail</a>] [<a 
+href="QubistHTMLch11.html" >front</a>] [<a 
+href="QubistHTML3.html#QubistHTMLch11.html" >up</a>] </p></div>
+<!--l. 7891--><p class="noindent" ><a 
+ id="tailQubistHTMLch11.html"></a>  
+</body></html> 

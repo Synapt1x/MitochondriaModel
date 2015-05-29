@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>par.elitism</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 4698--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse56.html" >next</a>] [<a 
+href="QubistHTMLse54.html" >prev</a>] [<a 
+href="QubistHTMLse54.html#tailQubistHTMLse54.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLse55.html">tail</a>] [<a 
+href="QubistHTMLch8.html#QubistHTMLse55.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">8.12   </span> <a 
+ id="x81-1170008.12"></a>par.elitism</h3>
+<a 
+ id="dx81-117001"></a>
+<!--l. 4701--><p class="noindent" >Elitism is commonly used in genetic algorithms to ensure that the best solutions present in each generation survive
+the random perturbations due to mutation and the parameter space mixing of crossover events. The basic idea is
+that a small fraction of the very best solutions are selected each generation and preserved for the next.
+Thus, the fitness of the best individual in the population should always improve monotonically for
+single-objective problems when elitism is used. Likewise, the trade-off surface as a whole should improve
+monotonically for multi-objective problems, although this is not necessarily true of the individual
+objectives.
+<!--l. 4708--><p class="noindent" ><span 
+class="colorbox" id="colorbox79"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Elitism</span><br /><span 
+class="cmtt-10">par.elitism.mode=&#8217;normal&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[&#8217;normal&#8217;</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;&#8217;boundary&#8217;]:</span><span 
+class="cmtt-10">&#x00A0;Elitism</span><span 
+class="cmtt-10">&#x00A0;mode.</span><br /><span 
+class="cmtt-10">par.elitism.frac=0.05;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Fraction</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;population</span><span 
+class="cmtt-10">&#x00A0;that</span><span 
+class="cmtt-10">&#x00A0;are</span><span 
+class="cmtt-10">&#x00A0;designated</span><span 
+class="cmtt-10">&#x00A0;elite.</span></div>
+</div></span>
+<!--l. 4714--><p class="noindent" >Ferret&#8217;s elitism operator is very effective, and turning this option on has resulted in improved performance for every
+problem that I have ever encountered. I therefore strongly encourage you to use this feature, and I
+recommend setting <span 
+class="cmtt-10">par.elitism.frac</span>, the fraction of the population saved in elites each generation, to at
+least a few percent. Elitism is turned off when <span 
+class="cmtt-10">par.elitism.frac=0</span>. If you only want a single elite
+per population, just set <span 
+class="cmtt-10">par.elitism.frac </span>to some arbitrarily small number that is greater than
+zero; for example, <span 
+class="cmtt-10">par.elitism.frac=1e-6</span>. It is sometimes useful to turn <span 
+class="cmtt-10">par.elitism.frac </span>up
+as high as about 20% for parameter space-mapping problems, which may be either multi-objective
+problems, or single-objective problems where <span 
+class="cmtt-10">par.selection.FAbsTol</span>, <span 
+class="cmtt-10">par.selection.FRelTol</span>, or
+<span 
+class="cmtt-10">par.selection.FRankTol </span>are set to a value greater than zero (see Section <a 
+href="QubistHTMLse49.html#x74-1050008.6">8.6<!--tex4ht:ref: sec:par_selection --></a>). Such high values of the
+elitism fraction would probably raise eyebrows for most users experienced with other genetic algorithms.
+However, the implementation of elitism in Ferret is quite different, and such high values are occasionally
+beneficial.
+<!--l. 4716--><p class="noindent" >The initial round of selection of elites is based on the fitness parameter, for single-objective problems, or on Pareto
+fitness rank for multi-objective problems. However, parameter space-mapping problems (single or multi-objective)
+are characterized by the property that they have an optimal region that does not reduce to a single solution. Thus,
+it is sensible to include a second round of elite selection based on the niching principle, using the same tournament
+priorities discussed in Section <a 
+href="QubistHTMLse52.html#x78-1100008.9">8.9<!--tex4ht:ref: sec:par_niching --></a>. For such problems, the most valuable solutions are in the optimal region <span 
+class="cmti-10">and</span>
+have a low niche count (see Section <a 
+href="QubistHTMLse52.html#x78-1100008.9">8.9<!--tex4ht:ref: sec:par_niching --></a>). These solutions are the ones that are preferentially chosen as
+elites.
+<a 
+ id="dx81-117005"></a>
+<!--l. 4719--><p class="noindent" >You are likely to notice an interesting phenomenon if you carefully observe the behaviour of elites
+on parameter space-mapping problems, when X-niching is selected. A good example of this type of
+problem is the demonstration labelled as &#8216;Multi-Objective/Triangle-Subspace-X-Niching&#8217;, which can
+be accessed from Ferret&#8217;s &#8216;Demo&#8217; menu. What you should see is that the elites will tend to cluster
+around the boundaries of the optimal set and effectively &#8216;shepherd&#8217; the solutions residing in the interior
+                                                                                         
+
+                                                                                         
+region. The shepherding behaviour is due to the fact that elite selection is based, in part, on niching;
+solutions that are on the boundary of the optimal region tend to have fewer near neighbours, and are
+therefore selected preferentially by the niching operator. Shepherding is extremely helpful in parameter
+space-mapping problems because these elites form a relatively stable perimeter around the edge of the
+optimal region, while the interior solutions continue to explore. Their density will be especially high
+near convex corners of an optimal set, such as the corners of the triangle in the example mentioned
+above. The overall effect after analyzing the runs is that the interior part of the optimal region will be
+well-explored, but there will be a somewhat higher density of solutions near the edge; this non-uniform
+coverage is a good thing, because it helps to discriminate between the interior optimal region, and the
+non-optimal region on the outside. This is also why it is acceptable to use a relatively high value for
+<span 
+class="cmtt-10">par.elitism.frac </span>on such problems. Note that this is not likely to cause problems with premature
+convergence, which could result from a high values of the elitism fraction in some genetic algorithms. Ferret
+includes many safeguards that explicitly prevent elite solutions from dominating the population too early
+in the run, when the emphasis should be on exploration rather than the exploitation of the optimal
+region.
+<!--l. 4721--><p class="noindent" >Ferret&#8217;s elitism operator contains a second parameter called <span 
+class="cmtt-10">par.elitism.mode</span>, which should be set to either
+&#8216;normal&#8217; or &#8217;boundary&#8217;. The boundary option places somewhat greater emphasis on shepherding by explicitly
+selecting solutions that are near the boundary between the optimal and non-optimal region. In my
+experience, normal elitism provides adequate shepherding and I rarely use the boundary elitism mode in
+practice. Nevertheless, I think this is an interesting feature that might be useful to some users. I have
+therefore left it as an option in the code, which might become more prevalent in future versions of the
+software.
+<a 
+ id="dx81-117006"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 4726--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse56.html" >next</a>] [<a 
+href="QubistHTMLse54.html" >prev</a>] [<a 
+href="QubistHTMLse54.html#tailQubistHTMLse54.html" >prev-tail</a>] [<a 
+href="QubistHTMLse55.html" >front</a>] [<a 
+href="QubistHTMLch8.html#QubistHTMLse55.html" >up</a>] </p></div>
+<!--l. 4726--><p class="noindent" ><a 
+ id="tailQubistHTMLse55.html"></a>  
+</body></html> 

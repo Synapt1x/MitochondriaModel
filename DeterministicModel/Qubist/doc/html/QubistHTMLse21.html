@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>Running Your Project</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 2209--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse22.html" >next</a>] [<a 
+href="QubistHTMLse20.html" >prev</a>] [<a 
+href="QubistHTMLse20.html#tailQubistHTMLse20.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLse21.html">tail</a>] [<a 
+href="QubistHTMLch4.html#QubistHTMLse21.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">4.11   </span> <a 
+ id="x37-560004.11"></a>Running Your Project</h3>
+<a 
+ id="dx37-56001"></a>
+<a 
+ id="dx37-56002"></a>
+<!--l. 2214--><p class="noindent" >Section <a 
+href="QubistHTMLse14.html#x28-360004.4">4.4<!--tex4ht:ref: sec:projects --></a> discussed how to add user-defined projects to Ferret by editing a few lines of the launch file. Before
+trying this with your own project, I would recommend trying it by copying one of the demo directories in the
+[Qubist_Home]/demos directory to a different directory outside of the [Qubist_Home]&#x00A0;path and adding it as a
+project. If you have added this project correctly, it should appear in the projects menu. If it is not there, then
+you have most likely given the wrong directory location in the <span 
+class="cmtt-10">projects</span><span 
+class="cmsy-10">{</span><span 
+class="cmitt-10">n</span><span 
+class="cmsy-10">}</span><span 
+class="cmtt-10">.path </span>line of the launch
+file. Check the MATLAB command line for messages indicating what may have gone wrong and try
+again.
+<a 
+ id="dx37-56003"></a>
+<a 
+ id="dx37-56004"></a>
+<!--l. 2218--><p class="noindent" >To launch your project, simply select it and follow the instructions given above for running demos. History files and
+the final optimal set, called &#8216;OptimalSolutions.mat&#8217; will be saved in the data directory specified by
+the <span 
+class="cmtt-10">par.history.dataDir </span>field of the setup file. Note that the data directory is usually given as a
+local path, which refers to a directory inside of the project directory. Such a local path is specified as
+follows:
+<!--l. 2229--><p class="noindent" ><span 
+class="colorbox" id="colorbox31"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;A</span><span 
+class="cmtt-10">&#x00A0;directory</span><span 
+class="cmtt-10">&#x00A0;inside</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;project</span><span 
+class="cmtt-10">&#x00A0;directory:</span><br /><span 
+class="cmtt-10">par.history.dataDir=&#8217;myDataDirectory&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;--&#x003E;</span><span 
+class="cmtt-10">&#x00A0;[project_dir]/myDataDirectory</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;To</span><span 
+class="cmtt-10">&#x00A0;collect</span><span 
+class="cmtt-10">&#x00A0;runs</span><span 
+class="cmtt-10">&#x00A0;inside</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;a</span><span 
+class="cmtt-10">&#x00A0;subdirectory</span><span 
+class="cmtt-10">&#x00A0;called</span><span 
+class="cmtt-10">&#x00A0;&#8217;FerretRuns&#8217;:</span><br /><span 
+class="cmtt-10">par.history.dataDir=&#8217;FerretRuns/myDataDirectory1&#8217;;</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;Saves</span><span 
+class="cmtt-10">&#x00A0;to:</span><span 
+class="cmtt-10">&#x00A0;[project_dir]/FerretRuns/myDataDirectory1</span><br /><span 
+class="cmtt-10">par.history.dataDir=&#8217;FerretRuns/myDataDirectory2&#8217;;</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;Saves</span><span 
+class="cmtt-10">&#x00A0;to:</span><span 
+class="cmtt-10">&#x00A0;[project_dir]/FerretRuns/myDataDirectory2</span></div>
+</div></span>
+<a 
+ id="dx37-56013"></a>
+<a 
+ id="dx37-56014"></a>
+<!--l. 2240--><p class="noindent" >It is also possible to specify a global path to an arbitrary location on your file system using lines like the following
+examples:
+<!--l. 2246--><p class="noindent" ><span 
+class="colorbox" id="colorbox32"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">par.history.dataDir=&#8217;C:\Users\JFiege\Documents\myDataDirectory&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;on</span><span 
+class="cmtt-10">&#x00A0;a</span><span 
+class="cmtt-10">&#x00A0;Windows</span><span 
+class="cmtt-10">&#x00A0;system.</span><br /><span 
+class="cmtt-10">par.history.dataDir=&#8217;/Users/JFiege/Documents/myDataDirectory&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;on</span><span 
+class="cmtt-10">&#x00A0;a</span><span 
+class="cmtt-10">&#x00A0;MacIntosh</span><span 
+class="cmtt-10">&#x00A0;system.</span><br /><span 
+class="cmtt-10">par.history.dataDir=&#8217;/home/jfiege/myDataDirectory&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;on</span><span 
+class="cmtt-10">&#x00A0;a</span><span 
+class="cmtt-10">&#x00A0;Linux</span><span 
+class="cmtt-10">&#x00A0;system.</span></div>
+</div></span>
+<a 
+ id="dx37-56018"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 2254--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse22.html" >next</a>] [<a 
+href="QubistHTMLse20.html" >prev</a>] [<a 
+href="QubistHTMLse20.html#tailQubistHTMLse20.html" >prev-tail</a>] [<a 
+href="QubistHTMLse21.html" >front</a>] [<a 
+href="QubistHTMLch4.html#QubistHTMLse21.html" >up</a>] </p></div>
+<!--l. 2254--><p class="noindent" ><a 
+ id="tailQubistHTMLse21.html"></a>  
+</body></html> 

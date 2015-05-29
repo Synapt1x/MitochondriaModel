@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>Fuzziness</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 3677--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse35.html" >prev</a>] [<a 
+href="QubistHTMLse35.html#tailQubistHTMLse35.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLse36.html">tail</a>] [<a 
+href="QubistHTMLch5.html#QubistHTMLse36.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">5.6   </span> <a 
+ id="x55-790005.6"></a>Fuzziness</h3>
+<a 
+ id="dx55-79001"></a>
+<!--l. 3681--><p class="noindent" >Fuzziness is turned on by setting <span 
+class="cmtt-10">par.selection.FAbsTol &#x003E; 0</span>, <span 
+class="cmtt-10">par.selection.FRelTol &#x003E; 0</span>, or
+<span 
+class="cmtt-10">par.selection.FRankTol &#x003E; 0 </span>in the setup file. The <span 
+class="cmmi-10">FAbsTol </span>and <span 
+class="cmmi-10">FRelTol </span>control parameters can be set
+interactively using the &#8216;Fuzziness&#8217; button in the Analysis button group on the right side of the Analysis
+window (i.e. see Figures <a 
+href="QubistHTMLse35.html#x54-780057">5.7<!--tex4ht:ref: fig:paintedPoints --></a> and <a 
+href="QubistHTMLse35.html#x54-780068">5.8<!--tex4ht:ref: fig:paintedPoints2 --></a>), which launches the &#8216;Analysis Tolerances&#8217; interface shown in Figure
+<a 
+href="#x55-790029">5.9<!--tex4ht:ref: fig:setAnalysisTolerances --></a>.
+<!--l. 3683--><p class="noindent" ><hr class="figure"><div class="figure" 
+>
+                                                                                         
+
+                                                                                         
+<a 
+ id="x55-790029"></a>
+                                                                                         
+
+                                                                                         
+<div class="center" 
+>
+<!--l. 3684--><p class="noindent" >
+
+<!--l. 3685--><p class="noindent" ><img 
+src="figures/Ferret/setAnalysisTolerances.png" alt="PIC"  
+></div>
+<br />  <div class="caption" 
+><span class="id">Figure&#x00A0;5.9:   </span><span  
+class="content">The   Analysis   Tolerances   window   allows   the   user   to   interactively   set   tolerances
+(<span 
+class="cmtt-10">par.selection.FAbsTol </span>and <span 
+class="cmtt-10">par.selection.FRelTol</span>) to be applied to the analysis window. This interface
+is launched from the &#8216;Fuzziness&#8217; button on the right side of the Analysis window.</span></div><!--tex4ht:label?: x55-790029 -->
+                                                                                         
+
+                                                                                         
+<!--l. 3689--><p class="noindent" ></div><hr class="endfigure">
+<a 
+ id="dx55-79003"></a>
+<!--l. 3692--><p class="noindent" >The Analysis Tolerances interface is sometimes useful when exploring an optimal set because it allows you to
+dynamically change the fuzzy selection criteria used to select solutions for the optimal set. For example, if a
+tolerance is specified in the setup file that turns out to be too &#8216;loose&#8217; when the run is analyzed (i.e. too high of a
+value for <span 
+class="cmtt-10">par.selection.FAbsTol </span>or <span 
+class="cmtt-10">par.selection.FRelTol</span>), then the solution set may look like a very large
+blob that does not adequately exclude poor regions of the parameter space. To tighten your tolerances, you would
+decrease <span 
+class="cmmi-10">FAbsTol </span>to obtain a more localized optimal set. The fuzziness interface is useful because it effectively
+allows you to change your mind about <span 
+class="cmmi-10">FAbsTol </span>and <span 
+class="cmmi-10">FRelTol </span><span 
+class="cmti-10">after the run is complete </span>to refine your selection
+criterion.
+<a 
+ id="dx55-79004"></a>
+<!--l. 3695--><p class="noindent" >To use the Analysis Tolerances interface, simply change either <span 
+class="cmmi-10">FAbsTol </span>or <span 
+class="cmmi-10">FRelTol </span>and click the &#8216;Set Tolerances&#8217;
+button to commit the change, and re-analyze the run by pressing the &#8216;Re-Analyze&#8217; button in the Analysis window.
+This will bring up a dialog box asking whether to use the current <span 
+class="cmmi-10">OptimalSolutions </span>structure or re-load the History
+files. It is faster to use the current <span 
+class="cmmi-10">OptimalSolutions</span>, but this must be done with care as discussed below. After
+choosing one of these options, the run will be re-analyzed, and you will be presented with a dialogue box indicating
+that the new <span 
+class="cmmi-10">OptimalSolutions </span>structure has not yet been saved to disk, but is available by loading a global
+variable called <span 
+class="cmmi-10">OptimalSolutions</span>2 on the MATLAB command line. The dialogue box asks whether to save the new
+<span 
+class="cmmi-10">OptimalSolutions </span>structure as OptimalSolutions.mat. This must also be done with care, as discussed
+below.
+<!--l. 3697--><p class="noindent" >The Analysis Tolerances interface has an important subtlety that users must be aware of when saving
+solutions after changing <span 
+class="cmmi-10">FAbsTol </span>or <span 
+class="cmmi-10">FRelTol</span>.  The subtlety is that <span 
+class="cmti-10">only solutions that are currently in</span>
+<span 
+class="cmmi-10">OptimalSolutions </span><span 
+class="cmti-10">will be subjected to the new criterion</span>. This means that if you have previously made
+the analysis more restrictive by decreasing <span 
+class="cmmi-10">FAbsTol </span>or <span 
+class="cmmi-10">FRelTol </span>and saved the changes, and then
+select &#8216;Use OptimalSolutins&#8217; rather than re-loading the History files, then <span 
+class="cmti-10">only solutions in the current</span>
+<span 
+class="cmmi-10">OptimalSolutions </span><span 
+class="cmti-10">will be included in the analysis</span>. This can cause significant confusion when users notice that the
+optimal set fails to increase to its initial size, which looks like solutions have been somehow lost. As a
+general rule, you can select &#8216;Use OptimalSolutions&#8217; if you have not saved changes previously, or if
+you are making the selection criteria more restrictive. If you have previously saved changes and are
+now relaxing the selection criterion (increasing <span 
+class="cmmi-10">FAbsTol </span>or <span 
+class="cmmi-10">FRelTol</span>), then the History files must be
+re-loaded.
+<a 
+ id="dx55-79005"></a>
+<a 
+ id="dx55-79006"></a>
+<a 
+ id="dx55-79007"></a>
+<a 
+ id="dx55-79008"></a>
+<a 
+ id="dx55-79009"></a>
+<a 
+ id="dx55-79010"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 3706--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse35.html" >prev</a>] [<a 
+href="QubistHTMLse35.html#tailQubistHTMLse35.html" >prev-tail</a>] [<a 
+href="QubistHTMLse36.html" >front</a>] [<a 
+href="QubistHTMLch5.html#QubistHTMLse36.html" >up</a>] </p></div>
+<!--l. 3706--><p class="noindent" ><a 
+ id="tailQubistHTMLse36.html"></a>  
+</body></html> 

@@ -1,0 +1,8 @@
+Noisy 1-Dimensional Problem:
+===========================
+
+An example showing the minimization of a function with only one variable.
+The function has many minima and time-varying noise is added to show noise tolerance.
+The black line shows the 'true' fitness without added noise, and the blue line shows an
+instantaneous evaluation.  The green vertical line shows the global minimum of the
+unperturbed function.

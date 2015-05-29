@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>par.mutation</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 4356--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse51.html" >next</a>] [<a 
+href="QubistHTMLse49.html" >prev</a>] [<a 
+href="QubistHTMLse49.html#tailQubistHTMLse49.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLse50.html">tail</a>] [<a 
+href="QubistHTMLch8.html#QubistHTMLse50.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">8.7   </span> <a 
+ id="x76-1060008.7"></a>par.mutation</h3>
+<a 
+ id="dx76-106001"></a>
+<!--l. 4360--><p class="noindent" >Mutation is one of the most important operators of a genetic algorithm, since it is this operator that allows the code
+to explore new regions of parameter space by means of random perturbations.
+<!--l. 4362--><p class="noindent" >Ferret&#8217;s mutation operator is quite different from the simple &#8216;bit flip&#8217; that a traditional genetic algorithm would use.
+This is because Ferret does not use binary bit strings, but represents parameters as real numbers, much like an
+&#8216;evolution strategies&#8217; code. This leads to a richer set of possibilities for evolutionary operators than is possible for a
+traditional genetic algorithm, because real vector spaces admit notions of geometry that would be a conceptual
+stretch for bit strings. This difference is particularly important for the mutation and crossover operators, which are
+the topics of this section and Section <a 
+href="QubistHTMLse51.html#x77-1070008.8">8.8<!--tex4ht:ref: sec:par_XOver --></a>.
+<!--l. 4364--><p class="noindent" >Ferret includes three mutation-like operators: normal mutation, a second operator called &#8216;supermutation&#8217;, and
+building block mutations.
+<!--l. 4377--><p class="noindent" ><span 
+class="colorbox" id="colorbox73"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Mutation</span><br /><span 
+class="cmtt-10">par.mutation.PMutate=0.05;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Probability</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;normal</span><span 
+class="cmtt-10">&#x00A0;mutation.</span><br /><span 
+class="cmtt-10">par.mutation.BBRestricted=false;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[logical]:</span><span 
+class="cmtt-10">&#x00A0;Restrict</span><span 
+class="cmtt-10">&#x00A0;mutation</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;building</span><span 
+class="cmtt-10">&#x00A0;blocks?</span><br /><span 
+class="cmtt-10">par.mutation.PRandomizeBBs=0.01;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Probability</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;randomizing</span><span 
+class="cmtt-10">&#x00A0;whole</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML40x.png" alt="                                                                                                                                                      `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;building</span><span 
+class="cmtt-10">&#x00A0;blocks.</span><br /><span 
+class="cmtt-10">par.mutation.PSuperMutate=0.01;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Probability</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;superMutation.</span><br /><span 
+class="cmtt-10">par.mutation.scale=0.25;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Min</span><span 
+class="cmtt-10">&#x00A0;&amp;</span><span 
+class="cmtt-10">&#x00A0;max</span><span 
+class="cmtt-10">&#x00A0;scale</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;mutation.</span><br /><span 
+class="cmtt-10">par.mutation.selectiveMutation=0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[-1:1]:</span><span 
+class="cmtt-10">&#x00A0;Negative</span><span 
+class="cmtt-10">&#x00A0;values</span><span 
+class="cmtt-10">&#x00A0;mutate</span><span 
+class="cmtt-10">&#x00A0;highly</span><span 
+class="cmtt-10">&#x00A0;clustered</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML41x.png" alt="                                                                                                                                                                                                                                                                                                                                                                                                                `"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;individuals</span><span 
+class="cmtt-10">&#x00A0;selectively.</span></div>
+</div></span>
+<!--l. 4383--><p class="noindent" >Mutations in Ferret are applied to the normalized parameter space <span 
+class="cmtt-10">world.pop</span><span 
+class="cmsy-10">{</span><span 
+class="cmitt-10">p</span><span 
+class="cmsy-10">}</span><span 
+class="cmtt-10">.indiv.genome.X</span>, in which all
+parameters are scaled to the interval ranging from 0 to 1, and <span 
+class="cmmi-10">p </span>is the population number. Mutations are
+implemented as Gaussian random perturbations in a random direction, with a distance whose standard deviation is
+equal to <span 
+class="cmtt-10">par.mutation.scale </span>in this scaled parameter space. <span 
+class="cmtt-10">par.mutation.PMutate </span>is the probability of such a
+mutation occurring to a given individual in a given generation.
+<a 
+ id="dx76-106011"></a>
+<a 
+ id="dx76-106012"></a>
+<!--l. 4387--><p class="noindent" >Mutations are restricted to a subset of parameters defined by a single, randomly chosen building block (discovered
+by linkage learning) when <span 
+class="cmtt-10">par.mutation.BBRestricted=true</span>. In my experience, this only appears to be useful for
+large, non-parametric problems, with possibly hundreds of parameters (see Section <a 
+href="QubistHTMLse30.html#x48-720004.20">4.20<!--tex4ht:ref: sec:nonParametric --></a> or the demo
+&#8216;Advanced/Non-Parametric-Image-Modeling&#8217;). The default setting <span 
+class="cmtt-10">par.mutation.BBRestricted=false </span>is the best
+setting for most other problems, since it allows Ferret to decide automatically when to restrict mutations to
+individual building blocks or do unrestricted mutations over all parameters.
+<!--l. 4389--><p class="noindent" ><span 
+class="cmtt-10">par.mutation.selectiveMutation </span>is a parameter that can be used to influence the formation of clusters in the
+parameter space. When this parameter is negative, mutations are applied most frequently to individuals residing in
+highly clustered regions of parameter space, which have a high &#8216;niche count&#8217;, as defined by equation <a 
+href="QubistHTMLse52.html#x78-111002r3">8.3<!--tex4ht:ref: eq:nicheShape --></a>. This tends
+to break up clusters and often results in a more uniformly filled optimal set. The opposite is true when this
+parameter is positive. In this case, mutations are applied most often to individuals with low niche
+count, and clusters are left relatively undisturbed to develop and converge. The <span 
+class="cmmi-10">selectiveMutation</span>
+parameter must range from -1 to 1, and is turned off when <span 
+class="cmmi-10">selectiveMutation </span>= 0, much like the
+<span 
+class="cmtt-10">par.selection.competitionRestriction </span>parameter discussed in Section <a 
+href="QubistHTMLse49.html#x74-1050008.6">8.6<!--tex4ht:ref: sec:par_selection --></a>. In my experience, negative
+                                                                                         
+
+                                                                                         
+values are useful for many problems, but positive values usually have a negative effect on the quality of
+solutions.
+<!--l. 4391--><p class="noindent" >Ferret&#8217;s second mutation operator is called &#8216;supermutation&#8217; and is controlled by a single parameter
+<span 
+class="cmtt-10">par.mutation.PSuperMutate</span>. Supermutation is an idea that arose from my observation that well-converged runs
+would sometimes enjoy a sudden improvement after resuming them following a computer crash, using the resume
+features discussed in Sections <a 
+href="QubistHTMLse27.html#x45-690004.17">4.17<!--tex4ht:ref: sec:resumeRun --></a> and <a 
+href="QubistHTMLse94.html#x126-21500012.1">12.1<!--tex4ht:ref: sec:resumeTool --></a>. This was puzzling initially, but the explanation is reasonable and quite
+interesting. By default, History files only contain optimal solutions and elites, so there is not enough state
+information saved to resume a run <span 
+class="cmti-10">exactly </span>where it was before a crash. All non-optimal and non-elite solutions are
+randomized, but this is OK because the optimals and elites dominate the population within a few generations
+anyway. The observation of an improvement indicates that occasional population-wide randomization events
+can be <span 
+class="cmti-10">beneficial </span>to the progress of the run. I cannot resist likening this effect to the explosions of
+diversity and rapid evolution observed in Earth&#8217;s fossil record following cataclysmic global extinction
+events. The analogy is not perfect, but the general principle is the same; an extinction event that
+wipes out many dominant species leaves the door open for evolution to experiment with new forms.
+Diversity blossoms throughout the ecosystem, and this injection of new ideas sometimes results in overall
+improvement.
+<!--l. 4393--><p class="noindent" >Ferret&#8217;s &#8216;supermutation&#8217; operator is triggered with a probability equal to <span 
+class="cmtt-10">par.mutation.PSuperMutate</span>. When a
+supermutation &#8216;cataclysm&#8217; occurs, a single building block is perturbed for all non-optimal and non-elite solutions, in
+all populations. The perturbation occurs in the scaled parameter space discussed above, and has a magnitude drawn
+from a Gaussian random distribution whose standard deviation is equal to <span 
+class="cmtt-10">par.mutation.scale</span>. Supermutation is
+a very disruptive event, and clearly you do not want this to happen very often, so the <span 
+class="cmmi-10">PSuperMutate </span>probability
+should be low: <span 
+class="cmmi-10">PSuperMutate </span>= 0<span 
+class="cmmi-10">.</span>01 is a good, safe value, and values up to about 5-10% are probably
+OK.
+<!--l. 4395--><p class="noindent" ><span 
+class="cmtt-10">par.mutation.PRandomizeBBs </span>is a probability that controls Ferret&#8217;s final mutation-like operator, which selects
+individuals not currently in the optimal set, with probability <span 
+class="cmmi-10">PRandomizeBBs</span>, and randomizes a single building
+block within each member of this group. <span 
+class="cmmi-10">PRandomizeBBs </span>should be no greater than a few percent. This building
+block mutation operator is not very disruptive because relatively few individuals are affected each generation, and
+only a single building block is affected for each solution. This is a new feature at the time of this
+writing, and the value of doing this is not quite certain, but it is unlikely to hurt the search, as long
+as <span 
+class="cmmi-10">PRandomizeBBs </span>is small. However, it might help the search by injecting new diversity into the
+population.
+<!--l. 4397--><p class="noindent" >Note that the mutation scale <span 
+class="cmtt-10">par.mutation.scale </span>is one of the parameters controlled by Ferret&#8217;s auto-adaptation
+system. When this parameter is allowed to auto-adapt, Ferret will try to optimize it according to a mathematical
+model for the diffusion of new mutations throughout a population. This works well in practice, and I normally allow
+this parameter to auto-adapt in my own runs.
+<a 
+ id="dx76-106013"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 4402--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse51.html" >next</a>] [<a 
+href="QubistHTMLse49.html" >prev</a>] [<a 
+href="QubistHTMLse49.html#tailQubistHTMLse49.html" >prev-tail</a>] [<a 
+href="QubistHTMLse50.html" >front</a>] [<a 
+href="QubistHTMLch8.html#QubistHTMLse50.html" >up</a>] </p></div>
+<!--l. 4402--><p class="noindent" ><a 
+ id="tailQubistHTMLse50.html"></a>  
+</body></html> 

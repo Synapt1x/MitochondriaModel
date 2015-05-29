@@ -1,0 +1,8 @@
+Critical Parameter Detection: Mapping a Triangle:
+=================================================
+
+This is the same problem that was solved in examples names 'Triangle-X-Niching'
+and 'Triangle-F-Niching'.  This example illustrates a capability unique to 
+Ferret called "Critical Parameter Detection", or CPD for short.  CPD is designed
+to determine which parameters of a problem are actually important to optimizing
+the fitness function.

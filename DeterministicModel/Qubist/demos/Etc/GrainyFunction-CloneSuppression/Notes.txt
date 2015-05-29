@@ -1,0 +1,32 @@
+"Clone Suppression" to Improve Exploration of a Grainy Function:
+================================================================
+
+The term "grainy" function here refers to a function that has a small scale
+resolution limit, such that there is no structure below this scale.  The
+gradient of the function is zero everywhere, except for at discontinuities
+at grain boundaries.  The function is essentially a multi-dimensional step
+(or staircase) function, whose minimum is a region defined by a single grain.
+Such functions can occur if some aspect of the function is based on a table lookup
+or a pixelated numerical calculation.
+
+Ferret aims to eliminate "clones" - multiple identical copies of an
+individual - since extra copies do not help to explore the parameter space.
+Normally, clones are defined on the genotype, such that an identical set of
+parameters is required for two individuals to be declared clones.  However,
+this definition may be less than ideal for a grainy function like the one
+described here, where it could be argued that two individuals occupying the
+same grain are "close enough" to be considered clones, since they are similar
+to within the problem's inherent resolution, and have identical fitness.  A
+run using this default behaviour would spend an inordinate amount of time mapping
+the structure of the grain containing the minimum, at the expense of exploring
+the region surrounding this grain.
+
+Ferret 5 solves this problem by introducing an option that allows the user to
+define clones on the phenotype rather than the genotype.  By setting
+
+par.selection.enhancedCloneSuppressionMethod='F';
+
+all individuals with the same fitness are regarded as clones and are supressed
+accordingly.  The effect is that such a run will not map the grain containing
+the minimum as thoroughly, but this saved effort will go into exploring the 
+surrounding region.

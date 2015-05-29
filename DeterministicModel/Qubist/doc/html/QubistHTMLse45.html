@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>par.history</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 4066--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse46.html" >next</a>] [<a 
+href="QubistHTMLse44.html" >prev</a>] [<a 
+href="QubistHTMLse44.html#tailQubistHTMLse44.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLse45.html">tail</a>] [<a 
+href="QubistHTMLch8.html#QubistHTMLse45.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">8.2   </span> <a 
+ id="x69-1010008.2"></a>par.history</h3>
+<a 
+ id="dx69-101001"></a>
+<!--l. 4070--><p class="noindent" >This group of parameters specifies the location of the data directory for your run and controls how Ferret writes
+History files. History files are written in the &#8216;History&#8217; subdirectory of the run&#8217;s data directory, and contain all
+of the information necessary to analyze or resume a run, or to play a movie showing how the run
+progressed.
+<!--l. 4080--><p class="noindent" ><span 
+class="colorbox" id="colorbox65"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;History</span><br /><span 
+class="cmtt-10">par.history.dataDir=&#8217;FerretData&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[string]:</span><span 
+class="cmtt-10">&#x00A0;Directory</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;Ferret</span><span 
+class="cmtt-10">&#x00A0;History</span><span 
+class="cmtt-10">&#x00A0;files,</span><span 
+class="cmtt-10">&#x00A0;etc.</span><br /><span 
+class="cmtt-10">par.history.NGenPerHistoryFile=25;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer</span><span 
+class="cmtt-10">&#x00A0;&#x003E;=</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;How</span><span 
+class="cmtt-10">&#x00A0;many</span><span 
+class="cmtt-10">&#x00A0;generations</span><span 
+class="cmtt-10">&#x00A0;per</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML23x.png" alt="                                                                                    `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;History</span><span 
+class="cmtt-10">&#x00A0;file?</span><br /><span 
+class="cmtt-10">par.history.saveFrac=0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Save</span><span 
+class="cmtt-10">&#x00A0;only</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;optimals</span><span 
+class="cmtt-10">&#x00A0;--&#x003E;</span><span 
+class="cmtt-10">&#x00A0;[0],</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML24x.png" alt="                                                                                                                                                                                  `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;a</span><span 
+class="cmtt-10">&#x00A0;fraction</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1].</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;See</span><span 
+class="cmtt-10">&#x00A0;also</span><span 
+class="cmtt-10">&#x00A0;par.analysis.keepFrac.</span></div>
+</div></span>
+<!--l. 4086--><p class="noindent" >Ferret&#8217;s data directory is set by the string specified in <span 
+class="cmtt-10">par.history.dataDir</span>. This can be a local path (as shown
+here), in which case the data directory will be saved in the project directory. It is also possible to specify a
+global path by including the full path in the <span 
+class="cmmi-10">dataDir </span>string. I often use a global path and set it to
+a run directory outside of my project directory, because this keeps my run data separate from my
+program files. This is especially useful when a project is under rapid development, because it is then
+possible to archive snapshots of the program directory for backup purposes without including a lot of run
+data.
+<!--l. 4088--><p class="noindent" >Each History file is numbered History-1.mat, History-2.mat, etc., and each one contains a cell array of
+length <span 
+class="cmtt-10">par.history.NGenPerHistoryFile</span>. Each cell represents a single generation of the run and
+contains the same fields as Ferret&#8217;s top-level <span 
+class="cmmi-10">world </span>data structure, as outlined in Section <a 
+href="QubistHTMLse19.html#x34-520004.9.1">4.9.1<!--tex4ht:ref: sec:worldStructure --></a>, as well as
+other information used internally by Ferret. The full structure of a History file is given in Section
+<a 
+href="QubistHTMLse26.html#x43-680004.16.4">4.16.4<!--tex4ht:ref: sec:History_files --></a>.
+<!--l. 4090--><p class="noindent" >The generation number saved in <span 
+class="cmtt-10">History</span><span 
+class="cmsy-10">{</span><span 
+class="cmitt-10">n</span><span 
+class="cmsy-10">} </span>is given by <span 
+class="cmtt-10">History</span><span 
+class="cmsy-10">{</span><span 
+class="cmitt-10">n</span><span 
+class="cmsy-10">}</span><span 
+class="cmtt-10">.par.bookKeeping.gen</span>. Normally, the user
+does not need to access the history files directly, but a great deal of information is saved in these files if you
+need it. As a result, Ferret&#8217;s data directories can become quite large. However, the &#8216;noSave&#8217; feature
+described in Section <a 
+href="QubistHTMLse16.html#x30-410004.6">4.6<!--tex4ht:ref: sec:init --></a> provides a useful technique for reducing the amount of information that is
+stored.
+<!--l. 4092--><p class="noindent" >The <span 
+class="cmtt-10">par.history.saveFrac </span>parameter controls how many solutions are saved in each History cell. By default,
+<span 
+class="cmtt-10">par.history.saveFrac=0</span>, which causes Ferret to save only optimal solutions plus elites. This is the most
+conservative setting in terms of disk usage, but sufficient information is saved to construct the optimal set at the end
+of the run and play a reasonably detailed movie showing its progress. If the <span 
+class="cmmi-10">saveFrac </span>parameter is set to 1, then <span 
+class="cmti-10">all</span>
+solutions are saved each generation, so it is possible to play a movie of the run or otherwise analyze it in perfect
+detail. This uses a lot more disk space and is usually not necessary, but it is sometimes useful to diagnose problems
+or to construct a nice movie for a presentation. Note that <span 
+class="cmmi-10">saveFrac </span>can also be set to intermediate values
+between 0 and 1, in which case the optimals and elites are saved, plus other solutions with low rank
+                                                                                         
+
+                                                                                         
+number<span class="footnote-mark"><a 
+href="QubistHTML70.html#fn1x71"><sup class="textsuperscript">1</sup></a></span><a 
+ id="x69-101008f1"></a> , up
+to the specified fraction of the population.
+<a 
+ id="dx69-101009"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 4098--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse46.html" >next</a>] [<a 
+href="QubistHTMLse44.html" >prev</a>] [<a 
+href="QubistHTMLse44.html#tailQubistHTMLse44.html" >prev-tail</a>] [<a 
+href="QubistHTMLse45.html" >front</a>] [<a 
+href="QubistHTMLch8.html#QubistHTMLse45.html" >up</a>] </p></div>
+<!--l. 4098--><p class="noindent" ><a 
+ id="tailQubistHTMLse45.html"></a>  
+</body></html> 

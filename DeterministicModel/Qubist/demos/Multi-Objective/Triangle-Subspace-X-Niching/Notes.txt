@@ -1,0 +1,20 @@
+Parameter-Space Niching in Two Dimensions: Mapping a Triangle:
+=============================================================
+
+This example demonstrates the effect of niching in ***parameter space*** on
+a multi-objective problem.  The problem is to find the set of points that have
+the smallest distance to three distinct points residing in a 2-dimensional
+subspace, embedded within a 10-dimensional parameter space.  The optimal 
+trade-off surface for this problem is a filled triangle, whose vertices are
+the three points.  This can be seen as follows.  If a point is outside of the
+triangle, it is always possible to find a point that is simultaneously closer
+to all three vertices.  For points inside of the triangle, this is never possible.
+In this case, to move closer to one vertex, one must always move further away
+from at least one other vertex.
+
+The example named 'Triangle-X-Niching' solves the same problem, except that
+niching is done in ***parameter space***.  Both type of niching are effective,
+though niching in objective space seems somewhat more effective for this problem.
+
+Reducing the selection pressure is also often useful on multi-objective or class-
+finding problems.

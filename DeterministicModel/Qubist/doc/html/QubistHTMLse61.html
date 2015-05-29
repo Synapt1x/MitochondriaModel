@@ -1,0 +1,398 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>par.polish</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 5065--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse62.html" >next</a>] [<a 
+href="QubistHTMLse60.html" >prev</a>] [<a 
+href="QubistHTMLse60.html#tailQubistHTMLse60.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLse61.html">tail</a>] [<a 
+href="QubistHTMLch8.html#QubistHTMLse61.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">8.18   </span> <a 
+ id="x89-1270008.18"></a>par.polish</h3>
+<a 
+ id="dx89-127001"></a>
+<!--l. 5069--><p class="noindent" >Section <a 
+href="QubistHTMLse60.html#x88-1260008.17">8.17<!--tex4ht:ref: sec:par_localOpt --></a> discussed how to call local optimizers during a Ferret run to help improve convergence. However, it
+is also possible to call local optimizers at the end of a run (after analysis) to <span 
+class="cmti-10">polish </span>the final set of
+solutions in the OptimalSolutions.mat file. This is not always necessary, but it can sometimes result
+in small improvements to the optimal set, especially if local optimization was not used during the
+run.
+<!--l. 5095--><p class="noindent" ><span 
+class="colorbox" id="colorbox88"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;***</span><span 
+class="cmtt-10">&#x00A0;Polisher</span><span 
+class="cmtt-10">&#x00A0;Setup</span><span 
+class="cmtt-10">&#x00A0;***</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;par.polish.optimizer=&#8217;fminsearch&#8217;;</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;par.polish.optimizer=&#8217;SAMOSA&#8217;;</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;par.polish.optimizer=&#8217;Anvil&#8217;;</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;par.polish.optimizer=&#8217;SemiGloSS&#8217;;</span><br /><span 
+class="cmtt-10">par.polish.optimizer=&#8217;default&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[string]:</span><span 
+class="cmtt-10">&#x00A0;Use</span><span 
+class="cmtt-10">&#x00A0;defaults.</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;fminsearch</span><span 
+class="cmtt-10">&#x00A0;(Single-objective</span><span 
+class="cmtt-10">&#x00A0;only):</span><br /><span 
+class="cmtt-10">par.polish.fminsearch.NTracks=Inf;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer]:</span><span 
+class="cmtt-10">&#x00A0;Maximum</span><span 
+class="cmtt-10">&#x00A0;number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;tracks.</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML92x.png" alt="                                                                                                                                                                                                                                               `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;&#8216;Inf&#8217;</span><span 
+class="cmtt-10">&#x00A0;--&#x003E;</span><span 
+class="cmtt-10">&#x00A0;all</span><span 
+class="cmtt-10">&#x00A0;in</span><span 
+class="cmtt-10">&#x00A0;optimal</span><span 
+class="cmtt-10">&#x00A0;set.</span><br /><span 
+class="cmtt-10">par.polish.fminsearch.options=[];</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;options</span><span 
+class="cmtt-10">&#x00A0;structure</span><span 
+class="cmtt-10">&#x00A0;from</span><span 
+class="cmtt-10">&#x00A0;optimset.</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;SAMOSA</span><span 
+class="cmtt-10">&#x00A0;uses</span><span 
+class="cmtt-10">&#x00A0;its</span><span 
+class="cmtt-10">&#x00A0;own</span><span 
+class="cmtt-10">&#x00A0;setup</span><span 
+class="cmtt-10">&#x00A0;file.</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;Here,</span><span 
+class="cmtt-10">&#x00A0;we</span><span 
+class="cmtt-10">&#x00A0;just</span><span 
+class="cmtt-10">&#x00A0;add</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;tracks</span><span 
+class="cmtt-10">&#x00A0;requested.</span><br /><span 
+class="cmtt-10">par.polish.SAMOSA=defaultSAMOSA_setup;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[m-file</span><span 
+class="cmtt-10">&#x00A0;name]:</span><span 
+class="cmtt-10">&#x00A0;Name</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;SAMOSA</span><span 
+class="cmtt-10">&#x00A0;setup</span><span 
+class="cmtt-10">&#x00A0;function.</span><br /><span 
+class="cmtt-10">par.polish.SAMOSA.NTracks=Inf;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer]:</span><span 
+class="cmtt-10">&#x00A0;Maximum</span><span 
+class="cmtt-10">&#x00A0;number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;tracks.</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;&#8216;Inf&#8217;</span><span 
+class="cmtt-10">&#x00A0;--&#x003E;</span><span 
+class="cmtt-10">&#x00A0;all</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML93x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;in</span><span 
+class="cmtt-10">&#x00A0;optimal</span><span 
+class="cmtt-10">&#x00A0;set.</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Anvil</span><span 
+class="cmtt-10">&#x00A0;&amp;</span><span 
+class="cmtt-10">&#x00A0;SemiGloSS</span><span 
+class="cmtt-10">&#x00A0;uses</span><span 
+class="cmtt-10">&#x00A0;their</span><span 
+class="cmtt-10">&#x00A0;own</span><span 
+class="cmtt-10">&#x00A0;setup</span><span 
+class="cmtt-10">&#x00A0;files.</span><br /><span 
+class="cmtt-10">par.polish.Anvil=defaultAnvilSetup;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[m-file</span><span 
+class="cmtt-10">&#x00A0;name]:</span><span 
+class="cmtt-10">&#x00A0;Name</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;Anvil</span><span 
+class="cmtt-10">&#x00A0;setup</span><span 
+class="cmtt-10">&#x00A0;function.</span><br /><span 
+class="cmtt-10">par.polish.SemiGloSS=defaultSemiGloSS_setup;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[m-file</span><span 
+class="cmtt-10">&#x00A0;name]:</span><span 
+class="cmtt-10">&#x00A0;Name</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;SemiGloSS</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML94x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;setup</span><span 
+class="cmtt-10">&#x00A0;function.</span></div>
+</div></span>
+<a 
+ id="dx89-127024"></a>
+<a 
+ id="dx89-127025"></a>
+<a 
+ id="dx89-127026"></a>
+<!--l. 5104--><p class="noindent" >Ferret is capable of using MATLAB&#8217;s built-in fminsearch optimizer for single-objective problems, or the Qubist
+optimizers SAMOSA, Anvil, or SemiGloSS for both single and multi-objective problems. The optimizer is chosen by
+setting the option <span 
+class="cmtt-10">par.polish.optimizer </span>to the name of the chosen optimizer, or to &#8216;default&#8217; to use default
+settings. Acceptable choices for <span 
+class="cmtt-10">par.polish.optimizer </span>are &#8216;fminsearch&#8217;, &#8216;SAMOSA&#8217;, &#8216;Anvil&#8217;, &#8216;SemiGloSS&#8217;, or
+&#8216;default&#8217;. The &#8216;default&#8217; setting uses fminsearch for single-objective problems and SAMOSA for multi-objective
+problems. Anvil is also sometimes useful for polishing because it is quite a good global optimizer (though not as
+global as Ferret), and this effectively allows a second opportunity for global optimization. I do not recommend using
+SemiGloSS for polishing since this is an experimental optimizer that is not yet as powerful or as easy
+to use as the others. Locust is a &#8216;front line&#8217; global optimizer, like Ferret, and cannot be called as a
+polisher.
+<a 
+ id="dx89-127027"></a>
+<a 
+ id="dx89-127028"></a>
+<!--l. 5108--><p class="noindent" >The polisher options depend on which optimizer is used, and the setup file contains a section for each of the allowed
+optimizers. <span 
+class="cmti-10">Note that Ferret uses only the settings in the section corresponding to the chosen optimizers, and all</span>
+<span 
+class="cmti-10">other sections are ignored.  </span>For example, if you set <span 
+class="cmtt-10">par.polish.optimizer=&#8217;SAMOSA&#8217;</span>, then Ferret uses the
+<span 
+class="cmtt-10">par.polish.SAMOSA </span>section of the setup file, but ignores <span 
+class="cmtt-10">par.polish.fminsearch</span>, <span 
+class="cmtt-10">par.polish.Anvil</span>, and
+<span 
+class="cmtt-10">par.polish.SemiGloSS</span>.
+<!--l. 5111--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">8.18.1   </span> <a 
+ id="x89-1280008.18.1"></a>par.polish.fminsearch</h4>
+<a 
+ id="dx89-128001"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 5115--><p class="noindent" >The setup file contains only two options that must be configured to use fminsearch as a polisher. You must set
+<span 
+class="cmtt-10">par.polish.fminsearch.NTracks </span>to select the number of <span 
+class="cmti-10">tracks </span>used for polishing. Ferret will attempt to choose
+<span 
+class="cmmi-10">NTracks </span>distinct solutions randomly from the optimal set in <span 
+class="cmmi-10">OptimalSolutions</span>, and use these solutions as the
+starting points for local optimization. The solutions in OptimalSolutions.mat will be replaced by the locally
+optimized solutions when polishing is complete. Note that setting <span 
+class="cmtt-10">par.polish.fminsearch.NTracks=Inf </span>or <span 
+class="cmmi-10">NaN</span>
+tells Ferret to select <span 
+class="cmti-10">all </span>distinct solutions within the optimal set that have the best <span 
+class="cmti-10">true </span>rank, where by &#8216;true
+rank&#8217; I mean that fuzziness introduced by <span 
+class="cmtt-10">par.selection.FAbsTol</span>, <span 
+class="cmtt-10">par.selection.FAbsTol</span>, and
+<span 
+class="cmtt-10">par.selection.FAbsTol </span>(see Section <a 
+href="QubistHTMLse49.html#x74-1050008.6">8.6<!--tex4ht:ref: sec:par_selection --></a>) is ignored. This usually results in a single solution being chosen for
+single-objective problems, but normally results in many solutions being chosen for multi-objective
+problems.
+<a 
+ id="dx89-128002"></a>
+<!--l. 5118--><p class="noindent" >The remaining options for fminsearch are contained in the <span 
+class="cmtt-10">par.polish.fminsearch.options </span>field, which should be
+either an empty set (<span 
+class="cmtt-10">par.polish.fminsearch.options=[]</span>) to use the fminsearch default settings, or an fminsearch
+options structure generated by using MATLAB&#8217;s optimset command. Please refer to MATLAB&#8217;s documentation for
+details on optimset and fminsearch.
+<!--l. 5120--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">8.18.2   </span> <a 
+ id="x89-1290008.18.2"></a>par.polish.SAMOSA</h4>
+<a 
+ id="dx89-129001"></a>
+<a 
+ id="dx89-129002"></a>
+<!--l. 5125--><p class="noindent" >SAMOSA requires its own setup file, which is specified by setting <span 
+class="cmtt-10">par.polish.SAMOSA </span>to the name of a valid
+SAMOSA setup file. <span 
+class="cmti-10">The SAMOSA setup file is called directly as an m-file from Ferret&#8217;s setup file. It is therefore</span>
+<span 
+class="cmti-10">important that the name is not in quotes. For example, </span><span 
+class="cmtt-10">par.polish.SAMOSA=SAMOSA</span><span 
+class="cmtt-10">_setup </span><span 
+class="cmti-10">is OK, but</span>
+<span 
+class="cmtt-10">par.polish.SAMOSA=&#8217;SAMOSA</span><span 
+class="cmtt-10">_setup&#8217; </span><span 
+class="cmti-10">will fail.  </span>By default, <span 
+class="cmtt-10">par.polish.SAMOSA </span>is set to SAMOSA&#8217;s default
+polisher setup file: <span 
+class="cmtt-10">par.polish.SAMOSA=defaultSAMOSA</span><span 
+class="cmtt-10">_setup</span>.
+<!--l. 5127--><p class="noindent" ><span 
+class="cmti-10">It is important to note that Ferret ignores the default file that SAMOSA uses when called as a standalone</span>
+<span 
+class="cmti-10">optimizer: [Qubist</span><span 
+class="cmti-10">_Home]/user/SAMOSA/defaults. The defaults for using SAMOSA as a polisher</span>
+<span 
+class="cmti-10">are located in [Qubist</span><span 
+class="cmti-10">_Home]/user/Ferret/defaults.  </span>Please pay close attention to the warning in the
+[Qubist_Home]/user/Ferret/defaults/defaultSAMOSA_setup.m:
+<!--l. 5137--><p class="noindent" ><span 
+class="colorbox" id="colorbox89"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;WARNING:</span><span 
+class="cmtt-10">&#x00A0;THIS</span><span 
+class="cmtt-10">&#x00A0;FILE</span><span 
+class="cmtt-10">&#x00A0;IS</span><span 
+class="cmtt-10">&#x00A0;ONLY</span><span 
+class="cmtt-10">&#x00A0;CALLED</span><span 
+class="cmtt-10">&#x00A0;WHEN</span><span 
+class="cmtt-10">&#x00A0;USING</span><span 
+class="cmtt-10">&#x00A0;SAMOSA</span><span 
+class="cmtt-10">&#x00A0;AS</span><span 
+class="cmtt-10">&#x00A0;A</span><span 
+class="cmtt-10">&#x00A0;POLISHER.</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;SAMOSA&#8217;S</span><span 
+class="cmtt-10">&#x00A0;STANDALONE</span><span 
+class="cmtt-10">&#x00A0;DEFAULT</span><span 
+class="cmtt-10">&#x00A0;OPTIONS</span><span 
+class="cmtt-10">&#x00A0;ARE</span><span 
+class="cmtt-10">&#x00A0;GIVEN</span><span 
+class="cmtt-10">&#x00A0;IN</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Qubist/user/SAMOSA/defaults.</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;SOME</span><span 
+class="cmtt-10">&#x00A0;FIELDS</span><span 
+class="cmtt-10">&#x00A0;ARE</span><span 
+class="cmtt-10">&#x00A0;COMMENTED</span><span 
+class="cmtt-10">&#x00A0;OUT</span><span 
+class="cmtt-10">&#x00A0;IN</span><span 
+class="cmtt-10">&#x00A0;THIS</span><span 
+class="cmtt-10">&#x00A0;FILE</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;BECAUSE</span><span 
+class="cmtt-10">&#x00A0;FERRET</span><span 
+class="cmtt-10">&#x00A0;OVERWRITES</span><span 
+class="cmtt-10">&#x00A0;THEM</span><span 
+class="cmtt-10">&#x00A0;USING</span><span 
+class="cmtt-10">&#x00A0;VALUES</span><span 
+class="cmtt-10">&#x00A0;FROM</span><span 
+class="cmtt-10">&#x00A0;THE</span><span 
+class="cmtt-10">&#x00A0;FERRETSETUP</span><span 
+class="cmtt-10">&#x00A0;FILE.</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span></div>
+</div></span>
+<a 
+ id="dx89-129009"></a>
+<a 
+ id="dx89-129010"></a>
+<a 
+ id="dx89-129011"></a>
+<!--l. 5146--><p class="noindent" >Ferret contains an m-file called translateFerretToSAMOSA.m that automatically fills in missing information from
+SAMOSA&#8217;s setup file using appropriate values from Ferret&#8217;s own setup file. A template <span 
+class="cmmi-10">SAMOSA</span>_<span 
+class="cmmi-10">setup </span>file is
+located in [Qubist_Home]/user/Ferret/templates/polisherTemplates/SAMOSA_setup_template.m, which should be
+identical to the defaultSAMOSA.m polisher file. To customize your SAMOSA setup, you should copy
+<span 
+class="cmmi-10">SAMOSA</span>_<span 
+class="cmmi-10">setup</span>_<span 
+class="cmmi-10">template.m </span>to your project directory, rename it to <span 
+class="cmmi-10">SAMOSA</span>_<span 
+class="cmmi-10">setup.m</span>, or another name of your
+choosing, and set <span 
+class="cmtt-10">par.polish.SAMOSA </span>to the name of this m-file in your Ferret setup file. When modifying your
+SAMOSA setup file, it does no harm to fill in the commented out fields, but these values will be over-written when
+the polisher is called.
+                                                                                         
+
+                                                                                         
+<!--l. 5148--><p class="noindent" >Like fminsearch, using SAMOSA as a polisher requires that you specify the number of tracks for polishing. This
+is done by setting <span 
+class="cmtt-10">par.polish.SAMOSA.NTracks</span>, which is interpreted by Ferret in the same way as
+<span 
+class="cmtt-10">par.polish.fminsearch.NTracks </span>discussed in Section <a 
+href="#x89-1280008.18.1">8.18.1<!--tex4ht:ref: sec:par_polish_fminsearch --></a>.  Note that the <span 
+class="cmtt-10">par.polish.SAMOSA.NTracks </span>line
+simple adds a field to the <span 
+class="cmtt-10">par.polish.SAMOSA </span>structure and therefore <span 
+class="cmti-10">must </span>be after the <span 
+class="cmtt-10">par.polish.SAMOSA</span>
+line.
+<!--l. 5150--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">8.18.3   </span> <a 
+ id="x89-1300008.18.3"></a>par.polish.Anvil &amp; par.polish.SemiGloSS</h4>
+<a 
+ id="dx89-130001"></a>
+<a 
+ id="dx89-130002"></a>
+<a 
+ id="dx89-130003"></a>
+<a 
+ id="dx89-130004"></a>
+<!--l. 5156--><p class="noindent" >Like SAMOSA, these polishers require their own setup files. Templates can be found in
+[Qubist_Home]/user/Ferret/templates/polisherTemplates/AnvilSetup_template.m and
+[Qubist_Home]/user/Ferret/templates/polisherTemplates/SemiGloSS_setup_template.m, and the
+corresponding default setup files are in [Qubist_Home]/user/Ferret/defaults. Note that these default files
+are distinct from the default files in [Qubist_Home]/user/Anvil/defaults/defaultAnvilSetup.m and
+[Qubist_Home]/user/SemiGloSS/defaults/defaultSemiGloSS_setup.m, which are called when Anvil and SemiGloSS
+are used as standalone optimizers.
+<!--l. 5162--><p class="noindent" ><span 
+class="colorbox" id="colorbox90"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">par.polish.Anvil=AnvilSetup;</span><br /><span 
+class="cmtt-10">par.polish.SemiGloSS=SemiGloSS_setup;</span></div>
+</div></span>
+<!--l. 5168--><p class="noindent" ><span 
+class="cmtt-10">par.polish.Anvil </span>and <span 
+class="cmtt-10">par.polish.SemiGloSS </span>should be set to call valid setup files if you plan to use these
+optimizers. The same warning applies that I gave in Section <a 
+href="#x89-1290008.18.2">8.18.2<!--tex4ht:ref: sec:par_polish_SAMOSA --></a>: these options must not be set to strings or
+function handles. Rather, these lines are intended to be actual function calls like
+<!--l. 5173--><p class="noindent" ><span 
+class="colorbox" id="colorbox91"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">par.polish.SAMOSA=defaultSAMOSA_setup</span></div>
+</div></span>
+<!--l. 5179--><p class="noindent" >Note that the setup files for Anvil and SemiGloSS specify the number of tracks internally, and you therefore do need
+to add an &#8216;NTracks&#8217; field to your Ferret setup file to use these optimizers as polishers. Once again, I caution that
+SemiGloSS is experimental and frankly just not as good as the other Qubist optimizers yet. I do not recommend its
+use as a polisher for important runs.
+<a 
+ id="dx89-130008"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 5184--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse62.html" >next</a>] [<a 
+href="QubistHTMLse60.html" >prev</a>] [<a 
+href="QubistHTMLse60.html#tailQubistHTMLse60.html" >prev-tail</a>] [<a 
+href="QubistHTMLse61.html" >front</a>] [<a 
+href="QubistHTMLch8.html#QubistHTMLse61.html" >up</a>] </p></div>
+<!--l. 5184--><p class="noindent" ><a 
+ id="tailQubistHTMLse61.html"></a>  
+</body></html> 

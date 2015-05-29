@@ -1,0 +1,6 @@
+Using Discrete Parameters:
+==========================
+
+This example is the same as the example names 'Ring-2D', except that both
+parameters are constrained to a 2-dimensional grid of stepsize 1.  This is
+accomplished by setting 'par.general.discreteStep=1'.

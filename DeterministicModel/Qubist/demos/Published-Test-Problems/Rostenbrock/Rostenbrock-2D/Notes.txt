@@ -1,0 +1,3 @@
+Rostenbrock functions are classic unimodal functions used to test global
+optimization routines.  They have a single minimum inside of a very narrow
+valley.  The solution is f(1,...1)=0.

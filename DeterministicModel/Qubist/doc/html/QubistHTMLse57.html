@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>par.zoom</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 4813--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse58.html" >next</a>] [<a 
+href="QubistHTMLse56.html" >prev</a>] [<a 
+href="QubistHTMLse56.html#tailQubistHTMLse56.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLse57.html">tail</a>] [<a 
+href="QubistHTMLch8.html#QubistHTMLse57.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">8.14   </span> <a 
+ id="x84-1190008.14"></a>par.zoom</h3>
+<a 
+ id="dx84-119001"></a>
+<!--l. 4817--><p class="noindent" >Ferret&#8217;s zooming feature allows a run to automatically zoom in on the optimal set as it is discovered. This is very
+useful because it effectively rescales Ferret&#8217;s internal representation of the parameter space, which makes it easier for
+the niching algorithm to populate the optimal set with solutions, while also increasing the resolution in the console
+display.
+<!--l. 4826--><p class="noindent" ><span 
+class="colorbox" id="colorbox82"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Zooming</span><br /><span 
+class="cmtt-10">par.zoom.NGen=0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer</span><span 
+class="cmtt-10">&#x00A0;&#x003E;=</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Zoom</span><span 
+class="cmtt-10">&#x00A0;control.</span><br /><span 
+class="cmtt-10">par.zoom.safety=0.5;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real,</span><span 
+class="cmtt-10">&#x00A0;usually</span><span 
+class="cmtt-10">&#x00A0;&#x003C;=</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Size</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;buffer</span><span 
+class="cmtt-10">&#x00A0;zone</span><span 
+class="cmtt-10">&#x00A0;around</span><span 
+class="cmtt-10">&#x00A0;optimal</span><span 
+class="cmtt-10">&#x00A0;set.</span><br /><span 
+class="cmtt-10">par.zoom.allowZoomOut=true;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[logical]:</span><span 
+class="cmtt-10">&#x00A0;Is</span><span 
+class="cmtt-10">&#x00A0;zoom-out</span><span 
+class="cmtt-10">&#x00A0;permitted?</span><br /><span 
+class="cmtt-10">par.zoom.maxPower=1e10;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real</span><span 
+class="cmtt-10">&#x00A0;&#x003C;&#x003C;</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Maximum</span><span 
+class="cmtt-10">&#x00A0;zoom</span><span 
+class="cmtt-10">&#x00A0;power.</span></div>
+</div></span>
+<!--l. 4832--><p class="noindent" >Zooming works by determining the maximum and minimum limits of the optimal region of parameter space over the
+past <span 
+class="cmtt-10">par.zoom.NGen </span>generations. Thus, <span 
+class="cmtt-10">par.zoom.NGen </span>also determines the timescale, in generations, on which
+zooming responds to changes in the population. No zooming will occur until at least <span 
+class="cmtt-10">par.zoom.NGen </span>generations
+have passed. Non-optimal solutions may begin to fall outside of the zoomed parameter limits when zooming occurs,
+and out of range parameters are set to a random value within the zoomed range when this occurs.
+Thus, it is best to set <span 
+class="cmtt-10">par.zoom.NGen </span>to at least <span 
+class="cmsy-10">~</span>10 generations (<span 
+class="cmtt-10">par.zoom.NGen=50 </span>by default), so
+that regions of parameter space are not lost due to short-term random fluctuations of the optimal
+set during the search. It is possible for a the zooming feature to zoom out if the boolean parameter
+<span 
+class="cmtt-10">par.zoom.allowZoomOut=true</span>, but it is much better to avoid losing parts of the optimal region due to over-zealous
+zooming in the first place. For each parameter, a safety margin or buffer zone is set on either side of
+the optimal set by <span 
+class="cmtt-10">par.zoom.safety</span>, which is expressed as a fraction of the extent of the optimal
+region (<span 
+class="cmtt-10">par.general.max-par.general.min</span>). Thus, the default value of 0.5 indicates that a 50%
+safety margin, relative to the size of the optimal region in each dimension, should be left on either
+side of the optimal set. <span 
+class="cmtt-10">par.zoom.maxPower </span>sets the maximum zoom power allowed, and is 10<sup><span 
+class="cmr-7">10</span></sup> by
+default.
+<!--l. 4834--><p class="noindent" >The zoom feature pays special attention to parameters designated as cyclic. These parameters must remain cyclic,
+and retain the original mapping from their minimum values to their maximum values. I have taken great care to
+ensure that cyclic parameters are zoomed correctly, especially when the optimal set straddles the dividing line
+between the minimum and maximum value (i.e. the 0/2<span 
+class="cmmi-10">&#x03C0; </span>boundary for angles). When this occurs, Ferret uses the
+cyclic property of the parameter in question to re-map the values internally to a continuous set (i.e. not split
+between the minimum side and the maximum size), approximately centred in the zoomed region. This is very
+important because it allows Ferret to take advantage of the cyclic property of the variable to make the optimal
+set continuous, rather than having part of it near 0 and part near 2<span 
+class="cmmi-10">&#x03C0;</span>. This makes crossovers more
+likely to succeed, because there will be no lethals formed as a result of crossovers between two distinct
+islands of solutions near 0 and 2<span 
+class="cmmi-10">&#x03C0;</span>. It does not matter whether the zoomed region is centred on 0,
+2<span 
+class="cmmi-10">&#x03C0;</span>, or any integer multiple of 2<span 
+class="cmmi-10">&#x03C0; </span>in Ferret&#8217;s internal representation of the parameter because it is
+cyclic.
+<a 
+ id="dx84-119007"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 4837--><p class="noindent" >The console display always re-maps the solutions to the initial range specified by <span 
+class="cmtt-10">par.general.min</span>
+and <span 
+class="cmtt-10">par.general.max </span>(see Section <a 
+href="QubistHTMLse46.html#x71-1020008.3">8.3<!--tex4ht:ref: sec:par_general --></a>), so it may not look like any zooming has actually occurred
+because values near 0 and 2<span 
+class="cmmi-10">&#x03C0; </span>are both still displayed. Cyclic variable are certainly zoomed however. Try
+running the demo called &#8216;Cyclic/Cyclic-Zooming-2D&#8217; for 20 generations or so, analyze it, load the
+History file that is generated, and run the following code on the MATLAB command line to generate a
+plot:
+<!--l. 4844--><p class="noindent" ><span 
+class="colorbox" id="colorbox83"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">&#x003E;&#x003E;</span><span 
+class="cmtt-10">&#x00A0;index=max(find(~cellfun(&#8217;isempty&#8217;,</span><span 
+class="cmtt-10">&#x00A0;History)));</span><br /><span 
+class="cmtt-10">&#x003E;&#x003E;</span><span 
+class="cmtt-10">&#x00A0;X=History{index}.pop{1}.indiv.genome.XPhys;</span><br /><span 
+class="cmtt-10">&#x003E;&#x003E;</span><span 
+class="cmtt-10">&#x00A0;figure(1);</span><span 
+class="cmtt-10">&#x00A0;plot(X(1,:),</span><span 
+class="cmtt-10">&#x00A0;X(2,:),</span><span 
+class="cmtt-10">&#x00A0;&#8217;.&#8217;)</span></div>
+</div></span>
+<!--l. 4850--><p class="noindent" >You should see two distinct circular regions filled with solutions, whose bounds do not coincide with the original
+parameter limits, and the plot will look quite different from the parameter distribution plot shown
+in the Ferret console display. You can also examine the zoomed limits directly by querying the <span 
+class="cmmi-10">par</span>
+structure saved with each cell of the History cell array. This is the output that I obtain when I do
+this:
+<!--l. 4865--><p class="noindent" ><span 
+class="colorbox" id="colorbox84"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">&#x003E;&#x003E;</span><span 
+class="cmtt-10">&#x00A0;History{index}.par.general.min</span><br /><br /><span 
+class="cmtt-10">ans</span><span 
+class="cmtt-10">&#x00A0;=</span><br /><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;1.9917</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;1.0456</span><br /><br /><span 
+class="cmtt-10">&#x003E;&#x003E;</span><span 
+class="cmtt-10">&#x00A0;History{index}.par.general.max</span><br /><br /><span 
+class="cmtt-10">ans</span><span 
+class="cmtt-10">&#x00A0;=</span><br /><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;8.2749</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;7.3288</span></div>
+</div></span>
+<!--l. 4871--><p class="noindent" >Clearly, the upper limit has moved outside of the original limit of 2<span 
+class="cmmi-10">&#x03C0; </span>for both parameters. Solutions are not
+re-mapped to the original range when History files are saved, but are re-mapped during analysis. The solutions
+present in the OptimalSolutions file in <span 
+class="cmtt-10">OptimalSolutions.X</span>, are always in the original range specified by
+<span 
+class="cmtt-10">par.general.min </span>and <span 
+class="cmtt-10">par.general.max</span>.
+<!--l. 4873--><p class="noindent" >Re-mapping solutions to the original range is meant to decrease the confusion that can result from cyclic variables. I
+did not re-map solutions in some earlier versions of Ferret, and this led to a few bug reports that Ferret was
+not respecting the bounds in <span 
+class="cmtt-10">par.general.min </span>and <span 
+class="cmtt-10">par.general.max</span>. Users were responsible for
+doing their own re-mapping, which added an additional complication. For this reason, re-mapping is
+automatic now, and you don&#8217;t have to worry about re-mapping unless you work with the History files
+directly.
+<!--l. 4875--><p class="noindent" >Zooming always respects discrete parameters. The initial discrete values allowed by <span 
+class="cmtt-10">par.general.discreteStep</span>
+(see Section <a 
+href="QubistHTMLse46.html#x71-1020008.3">8.3<!--tex4ht:ref: sec:par_general --></a>) are unaffected by zooming.
+<a 
+ id="dx84-119022"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 4880--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse58.html" >next</a>] [<a 
+href="QubistHTMLse56.html" >prev</a>] [<a 
+href="QubistHTMLse56.html#tailQubistHTMLse56.html" >prev-tail</a>] [<a 
+href="QubistHTMLse57.html" >front</a>] [<a 
+href="QubistHTMLch8.html#QubistHTMLse57.html" >up</a>] </p></div>
+<!--l. 4880--><p class="noindent" ><a 
+ id="tailQubistHTMLse57.html"></a>  
+</body></html> 

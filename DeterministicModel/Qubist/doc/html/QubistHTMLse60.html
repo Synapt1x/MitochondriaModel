@@ -1,0 +1,734 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>par.localOpt</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 4983--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse61.html" >next</a>] [<a 
+href="QubistHTMLse59.html" >prev</a>] [<a 
+href="QubistHTMLse59.html#tailQubistHTMLse59.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLse60.html">tail</a>] [<a 
+href="QubistHTMLch8.html#QubistHTMLse60.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">8.17   </span> <a 
+ id="x88-1260008.17"></a>par.localOpt</h3>
+<a 
+ id="dx88-126001"></a>
+<!--l. 4987--><p class="noindent" >This user&#8217;s guide has stressed the importance of global techniques for parameter search, optimization, and
+data-modeling problems in science, engineering, and other technical disciplines. A section discussing Ferret&#8217;s <span 
+class="cmti-10">local</span>
+optimization features may therefore seem surprising and somewhat out of place. However, it turns out that a genetic
+algorithm like Ferret can benefit tremendously from occasional calls to a local optimizer during a
+run.
+<!--l. 4989--><p class="noindent" >Genetic algorithms are excellent at searching globally, and Ferret contains many features that further improve on
+these search capabilities. However, they are actually quite poor at zeroing in on a solution to high accuracy once the
+approximate location of the global solution has been found. Ferret uses sophisticated evolutionary computing
+techniques to search globally, but can zero in on solutions to high accuracy using a local optimizer. Local
+optimization is used in two places in Ferret - for polishing at the end of a run, as discussed in Section <a 
+href="QubistHTMLse26.html#x43-640004.16">4.16<!--tex4ht:ref: sec:polish --></a> and
+<span 
+class="cmti-10">during </span>the optimization procedure, which is the topic of this section. Calling local optimizers once in a while
+during the run, rather than just at the end, can also sometimes accelerate the convergence of the run
+substantially.
+<a 
+ id="dx88-126002"></a>
+<!--l. 4992--><p class="noindent" >MATLAB contains a good local optimizer called fminsearch, which is a modified version of the popular Nelder-Mead
+simplex algorithm. The fminsearch function is Ferret&#8217;s default local optimizer for single-objective problems, but it
+cannot be used for multi-objective problems. The Qubist package contains a multi-objective simplex algorithm
+called SAMOSA (Simple Approach to a Multi-Objective Simplex Algorithm), which Ferret uses for the local
+optimization step when running multi-objective problems. Neither of these optimizers use any gradient information,
+which makes them fairly robust on noisy problems or problems where it is difficult to compute the
+gradient.
+<!--l. 5035--><p class="noindent" ><span 
+class="colorbox" id="colorbox87"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">par.localOpt.startGen=Inf;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer]:</span><span 
+class="cmtt-10">&#x00A0;First</span><span 
+class="cmtt-10">&#x00A0;generation</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;local</span><span 
+class="cmtt-10">&#x00A0;optimization.</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML72x.png" alt="`&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;(Inf</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;NaN</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;no</span><span 
+class="cmtt-10">&#x00A0;set</span><span 
+class="cmtt-10">&#x00A0;start</span><span 
+class="cmtt-10">&#x00A0;generation)</span><br /><span 
+class="cmtt-10">par.localOpt.startF=NaN;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real]:</span><span 
+class="cmtt-10">&#x00A0;Trigger</span><span 
+class="cmtt-10">&#x00A0;local</span><span 
+class="cmtt-10">&#x00A0;optimization</span><span 
+class="cmtt-10">&#x00A0;when</span><span 
+class="cmtt-10">&#x00A0;fitness</span><span 
+class="cmtt-10">&#x00A0;falls</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML73x.png" alt="                                                                                                                               `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;below</span><span 
+class="cmtt-10">&#x00A0;some</span><span 
+class="cmtt-10">&#x00A0;value.</span><span 
+class="cmtt-10">&#x00A0;(NaN</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;no</span><span 
+class="cmtt-10">&#x00A0;trigger)</span><br /><span 
+class="cmtt-10">par.localOpt.convergeWindow=50;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer</span><span 
+class="cmtt-10">&#x00A0;&#x003E;</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;The</span><span 
+class="cmtt-10">&#x00A0;length</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;window</span><span 
+class="cmtt-10">&#x00A0;(in</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML74x.png" alt="                                                                                                                                                                                                                                                                `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;generations)</span><span 
+class="cmtt-10">&#x00A0;used</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;monitor</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;convergence.</span><br /><span 
+class="cmtt-10">par.localOpt.startFTol=0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real]:</span><span 
+class="cmtt-10">&#x00A0;Trigger</span><span 
+class="cmtt-10">&#x00A0;local</span><span 
+class="cmtt-10">&#x00A0;optimization</span><span 
+class="cmtt-10">&#x00A0;when</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;change</span><span 
+class="cmtt-10">&#x00A0;in</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML75x.png" alt="                                                                                                                                                                                                                                                                                                                                                                                                             `&#"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;fitness</span><span 
+class="cmtt-10">&#x00A0;drops</span><span 
+class="cmtt-10">&#x00A0;below</span><span 
+class="cmtt-10">&#x00A0;this</span><span 
+class="cmtt-10">&#x00A0;value</span><span 
+class="cmtt-10">&#x00A0;(single-objective</span><span 
+class="cmtt-10">&#x00A0;only).</span><br /><span 
+class="cmtt-10">par.localOpt.startWhenConverged=false;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[logical]:</span><span 
+class="cmtt-10">&#x00A0;Trigger</span><span 
+class="cmtt-10">&#x00A0;local</span><span 
+class="cmtt-10">&#x00A0;optimization</span><span 
+class="cmtt-10">&#x00A0;when</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML76x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;population</span><span 
+class="cmtt-10">&#x00A0;appears</span><span 
+class="cmtt-10">&#x00A0;converged.</span><br /><span 
+class="cmtt-10">par.localOpt.POptimizeOnImprovement=0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Probability</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;optimization</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML77x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;after</span><span 
+class="cmtt-10">&#x00A0;improvement</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;best</span><span 
+class="cmtt-10">&#x00A0;solution.</span><br /><span 
+class="cmtt-10">par.localOpt.POptimizeOnNoImprovement=0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Probability</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;optimization</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML78x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;after</span><span 
+class="cmtt-10">&#x00A0;no</span><span 
+class="cmtt-10">&#x00A0;improvement</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;best</span><span 
+class="cmtt-10">&#x00A0;solution.</span><br /><span 
+class="cmtt-10">par.localOpt.maxFEval=1000;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer]:</span><span 
+class="cmtt-10">&#x00A0;Maximum</span><span 
+class="cmtt-10">&#x00A0;number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;evaluations</span><span 
+class="cmtt-10">&#x00A0;allowed</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML79x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;each</span><span 
+class="cmtt-10">&#x00A0;local</span><span 
+class="cmtt-10">&#x00A0;optimization.</span><br /><span 
+class="cmtt-10">par.localOpt.tolX=1e-6;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real</span><span 
+class="cmtt-10">&#x00A0;&#x003E;</span><span 
+class="cmtt-10">&#x00A0;0,</span><span 
+class="cmtt-10">&#x00A0;usually</span><span 
+class="cmtt-10">&#x00A0;small]:</span><span 
+class="cmtt-10">&#x00A0;Tolerance</span><span 
+class="cmtt-10">&#x00A0;in</span><span 
+class="cmtt-10">&#x00A0;X</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;local</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML80x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;optimization.</span><br /><span 
+class="cmtt-10">par.localOpt.tolF=1e-6;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real</span><span 
+class="cmtt-10">&#x00A0;&#x003E;</span><span 
+class="cmtt-10">&#x00A0;0,</span><span 
+class="cmtt-10">&#x00A0;usually</span><span 
+class="cmtt-10">&#x00A0;small]:</span><span 
+class="cmtt-10">&#x00A0;Tolerance</span><span 
+class="cmtt-10">&#x00A0;in</span><span 
+class="cmtt-10">&#x00A0;F</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;local</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML81x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;optimization.</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;------------------------------------</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Selection</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;optimals</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;undergo</span><span 
+class="cmtt-10">&#x00A0;local</span><span 
+class="cmtt-10">&#x00A0;optimization:</span><span 
+class="cmtt-10">&#x00A0;The</span><span 
+class="cmtt-10">&#x00A0;most</span><span 
+class="cmtt-10">&#x00A0;*restrictive*</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML82x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;these</span><span 
+class="cmtt-10">&#x00A0;2</span><span 
+class="cmtt-10">&#x00A0;criteria</span><span 
+class="cmtt-10">&#x00A0;are</span><span 
+class="cmtt-10">&#x00A0;used:</span><span 
+class="cmtt-10">&#x00A0;i.e</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;one</span><span 
+class="cmtt-10">&#x00A0;that</span><span 
+class="cmtt-10">&#x00A0;yields</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;fewest</span><span 
+class="cmtt-10">&#x00A0;optimals.</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;Each</span><span 
+class="cmtt-10">&#x00A0;time</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;local</span><span 
+class="cmtt-10">&#x00A0;optimizer</span><span 
+class="cmtt-10">&#x00A0;is</span><span 
+class="cmtt-10">&#x00A0;called,</span><span 
+class="cmtt-10">&#x00A0;select</span><span 
+class="cmtt-10">&#x00A0;a</span><span 
+class="cmtt-10">&#x00A0;fraction</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML83x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;par.localOpt.frac</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;solutions</span><span 
+class="cmtt-10">&#x00A0;in</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;current</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;optimal</span><span 
+class="cmtt-10">&#x00A0;set</span><span 
+class="cmtt-10">&#x00A0;(i.e.</span><span 
+class="cmtt-10">&#x00A0;within</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;fuzzy</span><span 
+class="cmtt-10">&#x00A0;tolerance</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;best</span><span 
+class="cmtt-10">&#x00A0;solution</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;single</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML84x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;objective</span><span 
+class="cmtt-10">&#x00A0;problems,</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;solutions</span><span 
+class="cmtt-10">&#x00A0;on</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;Pareto</span><span 
+class="cmtt-10">&#x00A0;front</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;multi-objective</span><span 
+class="cmtt-10">&#x00A0;problems)</span><span 
+class="cmtt-10">&#x00A0;UP</span><span 
+class="cmtt-10">&#x00A0;TO</span><span 
+class="cmtt-10">&#x00A0;a</span><span 
+class="cmtt-10">&#x00A0;maximum</span><span 
+class="cmtt-10">&#x00A0;number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;optimals</span><span 
+class="cmtt-10">&#x00A0;equal</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML85x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;par.localOpt.maxNOptimals.</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">par.localOpt.frac=NaN;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Fraction</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;optimals</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;undergo</span><span 
+class="cmtt-10">&#x00A0;local</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML86x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;optimization.</span><span 
+class="cmtt-10">&#x00A0;NaN</span><span 
+class="cmtt-10">&#x00A0;defaults</span><span 
+class="cmtt-10">&#x00A0;value</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;a</span><span 
+class="cmtt-10">&#x00A0;single</span><span 
+class="cmtt-10">&#x00A0;optimal</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;single-objective</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML87x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;problems,</span><span 
+class="cmtt-10">&#x00A0;and</span><span 
+class="cmtt-10">&#x00A0;all</span><span 
+class="cmtt-10">&#x00A0;optimals</span><span 
+class="cmtt-10">&#x00A0;on</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;Pareto</span><span 
+class="cmtt-10">&#x00A0;front</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;multi-objective</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML88x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;problems.</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;At</span><span 
+class="cmtt-10">&#x00A0;least</span><span 
+class="cmtt-10">&#x00A0;one</span><span 
+class="cmtt-10">&#x00A0;optimal</span><span 
+class="cmtt-10">&#x00A0;is</span><span 
+class="cmtt-10">&#x00A0;chosen.</span><br /><span 
+class="cmtt-10">par.localOpt.maxNOptimals=NaN;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer</span><span 
+class="cmtt-10">&#x00A0;&#x003E;=</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Maximum</span><span 
+class="cmtt-10">&#x00A0;number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;optimals</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML89x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;undergo</span><span 
+class="cmtt-10">&#x00A0;local</span><span 
+class="cmtt-10">&#x00A0;optimization.</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;NaN</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;Inf</span><span 
+class="cmtt-10">&#x00A0;means</span><span 
+class="cmtt-10">&#x00A0;that</span><span 
+class="cmtt-10">&#x00A0;no</span><span 
+class="cmtt-10">&#x00A0;additional</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML90x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;filtering</span><span 
+class="cmtt-10">&#x00A0;will</span><span 
+class="cmtt-10">&#x00A0;be</span><span 
+class="cmtt-10">&#x00A0;done</span><span 
+class="cmtt-10">&#x00A0;--</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;entire</span><span 
+class="cmtt-10">&#x00A0;fraction</span><span 
+class="cmtt-10">&#x00A0;selected</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML91x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;(par.localOpt.frac)</span><span 
+class="cmtt-10">&#x00A0;will</span><span 
+class="cmtt-10">&#x00A0;be</span><span 
+class="cmtt-10">&#x00A0;used.</span></div>
+</div></span>
+<!--l. 5041--><p class="noindent" >Local optimization is not usually useful at the beginning of a run, when the emphasis should be on exploring the
+space with the genetic algorithm, rather than improving the accuracy of individual solutions. Local optimization is
+triggered probabilistically, but will not begin until <span 
+class="cmtt-10">par.localOpt.startGen</span>. Setting <span 
+class="cmmi-10">startGen </span>= <span 
+class="cmmi-10">Inf </span>or
+<span 
+class="cmmi-10">startGen </span>= <span 
+class="cmmi-10">NaN </span>turns off local optimization.
+<!--l. 5043--><p class="noindent" >When local optimization step is triggered, Ferret randomly chooses a fraction of the current optimal set
+approximately equal to <span 
+class="cmtt-10">par.localOpt.frac </span>for local optimization. <span 
+class="cmtt-10">par.localOpt.frac </span>should be a real number
+between 0 and 1, or <span 
+class="cmmi-10">NaN</span>, which indicates that Ferret should always choose a single solution for single-objective
+problems, or the entire optimal set for multi-objective problems. The number of solutions chosen will be
+limited to <span 
+class="cmtt-10">par.localOpt.maxNOptimals</span>, which should be an integer less than or equal to the size of the
+population (<span 
+class="cmtt-10">par.general.popSize</span>), or either <span 
+class="cmmi-10">Inf </span>or <span 
+class="cmmi-10">NaN</span>. Both of these special values signal that there
+is no additional limit on the absolute number of solutions imposed on top of the optimal solution
+                                                                                         
+
+                                                                                         
+fraction <span 
+class="cmtt-10">par.localOpt.frac</span>. <span 
+class="cmti-10">At least one solution will be chosen, even if </span><span 
+class="cmtt-10">par.localOpt.frac=0 </span><span 
+class="cmti-10">or</span>
+<span 
+class="cmtt-10">par.localOpt.maxNOptimals=0</span><span 
+class="cmti-10">; you should therefore set </span><span 
+class="cmtt-10">par.localOpt.startGen=Inf </span><span 
+class="cmti-10">if you don&#8217;t want to use</span>
+<span 
+class="cmti-10">local optimization.</span>
+<a 
+ id="dx88-126042"></a>
+<!--l. 5046--><p class="noindent" >Each of the solutions chosen will be the starting point for local optimization, and will be replaced by the improved
+solution returned by the local optimizer when it finishes. In my experience, it is usually sufficient to optimize a
+single solution for single-objective problems, or about 10% of the optimal set for multi-objective problems. My
+advice is to not be too greedy with the local optimizer. It can be helpful if used in moderation, but remember that
+Ferret is first and foremost a genetic algorithm, which is vastly more powerful than a local optimizer, and too much
+local optimization too early on in a run will thwart Ferret&#8217;s global search. The local optimization step is also quite
+expensive in terms of the number of function evaluations required. You should therefore use local optimization
+sparingly and rely on the genetic algorithm to propagate solutions improved by local optimization
+through the population via crossover and selection. Your setup file should reflect this emphasis on global
+optimization by the genetic algorithm, rather than locally optimizing a large fraction of the population each
+generation.
+<!--l. 5048--><p class="noindent" >It is extremely important to allow the population time to settle into the rough location of the optimal region before
+starting local optimization, because the population could converge to a local minimum if the local optimization
+starts too early in the run. Thus, a robust triggering mechanism is required for local optimization to prevent
+premature convergence problems. The user can set four different triggers in Ferret. Note that the <span 
+class="cmti-10">first</span>
+trigger to activate enables local optimization, which remains enabled for the remainder of the run. Local
+optimization will start probabilistically from that generation onward. The local optimization triggers are as
+follows:
+<!--l. 5050--><p class="noindent" >
+     <ol  class="enumerate1" >
+     <li 
+  class="enumerate" id="x88-126044x1">
+     User-specified
+     start
+     generation:
+     The
+     user
+     can
+     specify
+     by
+     hand
+     when
+     local
+     optimization
+     should
+     start.
+     This
+     is
+     done
+     by
+     setting
+     <span 
+class="cmtt-10">par.localOpt.startGen</span>
+                                                                                         
+
+                                                                                         
+     to
+     the
+     required
+     generation
+     number.
+     Setting
+     <span 
+class="cmmi-10">startGen</span>
+     to
+     <span 
+class="cmmi-10">NaN</span>
+     or
+     <span 
+class="cmmi-10">Inf</span>
+     deactivates
+     this
+     trigger.
+     </li>
+     <li 
+  class="enumerate" id="x88-126046x2">
+     Fitness
+     threshold:
+     Setting
+     <span 
+class="cmtt-10">par.localOpt.startF</span>
+     will
+     cause
+     local
+     optimization
+     to
+     begin
+     when
+     the
+     minimum
+     fitness
+     value
+     reaches
+     this
+     requested
+     value.
+     </li>
+     <li 
+  class="enumerate" id="x88-126048x3">
+     Fitness
+     convergence:
+     In
+     addition
+     to
+     a
+     fitness
+     threshold,
+                                                                                         
+
+                                                                                         
+     the
+     user
+     can
+     also
+     set
+     a
+     fitness
+     tolerance
+     to
+     trigger
+     the
+     local
+     optimizer.
+     Local
+     optimization
+     will
+     begin
+     when
+     the
+     minimum
+     fitness
+     value
+     has
+     not
+     varied
+     by
+     more
+     than
+     <span 
+class="cmtt-10">par.localOpt.startFTol</span>
+     over
+     the
+     past
+     <span 
+class="cmtt-10">par.localOpt.convergeWindow</span>
+     generations.
+     </li>
+     <li 
+  class="enumerate" id="x88-126050x4">
+     Population
+     convergence:
+     Section
+     <a 
+href="QubistHTMLse22.html#x38-570004.12">4.12<!--tex4ht:ref: sec:figures --></a>
+     offered
+     some
+     insight
+     into
+     how
+     a
+                                                                                         
+
+                                                                                         
+     run
+     converges.
+     The
+     goal
+     is
+     to
+     map
+     out
+     the
+     optimal
+     region
+     of
+     parameter
+     space
+     for
+     multi-objective
+     problems
+     or
+     fuzzy
+     single-objective
+     problems
+     (see
+     Sections
+     <a 
+href="QubistHTMLse1.html#x7-70002.1">2.1<!--tex4ht:ref: sec:MOO --></a>
+     and
+     <a 
+href="QubistHTMLse31.html#x50-740005.1">5.1<!--tex4ht:ref: sec:binaries --></a>).
+     The
+     number
+     of
+     optimal
+     solutions
+     rises
+     quickly
+     and
+     levels
+     off
+     when
+     this
+     region
+     is
+     found.
+     When
+     <span 
+class="cmtt-10">par.localOpt.startWhenConverged=true</span>,
+     Ferret
+     monitors
+     the
+     population
+     over
+                                                                                         
+
+                                                                                         
+     the
+     past
+     <span 
+class="cmtt-10">par.localOpt.convergeWindow</span>
+     generations
+     and
+     looks
+     for
+     this
+     behaviour
+     as
+     a
+     signal
+     of
+     convergence.</li></ol>
+<!--l. 5057--><p class="noindent" >Once enabled, local optimization is controlled by two probabilities: <span 
+class="cmtt-10">par.localOpt.POptimizeOnImprovement </span>and
+<span 
+class="cmtt-10">par.localOpt.POptimizeOnNoImprovement</span>. The <span 
+class="cmtt-10">par.localOpt.POptimizeOnImprovement </span>control parameter
+determines the probability that the local optimizer will be called in a given generation when there has
+been an improvement in the fitness, in a Pareto-optimal sense, from the previous generation. Likewise,
+<span 
+class="cmtt-10">par.localOpt.POptimizeOnNoImprovement </span>controls the probability of local optimization when no improvement has
+been detected. Both of these parameters should be set to a value between 0 and 1. In practice, the
+main difference between these two control parameters is that calls to the local optimizer triggered by
+<span 
+class="cmmi-10">POptimizeOnImprovement &#x003E; </span>0 will generally occur less frequently (or not at all) late in the run, when
+improvements to the fitness become rare. This differs from <span 
+class="cmmi-10">POptimizeOnNoImprovement &#x003E; </span>0, which will cause the
+local optimizer to be called at about the same rate throughout the run. I have set both to a value of 0.05 by default,
+which causes local optimization to occur about every 20 generations for the entire duration of the
+run, after one of the triggers discussed above have been activated. Local optimization should be used
+sparingly to avoid premature convergence, and I do not recommend values that are much higher than the
+defaults.
+<a 
+ id="dx88-126051"></a>
+<!--l. 5060--><p class="noindent" >Ferret allows you to limit the computational cost of each local optimization by specifying the maximum number of
+fitness function evaluations allowed. This is done by assigning an integer value the control parameter
+<span 
+class="cmtt-10">par.localOpt.maxFEval</span>, which is set to a default value of 1000. It is possible to do local optimization without
+evaluation limits by setting <span 
+class="cmtt-10">par.localOpt.maxFEval=NaN </span>or <span 
+class="cmmi-10">Inf</span>, but I strongly caution against doing this because
+it is unnecessary, inefficient, and contrary to Ferret&#8217;s design philosophy, which emphasizes global optimization.
+To state this more bluntly, why use an advanced genetic algorithm if you are going to spend most
+of your precious CPU time on local optimization?  As I stated above, local optimization should be
+used <span 
+class="cmti-10">sparingly</span>. The reason for allowing local optimization during the run, as opposed to just polishing
+solutions at the end, is to use local information to slightly <span 
+class="cmti-10">nudge </span>the population toward improvement,
+but <span 
+class="cmti-10">without overpowering the evolutionary search</span>. It is also possible to set the desired accuracy for
+local optimization by setting absolute tolerances for fitness and the parameters by assigning values
+to <span 
+class="cmtt-10">par.localOpt.tolX </span>and <span 
+class="cmtt-10">par.localOpt.tolF</span>, which are both set to 10<sup><span 
+class="cmsy-7">-</span><span 
+class="cmr-7">6</span></sup> by default. Each local
+optimization will stop when the maximum number of evaluations is reached or one of the tolerances is
+achieved.
+<a 
+ id="dx88-126052"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 5065--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse61.html" >next</a>] [<a 
+href="QubistHTMLse59.html" >prev</a>] [<a 
+href="QubistHTMLse59.html#tailQubistHTMLse59.html" >prev-tail</a>] [<a 
+href="QubistHTMLse60.html" >front</a>] [<a 
+href="QubistHTMLch8.html#QubistHTMLse60.html" >up</a>] </p></div>
+<!--l. 5065--><p class="noindent" ><a 
+ id="tailQubistHTMLse60.html"></a>  
+</body></html> 
