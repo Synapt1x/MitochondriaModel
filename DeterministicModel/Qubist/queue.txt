@@ -75,5 +75,3 @@ par.general.popSize = 42
 dataDir = 'FerretData_SB'
 code = Ferret
 NWorkers = 8
-
-%Test line
