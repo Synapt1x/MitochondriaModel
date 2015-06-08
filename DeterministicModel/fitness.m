@@ -16,8 +16,10 @@ for n=length(X):-1:1
     end
     
     %call ode to solve the system of equations for this solver
-    [t y] = ode23t(@decoupled_derivative_system,parameters.time_points, ...
+    tic
+    [t y] = ode45(@decoupled_derivative_system,parameters.time_points, ...
         parameters.initial_conditions,[],parameters);
+    toc
     
     evaluations = y(:,2); %evaluated data for o2
     evaluatedOCR = -F_kinetic(y(7,1),y(7,2),y(7,3),parameters);%evaluated data for OCR
