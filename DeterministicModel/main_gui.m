@@ -73,7 +73,7 @@ varargout{1} = handles.output;
 function optimize_Callback(hObject, eventdata, handles) %optimize button
 
 %run Qubist for optimization
-run('/home/synapt1x/Dropbox/Qubist/Qubist/Qubist/launchQubist.m');
+launchQubist
 
 %change the parameter values in the model to the ones found by the GA
 % best_params = num2cell(best_params);
@@ -85,7 +85,7 @@ run('/home/synapt1x/Dropbox/Qubist/Qubist/Qubist/launchQubist.m');
 function plot_Callback(hObject, eventdata, handles) %plot button in gui
 
 %plug in the equations into the ode solver
-[t y] = ode23t(@decoupled_derivative_system,handles.parameters.t_span, ...
+[t y] = ode45(@decoupled_derivative_system,handles.parameters.t_span, ...
 handles.parameters.initial_conditions,[],handles.parameters);
 
 %store the values calculated for each variable
