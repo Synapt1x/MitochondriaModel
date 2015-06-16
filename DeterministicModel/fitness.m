@@ -16,11 +16,12 @@ for n=length(X):-1:1
     end
         
     %call ode to solve the system of equations for this solver
-    [t y] = ode23t(@decoupled_derivative_system,parameters.time_points, ...
+    [t, y] = ode23t(@decoupled_derivative_system2,parameters.time_points, ...
         parameters.initial_conditions,[],parameters);
     
     evaluations = y(:,2); %evaluated data for o2
-    evaluatedOCR = -F_kinetic(y(7,1),y(7,2),y(7,3),parameters);%evaluated data for OCR
+    evaluatedOCR = -mean(((parameters.Vmax.*y(:,2))./(parameters.Km.*...
+        (1+(y(1)./parameters.K1))+y(:,2))).*y(:,3));%evaluated data for OCR
     
     realo2Data = parameters.realData(:,end); %replicate actual o2 data
     realOCR = parameters.realOCR(:,end); %replicate actual OCR measurement
