@@ -85,7 +85,7 @@ launchQubist
 function plot_Callback(hObject, eventdata, handles) %plot button in gui
 
 %plug in the equations into the ode solver
-[t y] = ode45(@decoupled_derivative_system,handles.parameters.t_span, ...
+[t y] = ode23t(@decoupled_derivative_system,handles.parameters.time_points, ...
 handles.parameters.initial_conditions,[],handles.parameters);
 
 %store the values calculated for each variable
