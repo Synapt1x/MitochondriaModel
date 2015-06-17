@@ -93,20 +93,21 @@ handles.parameters.initial_conditions,[],handles.parameters);
 [cytcred o2 Hn Hp] = deal(y(:,1),y(:,2),y(:,3),y(:,4));
 
 %calculate the OCR values from the oxygen
-ocr_values = F_kinetic(cytcred,o2,Hn,handles.parameters);
+ocr_values = -((handles.parameters.Vmax.*o2)./(handles.parameters.Km.*...
+        (1+(handles.parameters.K1./cytcred))+o2)).*Hn;
 %note the negative is omitted here for graphical representation
 
 %plot the Cyt c concentration over time
-plot(handles.Cytc_plot,t(find(t>10):end),cytcred(find(t>10):end));
+plot(handles.Cytc_plot,t,cytcred);
 
 %plot the Cyt c rate of appearance over time
-plot(handles.Cytc_rate_plot,t(find(t>10):end),gradient(cytcred(find(t>10):end)));
+plot(handles.Cytc_rate_plot,t,gradient(cytcred));
 
 %plot the O2 concentration over time
-plot(handles.O2_plot,t(find(t>10):end),o2(find(t>10):end));
+plot(handles.O2_plot,t,o2);
 
 %plot the OCR over time
-plot(handles.OCR_plot,t(find(t>10):end),ocr_values(find(t>10):end));
+plot(handles.OCR_plot,t,ocr_values);
 
 %plot the Hn concentration over time
 plot(handles.H_N_plot,t,Hn);

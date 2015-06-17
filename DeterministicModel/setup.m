@@ -13,14 +13,14 @@ parameters.realOCR = -parameters.allData{3,2}(:,end); %baseline ocr data from in
 parameters.realData(:,1) = parameters.realData(:,1)*60;
 
 %parameter values
-parameters.Vmax = 0.1; %bounds: [0.1 1E4]
-parameters.K1 = 0.1; %bounds: [0.1 1E4]
-parameters.Km = 0.1; %bounds: [0.1 1E4]
-parameters.p1 = 17.7405; %bounds: [1 1E4]
-parameters.p2 = 1284.6859; %bounds: [1 1E4]
-parameters.p3 = 1.447E-6; %bounds: [1E-6 1]
-parameters.f0 = 1E-4; %bounds: [1 1E4]
-parameters.Dh = 3.2097E-6; %bounds: [1E-6 1]
+parameters.Vmax =2825.4; %bounds: [0.1 1E4]
+parameters.K1 = 1495; %bounds: [0.1 1E4]
+parameters.Km = 2096.1; %bounds: [0.1 1E4]
+parameters.p1 = 40.5013; %bounds: [1 1E4]
+parameters.p2 = 1477.4; %bounds: [1 1E4]
+parameters.p3 = 1.415e-5; %bounds: [1E-6 1]
+parameters.f0 = 1.1797; %bounds: [1 1E4]
+parameters.Dh = 2.4025e-7; %bounds: [1E-6 1]
 
 %initial conditions
 parameters.Cytcox = 100;
