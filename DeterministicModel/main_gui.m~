@@ -45,9 +45,9 @@ handles.output = hObject;
 handles.parameters = varargin{1};
 
 %store all graph handles in the handles structure as an array
-[handles.graphs{1:8}] = deal(handles.Cytc_plot,handles.Cytc_rate_plot,...
+[handles.graphs{1:7}] = deal(handles.Cytc_plot,handles.Cytc_rate_plot,...
     handles.O2_plot,handles.OCR_plot,handles.H_N_plot,...
-    handles.H_N_rate_plot,handles.H_P_plot,handles.H_P_rate_plot);
+    handles.H_P_plot,handles.protons);
 
 %label the axes for all graphs
 graph_label(handles);
@@ -59,6 +59,7 @@ set(handles.K_m_edit,'String',handles.parameters.Km);
 set(handles.p1_edit,'String',handles.parameters.p1);
 set(handles.p2_edit,'String',handles.parameters.p2);
 set(handles.p3_edit,'String',handles.parameters.p3);
+set(handles.f0_edit,'String',handles.parameters.f0);
 set(handles.Dh_edit,'String',handles.parameters.Dh);
 
 % Update handles structure
@@ -96,16 +97,16 @@ ocr_values = F_kinetic(cytcred,o2,Hn,handles.parameters);
 %note the negative is omitted here for graphical representation
 
 %plot the Cyt c concentration over time
-plot(handles.Cytc_plot,t(find(t>10):end),cytcred(find(t>10):end));
+plot(handles.Cytc_plot,t,cytcred);
 
 %plot the Cyt c rate of appearance over time
-plot(handles.Cytc_rate_plot,t(find(t>10):end),gradient(cytcred(find(t>10):end)));
+plot(handles.Cytc_rate_plot,t,gradient(cytcred));
 
 %plot the O2 concentration over time
-plot(handles.O2_plot,t(find(t>10):end),o2(find(t>10):end));
+plot(handles.O2_plot,t,o2);
 
 %plot the OCR over time
-plot(handles.OCR_plot,t(find(t>10):end),ocr_values(find(t>10):end));
+plot(handles.OCR_plot,t,ocr_values);
 
 %plot the Hn concentration over time
 plot(handles.H_N_plot,t,Hn);
@@ -113,8 +114,10 @@ plot(handles.H_N_plot,t,Hn);
 %plot the Hp concentration over time
 plot(handles.H_P_plot,t,Hp);
 
+totProt = Hn+Hp; %calc total amount of protons
+
 %plot the Hp rate of appearance over time
-plot(handles.H_P_rate_plot,t,gradient(Hp));
+plot(handles.protons,t,totProt);
 
 %update all the graph axes
 graph_label(handles);
@@ -169,6 +172,14 @@ newp3 = str2double(get(hObject, 'String'));
 
 %update the model with this new value
 handles.parameters.p3 = newp3;
+guidata(hObject,handles);
+
+function f0_edit_Callback(hObject, eventdata, handles)
+%extract the new value input by the user
+newf0 = str2double(get(hObject, 'String'));
+
+%update the model with this new value
+handles.parameters.f0 = newf0;
 guidata(hObject,handles);
 
 function Dh_edit_Callback(hObject, eventdata, handles)

@@ -21,7 +21,7 @@ for n=length(X):-1:1
     
     evaluations = y(:,2); %evaluated data for o2
     evaluatedOCR = -mean(((parameters.Vmax.*y(:,2))./(parameters.Km.*...
-        (1+(y(1)./parameters.K1))+y(:,2))).*y(:,3));%evaluated data for OCR
+        (1+(parameters.K1./y(1)))+y(:,2))).*y(:,3));%evaluated data for OCR
     
     realo2Data = parameters.realData(:,end); %replicate actual o2 data
     realOCR = parameters.realOCR(:,end); %replicate actual OCR measurement
