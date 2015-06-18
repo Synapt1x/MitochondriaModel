@@ -105,9 +105,12 @@ plot(handles.Cytc_rate_plot,t,gradient(cytcred));
 
 %plot the O2 concentration over time
 plot(handles.O2_plot,t,o2);
+<<<<<<< HEAD
 hold on
 plot(handles.O2_plot,t,handles.parameters.realData);
 hold off
+=======
+>>>>>>> 2891f977fd8d61f75fa85ba6df72e147f18e07d4
 
 %plot the OCR over time
 plot(handles.OCR_plot,t,ocr_values);
