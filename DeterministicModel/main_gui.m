@@ -86,33 +86,36 @@ launchQubist
 function plot_Callback(hObject, eventdata, handles) %plot button in gui
 
 %plug in the equations into the ode solver
-[t y] = ode23t(@decoupled_derivative_system,handles.parameters.time_points, ...
+[t y] = ode23t(@decoupled_derivative_system2,handles.parameters.time_points, ...
 handles.parameters.initial_conditions,[],handles.parameters);
 
 %store the values calculated for each variable
 [cytcred o2 Hn Hp] = deal(y(:,1),y(:,2),y(:,3),y(:,4));
 
 %calculate the OCR values from the oxygen
-ocr_values = F_kinetic(cytcred,o2,Hn,handles.parameters);
+ocr_values = -((handles.parameters.Vmax.*o2)./(handles.parameters.Km.*...
+        (1+(handles.parameters.K1./cytcred))+o2)).*Hn;
 %note the negative is omitted here for graphical representation
 
 %plot the Cyt c concentration over time
-plot(handles.Cytc_plot,t(find(t>10):end),cytcred(find(t>10):end));
+plot(handles.Cytc_plot,t,cytcred);
 
 %plot the Cyt c rate of appearance over time
-plot(handles.Cytc_rate_plot,t(find(t>10):end),gradient(cytcred(find(t>10):end)));
+plot(handles.Cytc_rate_plot,t,gradient(cytcred));
 
 %plot the O2 concentration over time
-plot(handles.O2_plot,t(find(t>10):end),o2(find(t>10):end));
+plot(handles.O2_plot,t,o2);
+plot(handles.H_N_plot,t,handles.parameters.realData(:,2),'g');
 
 %plot the OCR over time
-plot(handles.OCR_plot,t(find(t>10):end),ocr_values(find(t>10):end));
+plot(handles.OCR_plot,t,ocr_values);
+plot(handles.H_P_plot,t,repmat(handles.parameters.realOCR,size(t)),'g');
 
 %plot the Hn concentration over time
-plot(handles.H_N_plot,t,Hn);
+% plot(handles.H_N_plot,t,Hn);
 
 %plot the Hp concentration over time
-plot(handles.H_P_plot,t,Hp);
+% plot(handles.H_P_plot,t,Hp);
 
 totProt = Hn+Hp; %calc total amount of protons
 
