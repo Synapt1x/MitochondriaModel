@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>The Setup File</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 1725--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse18.html" >next</a>] [<a 
+href="QubistHTMLse16.html" >prev</a>] [<a 
+href="QubistHTMLse16.html#tailQubistHTMLse16.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLse17.html">tail</a>] [<a 
+href="QubistHTMLch4.html#QubistHTMLse17.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">4.7   </span> <a 
+ id="x32-460004.7"></a>The Setup File</h3>
+<a 
+ id="dx32-46001"></a>
+<a 
+ id="dx32-46002"></a>
+<a 
+ id="dx32-46003"></a>
+<a 
+ id="dx32-46004"></a>
+<!--l. 1732--><p class="noindent" >The projects<span 
+class="cmsy-10">{</span><span 
+class="cmmi-10">n</span><span 
+class="cmsy-10">}</span>.setup line of the launch file (see Section <a 
+href="QubistHTMLse14.html#x28-360004.4">4.4<!--tex4ht:ref: sec:projects --></a>) gives the name of the setup file that contains all of the
+control parameters for Ferret. If this field is absent from the launch file, then it defaults to the name
+&#8216;FerretSetup.m&#8217;. The setup file must be located in the specified project directory. There are templates for the
+FerretSetup file in the directory [Qubist_Home]/user/Ferret/templates, and examples in each of the demo
+directories. Setup files can become quite complex because Ferret can be configured with many options, as seen in the
+templates. In practice, they are usually much shorter and simpler than the templates because the user does not have
+to specify every field. Any field takes on a default value from the &#8216;defaultFerretSetup.m&#8217; file if it is omitted
+from the setup file, and these defaults are usually sensible for most projects. It is a good practice to
+make your setup files as simple as possible by including only the lines that you really need to modify
+from the defaults, and just leaving the rest out. When I write a setup file, I normally just copy one
+from a demo that I think is similar to my real problem and modify it. This can save considerable
+time.
+<!--l. 1734--><p class="noindent" >The defaultFerretSetup.m file is located in the [Qubist_Home]/user/Ferret/defaults directory and can be modified
+by users. This should only be done by advanced users, however, since modifying the default values could have
+far-reaching consequences for all of your projects, and anyone else using the same Qubist distribution. Generally, it
+is a much better idea to change fields in your project-specific setup file. The setup file is discussed at length in
+Chapter <a 
+href="QubistHTMLch8.html#x67-990008">8<!--tex4ht:ref: ch:FerretSetup --></a>.
+<a 
+ id="dx32-46005"></a>
+<!--l. 1737--><p class="noindent" >It is possible to view your setup file from either the console or analysis windows by selecting &#8216;View FerretSetup&#8217; in
+the menu labeled &#8216;Other&#8217;. If you use a Windows or MacIntosh computer, this will pop up a window like the one
+shown on the left of Figure <a 
+href="#x32-460068">4.8<!--tex4ht:ref: fig:FerretSetup --></a>. This also works on Linux machines, as shown on the right side of the figure, but the
+FerretSetup window isn&#8217;t nearly as useful or pretty.
+<!--l. 1739--><p class="noindent" ><hr class="figure"><div class="figure" 
+>
+                                                                                         
+
+                                                                                         
+<a 
+ id="x32-460068"></a>
+                                                                                         
+
+                                                                                         
+<div class="center" 
+>
+<!--l. 1740--><p class="noindent" >
+
+<!--l. 1741--><p class="noindent" ><img 
+src="figures/Ferret/FerretSetup.png" alt="PIC"  
+> <img 
+src="figures/Ferret/FerretSetupML.png" alt="PIC"  
+></div>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;4.8: </span><span  
+class="content">Two views of the Ferret setup file. These figures can be viewed and explored by selecting &#8216;View
+FerretSetup&#8217; in the menu labeled &#8216;Other&#8217; from either the console or analysis window. The left panel shows
+the setup file as viewed from Windows or MacIntosh computers, and the panel on the right shows the
+corresponding figure on Linux computers.</span></div><!--tex4ht:label?: x32-460068 -->
+                                                                                         
+
+                                                                                         
+<!--l. 1746--><p class="noindent" ></div><hr class="endfigure">
+<a 
+ id="dx32-46007"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 1751--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse18.html" >next</a>] [<a 
+href="QubistHTMLse16.html" >prev</a>] [<a 
+href="QubistHTMLse16.html#tailQubistHTMLse16.html" >prev-tail</a>] [<a 
+href="QubistHTMLse17.html" >front</a>] [<a 
+href="QubistHTMLch4.html#QubistHTMLse17.html" >up</a>] </p></div>
+<!--l. 1751--><p class="noindent" ><a 
+ id="tailQubistHTMLse17.html"></a>  
+</body></html> 

@@ -1,0 +1,573 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>The Merge OptimalSolutions Tool</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 8025--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse98.html" >next</a>] [<a 
+href="QubistHTMLse96.html" >prev</a>] [<a 
+href="QubistHTMLse96.html#tailQubistHTMLse96.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLse97.html">tail</a>] [<a 
+href="QubistHTMLch12.html#QubistHTMLse97.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">12.4   </span> <a 
+ id="x130-21800012.4"></a>The Merge OptimalSolutions Tool</h3>
+<a 
+ id="dx130-218001"></a>
+<a 
+ id="dx130-218002"></a>
+<a 
+ id="dx130-218003"></a>
+<a 
+ id="dx130-218004"></a>
+<a 
+ id="dx130-218005"></a>
+<a 
+ id="dx130-218006"></a>
+<a 
+ id="dx130-218007"></a>
+<!--l. 8035--><p class="noindent" >Ferret and Locust are extremely reliable, but they <span 
+class="cmti-10">are </span>fundamentally stochastic global optimizers, and that
+means that things can go wrong occasionally. Therefore, it is perfectly reasonable to perform multiple
+runs with identical settings as a check, especially if you are doing your final production runs in the
+final stages of a project. Alternatively you might want to vary your settings between runs to see how
+your results are affected, but merge all of these different runs together to obtain your final optimal
+set. Analyzing each of these runs will result in an independent OptimalSolutions.mat file, but the
+set of OptimalSolutions.mat files can be merged together using the Qubist &#8216;Merge OptimalSolutions&#8217;
+tool.
+<!--l. 8037--><p class="noindent" >Two or more OptimalSolutions.mat files can be merged by following these steps:
+     <ol  class="enumerate1" >
+     <li 
+  class="enumerate" id="x130-218009x1">
+     Start
+     the
+     viewer
+     from
+     the
+     component
+     selector
+     (Figure
+     <a 
+href="QubistHTMLse10.html#x21-300383">3.3<!--tex4ht:ref: fig:componentSelector --></a>)
+     by
+     selecting
+     &#8216;Merge
+     OptimalSolutions&#8217;
+     if
+     you
+     are
+     using
+                                                                                         
+
+                                                                                         
+     the
+     full
+     Qubist
+     package,
+     or
+     by
+     running
+     the
+     &#8216;mergeOptimalSolutions&#8217;
+     command
+     if
+     you
+     are
+     using
+     the
+     QubistFreeTools
+     toolbox.
+     </li>
+     <li 
+  class="enumerate" id="x130-218011x2">
+     A
+     dialogue
+     box
+     will
+     pop
+     up
+     asking
+     you
+     to
+     select
+     an
+     OptimalSolutions.mat
+     file.
+     Navigate
+     to
+     the
+     first
+     one
+     that
+     you
+     wish
+     to
+     merge
+     and
+     click
+     &#8216;Open&#8217;.
+     Instructions
+                                                                                         
+
+                                                                                         
+     are
+     given
+     on
+     the
+     MATLAB
+     command
+     line.
+     </li>
+     <li 
+  class="enumerate" id="x130-218013x3">
+     This
+     dialogue
+     box
+     will
+     pop
+     up
+     again.
+     Navigate
+     to
+     the
+     next
+     one
+     that
+     you
+     wish
+     to
+     merge,
+     and
+     click
+     &#8216;Open&#8217;.
+     Repeat
+     this
+     step
+     until
+     all
+     of
+     your
+     OptimalSolutions.mat
+     files
+     have
+     been
+     loaded,
+     and
+     then
+     click
+     &#8216;Cancel&#8217;.
+     </li>
+                                                                                         
+
+                                                                                         
+     <li 
+  class="enumerate" id="x130-218015x4">
+     A
+     dialogue
+     box
+     will
+     open
+     asking
+     you
+     to
+     select
+     the
+     project
+     directory
+     associated
+     with
+     your
+     OptimalSolutions.mat
+     file.
+     Navigate
+     to
+     your
+     project
+     directory,
+     if
+     it
+     is
+     on
+     the
+     file
+     system
+     of
+     the
+     computer
+     that
+     you
+     are
+     using
+     for
+     visualization,
+     and
+     click
+     &#8216;Open&#8217;.
+     You
+     can
+     click
+     &#8216;Cancel&#8217;
+     if
+                                                                                         
+
+                                                                                         
+     you
+     just
+     want
+     to
+     view
+     your
+     solutions,
+     but
+     do
+     not
+     want
+     to
+     do
+     any
+     further
+     analysis
+     or
+     custom
+     graphics.
+     Loading
+     a
+     project
+     directory
+     here
+     simply
+     adds
+     the
+     project
+     directory
+     to
+     the
+     path,
+     which
+     allows
+     you
+     to
+     use
+     a
+     custom
+     &#8216;myPlot&#8217;
+     function
+     (see
+     Sections
+     <a 
+href="QubistHTMLse20.html#x36-550004.10">4.10<!--tex4ht:ref: sec:myPlot --></a>
+     and
+     <a 
+href="QubistHTMLse63.html#x91-1320008.20">8.20<!--tex4ht:ref: sec:par_interface --></a>)
+     if
+     you
+                                                                                         
+
+                                                                                         
+     have
+     defined
+     one,
+     or
+     if
+     you
+     want
+     to
+     polish
+     your
+     solutions.<span class="footnote-mark"><a 
+href="QubistHTML131.html#fn2x162"><sup class="textsuperscript">2</sup></a></span><a 
+ id="x130-218016f2"></a> 
+     </li>
+     <li 
+  class="enumerate" id="x130-218018x5">
+     The
+     Ferret
+     or
+     Locust
+     Analysis
+     window
+     will
+     open,
+     with
+     your
+     optimal
+     merged
+     solutions
+     displayed.
+     </li>
+     <li 
+  class="enumerate" id="x130-218020x6">
+     A
+     dialog
+     box
+     will
+     open
+     asking
+     if
+     you
+     wish
+     to
+     execute
+     an
+     init
+     file,
+                                                                                         
+
+                                                                                         
+     or
+     other
+     file,
+     to
+     load
+     any
+     additional
+     paths.
+     This
+     is
+     the
+     same
+     dialogue
+     box
+     shown
+     in
+     Figure
+     <a 
+href="QubistHTMLse94.html#x126-2150171">12.1<!--tex4ht:ref: fig:additionalPaths --></a>.
+     If
+     your
+     init
+     file,
+     or
+     some
+     other
+     file,
+     loads
+     paths
+     (including
+     sub-directories)
+     required
+     for
+     your
+     project,
+     then
+     you
+     should
+     click
+     &#8216;Yes&#8217;.
+     This
+     will
+     open
+     a
+     final
+     dialogue
+     box,
+     which
+     will
+                                                                                         
+
+                                                                                         
+     allow
+     you
+     to
+     select
+     the
+     required
+     file.
+     Canceling
+     here
+     will
+     not
+     affect
+     the
+     visualization
+     of
+     the
+     results,
+     although
+     your
+     &#8216;myPlot&#8217;
+     function
+     will
+     not
+     display
+     any
+     graphics,
+     and
+     polishing
+     won&#8217;t
+     work
+     if
+     other
+     paths
+     are
+     required.
+     </li>
+     <li 
+  class="enumerate" id="x130-218022x7">
+     Ferret/Locust
+     will
+     merge
+     the
+     OptimalSolutions.mat
+     files
+     and
+     re-analyze
+     them
+                                                                                         
+
+                                                                                         
+     as
+     a
+     combined
+     set
+     of
+     solutions.
+     An
+     identical
+     copy
+     of
+     a
+     new
+     file
+     called
+     &#8216;MergedSolutions.mat&#8217;
+     will
+     be
+     written
+     alongside
+     <span 
+class="cmti-10">each</span>
+     copy
+     of
+     the
+     OptimalSolutions.mat
+     files
+     that
+     you
+     loaded.
+     A
+     MergedSolutions.mat
+     file
+     is
+     exactly
+     the
+     same
+     as
+     an
+     OptimalSolutions.mat
+     file
+     except
+     in
+     name;
+     even
+     loading
+     it
+     will
+     produce
+     a
+                                                                                         
+
+                                                                                         
+     data
+     structure
+     called
+     <span 
+class="cmmi-10">OptimalSolutions</span>
+     -
+     <span 
+class="cmti-10">not</span>
+     <span 
+class="cmti-10">MergedSolutions</span>
+     -
+     in
+     the
+     MATLAB
+     workspace.
+     These
+     files
+     work
+     seamlessly
+     with
+     the
+     OptimalSolutions
+     Viewer
+     and
+     even
+     the
+     Merge
+     OptimalSolutions
+     Tool.
+     </li>
+     <li 
+  class="enumerate" id="x130-218024x8">
+     You
+     can
+     now
+     use
+     all
+     of
+     the
+     visualization
+     features
+     discussed
+     in
+     this
+     chapter,
+     with
+     the
+     exception
+     that
+     the
+                                                                                         
+
+                                                                                         
+     &#8216;Polish&#8217;
+     and
+     &#8217;Stop
+     Polish&#8217;
+     buttons
+     will
+     be
+     grayed
+     out
+     if
+     you
+     are
+     using
+     the
+     free
+     visualization
+     package.</li></ol>
+<a 
+ id="dx130-218025"></a>
+<a 
+ id="dx130-218026"></a>
+<a 
+ id="dx130-218027"></a>
+<a 
+ id="dx130-218028"></a>
+<a 
+ id="dx130-218029"></a>
+<a 
+ id="dx130-218030"></a>
+<a 
+ id="dx130-218031"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 8058--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse98.html" >next</a>] [<a 
+href="QubistHTMLse96.html" >prev</a>] [<a 
+href="QubistHTMLse96.html#tailQubistHTMLse96.html" >prev-tail</a>] [<a 
+href="QubistHTMLse97.html" >front</a>] [<a 
+href="QubistHTMLch12.html#QubistHTMLse97.html" >up</a>] </p></div>
+<!--l. 8058--><p class="noindent" ><a 
+ id="tailQubistHTMLse97.html"></a>  
+</body></html> 

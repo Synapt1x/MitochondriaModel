@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>Automatic Post-Processing of Results</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 2994--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse30.html" >next</a>] [<a 
+href="QubistHTMLse28.html" >prev</a>] [<a 
+href="QubistHTMLse28.html#tailQubistHTMLse28.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLse29.html">tail</a>] [<a 
+href="QubistHTMLch4.html#QubistHTMLse29.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">4.19   </span> <a 
+ id="x47-710004.19"></a>Automatic Post-Processing of Results</h3>
+<a 
+ id="dx47-71001"></a>
+<a 
+ id="dx47-71002"></a>
+<!--l. 2999--><p class="noindent" >Many projects require some post-processing and analysis of the solutions contained within the OptimalSolutions.mat
+file. Post-processing is usually done manually after a run is complete by loading the OptimalSolutions.mat file into
+the user&#8217;s post-processing code. However, Ferret includes a feature that allows post-processing code to be run
+<span 
+class="cmti-10">automatically </span>whenever an analysis is done. To enable this feature, you must write a function that accepts
+<span 
+class="cmmi-10">OptimalSolutions </span>as an argument, or requires no arguments:
+<!--l. 3005--><p class="noindent" ><span 
+class="colorbox" id="colorbox49"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">function</span><span 
+class="cmtt-10">&#x00A0;myPostProcessingCode(OptimalSolutions)</span><br /><span 
+class="cmtt-10">function</span><span 
+class="cmtt-10">&#x00A0;myPostProcessingCode</span></div>
+</div></span>
+<!--l. 3011--><p class="noindent" >This function should not return any arguments, since they will be ignored by Ferret. Therefore, it is up to the
+post-processing function to save any results to disk, or to a global variable, before the function exits. <span 
+class="cmti-10">Note</span>
+<span 
+class="cmti-10">that this must be a function; scripts are not allowed and will cause an error message </span>. Two common
+paradigms for post-processing involve looping over all solutions in <span 
+class="cmmi-10">OptimalSolutions </span>for further analysis, or
+selecting the &#8216;best&#8217; solution for single-objective problems. The following code snippets illustrate these two
+techniques:
+<a 
+ id="dx47-71005"></a>
+<!--l. 3036--><p class="noindent" ><span 
+class="colorbox" id="colorbox50"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">function</span><span 
+class="cmtt-10">&#x00A0;myPostProcessingCode(OptimalSolutions)</span><br /><span 
+class="cmtt-10">global</span><span 
+class="cmtt-10">&#x00A0;myResults</span><br /><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;To</span><span 
+class="cmtt-10">&#x00A0;loop</span><span 
+class="cmtt-10">&#x00A0;over</span><span 
+class="cmtt-10">&#x00A0;entire</span><span 
+class="cmtt-10">&#x00A0;optimal</span><span 
+class="cmtt-10">&#x00A0;set:</span><br /><span 
+class="cmtt-10">for</span><span 
+class="cmtt-10">&#x00A0;n=1:size(OptimalSolutions.X,</span><span 
+class="cmtt-10">&#x00A0;2)</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;columns</span><span 
+class="cmtt-10">&#x00A0;=</span><span 
+class="cmtt-10">&#x00A0;number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;solutions.</span><br />        <span 
+class="cmtt-10">X=OptimalSolutions.X(:,n);</span><br />        <span 
+class="cmtt-10">F=OptimalSolutions.X(:,n);</span><br />        <span 
+class="cmtt-10">&#x003C;&#x003C;&#x003C;</span><span 
+class="cmtt-10">&#x00A0;USER</span><span 
+class="cmtt-10">&#x00A0;CODE:</span><span 
+class="cmtt-10">&#x00A0;SHOULD</span><span 
+class="cmtt-10">&#x00A0;WRITE</span><span 
+class="cmtt-10">&#x00A0;TO</span><span 
+class="cmtt-10">&#x00A0;DISK</span><span 
+class="cmtt-10">&#x00A0;OR</span><span 
+class="cmtt-10">&#x00A0;SET</span><span 
+class="cmtt-10">&#x00A0;GLOBAL</span><span 
+class="cmtt-10">&#x00A0;VARIABLE</span><span 
+class="cmtt-10">&#x00A0;myResults</span><span 
+class="cmtt-10">&#x00A0;&#x003E;&#x003E;&#x003E;</span><br /><span 
+class="cmtt-10">end</span><br /><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;-------------------------------------------------------------------------------</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;To</span><span 
+class="cmtt-10">&#x00A0;select</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;&#8216;best&#8217;</span><span 
+class="cmtt-10">&#x00A0;solution</span><span 
+class="cmtt-10">&#x00A0;in</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;optimal</span><span 
+class="cmtt-10">&#x00A0;set,</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;single</span><span 
+class="cmtt-10">&#x00A0;objective</span><span 
+class="cmtt-10">&#x00A0;problems</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;where</span><span 
+class="cmtt-10">&#x00A0;fuzziness</span><span 
+class="cmtt-10">&#x00A0;is</span><span 
+class="cmtt-10">&#x00A0;enabled</span><span 
+class="cmtt-10">&#x00A0;via</span><span 
+class="cmtt-10">&#x00A0;par.selection.FAbsTol,</span><span 
+class="cmtt-10">&#x00A0;par.selection.FAbsTol,</span><span 
+class="cmtt-10">&#x00A0;or</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;par.selection.FRankTol:</span><br /><span 
+class="cmtt-10">[FMin,n]=min(OptimalSolutions.F);</span><br /><span 
+class="cmtt-10">n=n(1);</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;In</span><span 
+class="cmtt-10">&#x00A0;case</span><span 
+class="cmtt-10">&#x00A0;there</span><span 
+class="cmtt-10">&#x00A0;is</span><span 
+class="cmtt-10">&#x00A0;more</span><span 
+class="cmtt-10">&#x00A0;than</span><span 
+class="cmtt-10">&#x00A0;one</span><span 
+class="cmtt-10">&#x00A0;optimal.</span><br /><span 
+class="cmtt-10">X=OptimalSolutions.X(:,n);</span><br /><span 
+class="cmtt-10">F=OptimalSolutions.X(:,n);</span><br /><span 
+class="cmtt-10">&#x003C;&#x003C;&#x003C;</span><span 
+class="cmtt-10">&#x00A0;USER</span><span 
+class="cmtt-10">&#x00A0;CODE:</span><span 
+class="cmtt-10">&#x00A0;SHOULD</span><span 
+class="cmtt-10">&#x00A0;WRITE</span><span 
+class="cmtt-10">&#x00A0;RESULTS</span><span 
+class="cmtt-10">&#x00A0;TO</span><span 
+class="cmtt-10">&#x00A0;DISK</span><span 
+class="cmtt-10">&#x00A0;OR</span><span 
+class="cmtt-10">&#x00A0;TO</span><span 
+class="cmtt-10">&#x00A0;GLOBAL</span><span 
+class="cmtt-10">&#x00A0;VARIABLE</span><span 
+class="cmtt-10">&#x00A0;myResults</span><span 
+class="cmtt-10">&#x00A0;&#x003E;&#x003E;&#x003E;</span><br /></div>
+</div></span>
+<!--l. 3042--><p class="noindent" >The name of the post-processing code is arbitrary, but must be indicated in the Ferret setup file as
+follows:
+<!--l. 3047--><p class="noindent" ><span 
+class="colorbox" id="colorbox51"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">par.analysis.postProcess=&#8217;myPostProcessingFunction&#8217;;</span></div>
+</div></span>
+<!--l. 3053--><p class="noindent" >Note that an empty string is the default setting: <span 
+class="cmtt-10">par.analysis.postProcess=&#8217;&#8217;</span>, which indicates that no
+automatic post-processing is required. See Section <a 
+href="QubistHTMLse59.html#x86-1210008.16">8.16<!--tex4ht:ref: sec:par_analysis --></a> for details on par.analysis.
+<!--l. 3055--><p class="noindent" >Automatic post-processing is most useful when combined with a custom launch script as discussed in Section <a 
+href="QubistHTMLse24.html#x41-610004.14.2">4.14.2<!--tex4ht:ref: sec:customLauncher --></a>,
+which can be configured to run Ferret multiple times (perhaps using different data sets), do the analysis for each
+run, and run any post-processing code without user input. To perform these latter two steps automatically, the
+Ferret setup file must contain lines of code like the following:
+<!--l. 3061--><p class="noindent" ><span 
+class="colorbox" id="colorbox52"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">par.analysis.analyzeWhenDone=true;</span><br /><span 
+class="cmtt-10">par.analysis.postProcess=&#8217;myPostProcessingFunction&#8217;;</span></div>
+</div></span>
+<!--l. 3067--><p class="noindent" >Naturally, &#8217;myPostProcessingFunction&#8217; should be replaced with the actual name of the user&#8217;s post-processing code,
+which should be on the project&#8217;s path. Please refer to Section <a 
+href="QubistHTMLse59.html#x86-1210008.16">8.16<!--tex4ht:ref: sec:par_analysis --></a> for more analysis options.
+<a 
+ id="dx47-71029"></a>
+                                                                                         
+
+                                                                                         
+<a 
+ id="dx47-71030"></a>
+<a 
+ id="dx47-71031"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 3074--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse30.html" >next</a>] [<a 
+href="QubistHTMLse28.html" >prev</a>] [<a 
+href="QubistHTMLse28.html#tailQubistHTMLse28.html" >prev-tail</a>] [<a 
+href="QubistHTMLse29.html" >front</a>] [<a 
+href="QubistHTMLch4.html#QubistHTMLse29.html" >up</a>] </p></div>
+<!--l. 3074--><p class="noindent" ><a 
+ id="tailQubistHTMLse29.html"></a>  
+</body></html> 

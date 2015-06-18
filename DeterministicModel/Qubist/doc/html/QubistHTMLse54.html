@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>par.immigration</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 4676--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse55.html" >next</a>] [<a 
+href="QubistHTMLse53.html" >prev</a>] [<a 
+href="QubistHTMLse53.html#tailQubistHTMLse53.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLse54.html">tail</a>] [<a 
+href="QubistHTMLch8.html#QubistHTMLse54.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">8.11   </span> <a 
+ id="x80-1160008.11"></a>par.immigration</h3>
+<a 
+ id="dx80-116001"></a>
+<!--l. 4680--><p class="noindent" >Ferret has the ability to run multiple populations simultaneously, where the number of populations is controlled by
+<span 
+class="cmtt-10">par.general.NPop</span>. Section <a 
+href="QubistHTMLse46.html#x71-1020008.3">8.3<!--tex4ht:ref: sec:par_general --></a> briefly discussed the motivations for running multiple populations. The most
+important of these is that populations operate nearly independently of each other, and for very difficult problems,
+this redundancy serves as an &#8216;insurance policy&#8217; that can help to find the global solution. However, multiple
+populations are most useful when the firewall between them is not quite perfect, so that they can communicate and
+cooperate to some small extent.
+<!--l. 4687--><p class="noindent" ><span 
+class="colorbox" id="colorbox78"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Immigration</span><br /><span 
+class="cmtt-10">par.immigration.PImmigrate=0.05;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1,</span><span 
+class="cmtt-10">&#x00A0;usually</span><span 
+class="cmtt-10">&#x00A0;&#x003C;&#x003C;</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Probability</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;immigration</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML56x.png" alt="         `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;between</span><span 
+class="cmtt-10">&#x00A0;populations.</span></div>
+</div></span>
+<!--l. 4693--><p class="noindent" >Ferret controls the interaction between populations through a single &#8216;immigration&#8217; probability called
+<span 
+class="cmtt-10">par.immigration.PImmigrate</span>. When this parameter greater than zero, there is a finite probability, equal to
+<span 
+class="cmmi-10">PImmigrate</span>, that individual solutions will be swapped at random between populations. Thus, when a superior
+region of parameter space is discovered by one population, this information will eventually diffuse to other
+populations when high performing individuals immigrate to those populations and multiply. The exact value of
+<span 
+class="cmmi-10">PImmigrate </span>is not usually critical; however, it should be set to a small, but non-zero, probability that should
+never exceed a few percent. The key idea here is that if you are running multiple populations, then
+individual populations should never mix via immigration faster than they explore the parameter space
+and develop on their own. Setting <span 
+class="cmmi-10">PImmigrate </span>too high would inevitably result in too much mixing
+between populations, which would eliminate any benefit of running multiple populations, except for
+slightly decreased memory and CPU requirements associated with computing the distance metrics, as
+discussed in Section <a 
+href="QubistHTMLse46.html#x71-1020008.3">8.3<!--tex4ht:ref: sec:par_general --></a>. I usually set this parameter to a value between 0.01 and 0.05. Of course,
+<span 
+class="cmtt-10">par.immigration.PImmigrate </span>has no effect when only a single population is used (<span 
+class="cmtt-10">par.general.NPop=1</span>), which is
+the default setting.
+<a 
+ id="dx80-116005"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 4698--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse55.html" >next</a>] [<a 
+href="QubistHTMLse53.html" >prev</a>] [<a 
+href="QubistHTMLse53.html#tailQubistHTMLse53.html" >prev-tail</a>] [<a 
+href="QubistHTMLse54.html" >front</a>] [<a 
+href="QubistHTMLch8.html#QubistHTMLse54.html" >up</a>] </p></div>
+<!--l. 4698--><p class="noindent" ><a 
+ id="tailQubistHTMLse54.html"></a>  
+</body></html> 

@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>The Fitness Function</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 7122--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse90.html" >next</a>] [<a 
+href="QubistHTMLse88.html" >prev</a>] [<a 
+href="QubistHTMLse88.html#tailQubistHTMLse88.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLse89.html">tail</a>] [<a 
+href="QubistHTMLch11.html#QubistHTMLse89.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">11.7   </span> <a 
+ id="x120-19400011.7"></a>The Fitness Function</h3>
+<a 
+ id="dx120-194001"></a>
+<a 
+ id="dx120-194002"></a>
+<a 
+ id="dx120-194003"></a>
+<!--l. 7128--><p class="noindent" >Locust&#8217;s fitness function uses the same syntax as Anvil&#8217;s fitness/energy function, as discussed in Section <a 
+href="QubistHTMLse77.html#x107-16300010.4">10.4<!--tex4ht:ref: sec:energy_Anvil --></a>. Like
+Anvil, Locust ignores the <span 
+class="cmmi-10">saveData </span>and <span 
+class="cmmi-10">XPhysMod </span>fields, which are allowed (but rarely used) by Ferret. The
+signature of a Locust fitness function is therefore
+<!--l. 7143--><p class="noindent" ><span 
+class="colorbox" id="colorbox131"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">[F,</span><span 
+class="cmtt-10">&#x00A0;{auxOutput}]=fitness(X,</span><span 
+class="cmtt-10">&#x00A0;{extPar})</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;***</span><span 
+class="cmtt-10">&#x00A0;Braces</span><span 
+class="cmtt-10">&#x00A0;{}</span><span 
+class="cmtt-10">&#x00A0;indicate</span><span 
+class="cmtt-10">&#x00A0;optional</span><span 
+class="cmtt-10">&#x00A0;fields.</span><span 
+class="cmtt-10">&#x00A0;***</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Input</span><span 
+class="cmtt-10">&#x00A0;fields:</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;X</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;--&#x003E;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;[NGenes</span><span 
+class="cmtt-10">&#x00A0;x</span><span 
+class="cmtt-10">&#x00A0;N</span><span 
+class="cmtt-10">&#x00A0;matrix]</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;extPar</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;--&#x003E;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;MATLAB</span><span 
+class="cmtt-10">&#x00A0;structure</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Output</span><span 
+class="cmtt-10">&#x00A0;fields:</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;F</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;--&#x003E;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;[NObj</span><span 
+class="cmtt-10">&#x00A0;x</span><span 
+class="cmtt-10">&#x00A0;N</span><span 
+class="cmtt-10">&#x00A0;matrix]</span><span 
+class="cmtt-10">&#x00A0;(required)</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;auxOutput</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;--&#x003E;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;{N-element</span><span 
+class="cmtt-10">&#x00A0;MATLAB</span><span 
+class="cmtt-10">&#x00A0;cell</span><span 
+class="cmtt-10">&#x00A0;array}</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;{empty</span><span 
+class="cmtt-10">&#x00A0;cell</span><span 
+class="cmtt-10">&#x00A0;array}</span><span 
+class="cmtt-10">&#x00A0;(optional)</span></div>
+</div></span>
+<a 
+ id="dx120-194015"></a>
+<a 
+ id="dx120-194016"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 7153--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse90.html" >next</a>] [<a 
+href="QubistHTMLse88.html" >prev</a>] [<a 
+href="QubistHTMLse88.html#tailQubistHTMLse88.html" >prev-tail</a>] [<a 
+href="QubistHTMLse89.html" >front</a>] [<a 
+href="QubistHTMLch11.html#QubistHTMLse89.html" >up</a>] </p></div>
+<!--l. 7153--><p class="noindent" ><a 
+ id="tailQubistHTMLse89.html"></a>  
+</body></html> 

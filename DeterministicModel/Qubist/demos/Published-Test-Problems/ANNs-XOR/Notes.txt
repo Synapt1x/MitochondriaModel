@@ -1,0 +1,5 @@
+Corana function from Mishra 2006.
+Online at http://mpra.ub.uni-muenchen.de/1742/ 
+MPRA Paper No. 1742, posted 07. November 2007 / 01:57
+
+Solution: F_min=(0, 0, 0, 0)=0 

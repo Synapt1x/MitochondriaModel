@@ -1,0 +1,33 @@
+% Important note on default setup files for SAMOSA, Anvil, and SemiGloSS:
+% ====================================================
+% Defaults for Anvil, SAMOSA, and SemiGloSS in this directory
+% ([Qubist_Home]\user\Anvil\defaults) will be used when these optimizers
+% are called as Ferret's polisher ONLY.  Anvil, SAMOSA, and SemiGloSS also
+% have default setup files in their own directories:
+%
+% [Qubist_Home]\user\Anvil\defaults
+% [Qubist_Home]\user\SAMOSA\defaults
+% [Qubist_Home]\user\SemiGloSS\defaults
+%
+% The setup files in these directories will be used when these optimizers
+% are used in standalone mode.
+
+Setup Notes:
+
+1. PCCompeteGlobal should be significantly less than 1.  When set to ~1, an
+instability develops in which the globals "slosh" from one side of the
+parameter space to the other.  This is not good.  Reduce this parameter
+to ~0.1 if you see this happening.  It is much better for the swarm to
+"see" the same global potential for several time steps.
+
+2. globalRange determines the degree to which global neighbourhoods
+communicate with eachother.  When this parameter is set to 0, a particle
+always picks the nearest global to follow.  When it is set > 0, a particle uses
+an exponential probability distribution to choose its global.  For example,
+when globalRange=1, the probability of picking the 2nd closest global is
+aprroximately 1/e times the probability of picking the nearest one.  It
+is very difficult to maintain multiple distinct swarms when this
+parameter is > 0.
+
+*** Defaults for SAMOSA, Anvil, and SemiGloSS in this directory are used when
+when these optimizers are called as polishers! ***

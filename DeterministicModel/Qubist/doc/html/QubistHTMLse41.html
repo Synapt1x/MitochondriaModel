@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>Auto-Adaptation</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 3927--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse42.html" >next</a>] [<a 
+href="#tailQubistHTMLse41.html">tail</a>] [<a 
+href="QubistHTMLch7.html#QubistHTMLse41.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">7.1   </span> <a 
+ id="x64-960007.1"></a>Auto-Adaptation</h3>
+<a 
+ id="dx64-96001"></a>
+<a 
+ id="dx64-96002"></a>
+<a 
+ id="dx64-96003"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 3933--><p class="noindent" >The purpose of this section is to outline the use of Ferret&#8217;s auto-adaptation system. This section is short due to the
+&#8216;auto&#8217; in &#8216;auto-adaptation&#8217; - other than the initial setup of the auto-adaptation options in the setup
+file (discussed in Section <a 
+href="QubistHTMLse47.html#x72-1030008.4">8.4<!--tex4ht:ref: sec:par_strategy --></a>), there is really not much for the user to do with the auto-adaptation
+interface, other than observe how Ferret has optimized your settings. Ferret&#8217;s auto-adaptation system is
+designed to learn from experience and to maximize the probability that a strategy parameter will
+have a positive effect on the run&#8217;s development. Figure <a 
+href="#x64-960041">7.1<!--tex4ht:ref: fig:strategyAutoAdapt --></a> shows the auto-adaptation interface in
+action. The text panel on the left gives the current <span 
+class="cmti-10">mean </span>values for all strategy parameters that can be
+controlled adaptively, and whether they are currently under adaptive control or are &#8216;frozen&#8217; (set to a fixed
+value). The initial state of each parameter is given by the settings in <span 
+class="cmtt-10">par.strategy</span>; see Section <a 
+href="QubistHTMLse47.html#x72-1030008.4">8.4<!--tex4ht:ref: sec:par_strategy --></a> for
+details.
+<!--l. 3935--><p class="noindent" >The dropbox under the text panel allows you to select a strategy parameter. The current parameter in
+this case is the mutation scale, which is the average RMS (root mean square) size of mutations, as
+discussed in Section <a 
+href="QubistHTMLse50.html#x76-1060008.7">8.7<!--tex4ht:ref: sec:par_mutation --></a>. The graphs on the right hand side and the buttons on the bottom show the
+current probability distribution function and history of the selected parameter over the course of the
+run. The top figure on the right is a histogram showing the probability of that a particular value will
+be chosen; this graph and the text box to its left show that values chosen for <span 
+class="cmtt-10">par.mutation.scale</span>
+follow a distribution centred on a value of 0.0161 at present, and that the probability falls to zero
+for larger values. The bottom right figure shows the history of the strategy parameter throughout
+the run. We see the mutation scale started with an average value of 0.25 (from the user&#8217;s setup file)
+but dropped to its present value by about generation 400. An overall decrease in the mutation scale
+makes sense for most problems because large mutations are often less useful late in the run after the
+population has mostly converged. Note that the gradual drop in mutation scale is punctuated with
+occasional and very abrupt jumps, when for some reason, a few relatively large mutations &#8216;get lucky&#8217; and
+find good solutions. This surprising behaviour is commonly seen when the mutation scale is under
+adaptive control, and is actually quite useful because it very effectively stirs up the population once in a
+while, even after it has mostly converged. This helps to continue exploration even late in the run, and
+combat against genetic drift, a common problem of genetic algorithms that I discussed in Section
+<a 
+href="QubistHTMLse2.html#x8-110002.2.3">2.2.3<!--tex4ht:ref: sec:MOO_Ferret --></a>.
+<!--l. 3937--><p class="noindent" >The distribution is similar to the positive side of a Gaussian centred on zero, except for a sharp dip at the origin,
+which is useful because mutations of size nearly equal to zero are pointless. Note that Ferret suppresses very small
+mutations, even when the distribution is forced to be a Gaussian in the auto-adaptation interface, as discussed
+below.
+<!--l. 3939--><p class="noindent" ><hr class="figure"><div class="figure" 
+>
+                                                                                         
+
+                                                                                         
+<a 
+ id="x64-960041"></a>
+                                                                                         
+
+                                                                                         
+<div class="center" 
+>
+<!--l. 3940--><p class="noindent" >
+
+<!--l. 3941--><p class="noindent" ><img 
+src="figures/Ferret/strategyAutoAdapt.png" alt="PIC"  
+></div>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;7.1: </span><span  
+class="content">Ferret&#8217;s strategy auto-adaptation interface allows users to enable or disable the adaptation of
+parameters, watch how they are optimized, and tweak the distributions used to choose values.</span></div><!--tex4ht:label?: x64-960041 -->
+                                                                                         
+
+                                                                                         
+<!--l. 3945--><p class="noindent" ></div><hr class="endfigure">
+<!--l. 3947--><p class="noindent" >The buttons below the graphs can be used to toggle the current strategy parameter, shown in the drop box, between
+full <span 
+class="cmti-10">non-parametric </span>adaptation (using the probability distribution shown in the top right figure), freezing the
+parameter at it&#8217;s present value, or allowing it to adapt, but forcing the distribution to be Gaussian. Generally, I
+prefer fully non-parametric, auto-adaptation. It is also possible to &#8216;tweak&#8217; the distribution using the arrows in the
+upper corners of the top right figure. These arrows allow you to move the boundaries of the figure to effectively shift
+the distribution function to higher or lower values. I don&#8217;t generally do this, and I am not aware of any
+users who do this regularly, but the option is there if you feel that that auto-adaptation has chosen a
+distribution centred on values that are too high or too low for your problem. Note that dropping the
+mutation scale, crossover dispersion, or crossover strength to very low values by hand could result in
+premature convergence. It is generally safe to increase the values for these parameters, but decreasing
+them should be done with caution. Please refer to Sections <a 
+href="QubistHTMLse50.html#x76-1060008.7">8.7<!--tex4ht:ref: sec:par_mutation --></a> and <a 
+href="QubistHTMLse51.html#x77-1070008.8">8.8<!--tex4ht:ref: sec:par_XOver --></a> for advice on setting these
+parameters.
+<a 
+ id="dx64-96005"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 3951--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse42.html" >next</a>] [<a 
+href="QubistHTMLse41.html" >front</a>] [<a 
+href="QubistHTMLch7.html#QubistHTMLse41.html" >up</a>] </p></div>
+<!--l. 3951--><p class="noindent" ><a 
+ id="tailQubistHTMLse41.html"></a>  
+</body></html> 

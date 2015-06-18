@@ -1,0 +1,3 @@
+Griewank's function is a classic multi-modal function used to
+test global optimization routines.  The solution is F(0,...0)=0.
+VERY large number of local minima.

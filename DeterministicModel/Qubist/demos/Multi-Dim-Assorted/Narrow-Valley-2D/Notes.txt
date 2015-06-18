@@ -1,0 +1,16 @@
+Diversity-preserving Strategies: Mapping a Long Narrow Valley:
+============================================================
+
+This example demonstrates the effect of niching and mating restrictions on a 
+population.  The solution is a long narrow valley in 2-D, which must be populated with
+solutions.  This is accomplished by setting par.niching.X > 0 (about 0.1 - 0.25)
+is usually about right.  Setting the mating restriction to a negative value
+causes solutions to crossover preferentially with their neighbours.  Try setting par.XOver.matingRestriction.X to zero or a less negative value (or even
+a positive number), and see what happens.  Note that -1 <= par.XOver.matingRestriction.X <= 1.
+
+Note that this is an example of a "class-finding" problem that uses the full-blown
+machinery of a multi-objective genetic algorithm (niching, etc.) on a problem with
+a single objective.  Class-finding problems are characterized by a single objective
+function with a flat-bottomed valley where a class of optimal solutions resides.
+
+The setup is similar to the "Ring" examples.

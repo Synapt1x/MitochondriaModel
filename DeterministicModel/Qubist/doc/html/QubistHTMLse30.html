@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>Non-Parametric Problems</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 3074--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse29.html" >prev</a>] [<a 
+href="QubistHTMLse29.html#tailQubistHTMLse29.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLse30.html">tail</a>] [<a 
+href="QubistHTMLch4.html#QubistHTMLse30.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">4.20   </span> <a 
+ id="x48-720004.20"></a>Non-Parametric Problems</h3>
+<a 
+ id="dx48-72001"></a>
+<a 
+ id="dx48-72002"></a>
+<!--l. 3079--><p class="noindent" >We close this chapter with some brief comments regarding so-called &#8216;non-parametric&#8217; models, which do not
+assume a specific mathematical form for the underlying model. A simple example is given by the demo
+&#8216;Advanced/Non-Parametric-Image-Modeling&#8217; which adapts about 600 pixel values of a model image until they agree
+with a real image, by minimizing the <span 
+class="cmmi-10">&#x03C7;</span><sup><span 
+class="cmr-7">2</span></sup> statistic. The solution is trivial of course, since I could just assign the
+actual, known pixel values to the model, but I perform a full <span 
+class="cmmi-10">&#x03C7;</span><sup><span 
+class="cmr-7">2</span></sup> minimization to illustrate this class
+of problems in general. The term &#8216;non-parametric&#8217; model is somewhat of a misnomer because such
+problems often have several hundred parameters, which makes them - from a computational point
+of view - the most &#8216;parametric&#8217; of all. They are non-parametric in a mathematical sense that they
+do not impose a specific functional form on the solution, as is typical of most other data-modeling
+problems.
+<!--l. 3081--><p class="noindent" >Non-parametric models may require some special handling to find solutions efficiently. It is important to realize
+that such problems have extremely large linkage matrices (600 <span 
+class="cmsy-10">&#x00D7; </span>600 for the non-parametric image
+modeling demo), and as such, there is not much point in trying to find all of the linkages. Therefore, I
+normally set the initial linkage to some reasonable value (less than about 0.5) and turn linkage learning
+off:
+<!--l. 3087--><p class="noindent" ><span 
+class="colorbox" id="colorbox53"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">par.link.PLink=0;</span><br /><span 
+class="cmtt-10">par.link.initialLinkage=0.25;</span></div>
+</div></span>
+<!--l. 3093--><p class="noindent" >Non-parametric models work best when the parameters are uncorrelated, like the pixels in my demo, so this is really
+not a huge restriction.
+<!--l. 3095--><p class="noindent" >It is <span 
+class="cmti-10">very important </span>to turn off niching acceleration (see Section <a 
+href="QubistHTMLse52.html#x78-1100008.9">8.9<!--tex4ht:ref: sec:par_niching --></a>), and auto-adaptation of this strategy
+parameter, for very large non-parametric problems:
+<!--l. 3102--><p class="noindent" ><span 
+class="colorbox" id="colorbox54"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">par.niching.acceleration=0;</span><br /><span 
+class="cmtt-10">par.strategy.adapt.niching.acceleration=false;</span></div>
+</div></span>
+<!--l. 3108--><p class="noindent" >This is necessary for efficiency, since niching acceleration is extremely expensive when the number of parameters is
+large. The default setting, with the acceleration turned on, would require much more overhead than it is
+worth.
+<!--l. 3110--><p class="noindent" >Finally, I have noticed that restricting mutations and crossovers to single building blocks (discovered by linkage
+learning) seems to allow Ferret to solve non-parametric problems more rapidly than the defaults settings, where
+Ferret chooses automatically whether to restrict crossovers to individual building blocks or do unrestricted
+crossovers over all parameters. In effect, building block restriction means that any given mutation or
+crossover only involves a single building block, which would include about 25% of the parameters if
+<span 
+class="cmtt-10">par.link.initialLinkage=0.25</span>, as in the example settings above. Building block restriction is enabled for
+                                                                                         
+
+                                                                                         
+mutation and crossover by the following lines in the setup file:
+<!--l. 3116--><p class="noindent" ><span 
+class="colorbox" id="colorbox55"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">par.mutation.BBRestricted=true;</span><br /><span 
+class="cmtt-10">par.XOver.BBRestricted=true;</span></div>
+</div></span>
+<!--l. 3122--><p class="noindent" >Please refer to Sections <a 
+href="QubistHTMLse50.html#x76-1060008.7">8.7<!--tex4ht:ref: sec:par_mutation --></a> and <a 
+href="QubistHTMLse51.html#x77-1070008.8">8.8<!--tex4ht:ref: sec:par_XOver --></a> for additional comments about these settings.
+<!--l. 3124--><p class="noindent" >The demo &#8216;Advanced/Non-Parametric-Image-Modeling&#8217; contains a FerretSetup file that you can use as a template
+for non-parametric models. There are a few other slightly atypical settings there, such as no auto-adaptation, a
+relatively high mutation rate, and a low elite fraction. However, these settings are not as critical as those described
+above and you should feel free to modify them to suit your application.
+                                                                                         
+
+                                                                                         
+<!--l. 3127--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse29.html" >prev</a>] [<a 
+href="QubistHTMLse29.html#tailQubistHTMLse29.html" >prev-tail</a>] [<a 
+href="QubistHTMLse30.html" >front</a>] [<a 
+href="QubistHTMLch4.html#QubistHTMLse30.html" >up</a>] </p></div>
+<!--l. 3127--><p class="noindent" ><a 
+ id="tailQubistHTMLse30.html"></a>  
+</body></html> 

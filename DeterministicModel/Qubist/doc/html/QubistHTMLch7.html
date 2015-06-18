@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>7 Self-Optimization of Ferret&#8217;s Strategy Parameters: Auto-Adaptation and Modifying Values Manually</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 3914--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLch8.html" >next</a>] [<a 
+href="QubistHTMLch6.html" >prev</a>] [<a 
+href="QubistHTMLch6.html#tailQubistHTMLch6.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLch7.html">tail</a>] [<a 
+href="QubistHTML3.html#QubistHTMLch7.html" >up</a>] </p></div>
+<h2 class="chapterHead"><span class="titlemark">Chapter&#x00A0;7</span><br /><a 
+ id="x63-950007"></a>Self-Optimization of Ferret&#8217;s Strategy Parameters: Auto-Adaptation and Modifying Values
+Manually</h2>
+     <div class="quote">
+     <!--l. 3918--><p class="noindent" ><span 
+class="cmti-10">&#8216;...Ferret</span>
+     <span 
+class="cmti-10">is</span>
+     <span 
+class="cmti-10">a</span>
+     <span 
+class="cmti-10">complicated</span>
+     <span 
+class="cmti-10">machine</span>
+     <span 
+class="cmti-10">with</span>
+     <span 
+class="cmti-10">a</span>
+     <span 
+class="cmti-10">lot</span>
+     <span 
+class="cmti-10">of</span>
+     <span 
+class="cmti-10">moving</span>
+     <span 
+class="cmti-10">parts,</span>
+     <span 
+class="cmti-10">and</span>
+     <span 
+class="cmti-10">modifying</span>
+     <span 
+class="cmti-10">parameters</span>
+     <span 
+class="cmti-10">by</span>
+     <span 
+class="cmti-10">hand</span>
+     <span 
+class="cmti-10">while</span>
+     <span 
+class="cmti-10">it&#8217;s</span>
+     <span 
+class="cmti-10">running</span>
+     <span 
+class="cmti-10">is</span>
+     <span 
+class="cmti-10">a</span>
+     <span 
+class="cmti-10">bit</span>
+     <span 
+class="cmti-10">like</span>
+     <span 
+class="cmti-10">replacing</span>
+     <span 
+class="cmti-10">some</span>
+     <span 
+class="cmti-10">of</span>
+     <span 
+class="cmti-10">your</span>
+     <span 
+class="cmti-10">car&#8217;s</span>
+     <span 
+class="cmti-10">engine</span>
+     <span 
+class="cmti-10">components</span>
+     <span 
+class="cmti-10">while</span>
+     <span 
+class="cmti-10">you&#8217;re</span>
+     <span 
+class="cmti-10">driving</span>
+     <span 
+class="cmti-10">down</span>
+     <span 
+class="cmti-10">the</span>
+     <span 
+class="cmti-10">highway</span>
+     <span 
+class="cmti-10">-</span>
+                                                                                         
+
+                                                                                         
+     <span 
+class="cmti-10">if</span>
+     <span 
+class="cmti-10">you</span>
+     <span 
+class="cmti-10">touch</span>
+     <span 
+class="cmti-10">the</span>
+     <span 
+class="cmti-10">wrong</span>
+     <span 
+class="cmti-10">moving</span>
+     <span 
+class="cmti-10">part,</span>
+     <span 
+class="cmti-10">disaster</span>
+     <span 
+class="cmti-10">is</span>
+     <span 
+class="cmti-10">the</span>
+     <span 
+class="cmti-10">likely</span>
+     <span 
+class="cmti-10">outcome.&#8217;</span></div>
+<!--l. 3922--><p class="noindent" >Section <a 
+href="QubistHTMLse17.html#x32-460004.7">4.7<!--tex4ht:ref: sec:setup --></a> briefly discussed the Ferret setup file, and the settings of each strategy parameter will be covered
+exhaustively in Chapter <a 
+href="QubistHTMLch8.html#x67-990008">8<!--tex4ht:ref: ch:FerretSetup --></a> below. If you have explored some of the demos, then you probably have a good idea by
+now that there are a lot of settings that can be changed. I have tried to provide good default values for the
+parameters and to ensure that Ferret is robust against failure over a wide range of &#8216;sensible&#8217; parameter choices. The
+net effect is that the precise value of <span 
+class="cmti-10">most </span>parameters is not usually all that important, and you should not have to
+spend a lot of time fine-tuning your setup file. However, there are a few parameters whose settings can be quite
+sensitive, but Ferret does not burden users with fine-tuning them. Rather, Ferret&#8217;s auto-adaptation system is
+designed to vary potentially sensitive parameters, collect real-time performance data as they are varied,
+and use the data acquired to fine-tune and optimize them. Ferret does this by building an internal
+probabilistic model of its own performance and maximizing it over the parameters that are allowed to
+auto-adapt.
+<!--l. 3924--><p class="noindent" >This chapter discusses Ferret&#8217;s auto-adaptation interface, which allows users to monitor and interact with the
+auto-adaptation system. Note that only a few important parameters are handled by auto-adaptation at this time.
+However, I also show how <span 
+class="cmti-10">any </span>control parameter can be modified manually during a run, without stopping it, using
+Ferret&#8217;s &#8216;Modify FerretSetup&#8217; interface.
+<div class="sectionTOCS">
+&#x00A0;<span class="sectionToc" >7.1 <a 
+href="QubistHTMLse41.html#x64-960007.1">Auto-Adaptation</a></span>
+<br />&#x00A0;<span class="sectionToc" >7.2 <a 
+href="QubistHTMLse42.html#x65-970007.2">Modifying Parameters During a Run, and Ferret&#8217;s Polish Mode</a></span>
+<br />&#x00A0;<span class="sectionToc" >7.3 <a 
+href="QubistHTMLse43.html#x66-980007.3">Ferret&#8217;s Polish Mode: Using Ferret as its Own Polisher</a></span>
+</div>
+
+
+                                                                                         
+
+                                                                                         
+<!--l. 4012--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLch8.html" >next</a>] [<a 
+href="QubistHTMLch6.html" >prev</a>] [<a 
+href="QubistHTMLch6.html#tailQubistHTMLch6.html" >prev-tail</a>] [<a 
+href="QubistHTMLch7.html" >front</a>] [<a 
+href="QubistHTML3.html#QubistHTMLch7.html" >up</a>] </p></div>
+<!--l. 4012--><p class="noindent" ><a 
+ id="tailQubistHTMLch7.html"></a>  
+</body></html> 

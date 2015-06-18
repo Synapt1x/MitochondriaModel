@@ -1,0 +1,895 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>Spectroscopic Binaries: Visualization as a Knowledge Discovery Tool</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 3147--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse32.html" >next</a>] [<a 
+href="#tailQubistHTMLse31.html">tail</a>] [<a 
+href="QubistHTMLch5.html#QubistHTMLse31.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">5.1   </span> <a 
+ id="x50-740005.1"></a>Spectroscopic Binaries: Visualization as a Knowledge Discovery Tool</h3>
+<a 
+ id="dx50-74001"></a>
+<a 
+ id="dx50-74002"></a>
+<a 
+ id="dx50-74003"></a>
+<a 
+ id="dx50-74004"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 3154--><p class="noindent" >I teach a third year course on the physics of stars, in which we cover many topics including radiative transfer in
+stellar atmospheres, nuclear fusion, convection, solar physics, stellar evolution, supernovae, and exotic stars like
+white dwarfs and neutron stars. One of the topics that I cover early in the course is binary star systems -
+pairs of stars that are in orbit around a common centre of mass. There are many different kinds of
+binaries, but this example will focus on spectroscopic binaries, where the stars are too distant to actually
+be seen moving around on their orbits, but the motion along the line of sight can be observed by
+the Doppler shift of the starlight. Doppler shift is a familiar phenomenon to anyone who has ever
+heard the change in pitch of a car horn as a vehicle passes. The horn sounds higher in pitch when it
+approaches you, and then abruptly decreases in pitch as the car passes. Likewise, the light from a star
+appears higher in frequency when it moves towards the observer, and therefore any spectral lines are
+shifted toward the blue. The opposite happens when the star moves away from the observer, when
+spectral lines are shifted towards the red. Therefore, even if we can&#8217;t see the stars in a spectroscopic
+binary system moving back and forth on the sky, we can obtain some information about the state
+of their motion by observing how their spectral lines shift back and forth in frequency as the stars
+go about their orbits. This information is incomplete because we only see the effects of their motion
+in one dimension along the line of sight, and we know <span 
+class="cmti-10">nothing </span>about the motion in the other two
+dimensions.
+<a 
+ id="dx50-74005"></a>
+<a 
+ id="dx50-74006"></a>
+<a 
+ id="dx50-74007"></a>
+<a 
+ id="dx50-74008"></a>
+<!--l. 3160--><p class="noindent" >Spectroscopic binaries are interesting because their observed Doppler shifts can reveal information
+about the masses of the stars and their orbital parameters. A question that always arises when I teach
+this topic is the following: &#8216;if we only know the motion of the stars in one dimension by measuring
+the Doppler shift, then what information can we actually obtain about their masses and the orbital
+parameters&#8217;? Spectroscopic binaries have been studied for a long time and the answer to this question is well
+known. The system is simple enough that a bright student could probably even figure this out from the
+structure of the equations. However, I find it more effective from a teaching perspective to address
+this question by means of the data-modeling simulation that I show here, rather than attempting to
+address it from a purely mathematical analysis. This is more realistic for data-modeling problems in
+general, because it is rarely possible to determine the mathematical degeneracies and overall parameter
+space structure of a more complicated model <span 
+class="cmti-10">a priori</span>. However, it is often easier to find the physical
+reasons behind such features by mathematical analysis, once Ferret shows you where to look in the
+math!
+<a 
+ id="dx50-74009"></a>
+<!--l. 3163--><p class="noindent" >We start off by generating &#8216;artificial data&#8217; by simulating the orbits and calculating the velocity toward
+or away from the observer as a function of time, to which I add random Gaussian noise at a level
+equal to 5% of the maximum velocity magnitude. This artificial data is shown as the red jagged line
+in panel d) of Figure <a 
+href="QubistHTMLse32.html#x51-750112">5.2<!--tex4ht:ref: fig:analysisViews --></a>. In reality, it is possible to constrain the mass of a star by measuring its
+spectral type, but we will assume a broad range of masses from 0.1 to 10 times the mass of the Sun, for
+the purpose of this demonstration. Why use artificial data rather than real data? First of all, I don&#8217;t
+actually have any real data for binary star systems. Secondly, and more importantly, <span 
+class="cmti-10">using artificial data</span>
+<span 
+class="cmti-10">constructed with known parameters and added noise offers an excellent way to test a modeling code, because</span>
+<span 
+class="cmti-10">a correct code should produce an optimal set of models whose parameters are distributed about the</span>
+<span 
+class="cmti-10">original artificial data model. </span>Of course, the inherent danger of this method is that the model itself could
+be wrong or there could be an error in the code that models it, in which case you might blindly go
+forward fitting incorrect models to junk data. However, the physics behind this particular model is
+                                                                                         
+
+                                                                                         
+simple enough that I&#8217;m certain that it is correct. The artificial data is produced by the problem&#8217;s init.m
+file:
+<!--l. 3206--><p class="noindent" ><span 
+class="colorbox" id="colorbox56"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">function</span><span 
+class="cmtt-10">&#x00A0;extPar=init</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Initialization</span><span 
+class="cmtt-10">&#x00A0;function</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;spectroscopic</span><span 
+class="cmtt-10">&#x00A0;binary</span><span 
+class="cmtt-10">&#x00A0;modeling</span><span 
+class="cmtt-10">&#x00A0;demo.</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Load</span><span 
+class="cmtt-10">&#x00A0;physical</span><span 
+class="cmtt-10">&#x00A0;constants.</span><br /><span 
+class="cmtt-10">extPar.K=const;</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Prepare</span><span 
+class="cmtt-10">&#x00A0;artificial</span><span 
+class="cmtt-10">&#x00A0;data</span><span 
+class="cmtt-10">&#x00A0;using</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;following</span><span 
+class="cmtt-10">&#x00A0;parameters:</span><br /><span 
+class="cmtt-10">extPar.binaryPar.phi=60;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;orbital</span><span 
+class="cmtt-10">&#x00A0;phase</span><span 
+class="cmtt-10">&#x00A0;(degrees):</span><span 
+class="cmtt-10">&#x00A0;rotates</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;orbital</span><span 
+class="cmtt-10">&#x00A0;plane</span><br /><span 
+class="cmtt-10">extPar.binaryPar.sini=sin(pi/180*45);</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;inclination</span><span 
+class="cmtt-10">&#x00A0;(degrees):</span><span 
+class="cmtt-10">&#x00A0;tilt</span><span 
+class="cmtt-10">&#x00A0;wrt.</span><span 
+class="cmtt-10">&#x00A0;plane</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML8x.png" alt="                                                                                                                                                                                                                                                                   `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;sky.</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;i=0</span><span 
+class="cmtt-10">&#x00A0;==&#x003E;</span><span 
+class="cmtt-10">&#x00A0;orbit</span><span 
+class="cmtt-10">&#x00A0;in</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;sky</span><span 
+class="cmtt-10">&#x00A0;plane.</span><br /><span 
+class="cmtt-10">extPar.binaryPar.e=0.5;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;eccentricity:</span><span 
+class="cmtt-10">&#x00A0;how</span><span 
+class="cmtt-10">&#x00A0;elliptical</span><span 
+class="cmtt-10">&#x00A0;are</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;orbits?</span><br /><span 
+class="cmtt-10">extPar.binaryPar.m1=1;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;mass</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;star</span><span 
+class="cmtt-10">&#x00A0;#1</span><span 
+class="cmtt-10">&#x00A0;(solar</span><span 
+class="cmtt-10">&#x00A0;mass</span><span 
+class="cmtt-10">&#x00A0;units)</span><br /><span 
+class="cmtt-10">extPar.binaryPar.m2=2;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;mass</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;star</span><span 
+class="cmtt-10">&#x00A0;#2</span><span 
+class="cmtt-10">&#x00A0;(solar</span><span 
+class="cmtt-10">&#x00A0;mass</span><span 
+class="cmtt-10">&#x00A0;units)</span><br /><span 
+class="cmtt-10">extPar.binaryPar.a=1;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;semi-major</span><span 
+class="cmtt-10">&#x00A0;axis</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;orbits</span><span 
+class="cmtt-10">&#x00A0;in</span><span 
+class="cmtt-10">&#x00A0;AU</span><span 
+class="cmtt-10">&#x00A0;(astronomical</span><span 
+class="cmtt-10">&#x00A0;units):</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;--&#x003E;</span><span 
+class="cmtt-10">&#x00A0;1/2</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;long</span><span 
+class="cmtt-10">&#x00A0;dimension</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;elliptical</span><span 
+class="cmtt-10">&#x00A0;orbits.</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Options</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;numerical</span><span 
+class="cmtt-10">&#x00A0;integrator:</span><br /><span 
+class="cmtt-10">extPar.int.absTol=1e-8;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Absolute</span><span 
+class="cmtt-10">&#x00A0;tolerance</span><br /><span 
+class="cmtt-10">extPar.int.relTol=1e-8;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Relative</span><span 
+class="cmtt-10">&#x00A0;tolerance</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Captions</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;plotting:</span><br /><span 
+class="cmtt-10">extPar.etc.tCaption=&#8217;t</span><span 
+class="cmtt-10">&#x00A0;(yr)&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;x-axis</span><br /><span 
+class="cmtt-10">extPar.etc.vCaption=&#8217;v</span><span 
+class="cmtt-10">&#x00A0;(km/s)&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;y-axis</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Convert</span><span 
+class="cmtt-10">&#x00A0;orbital</span><span 
+class="cmtt-10">&#x00A0;parameters</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;cgs</span><span 
+class="cmtt-10">&#x00A0;units:</span><br /><span 
+class="cmtt-10">a=extPar.binaryPar.a*extPar.K.AU;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;semi-major</span><span 
+class="cmtt-10">&#x00A0;axis</span><br /><span 
+class="cmtt-10">m1=extPar.binaryPar.m1*extPar.K.Msol;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Mass</span><span 
+class="cmtt-10">&#x00A0;#1</span><br /><span 
+class="cmtt-10">m2=extPar.binaryPar.m2*extPar.K.Msol;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Mass</span><span 
+class="cmtt-10">&#x00A0;#2</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Period</span><span 
+class="cmtt-10">&#x00A0;(from</span><span 
+class="cmtt-10">&#x00A0;Kepler&#8217;s</span><span 
+class="cmtt-10">&#x00A0;Law):</span><br /><span 
+class="cmtt-10">extPar.etc.P=sqrt(</span><span 
+class="cmtt-10">&#x00A0;4*pi</span><span 
+class="cmsy-10">&#x2227;</span><span 
+class="cmtt-10">2*a</span><span 
+class="cmsy-10">&#x2227;</span><span 
+class="cmtt-10">3/extPar.K.G/(m1+m2)</span><span 
+class="cmtt-10">&#x00A0;);</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Period</span><span 
+class="cmtt-10">&#x00A0;(seconds)</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Prepare</span><span 
+class="cmtt-10">&#x00A0;artificial</span><span 
+class="cmtt-10">&#x00A0;data.</span><br /><span 
+class="cmtt-10">extPar.data.Npt=100;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;data</span><span 
+class="cmtt-10">&#x00A0;points</span><span 
+class="cmtt-10">&#x00A0;requested</span><br /><span 
+class="cmtt-10">extPar.data.t=linspace(0,extPar.etc.P,extPar.data.Npt);</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Times</span><span 
+class="cmtt-10">&#x00A0;at</span><span 
+class="cmtt-10">&#x00A0;which</span><span 
+class="cmtt-10">&#x00A0;data</span><span 
+class="cmtt-10">&#x00A0;are</span><span 
+class="cmtt-10">&#x00A0;taken</span><br /><span 
+class="cmtt-10">extPar.data.relErr=0.05;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Relative</span><span 
+class="cmtt-10">&#x00A0;error</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;added</span><span 
+class="cmtt-10">&#x00A0;noise</span><br /><span 
+class="cmtt-10">[extPar.data.t,</span><span 
+class="cmtt-10">&#x00A0;extPar.data.V]=binary(extPar);</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Creates</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;"data"</span><br /><span 
+class="cmtt-10">[extPar.data.V,</span><span 
+class="cmtt-10">&#x00A0;extPar.data.dV]=addNoise(extPar.data.V,</span><span 
+class="cmtt-10">&#x00A0;extPar.data.relErr);</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Add</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML9x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;some</span><span 
+class="cmtt-10">&#x00A0;Gaussian</span><span 
+class="cmtt-10">&#x00A0;noise</span></div>
+</div></span>
+                                                                                         
+
+                                                                                         
+<!--l. 3214--><p class="noindent" >The fitness function receives all of the parameters in extPar, which I have organized into several substructures.
+     <ul class="itemize1">
+     <li class="itemize">
+     <span 
+class="cmtt-10">extPar.K</span>:
+     physical
+     constants
+     loaded
+     from
+     the
+     const.m
+     file,
+     which
+     is
+     included
+     in
+     the
+     demo
+     directory.
+     </li>
+     <li class="itemize">
+     <span 
+class="cmtt-10">extPar.binaryPar</span>:
+     all
+     of
+     the
+     orbital
+     parameters
+     that
+     Ferret
+     will
+     (hopefully)
+     solve
+     for.
+     </li>
+     <li class="itemize">
+     <span 
+class="cmtt-10">extPar.int</span>:
+     Tolerances
+     for
+     the
+     ODE
+     integrator.
+     </li>
+                                                                                         
+
+                                                                                         
+     <li class="itemize">
+     <span 
+class="cmtt-10">extPar.etc</span>:
+     Captions
+     for
+     plotting.
+     This
+     field
+     also
+     includes
+     the
+     period
+     of
+     the
+     orbit,
+     which
+     is
+     calculated
+     using
+     Kepler&#8217;s
+     Law.
+     </li>
+     <li class="itemize">
+     <span 
+class="cmtt-10">extPar.data</span>:
+     The
+     artificial
+     data
+     that
+     we
+     plan
+     to
+     model.
+     Velocities
+     for
+     the
+     two
+     stars
+     are
+     contained
+     within
+     the
+     two
+     rows
+     of
+     matrix
+     <span 
+class="cmtt-10">extPar.data.V</span>,
+     as
+                                                                                         
+
+                                                                                         
+     a
+     function
+     of
+     the
+     times
+     in
+     vector
+     <span 
+class="cmtt-10">extPar.data.t</span>.
+     These
+     same
+     times
+     will
+     be
+     used
+     for
+     all
+     models
+     calculated
+     during
+     the
+     Ferret
+     run,
+     because
+     the
+     reduced
+     <span 
+class="cmmi-10">&#x03C7;</span><sup><span 
+class="cmr-7">2</span></sup>
+     function
+     given
+     by
+     equation
+     <a 
+href="#x50-74051r5.1">5.1<!--tex4ht:ref: eq:binaryFitness --></a>
+     below
+     requires
+     that
+     the
+     model
+     being
+     tested
+     is
+     evaluated
+     at
+     exactly
+     the
+     same
+     times
+     &#8216;observed&#8217;
+     in
+     the
+                                                                                         
+
+                                                                                         
+     artificial
+     data.</li></ul>
+<!--l. 3223--><p class="noindent" >The actual parameters used to generate the artificial data for this example are given in table <a 
+href="#x50-740491">5.1<!--tex4ht:ref: tab:binary --></a>, and panel d) of
+Figure <a 
+href="QubistHTMLse32.html#x51-750112">5.2<!--tex4ht:ref: fig:analysisViews --></a> shows plots of the velocity vs. time data, including the added noise, for both stars. Note that the
+logarithm of the mass is used as a parameter, rather than the mass itself, because we plan to explore a large
+dynamic range of possible masses during the parameter space search. Using the sine of the inclination angle as a
+parameter, instead of <span 
+class="cmmi-10">i</span>, provides a slight simplification because the inclination angle enters the orbit equations as
+sin<span 
+class="cmmi-10">i</span>. <div class="table">
+                                                                                         
+
+                                                                                         
+<!--l. 3225--><p class="noindent" ><a 
+ id="x50-740491"></a><hr class="float"><div class="float" 
+>
+                                                                                         
+
+                                                                                         
+<div class="tabular">
+ <table id="TBL-1" class="tabular" 
+cellspacing="0" cellpadding="0" rules="groups" 
+><colgroup id="TBL-1-1g"><col 
+id="TBL-1-1"></colgroup><colgroup id="TBL-1-2g"><col 
+id="TBL-1-2"></colgroup><colgroup id="TBL-1-3g"><col 
+id="TBL-1-3"></colgroup><colgroup id="TBL-1-4g"><col 
+id="TBL-1-4"></colgroup><colgroup id="TBL-1-5g"><col 
+id="TBL-1-5"></colgroup><colgroup id="TBL-1-6g"><col 
+id="TBL-1-6"></colgroup><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-1-1-1"  
+class="td11">Parameter #</td><td  style="white-space:nowrap; text-align:center;" id="TBL-1-1-2"  
+class="td11"> Symbol  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-1-3"  
+class="td11">Parameter Name         </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-1-4"  
+class="td11">Value   </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-1-5"  
+class="td11">Units           </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-1-6"  
+class="td11">Range </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-1-2-1"  
+class="td11">     1        </td><td  style="white-space:nowrap; text-align:center;" id="TBL-1-2-2"  
+class="td11">    <span 
+class="cmmi-10">&#x03D5;     </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-2-3"  
+class="td11">orbital phase angle       </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-2-4"  
+class="td11">30        </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-2-5"  
+class="td11">degrees        </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-2-6"  
+class="td11">[0, 360]</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-1-3-1"  
+class="td11">     2        </td><td  style="white-space:nowrap; text-align:center;" id="TBL-1-3-2"  
+class="td11">  sin(<span 
+class="cmmi-10">i</span>)   </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-3-3"  
+class="td11">sin of inclination angle  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-3-4"  
+class="td11"><img 
+src="QubistHTML10x.png" alt="&#x221A;2-"  class="sqrt" ><span 
+class="cmmi-10">&#x2215;</span>2    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-3-5"  
+class="td11">dimensionless</td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-3-6"  
+class="td11">[0, 1]   </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-1-4-1"  
+class="td11">     3        </td><td  style="white-space:nowrap; text-align:center;" id="TBL-1-4-2"  
+class="td11">    <span 
+class="cmmi-10">e     </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-4-3"  
+class="td11">eccentricity                 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-4-4"  
+class="td11">0.7       </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-4-5"  
+class="td11">dimensionless</td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-4-6"  
+class="td11">[0, 0.9] </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-1-5-1"  
+class="td11">     4        </td><td  style="white-space:nowrap; text-align:center;" id="TBL-1-5-2"  
+class="td11">log <sub><span 
+class="cmr-7">10</span></sub>(<span 
+class="cmmi-10">m</span>1)</td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-5-3"  
+class="td11">log of mass of star #1 <span class="footnote-mark"><sup class="textsuperscript">1</sup></span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-5-4"  
+class="td11">log <sub><span 
+class="cmr-7">10</span></sub>0<span 
+class="cmmi-10">.</span>5</td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-5-5"  
+class="td11">dimensionless</td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-5-6"  
+class="td11">[-1, 1]  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-6-"><td  style="white-space:nowrap; text-align:center;" id="TBL-1-6-1"  
+class="td11">     5        </td><td  style="white-space:nowrap; text-align:center;" id="TBL-1-6-2"  
+class="td11">log <sub><span 
+class="cmr-7">10</span></sub>(<span 
+class="cmmi-10">m</span>2)</td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-6-3"  
+class="td11">log mass of star #2 <span class="footnote-mark"><sup class="textsuperscript">1</sup></span>    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-6-4"  
+class="td11">log <sub><span 
+class="cmr-7">10</span></sub>2  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-6-5"  
+class="td11">dimensionless</td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-6-6"  
+class="td11">[-1, 1]  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-7-"><td  style="white-space:nowrap; text-align:center;" id="TBL-1-7-1"  
+class="td11">     6        </td><td  style="white-space:nowrap; text-align:center;" id="TBL-1-7-2"  
+class="td11"> log <sub><span 
+class="cmr-7">10</span></sub>(<span 
+class="cmmi-10">a</span>) </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-7-3"  
+class="td11">semi-major axis <span class="footnote-mark"><sup class="textsuperscript">2</sup></span>         </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-7-4"  
+class="td11">2         </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-7-5"  
+class="td11">AU             </td><td  style="white-space:nowrap; text-align:left;" id="TBL-1-7-6"  
+class="td11">[-1, 1]  </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-8-"><td  style="white-space:nowrap; text-align:center;" id="TBL-1-8-1"  
+class="td11">            </td></tr></table>
+<!--l. 3237--><p class="noindent" ></div>
+<br /> <div class="caption" 
+><span class="id">Table&#x00A0;5.1: </span><span  
+class="content">The actual parameters used to construct the artificial data for the spectroscopic binary problem.
+5% noise was added, and the code was tested by attempting to recover these parameters by modeling the
+artificial data.</span></div><!--tex4ht:label?: x50-740491 -->
+  <sup class="textsuperscript"><span 
+class="cmr-9">1</span></sup> Masses are relative to the Sun (solar mass units).
+  <sup class="textsuperscript"><span 
+class="cmr-9">2</span></sup> The semimajor axis is in units of astronomical units (mean distance between the Earth and Sun).
+                                                                                         
+
+                                                                                         
+</div><hr class="endfloat" />
+</div>
+<a 
+ id="dx50-74050"></a>
+<!--l. 3249--><p class="noindent" >The fitness function is a reduced <span 
+class="cmmi-10">&#x03C7;</span><sup><span 
+class="cmr-7">2</span></sup> function that compares the velocity-time functions for each candidate model to
+the artificial data: <div class="eqnarray">
+<center class="math-display" >
+<img 
+src="QubistHTML11x.png" alt="                       1   &#x2211;2  N&#x2211;  (vmodel(t)- vdata)2
+     F  =  &#x03C7;2reduced = -------      -s-----i2---s,i---
+                     D.O.F. s=1 i=1        &#x03C3;s,i
+D.O.F.  =  2N  - 6                                                (5.1)
+" class="math-display" ><a 
+ id="x50-74051r5.1"></a></center>
+</div>where <span 
+class="cmmi-10">s </span>is an index over the two stars, <span 
+class="cmmi-10">v</span><sub><span 
+class="cmmi-7">s,i</span></sub><sup><span 
+class="cmmi-7">data</span></sup> is the sequence of velocities observed at times <span 
+class="cmmi-10">t</span><sub><span 
+class="cmmi-7">i</span></sub>, and the model
+velocity <span 
+class="cmmi-10">v</span><sub><span 
+class="cmmi-7">s</span></sub><sup><span 
+class="cmmi-7">model</span></sup>(<span 
+class="cmmi-10">t</span><sub><span 
+class="cmmi-7">i</span></sub>) is evaluated at these same times. The &#8216;observational error&#8217; on the artificial data is given by <span 
+class="cmmi-10">&#x03C3;</span><sub><span 
+class="cmmi-7">s,i</span></sub>,
+which I have set equal to a constant value of 5% of the maximum velocity magnitude of the two stars. The number
+of degrees of freedom <span 
+class="cmmi-10">D.O.F. </span>of the system is equal to the total number of data points (2<span 
+class="cmmi-10">N</span>), minus the number of
+parameters (6). A good solution should have <span 
+class="cmmi-10">&#x03C7;</span><sub><span 
+class="cmmi-7">reduced</span></sub><sup><span 
+class="cmr-7">2</span></sup> <span 
+class="cmsy-10">&#x2248; </span>1.
+<!--l. 3257--><p class="noindent" >The fitness function is given by the following code:
+<!--l. 3291--><p class="noindent" ><span 
+class="colorbox" id="colorbox57"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">function</span><span 
+class="cmtt-10">&#x00A0;F=binaryFitness(X,extPar)</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Fitness</span><span 
+class="cmtt-10">&#x00A0;function</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;spectroscopic</span><span 
+class="cmtt-10">&#x00A0;binary</span><span 
+class="cmtt-10">&#x00A0;modeling</span><span 
+class="cmtt-10">&#x00A0;code</span><span 
+class="cmtt-10">&#x00A0;from</span><span 
+class="cmtt-10">&#x00A0;the</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Qubist</span><span 
+class="cmtt-10">&#x00A0;user&#8217;s</span><span 
+class="cmtt-10">&#x00A0;guide.</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Determine</span><span 
+class="cmtt-10">&#x00A0;number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;parameters</span><span 
+class="cmtt-10">&#x00A0;and</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;solutions</span><span 
+class="cmtt-10">&#x00A0;requesed</span><span 
+class="cmtt-10">&#x00A0;by</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Ferret.</span><br /><span 
+class="cmtt-10">[NPar,N]=size(X);</span><br /><span 
+class="cmtt-10">for</span><span 
+class="cmtt-10">&#x00A0;i=N:-1:1</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;if</span><span 
+class="cmtt-10">&#x00A0;mod(i,10)==0</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Pause</span><span 
+class="cmtt-10">&#x00A0;occasionally</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;keep</span><span 
+class="cmtt-10">&#x00A0;user</span><span 
+class="cmtt-10">&#x00A0;interfaces</span><span 
+class="cmtt-10">&#x00A0;responsive.</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;pause(0.001);</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;end</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Convert</span><span 
+class="cmtt-10">&#x00A0;Ferret&#8217;s</span><span 
+class="cmtt-10">&#x00A0;&#8216;X&#8217;</span><span 
+class="cmtt-10">&#x00A0;matrix</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;a</span><span 
+class="cmtt-10">&#x00A0;parameter</span><span 
+class="cmtt-10">&#x00A0;structure</span><span 
+class="cmtt-10">&#x00A0;that</span><span 
+class="cmtt-10">&#x00A0;the</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;binary.m</span><span 
+class="cmtt-10">&#x00A0;program</span><span 
+class="cmtt-10">&#x00A0;understands.</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;extPar.binaryPar=X2Par(X(:,i),</span><span 
+class="cmtt-10">&#x00A0;extPar.binaryPar);</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Compute</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;velocity</span><span 
+class="cmtt-10">&#x00A0;curves:</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;t</span><span 
+class="cmtt-10">&#x00A0;--&#x003E;</span><span 
+class="cmtt-10">&#x00A0;time</span><span 
+class="cmtt-10">&#x00A0;(unused).</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;V</span><span 
+class="cmtt-10">&#x00A0;--&#x003E;</span><span 
+class="cmtt-10">&#x00A0;velocity.</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;[t,V]=binary(extPar);</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Degrees</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;freedom:</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;DOF=numel(extPar.data.V)-NPar;</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Fitness:</span><span 
+class="cmtt-10">&#x00A0;just</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;usual</span><span 
+class="cmtt-10">&#x00A0;reduced</span><span 
+class="cmtt-10">&#x00A0;chi^2</span><span 
+class="cmtt-10">&#x00A0;formula.</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;F(i)=sum(sum((V-extPar.data.V).^2/extPar.data.dV^2))/DOF;</span><span 
+class="cmtt-10">&#x00A0;%#ok</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><br /><span 
+class="cmtt-10">end</span></div>
+</div></span>
+<!--l. 3297--><p class="noindent" >Note that the fitness function calls a program called binary.m, where all of the astrophysical modeling is done.
+Interested readers can examine this function to understand the details of the physics involved. However, I anticipate
+that most readers will be content with understanding the binaryFitness.m function printed above, since this gives a
+good template for <span 
+class="cmmi-10">&#x03C7;</span><sup><span 
+class="cmr-7">2</span></sup> data-modeling problems in general, while avoiding the details of this particular
+system.
+<a 
+ id="dx50-74082"></a>
+<a 
+ id="dx50-74083"></a>
+<a 
+ id="dx50-74084"></a>
+<!--l. 3302--><p class="noindent" >The model and artificial data curves would be identical if a set of parameters could be found such that
+<span 
+class="cmmi-10">F </span>= <span 
+class="cmmi-10">&#x03C7;</span><sub><span 
+class="cmmi-7">reduced</span></sub><sup><span 
+class="cmr-7">2</span></sup> = 0, but of course, this is not possible because I have added noise to the data. The best fit that we
+can reasonably expect would have <span 
+class="cmmi-10">&#x03C7;</span><sub><span 
+class="cmmi-7">reduced</span></sub><sup><span 
+class="cmr-7">2</span></sup> <span 
+class="cmsy-10">&#x2248; </span>1. In fact, it can be argued that it is difficult to distinguish between
+models within one of the <span 
+class="cmmi-10">&#x03C7;</span><sub><span 
+class="cmmi-7">reduced</span></sub><sup><span 
+class="cmr-7">2</span></sup> minimum: <span 
+class="cmmi-10">&#x03C7;</span><sub><span 
+class="cmmi-7">reduced</span></sub><sup><span 
+class="cmr-7">2</span></sup> <span 
+class="cmsy-10">&#x2264; </span><span 
+class="cmmi-10">&#x03C7;</span><sub><span 
+class="cmmi-7">reduced,min</span></sub><sup><span 
+class="cmr-7">2</span></sup> + 1, because all of these models are within
+the error bars of the data. The set of models satisfying this property is a family of solutions in parameter space,
+whose distribution provides a good indication of the uncertainty of each parameter. The link between <span 
+class="cmmi-10">&#x03C7;</span><sub><span 
+class="cmmi-7">reduced</span></sub><sup><span 
+class="cmr-7">2</span></sup>,
+maximum likelihood, and error estimation is outlined concisely in the parameter estimation chapters of the
+Numerical Recipes books, some of which are offered online free of charge at the time of this writing
+(http://www.nrbook.com).
+                                                                                         
+
+                                                                                         
+<a 
+ id="dx50-74085"></a>
+<!--l. 3305--><p class="noindent" >I have chosen to map out the set of models within one of the <span 
+class="cmmi-10">&#x03C7;</span><sub><span 
+class="cmmi-7">reduced</span></sub><sup><span 
+class="cmr-7">2</span></sup> minimum by setting a fuzzy tolerance:
+<span 
+class="cmtt-10">par.selection.FAbsTol=1</span>. Ferret ignores differences that are less than <span 
+class="cmtt-10">par.selection.FAbsTol </span>when the
+selection operator is evaluated. When niching is enabled (<span 
+class="cmtt-10">par.niching.X &#x003E; 0 </span>or <span 
+class="cmtt-10">par.niching.F &#x003E; 0</span>), a stable
+population should develop, which fills out the region within <span 
+class="cmtt-10">par.selection.FAbsTol </span>of the minimum of <span 
+class="cmmi-10">F</span>. In our
+case, this is effectively the region containing all of the models that are allowed within our noise limit.
+When the run is analyzed, the OptimalSolutions.mat file will contain all solutions discovered with
+<span 
+class="cmmi-10">&#x03C7;</span><sub><span 
+class="cmmi-7">reduced</span></sub><sup><span 
+class="cmr-7">2</span></sup> <span 
+class="cmsy-10">&#x2264; </span><span 
+class="cmmi-10">&#x03C7;</span><sub><span 
+class="cmmi-7">min,reduced</span></sub><sup><span 
+class="cmr-7">2</span></sup> + 1. However, the OptimalSolutions.rank substructure will contain true, non-fuzzy ranks
+that ignore the <span 
+class="cmmi-10">FAbsTol </span>parameter. Thus, the optimal set will contain many solutions within the
+error tolerance, but only the solution (or solutions) with <span 
+class="cmmi-10">&#x03C7;</span><sub><span 
+class="cmmi-7">reduced</span></sub><sup><span 
+class="cmr-7">2</span></sup> = <span 
+class="cmmi-10">&#x03C7;</span><sub><span 
+class="cmmi-7">min,reduced</span></sub><sup><span 
+class="cmr-7">2</span></sup> will be tagged as
+<span 
+class="cmmi-10">OptimalSolutions.rank </span>= 1.
+                                                                                         
+
+                                                                                         
+<!--l. 3307--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse32.html" >next</a>] [<a 
+href="QubistHTMLse31.html" >front</a>] [<a 
+href="QubistHTMLch5.html#QubistHTMLse31.html" >up</a>] </p></div>
+<!--l. 3307--><p class="noindent" ><a 
+ id="tailQubistHTMLse31.html"></a>  
+</body></html> 

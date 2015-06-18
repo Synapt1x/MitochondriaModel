@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>12 Other Qubist Tools</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 7891--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLch13.html" >next</a>] [<a 
+href="QubistHTMLch11.html" >prev</a>] [<a 
+href="QubistHTMLch11.html#tailQubistHTMLch11.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLch12.html">tail</a>] [<a 
+href="QubistHTML3.html#QubistHTMLch12.html" >up</a>] </p></div>
+<h2 class="chapterHead"><span class="titlemark">Chapter&#x00A0;12</span><br /><a 
+ id="x125-21400012"></a>Other Qubist Tools</h2>
+<a 
+ id="dx125-214001"></a>
+     <div class="quote">
+     <!--l. 7896--><p class="noindent" ><span 
+class="cmti-10">&#8216;In</span>
+     <span 
+class="cmti-10">short,</span>
+     <span 
+class="cmti-10">intelligence,</span>
+     <span 
+class="cmti-10">considered</span>
+     <span 
+class="cmti-10">in</span>
+     <span 
+class="cmti-10">what</span>
+     <span 
+class="cmti-10">seems</span>
+     <span 
+class="cmti-10">to</span>
+     <span 
+class="cmti-10">be</span>
+     <span 
+class="cmti-10">its</span>
+     <span 
+class="cmti-10">original</span>
+     <span 
+class="cmti-10">feature,</span>
+     <span 
+class="cmti-10">is</span>
+     <span 
+class="cmti-10">the</span>
+     <span 
+class="cmti-10">faculty</span>
+     <span 
+class="cmti-10">of</span>
+     <span 
+class="cmti-10">making</span>
+     <span 
+class="cmti-10">artificial</span>
+     <span 
+class="cmti-10">objects,</span>
+     <span 
+class="cmti-10">especially</span>
+     <span 
+class="cmti-10">tools</span>
+     <span 
+class="cmti-10">to</span>
+     <span 
+class="cmti-10">make</span>
+     <span 
+class="cmti-10">tools,</span>
+     <span 
+class="cmti-10">and</span>
+     <span 
+class="cmti-10">of</span>
+     <span 
+class="cmti-10">indefinitely</span>
+     <span 
+class="cmti-10">varying</span>
+     <span 
+class="cmti-10">the</span>
+     <span 
+class="cmti-10">manufacture.&#8217;</span><br />
+     -Henri
+     Bergson,
+     <span 
+class="cmti-10">Creative</span>
+     <span 
+class="cmti-10">Evolution</span></div>
+                                                                                         
+
+                                                                                         
+<!--l. 7900--><p class="noindent" >The purpose of this chapter is to show you how to use a few extra tools in the Qubist package, which can help you
+to manage runs and understand your results. These tools are as follows:
+     <ol  class="enumerate1" >
+     <li 
+  class="enumerate" id="x125-214003x1">
+     The
+     Resume
+     Tool
+     for
+     Ferret
+     and
+     Locust
+     (Section
+     <a 
+href="QubistHTMLse94.html#x126-21500012.1">12.1<!--tex4ht:ref: sec:resumeTool --></a>)
+     </li>
+     <li 
+  class="enumerate" id="x125-214005x2">
+     The
+     Analyze
+     History
+     Tool
+     for
+     Ferret
+     and
+     Locust
+     (Section
+     <a 
+href="QubistHTMLse95.html#x127-21600012.2">12.2<!--tex4ht:ref: sec:analyzeHistoryTool --></a>)
+     </li>
+     <li 
+  class="enumerate" id="x125-214007x3">
+     The
+     OptimalSolutions
+     Viewer
+     (Section
+     <a 
+href="QubistHTMLse96.html#x128-21700012.3">12.3<!--tex4ht:ref: sec:OptimalSolutionsViewer --></a>)
+     </li>
+     <li 
+  class="enumerate" id="x125-214009x4">
+     The
+     Merge
+     OptimalSolutions
+     Tool
+     (Section
+     <a 
+href="QubistHTMLse97.html#x130-21800012.4">12.4<!--tex4ht:ref: sec:mergeOptimalSolutions --></a>)
+     </li>
+                                                                                         
+
+                                                                                         
+     <li 
+  class="enumerate" id="x125-214011x5">
+     The
+     Ferret
+     History
+     Explorer
+     (Section
+     <a 
+href="QubistHTMLse98.html#x132-21900012.5">12.5<!--tex4ht:ref: sec:historyExplorer --></a>)
+     </li>
+     <li 
+  class="enumerate" id="x125-214013x6">
+     the
+     Qubist
+     Movie
+     Tool
+     (Section
+     <a 
+href="QubistHTMLse99.html#x133-22000012.6">12.6<!--tex4ht:ref: sec:movieTool --></a>).</li></ol>
+<!--l. 7909--><p class="noindent" >The first three of these tools are the most useful and I use them very frequently. The Merge OptimalSolutions
+tool is also very useful when compiling the results from several runs, especially when generating the
+final results for a project. I don&#8217;t use the Ferret History Explorer all that often, but this has been
+occasionally useful for examining the long-term evolution of a run, particularly when trying to understand
+what Ferret did (and how to tweak its setup file) when a run surprises me or obtains poor results.
+Finally, the Movie Tool is a handy feature that I use when making movie clips of a run for a seminar or
+demonstration.
+<a 
+ id="dx125-214014"></a>
+<!--l. 7912--><p class="noindent" >All of these tools are included in Qubist and are normally launched from the component selector interface that is
+started by running your launchQubist.m file. <span 
+class="cmti-10">However, the Analyze History Tool, the OptimalSolutions Viewer, and</span>
+<span 
+class="cmti-10">the Merge OptimalSolutions Tool are also available as components of a standalone MATLAB toolbox called</span>
+<span 
+class="cmti-10">&#8216;QubistFreeTools&#8217; from nQube. </span>This software includes the entire set of visualization tools from the full
+Qubist package, which is meant to allow users to view their results on any computer, and to share their
+OptimalSolutions.mat files conveniently with others.
+<div class="sectionTOCS">
+&#x00A0;<span class="sectionToc" >12.1 <a 
+href="QubistHTMLse94.html#x126-21500012.1">The Ferret/Locust Resume Tool</a></span>
+<br />&#x00A0;<span class="sectionToc" >12.2 <a 
+href="QubistHTMLse95.html#x127-21600012.2">The Analyze History Tool</a></span>
+<br />&#x00A0;<span class="sectionToc" >12.3 <a 
+href="QubistHTMLse96.html#x128-21700012.3">The OptimalSolutions Viewer</a></span>
+<br />&#x00A0;<span class="sectionToc" >12.4 <a 
+href="QubistHTMLse97.html#x130-21800012.4">The Merge OptimalSolutions Tool</a></span>
+<br />&#x00A0;<span class="sectionToc" >12.5 <a 
+href="QubistHTMLse98.html#x132-21900012.5">The Ferret History Explorer</a></span>
+<br />&#x00A0;<span class="sectionToc" >12.6 <a 
+href="QubistHTMLse99.html#x133-22000012.6">The Qubist Movie Tool</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >12.6.1 <a 
+href="QubistHTMLse99.html#x133-22100012.6.1" id="QQ2-133-259">Running the Movie Tool</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >12.6.2 <a 
+href="QubistHTMLse99.html#x133-22200012.6.2" id="QQ2-133-261">Making Movies from History Files</a></span>
+                                                                                         
+
+                                                                                         
+</div>
+
+
+
+
+
+                                                                                         
+
+                                                                                         
+<!--l. 8170--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLch13.html" >next</a>] [<a 
+href="QubistHTMLch11.html" >prev</a>] [<a 
+href="QubistHTMLch11.html#tailQubistHTMLch11.html" >prev-tail</a>] [<a 
+href="QubistHTMLch12.html" >front</a>] [<a 
+href="QubistHTML3.html#QubistHTMLch12.html" >up</a>] </p></div>
+<!--l. 8170--><p class="noindent" ><a 
+ id="tailQubistHTMLch12.html"></a>  
+</body></html> 

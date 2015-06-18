@@ -1,0 +1,606 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>par.niching</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 4517--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse53.html" >next</a>] [<a 
+href="QubistHTMLse51.html" >prev</a>] [<a 
+href="QubistHTMLse51.html#tailQubistHTMLse51.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLse52.html">tail</a>] [<a 
+href="QubistHTMLch8.html#QubistHTMLse52.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">8.9   </span> <a 
+ id="x78-1100008.9"></a>par.niching</h3>
+<a 
+ id="dx78-110001"></a>
+<!--l. 4521--><p class="noindent" >Ferret includes a sophisticated niching mechanism to help distribute solutions evenly over the optimal region, or
+trade-off surface for multi-objective problems. This section explains the types of niching options available in
+Ferret.
+<!--l. 4548--><p class="noindent" ><span 
+class="colorbox" id="colorbox76"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Niching</span><br /><span 
+class="cmtt-10">par.niching.priority=&#8217;PXF&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[string:</span><span 
+class="cmtt-10">&#x00A0;re-order</span><span 
+class="cmtt-10">&#x00A0;3</span><span 
+class="cmtt-10">&#x00A0;letters,</span><span 
+class="cmtt-10">&#x00A0;&#8217;P&#8217;,</span><span 
+class="cmtt-10">&#x00A0;&#8217;X&#8217;,</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;&#8217;F&#8217;]:</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML45x.png" alt="`&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;Priority</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;niching.</span><span 
+class="cmtt-10">&#x00A0;If</span><span 
+class="cmtt-10">&#x00A0;empty,</span><span 
+class="cmtt-10">&#x00A0;use</span><span 
+class="cmtt-10">&#x00A0;Pareto</span><span 
+class="cmtt-10">&#x00A0;niching.</span><br /><span 
+class="cmtt-10">par.niching.P=0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Pattern</span><span 
+class="cmtt-10">&#x00A0;niching:</span><span 
+class="cmtt-10">&#x00A0;Typically</span><span 
+class="cmtt-10">&#x00A0;~0.5</span><span 
+class="cmtt-10">&#x00A0;is</span><span 
+class="cmtt-10">&#x00A0;about</span><span 
+class="cmtt-10">&#x00A0;right.</span><br /><span 
+class="cmtt-10">par.niching.X=0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;X-Niching:</span><span 
+class="cmtt-10">&#x00A0;Typically</span><span 
+class="cmtt-10">&#x00A0;~0.25</span><span 
+class="cmtt-10">&#x00A0;is</span><span 
+class="cmtt-10">&#x00A0;about</span><span 
+class="cmtt-10">&#x00A0;right.</span><br /><span 
+class="cmtt-10">par.niching.XPar=[];</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer</span><span 
+class="cmtt-10">&#x00A0;vector</span><span 
+class="cmtt-10">&#x00A0;&#x003E;</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;List</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;parameters</span><span 
+class="cmtt-10">&#x00A0;used</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;X-niching.</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML46x.png" alt="                                                                                                                                                                                                                                                                                                     `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;If</span><span 
+class="cmtt-10">&#x00A0;empty,</span><span 
+class="cmtt-10">&#x00A0;use</span><span 
+class="cmtt-10">&#x00A0;all.</span><br /><span 
+class="cmtt-10">par.niching.F=0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;F-Niching:</span><span 
+class="cmtt-10">&#x00A0;Typically</span><span 
+class="cmtt-10">&#x00A0;~0.25</span><span 
+class="cmtt-10">&#x00A0;is</span><span 
+class="cmtt-10">&#x00A0;about</span><span 
+class="cmtt-10">&#x00A0;right.</span><br /><span 
+class="cmtt-10">par.niching.method=&#8217;sigmaShare&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[string:</span><span 
+class="cmtt-10">&#x00A0;&#8217;sigmaShare&#8217;</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;&#8217;powerLaw&#8217;]:</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML47x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;Specify</span><span 
+class="cmtt-10">&#x00A0;a</span><span 
+class="cmtt-10">&#x00A0;niching</span><span 
+class="cmtt-10">&#x00A0;method.</span><br /><span 
+class="cmtt-10">par.niching.exponent=2;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real:</span><span 
+class="cmtt-10">&#x00A0;usually</span><span 
+class="cmtt-10">&#x00A0;&#x003E;</span><span 
+class="cmtt-10">&#x00A0;0</span><span 
+class="cmtt-10">&#x00A0;&amp;</span><span 
+class="cmtt-10">&#x00A0;&#x003C;~</span><span 
+class="cmtt-10">&#x00A0;2]:</span><span 
+class="cmtt-10">&#x00A0;Used</span><span 
+class="cmtt-10">&#x00A0;in</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;niche</span><span 
+class="cmtt-10">&#x00A0;function.</span><br /><span 
+class="cmtt-10">par.niching.powers=[4];</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real</span><span 
+class="cmtt-10">&#x00A0;vector:</span><span 
+class="cmtt-10">&#x00A0;usually</span><span 
+class="cmtt-10">&#x00A0;&#x003E;</span><span 
+class="cmtt-10">&#x00A0;0]:</span><span 
+class="cmtt-10">&#x00A0;Used</span><span 
+class="cmtt-10">&#x00A0;only</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;power-law</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML48x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;niching</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;not</span><span 
+class="cmtt-10">&#x00A0;sigmaShare.</span><br /><span 
+class="cmtt-10">par.niching.acceleration=0.5;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Acceleration</span><span 
+class="cmtt-10">&#x00A0;parameter.</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;------------------------------------</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Pattern</span><span 
+class="cmtt-10">&#x00A0;Niching</span><span 
+class="cmtt-10">&#x00A0;Specifics</span><br /><span 
+class="cmtt-10">par.niching.patternMethod=&#8217;sigmaShare&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[string:</span><span 
+class="cmtt-10">&#x00A0;&#8217;sigmaShare&#8217;</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;&#8217;powerLaw&#8217;]:</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML49x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;Method</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;use</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;pattern</span><span 
+class="cmtt-10">&#x00A0;niching.</span><br /><span 
+class="cmtt-10">par.niching.patternExponent=2;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real:</span><span 
+class="cmtt-10">&#x00A0;usually</span><span 
+class="cmtt-10">&#x00A0;&#x003E;</span><span 
+class="cmtt-10">&#x00A0;0</span><span 
+class="cmtt-10">&#x00A0;&amp;</span><span 
+class="cmtt-10">&#x00A0;&#x003C;~</span><span 
+class="cmtt-10">&#x00A0;2]:</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML50x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;exponent</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;pattern</span><span 
+class="cmtt-10">&#x00A0;niching.</span><br /><span 
+class="cmtt-10">par.niching.patternPowers=[2];</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real</span><span 
+class="cmtt-10">&#x00A0;vector,</span><span 
+class="cmtt-10">&#x00A0;usually</span><span 
+class="cmtt-10">&#x00A0;&#x003E;</span><span 
+class="cmtt-10">&#x00A0;0]:</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML51x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;Used</span><span 
+class="cmtt-10">&#x00A0;only</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;power-law</span><span 
+class="cmtt-10">&#x00A0;niching.</span></div>
+</div></span>
+<!--l. 4554--><p class="noindent" >Niching can be done in parameter space (&#8216;X-niching&#8217;), objective space (&#8216;F-niching&#8217;), or &#8216;pattern (combinatorial)
+space&#8217; (&#8216;P-niching&#8217;). The first two options have been discussed in the literature (see <a 
+href="QubistHTMLli1.html#Xfonseca93">Fonseca &amp; Fleming</a>&#x00A0;[<a 
+href="QubistHTMLli1.html#Xfonseca93">1993</a>] for
+example) and are by far the most commonly used, so I will address these first. Niching in <span 
+class="cmmi-10">X </span>(<span 
+class="cmtt-10">par.niching.X &#x003E; 0</span>)
+and <span 
+class="cmmi-10">F </span>(<span 
+class="cmtt-10">par.niching.F &#x003E; 0</span>) differ only by whether niching is done over the set of parameters or over the fitness
+values determined by your objective function. Obviously, you should normally choose to niche in <span 
+class="cmmi-10">X </span>for
+single-objective problems; although niching in <span 
+class="cmmi-10">F </span>is not technically an error, Ferret will try to spread out the fitness
+values evenly over the optimal region, which may just be a point for non-fuzzy problems with a single
+objective. If a single-objective fitness function is fuzzy, then F-niching would try to spread out the
+population over all possible fitness values that are within the fuzzy tolerance of the minimum value. Even
+so, this probably won&#8217;t do a very good job of mapping the parameter space, and it is probably not
+what you want to do. Niching in <span 
+class="cmmi-10">X </span>makes much more sense for single-objective problems - even fuzzy
+ones.
+<!--l. 4556--><p class="noindent" ><span 
+class="cmtt-10">par.niching.XPar </span>is a vector that may contain a subset of parameters to be used for X-niching. For
+example, setting <span 
+class="cmtt-10">par.niching.XPar=[1:5,7] </span>causes parameters 1 through 5, as well as parameter
+7 to be used when calculating the distance metric used for niching, while all other parameters are
+ignored. <span 
+class="cmtt-10">par.niching.XPar </span>is empty by default, which indicates that all parameters should be used for
+niching.
+<a 
+ id="dx78-110025"></a>
+<!--l. 4559--><p class="noindent" >For multi-objective problems, niching in either <span 
+class="cmmi-10">X </span>or <span 
+class="cmmi-10">F </span>is equally valid and the best choice depends on the goals of
+the problem. If you are interested mainly in the trade-off surface and want to show well-populated graphs of one
+fitness function versus another, then you probably want to niche in <span 
+class="cmmi-10">F</span>. On the other hand, if you are more interested
+in mapping out the parameters of your optimal set, then you should probably choose to niche in <span 
+class="cmmi-10">X</span>. Ferret
+will emphasize whichever option that you choose as your priority, at the expense of the other. For
+most of my problems, I choose to niche in <span 
+class="cmmi-10">X </span>because my problems usually involve modeling data,
+and this choice is best for mapping the range of model parameters allowed by the data. I have also
+occasionally done the same run twice using X-niching in one run and F-niching in the other, and then
+combined the results using Qubist&#8217;s &#8216;Merge OptimalSolutions&#8217; tool. This approach offers the best of both
+worlds.
+<!--l. 4561--><p class="noindent" >Niching comes into play when solutions are equal in a Pareto-optimal sense, or within some fuzzy tolerance, or when
+                                                                                         
+
+                                                                                         
+<span 
+class="cmtt-10">par.selection.pressure &#x003C; 1</span>. Niching is simply a strategy that prefers solutions with fewer near neighbours over
+solutions with a greater number of neighbours. The logic behind this preference is simple: solutions in a less
+populated region of parameter space are more unique, and therefore more valuable to the exploration of the space.
+The problem of niching therefore reduces to the final round of tournament selection - after fitness and CPD
+selection (see Section <a 
+href="QubistHTMLse49.html#x74-1050008.6">8.6<!--tex4ht:ref: sec:par_selection --></a>) - that prefers solutions with a low &#8216;niche count&#8217; (see Section <a 
+href="QubistHTMLse49.html#x74-1050008.6">8.6<!--tex4ht:ref: sec:par_selection --></a>), which
+(roughly speaking) determines the number of near neighbours that a solution has within a certain &#8216;niche
+radius&#8217;.
+<!--l. 4563--><p class="noindent" >Pattern niching (&#8216;P-niching&#8217;) is an unusual type of niching that strives to produce the greatest possible variety in
+the <span 
+class="cmti-10">combinations </span>of specified and unspecified parameters. I designed this a number of years ago when I was building
+a simple demonstration that would download a few hundred stock histories from the internet and combine them to
+construct optimally-performing portfolios that simultaneously maximize historical performance, while minimizing
+risk. Any portfolio managers reading this should relax; this was intended only as a simple demonstration and not as
+a serious attempt at portfolio optimization. I am very well-aware that optimizing portfolios based on
+historical data alone is a dangerously simplistic approach, but even this over-simplified problem is
+interesting from the perspective of an optimization problem. I decided that I wanted to allow portfolios
+that did not always contain the full set of stocks, and moreover I wanted to find the most diverse
+set of Pareto-optimal portfolios possible. I set up this problem so that Ferret&#8217;s CPD system would
+send <span 
+class="cmmi-10">NaN </span>values instead of random numbers to the fitness function if a parameter was not defined
+(<span 
+class="cmtt-10">par.CPD.NaN2Random=0</span>), and these <span 
+class="cmmi-10">NaN </span>values would be interpreted as &#8216;this stock is not present&#8217;. I
+designed pattern niching to prefer unique <span 
+class="cmti-10">combinations </span>of stocks based on the patterns of <span 
+class="cmmi-10">NaN </span>values
+present in the portfolio representation, which very effectively spread out the solutions in &#8216;pattern space&#8217;
+to find a maximally diverse set of portfolio options. I have not really used this option for any other
+problem, but there may be other problems that I have not considered that could benefit from this
+approach.
+<!--l. 4565--><p class="noindent" >Two solutions are considered to be near neighbours if they reside within the &#8216;niche radius&#8217; in <span 
+class="cmmi-10">X</span>, <span 
+class="cmmi-10">F </span>or <span 
+class="cmmi-10">P </span>space;
+solutions that are outside do not contribute to the niche count. The <span 
+class="cmmi-10">X </span>and <span 
+class="cmmi-10">F </span>niche radii are determined by
+<span 
+class="cmtt-10">par.niching.X </span>and <span 
+class="cmtt-10">par.niching.F </span>respectively, which reflect normalized distances in the parameter and objective
+spaces. Therefore, they are real numbers that are normalized to be in the range of [0,1]. Likewise, pattern niching
+works in a normalized pattern space, and <span 
+class="cmtt-10">par.niching.P </span>is also normalized to the range [0,1]. These strategy
+parameters are used to scale the niche radius dynamically such that all other solutions in the population reside
+within the niche radius when the parameter is set equal to 1, and only a few other solutions are within the niche
+radius when the parameter is small. The normalization ensures that you never need to worry about the actual range
+of your parameters or fitness values. The same niche radius will work even as the population zeros in on the
+optimal set or zooms in (see Section <a 
+href="QubistHTMLse57.html#x84-1190008.14">8.14<!--tex4ht:ref: sec:par_zoom --></a>), and the range of values represented in in the population
+decreases.
+<!--l. 4567--><p class="noindent" >Ferret&#8217;s niching system evolved over an extended period of time over all four generations of the code; the system is
+robust, and will just work with any &#8216;sane&#8217; value for the niching radius. Niching is skipped for niche radii
+that are set equal to 0. Normally, I set <span 
+class="cmtt-10">par.niching.X </span>or <span 
+class="cmtt-10">par.niching.F </span>to somewhere in the range
+[0.2,0.35], and I do not find that runs are particularly sensitive to this value. It is often useful to set
+<span 
+class="cmtt-10">par.niching.P </span>slightly higher, and I would recommend a value of about 0.5 if you are using pattern
+niching.
+<!--l. 4569--><p class="noindent" >I normally only turn on one type of niching for any given run, but you can turn on more than one type if you wish.
+In this case, <span 
+class="cmtt-10">par.niching.priority </span>sets the priority for the type of niching. <span 
+class="cmtt-10">par.niching.priority </span>is a string of
+up to three characters comprised of the letters &#8216;P&#8217;, &#8216;X&#8217; and &#8216;F&#8217;, which specifies the priority of niching if more than
+one type of niching is defined. Ferret will do niche selection in the order specified, with &#8216;ties&#8217; proceeding to the next
+round of niche selection. For example, <span 
+class="cmtt-10">par.niching.priority=&#8217;PXF&#8217; </span>will cause Ferret to niche in
+                                                                                         
+
+                                                                                         
+pattern space. Ties, which are likely to be common for pattern niching, will proceed to niching in
+parameter space (&#8216;X-niching&#8217;), and any remaining ties will compete based on their niche count in
+objective space (&#8216;F-niching&#8217;). If <span 
+class="cmtt-10">niching.priority </span>is set to an empty string, then Ferret will try to
+minimize all three niche counts simultaneously, in a Pareto-optimal sense, without preferring one over
+the other. Note, however, that the corresponding type of niching is skipped when <span 
+class="cmtt-10">par.niching.X=0</span>,
+<span 
+class="cmtt-10">par.niching.F=0</span>, or <span 
+class="cmtt-10">par.niching.P=0</span>. Generally, it it better to use Pareto niching (<span 
+class="cmtt-10">niching.priority=&#8217;&#8217;</span>)
+if you have enabled both X-niching and F-niching, because niche count ties are unlikely in X and
+F.
+<!--l. 4571--><p class="noindent" >You can select between two different types of niching by setting <span 
+class="cmtt-10">par.niching.method </span>to either &#8216;sigmaShare&#8217; or
+&#8216;powerLaw&#8217;. The sigmaShare option is the default, and the better choice in my opinion. I have spent considerably
+more time and effort testing the sigmaShare option, and I have not yet seen a case where powerLaw niching is
+demonstrably superior.
+<!--l. 4573--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">8.9.1   </span> <a 
+ id="x78-1110008.9.1"></a>&#8216;SigmaShare&#8217; Niching</h4>
+<a 
+ id="dx78-111001"></a>
+<!--l. 4576--><p class="noindent" >&#8216;SigmaShare&#8217; niching is the standard method for niching in Ferret, which is selected by specifying
+<span 
+class="cmtt-10">par.niching.method=&#8217;sigmaShare&#8217;</span>. A niche radius <span 
+class="cmmi-10">&#x03C3;</span><sub><span 
+class="cmmi-7">share</span></sub> is chosen, which is equal to either <span 
+class="cmtt-10">par.niching.X </span>or
+<span 
+class="cmtt-10">par.niching.F</span>, and solution <span 
+class="cmmi-10">i </span>is assigned a niche count <span 
+class="cmmi-10">&#x03D5;</span><sub><span 
+class="cmmi-7">i</span></sub> based on how many other solutions are within the niche
+radius:
+<table 
+class="equation"><tr><td><a 
+ id="x78-111002r3"></a>
+<center class="math-display" >
+<img 
+src="QubistHTML52x.png" alt="     &#x2211;   (       {  --di,j-})p
+&#x03D5;i =      1- min  1,&#x03C3;share    ,
+     j:j&#x2044;=i
+" class="math-display" ></center></td><td class="equation-label">(8.3)</td></tr></table>
+<!--l. 4580--><p class="nopar" >
+where the exponent <span 
+class="cmmi-10">p &#x003E; </span>0 is given by <span 
+class="cmtt-10">par.niching.exponent</span>. Basically, this equation says that the niche count
+for solution <span 
+class="cmmi-10">i </span>is obtained by summing the expression over all other solutions <span 
+class="cmmi-10">j </span>where the normalized
+distance <span 
+class="cmmi-10">d</span><sub><span 
+class="cmmi-7">i,j</span></sub> between solutions <span 
+class="cmmi-10">i </span>and <span 
+class="cmmi-10">j </span>is less than the niche radius <span 
+class="cmmi-10">&#x03C3;</span><sub><span 
+class="cmmi-7">share</span></sub>, giving more weight to nearby
+solutions than those near the boundary of the niche radius. Ferret attempts to minimize <span 
+class="cmmi-10">&#x03D5;</span><sub><span 
+class="cmmi-7">i</span></sub> as one of
+the tournament selection criteria discussed in Section <a 
+href="QubistHTMLse49.html#x74-1050008.6">8.6<!--tex4ht:ref: sec:par_selection --></a>. The exponent <span 
+class="cmtt-10">p=par.niching.exponent</span>
+controls the &#8216;niche shape&#8217;, as illustrated in Figure <a 
+href="#x78-1110031">8.1<!--tex4ht:ref: fig:nicheShape --></a>. This parameter does not seem to be very critical
+and I usually use a value in the range of 1 to 2. Higher values cause extra weight to be given to very
+close solutions, while solutions at a distance close to <span 
+class="cmmi-10">&#x03C3;</span><sub><span 
+class="cmmi-7">share</span></sub> contribute much less to the niche count.
+                                                                                         
+
+                                                                                         
+Lower values result in more even weighting of solutions within the niche radius. In the limiting case of
+<span 
+class="cmtt-10">par.niching.exponent=0</span>, the niche count is a simple, unweighted count of the solutions within the niche
+radius.
+<!--l. 4583--><p class="noindent" ><hr class="figure"><div class="figure" 
+>
+                                                                                         
+
+                                                                                         
+<a 
+ id="x78-1110031"></a>
+                                                                                         
+
+                                                                                         
+<div class="center" 
+>
+<!--l. 4584--><p class="noindent" >
+
+<!--l. 4585--><p class="noindent" ><img 
+src="figures/Ferret/sigmaShare.png" alt="PIC"  
+></div>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;8.1: </span><span  
+class="content">Illustration of niche shapes, as used in equation <a 
+href="#x78-111002r3">8.3<!--tex4ht:ref: eq:nicheShape --></a>.</span></div><!--tex4ht:label?: x78-1110031 -->
+                                                                                         
+
+                                                                                         
+<!--l. 4589--><p class="noindent" ></div><hr class="endfigure">
+<h4 class="subsectionHead"><span class="titlemark">8.9.2   </span> <a 
+ id="x78-1120008.9.2"></a>&#8216;PowerLaw&#8217; Niching</h4>
+<a 
+ id="dx78-112001"></a>
+<!--l. 4594--><p class="noindent" >Power law niching is an alternative to the sigmaShare approach discussed above, which is enabled by choosing
+<span 
+class="cmtt-10">par.niching.method=&#8217;powerLaw&#8217;</span>. The overall idea is similar, but power law niching puts a &#8216;soft edge&#8217; on the
+niching radius. The contribution to the niche count <span 
+class="cmmi-10">&#x03D5;</span><sub><span 
+class="cmmi-7">i</span></sub> is exactly zero for all solutions outside the niche radius when
+sigmaShare niching is enabled, but the contribution falls off gradually as a power law in radius when the powerLaw
+option is chosen; all solutions will contribute to the niche count, but <span 
+class="cmmi-10">&#x03D5;</span><sub><span 
+class="cmmi-7">i</span></sub> is dominated by solutions that are
+nearby.
+<!--l. 4596--><p class="noindent" >When power law niching is selected, Ferret&#8217;s niching mechanism constructs a niche count for each individual based
+on power laws of the following form:
+<table 
+class="equation"><tr><td><a 
+ id="x78-112002r4"></a>
+<center class="math-display" >
+<img 
+src="QubistHTML53x.png" alt="    &#x2211;N  &#x2211;  (     di,j  )-pn
+&#x03D5;i =         1+ &#x03C3;share-    ,
+    n=1j:j&#x2044;=i
+" class="math-display" ></center></td><td class="equation-label">(8.4)</td></tr></table>
+<!--l. 4600--><p class="nopar" >
+where <span 
+class="cmmi-10">p</span><sub><span 
+class="cmmi-7">n</span></sub> is the <span 
+class="cmmi-10">n</span>th power (normally positive) in the list of <span 
+class="cmmi-10">N </span>powers contained in real vector <span 
+class="cmtt-10">par.niching.powers</span>,
+and <span 
+class="cmmi-10">&#x03C3;</span><sub><span 
+class="cmmi-7">share</span></sub> (equal to <span 
+class="cmtt-10">par.niching.X </span>or <span 
+class="cmtt-10">par.niching.F</span>) is used as a <span 
+class="cmti-10">core distance </span>to soften the power
+law. Softening is required because equation <a 
+href="#x78-112002r4">8.4<!--tex4ht:ref: eq:powerLaw --></a> would be singular where <span 
+class="cmmi-10">d</span><sub><span 
+class="cmmi-7">i,j</span></sub> = 0 if we were to leave
+out this term and use a simple power of <span 
+class="cmmi-10">d</span><sub><span 
+class="cmmi-7">i,j</span></sub>. By choosing appropriate positive powers, the user is
+able to determine how rapidly contributions to the niche count fall off with distance. In most cases,
+a single power is used, but I have included the option to allow multiple powers for the purpose of
+experimentation. The contribution to the niche count is shown for several values of <span 
+class="cmmi-10">p</span><sub><span 
+class="cmmi-7">n</span></sub> in Figure <a 
+href="#x78-1120032">8.2<!--tex4ht:ref: fig:powerLaw --></a>.
+<hr class="figure"><div class="figure" 
+>
+                                                                                         
+
+                                                                                         
+<a 
+ id="x78-1120032"></a>
+                                                                                         
+
+                                                                                         
+<div class="center" 
+>
+<!--l. 4603--><p class="noindent" >
+
+<!--l. 4604--><p class="noindent" ><img 
+src="figures/Ferret/powerLaw.png" alt="PIC"  
+></div>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;8.2: </span><span  
+class="content">The effect of varying the power law <span 
+class="cmmi-10">p</span><sub><span 
+class="cmmi-7">n</span></sub> in powerLaw niching. A value of <span 
+class="cmmi-10">&#x03C3;</span><sub><span 
+class="cmmi-7">share</span></sub> = 0<span 
+class="cmmi-10">.</span>25 was
+chosen. Refer to equation <a 
+href="#x78-112002r4">8.4<!--tex4ht:ref: eq:powerLaw --></a> for details.</span></div><!--tex4ht:label?: x78-1120032 -->
+                                                                                         
+
+                                                                                         
+<!--l. 4608--><p class="noindent" ></div><hr class="endfigure">
+<!--l. 4609--><p class="noindent" >Note  that <span 
+class="cmtt-10">par.niching.powers </span>and <span 
+class="cmtt-10">par.niching.core </span>have no effect when sigmaShare niching is
+selected.
+<h4 class="subsectionHead"><span class="titlemark">8.9.3   </span> <a 
+ id="x78-1130008.9.3"></a>Acceleration</h4>
+<a 
+ id="dx78-113001"></a>
+<!--l. 4615--><p class="noindent" >When <span 
+class="cmtt-10">par.niching.acceleration &#x003E; 0</span>, Ferret examines the spatial distribution of solutions within the niche
+radius <span 
+class="cmmi-10">&#x03C3;</span><sub><span 
+class="cmmi-7">share</span></sub>, and uses this information to influence the distribution of new points chosen for mutation or crossover
+dispersion. The idea is that the local distribution of solutions reflects search directions that are known to be
+productive. For example, if the population has settled into an optimal region delineated by a long, slender valley,
+then it makes sense to expend greater effort searching for new solutions that follow the valley, rather than using an
+isotropic distribution, where most points would be poor quality solutions that land on the valley walls
+well above the minimum. Ferret uses no acceleration when <span 
+class="cmtt-10">par.niching.acceleration = 0</span>, and full
+acceleration when <span 
+class="cmtt-10">par.niching.acceleration = 1</span>. In my experience, full acceleration is too much for most
+problems because it limits the search directions too strongly. I usually use an initial value of about
+0.5.
+<!--l. 4617--><p class="noindent" ><span 
+class="cmti-10">Note that the acceleration can be controlled by Ferret&#8217;s auto-adaptation system, as discussed in Section </span><a 
+href="QubistHTMLse47.html#x72-1030008.4"><span 
+class="cmti-10">8.4</span><!--tex4ht:ref: sec:par_strategy --></a>. My
+advice is to set this parameter to about 0.5 and turn on the auto-adaptation: <span 
+class="cmtt-10">par.strategy.isAdaptive=true</span>;
+<span 
+class="cmtt-10">par.strategy.adapt.niching.acceleration=true</span>. You will probably find that auto-adaptation prefers lower
+values in the range of [0,0.5] for most problems.
+<!--l. 4619--><p class="noindent" ><span 
+class="cmti-10">Acceleration requires most of the machinery necessary to do niching in X, specifically a distance metric computed</span>
+<span 
+class="cmti-10">over each population.  For most problems, it is usually best to turn on niching in </span><span 
+class="cmmi-10">X </span><span 
+class="cmti-10">(</span><span 
+class="cmtt-10">par.niching.X &#x003E; 0</span><span 
+class="cmti-10">)</span>
+<span 
+class="cmti-10">when acceleration is enabled to take advantage of this information, which is calculated for acceleration</span>
+<span 
+class="cmti-10">anyway.</span>
+<a 
+ id="dx78-113002"></a>
+<a 
+ id="dx78-113003"></a>
+<!--l. 4623--><p class="noindent" >There is one type of problem where it is <span 
+class="cmti-10">critical </span>to turn off niching acceleration. This is necessary for very large-scale
+problems with hundreds of parameters, which are usually non-parametric problems as discussed in Section <a 
+href="QubistHTMLse30.html#x48-720004.20">4.20<!--tex4ht:ref: sec:nonParametric --></a>.
+Niching acceleration requires mathematical operations that do not scale well to such large problems, and it may
+even dominate the total run time of your code. In such cases, niching acceleration is simply too expensive, and
+should be turned off. Note that you must also turn off strategy auto-adaptation for this parameter:
+<span 
+class="cmtt-10">par.strategy.adapt.niching.acceleration=false</span>.
+<!--l. 4625--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">8.9.4   </span> <a 
+ id="x78-1140008.9.4"></a>Pattern Niching</h4>
+<a 
+ id="dx78-114001"></a>
+<!--l. 4628--><p class="noindent" >The parameters that control pattern niching are <span 
+class="cmtt-10">par.niching.patternMethod</span>, <span 
+class="cmtt-10">par.niching.patternExponent</span>,
+and <span 
+class="cmtt-10">par.niching.patternPowers</span>. These work exactly like the corresponding parameters for the more common
+types of niching (X-niching and F-niching).
+<a 
+ id="dx78-114002"></a>
+                                                                                         
+
+                                                                                         
+                                                                                         
+
+                                                                                         
+<!--l. 4632--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse53.html" >next</a>] [<a 
+href="QubistHTMLse51.html" >prev</a>] [<a 
+href="QubistHTMLse51.html#tailQubistHTMLse51.html" >prev-tail</a>] [<a 
+href="QubistHTMLse52.html" >front</a>] [<a 
+href="QubistHTMLch8.html#QubistHTMLse52.html" >up</a>] </p></div>
+<!--l. 4632--><p class="noindent" ><a 
+ id="tailQubistHTMLse52.html"></a>  
+</body></html> 

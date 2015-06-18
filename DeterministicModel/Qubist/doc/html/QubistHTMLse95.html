@@ -1,0 +1,604 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>The Analyze History Tool</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 7960--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse96.html" >next</a>] [<a 
+href="QubistHTMLse94.html" >prev</a>] [<a 
+href="QubistHTMLse94.html#tailQubistHTMLse94.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLse95.html">tail</a>] [<a 
+href="QubistHTMLch12.html#QubistHTMLse95.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">12.2   </span> <a 
+ id="x127-21600012.2"></a>The Analyze History Tool</h3>
+<a 
+ id="dx127-216001"></a>
+<a 
+ id="dx127-216002"></a>
+<a 
+ id="dx127-216003"></a>
+<a 
+ id="dx127-216004"></a>
+<a 
+ id="dx127-216005"></a>
+<a 
+ id="dx127-216006"></a>
+<!--l. 7969--><p class="noindent" >It is possible to analyze previously saved History files using the &#8216;Analyze History Tool&#8217;, which can be started from
+the &#8216;Analyze History&#8217; radio button in the launcher window. This is useful for analyzing previously completed runs
+after the Ferret or Locust console window has been closed. I use this feature frequently when doing multiple sets of
+Ferret/Locust runs for a project (often for testing), when I find it more convenient to keep the queue of runs
+moving, rather than pausing for analysis when each run finishes. The &#8216;Analyze History&#8217; interface allows me to
+reserve my faster computers for the runs themselves, and I can do my analysis and visualization on a less
+powerful machine afterwards, as each set finishes. The Analyze History interface is a simple menu-driven
+system that presents the user with a set of dialogue boxes to load the History files and other project
+information.
+<!--l. 7971--><p class="noindent" >The steps required to use the Analyze History Tool are similar to the steps required for the Resume tool
+discussed in Section <a 
+href="QubistHTMLse94.html#x126-21500012.1">12.1<!--tex4ht:ref: sec:resumeTool --></a> and much of the following sequence is copied almost verbatim from that
+section:
+     <ol  class="enumerate1" >
+     <li 
+  class="enumerate" id="x127-216008x1">
+     Run
+     launchQubist.m
+     to
+     start
+     the
+     Component
+     Selector
+     window,
+     as
+     shown
+     in
+     Figure
+     <a 
+href="QubistHTMLse10.html#x21-300383">3.3<!--tex4ht:ref: fig:componentSelector --></a>.
+     Select
+     &#8216;Analyze
+                                                                                         
+
+                                                                                         
+     History&#8217;
+     and
+     click
+     the
+     &#8216;Launch&#8217;
+     button.
+     </li>
+     <li 
+  class="enumerate" id="x127-216010x2">
+     This
+     brings
+     up
+     a
+     window
+     that
+     allows
+     you
+     to
+     navigate
+     to
+     your
+     <span 
+class="cmbx-10">data</span>
+     directory
+     (it
+     should
+     open
+     in
+     your
+     most
+     recently
+     used
+     data
+     directory).
+     Note
+     that
+     this
+     is
+     probably
+     not
+     the
+     same
+     as
+     your
+     project
+     directory.
+     The
+     data
+                                                                                         
+
+                                                                                         
+     directory
+     is
+     called
+     FerretData
+     or
+     LocustData
+     by
+     default
+     and
+     contains
+     the
+     History
+     directory,
+     which
+     in
+     turn
+     contains
+     the
+     History
+     files.
+     Navigate
+     to
+     your
+     data
+     directory
+     and
+     click
+     &#8216;Open&#8217;.
+     </li>
+     <li 
+  class="enumerate" id="x127-216012x3">
+     This
+     brings
+     up
+     another
+     directory
+     navigation
+     window,
+     but
+     this
+     time
+     you
+     are
+     asked
+     to
+     locate
+     your
+                                                                                         
+
+                                                                                         
+     <span 
+class="cmbx-10">project</span>
+     directory.
+     This
+     is
+     the
+     directory
+     that
+     contains
+     your
+     setup,
+     fitness,
+     and
+     init
+     files.
+     Navigate
+     to
+     your
+     project
+     directory
+     and
+     click
+     &#8216;Open&#8217;.
+     Note
+     that
+     the
+     Analyze
+     History
+     Tool
+     should
+     automatically
+     pick
+     up
+     the
+     location
+     of
+     your
+     project
+     directory
+     from
+     the
+     History
+     files
+     in
+     the
+     data
+     directory,
+     and
+     start
+                                                                                         
+
+                                                                                         
+     the
+     directory
+     navigator
+     in
+     this
+     directory
+     if
+     it
+     still
+     exists
+     on
+     your
+     file
+     system.
+     </li>
+     <li 
+  class="enumerate" id="x127-216014x4">
+     A
+     dialogue
+     box
+     will
+     open
+     asking
+     whether
+     you
+     wish
+     to
+     optimize
+     your
+     analysis
+     for
+     speed
+     or
+     minimal
+     memory.
+     Choose
+     &#8216;Speed&#8217;,
+     unless
+     your
+     project
+     uses
+     extremely
+     large
+     data
+     files
+     or
+     you
+                                                                                         
+
+                                                                                         
+     have
+     had
+     problems
+     previously
+     with
+     the
+     &#8216;Speed&#8217;
+     option.
+     This
+     has
+     the
+     same
+     effect
+     as
+     setting
+     <span 
+class="cmtt-10">par.analysis.conserveMemory=true</span>
+     in
+     the
+     setup
+     file,
+     as
+     discussed
+     in
+     Section
+     <a 
+href="QubistHTMLse59.html#x86-1210008.16">8.16<!--tex4ht:ref: sec:par_analysis --></a>.
+     </li>
+     <li 
+  class="enumerate" id="x127-216016x5">
+     The
+     analysis
+     window
+     will
+     start
+     and
+     you
+     should
+     see
+     a
+     dialogue
+     box
+     asking
+     if
+     you
+     wish
+     to
+     execute
+     an
+                                                                                         
+
+                                                                                         
+     init
+     file,
+     or
+     other
+     file,
+     to
+     load
+     any
+     additional
+     paths.
+     This
+     is
+     the
+     same
+     dialogue
+     box
+     shown
+     in
+     Figure
+     <a 
+href="QubistHTMLse94.html#x126-2150171">12.1<!--tex4ht:ref: fig:additionalPaths --></a>.
+     Recall
+     that
+     Qubist
+     loads
+     <span 
+class="cmti-10">only</span>
+     the
+     project
+     directory
+     pointed
+     to
+     by
+     the
+     launchQubist.m
+     file,
+     as
+     discussed
+     in
+     Section
+     <a 
+href="QubistHTMLse16.html#x30-410004.6">4.6<!--tex4ht:ref: sec:init --></a>.
+     <span 
+class="cmti-10">Even</span>
+     <span 
+class="cmti-10">subdirectories</span>
+     <span 
+class="cmti-10">of</span>
+     <span 
+class="cmti-10">the</span>
+     <span 
+class="cmti-10">project</span>
+     <span 
+class="cmti-10">directory</span>
+     <span 
+class="cmti-10">are</span>
+     <span 
+class="cmti-10">not</span>
+     <span 
+class="cmti-10">loaded</span>
+                                                                                         
+
+                                                                                         
+     <span 
+class="cmti-10">automatically.</span>
+     <!--l. 7979--><p class="noindent" >Usually,
+     you
+     load
+     additional
+     paths
+     by
+     including
+     &#8216;addpath&#8217;
+     lines
+     in
+     the
+     init
+     file,
+     but
+     you
+     can
+     also
+     load
+     paths
+     from
+     any
+     other
+     file
+     that
+     is
+     called
+     by
+     the
+     init
+     file.
+     If
+     you
+     require
+     additional
+     paths,
+     click
+     &#8216;yes&#8217;
+     in
+     the
+     dialogue
+     box,
+     which
+     will
+     start
+     a
+     file
+                                                                                         
+
+                                                                                         
+     navigation
+     window
+     that
+     will
+     allow
+     you
+     to
+     select
+     your
+     path-loading
+     file.
+     Navigate
+     to
+     your
+     file
+     and
+     click
+     &#8216;Open&#8217;
+     if
+     you
+     need
+     to
+     do
+     this.
+     Note
+     that
+     if
+     your
+     additional
+     paths
+     are
+     defined
+     in
+     your
+     init
+     file,
+     then
+     running
+     this
+     file
+     will
+     load
+     them,
+     but
+     the
+     <span 
+class="cmmi-10">extPar</span>
+     structure
+     normally
+                                                                                         
+
+                                                                                         
+     generated
+     by
+     init
+     <span 
+class="cmti-10">will</span>
+     <span 
+class="cmti-10">not</span>
+     <span 
+class="cmti-10">be</span>
+     <span 
+class="cmti-10">passed</span>
+     <span 
+class="cmti-10">to</span>
+     <span 
+class="cmti-10">Ferret</span>
+     <span 
+class="cmti-10">or</span>
+     <span 
+class="cmti-10">Locust</span>
+     (see
+     Section
+     <a 
+href="QubistHTMLse16.html#x30-410004.6">4.6<!--tex4ht:ref: sec:init --></a>).
+     The
+     <span 
+class="cmmi-10">extPar</span>
+     structure
+     will
+     be
+     recovered
+     from
+     History
+     files
+     instead.
+     For
+     this
+     reason,
+     I
+     usually
+     put
+     path-loading
+     instructions
+     in
+     a
+     separate
+     file
+     that
+     is
+     called
+     by
+     the
+     init
+     file,
+     so
+     that
+     I
+     do
+     not
+                                                                                         
+
+                                                                                         
+     have
+     to
+     run
+     the
+     entire
+     init
+     file
+     just
+     to
+     load
+     a
+     few
+     paths.
+     </li>
+     <li 
+  class="enumerate" id="x127-216018x6">
+     The
+     analysis
+     window
+     will
+     open
+     and
+     the
+     analysis
+     procedure
+     will
+     start
+     automatically.</li></ol>
+<!--l. 7983--><p class="noindent" >Note that Analyze History tool displays instructions in the MATLAB command window throughout this process,
+and also in the directory navigation window for some operating systems.
+<a 
+ id="dx127-216019"></a>
+<a 
+ id="dx127-216020"></a>
+<a 
+ id="dx127-216021"></a>
+<a 
+ id="dx127-216022"></a>
+<a 
+ id="dx127-216023"></a>
+<a 
+ id="dx127-216024"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 7993--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse96.html" >next</a>] [<a 
+href="QubistHTMLse94.html" >prev</a>] [<a 
+href="QubistHTMLse94.html#tailQubistHTMLse94.html" >prev-tail</a>] [<a 
+href="QubistHTMLse95.html" >front</a>] [<a 
+href="QubistHTMLch12.html#QubistHTMLse95.html" >up</a>] </p></div>
+<!--l. 7993--><p class="noindent" ><a 
+ id="tailQubistHTMLse95.html"></a>  
+</body></html> 

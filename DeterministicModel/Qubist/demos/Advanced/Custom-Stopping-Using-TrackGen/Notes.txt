@@ -1,0 +1,37 @@
+Generation Tracking:
+====================
+
+This demo is the same as the Simple-1D problem, except that we now illustrate
+the use of the 'Generation Tracking' feature.  Generation tracking gives the
+user access to the X and F values from previous generations.  In this demo,
+this feature is used to implement a stop criterion in the output.m function
+that is based on the change in the population standard deviation from the previous
+generation to the present.
+
+[We do not suggest this as a general technique.  It is only meant to demonstrate
+the generation tracking feature.  The stop criterion is entirely up to the user
+and is normally implemented using an output function.]
+
+This example highlights the use of generation tracking.  This feature allows
+the user access to multiple generations of X, F & auxOutput.  This is done
+entirely on the application side to minimize transfer of data between Ferret
+and the application, which might be important in parallel applications.  
+
+This feature uses 3 commands:
+
+1. resetGen(NGen): Resets the gen structure.  NGen is the number of generations
+tracked.  NGen defaults to 1 if omitted.
+
+2. setGen(X,F,auxOutput,par): Adds the current generation to the gen structure.  
+This is done automatically inside Ferret when 'gen' is not empty.  If can also be
+called from inside the fitness function.  ***Note that results from the automatic call
+from inside Ferret will be on the Console side, and will not be accessible during
+parallel runs.  In this case, the user should make his/her own application-side call 
+to setGen from inside the fitness function.***  F, auxOutput, & par are optional.
+
+3. gen=getGen: Retrieve the gen structure.
+
+In this example, 'init' calls resetGen.  The fitness function adds a generation to gen.
+'output' calls getGen and when the minimum difference between fitness values in
+successive generations falls below some threshold, the global variable 'abort_' is set
+to 1, which causes Ferret to terminate gracefully.

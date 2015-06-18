@@ -1,0 +1,4 @@
+Simple 1-Dimensional Problem:
+============================
+
+A simple example showing the minimization of a function with only one variable.

@@ -1,0 +1,9 @@
+Polygon in N-Dimensions:
+========================
+
+This is a simple example that illustrates Pareto-optimality by minimizing the
+distance to 5 points in an N-dimensional space simultaneously.  The points are
+choses randomly in init.m.  Otherwise, this problem is identical to the
+Triangle-ND problem.
+
+Note that the problem gets harder as the number of dimensions is increased.

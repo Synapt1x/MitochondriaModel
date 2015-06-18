@@ -1,0 +1,5 @@
+% Power-sum function from Mishra 2006.
+% Online at http://mpra.ub.uni-muenchen.de/1742/ 
+% MPRA Paper No. 1742, posted 07. November 2007 / 01:57
+% 
+% Solution: f=0 for any permutation of  x=(1,2,2,3)

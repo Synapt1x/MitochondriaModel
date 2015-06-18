@@ -1,0 +1,369 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>The Ferret History Explorer</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 8058--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse99.html" >next</a>] [<a 
+href="QubistHTMLse97.html" >prev</a>] [<a 
+href="QubistHTMLse97.html#tailQubistHTMLse97.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLse98.html">tail</a>] [<a 
+href="QubistHTMLch12.html#QubistHTMLse98.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">12.5   </span> <a 
+ id="x132-21900012.5"></a>The Ferret History Explorer</h3>
+<a 
+ id="dx132-219001"></a>
+<a 
+ id="dx132-219002"></a>
+<a 
+ id="dx132-219003"></a>
+<a 
+ id="dx132-219004"></a>
+<!--l. 8065--><p class="noindent" >The Ferret History Explorer is a simple tool that allows you to navigate your History files and visualize the data
+that they encapsulate by reconstructing the state of Ferret&#8217;s console window at any generation of a run. This is
+sometimes useful for trying to understand how a run evolved, especially if things didn&#8217;t work out as intended or if
+something surprising happened. I have often used the History Explorer and the Movie Tool (see Section
+<a 
+href="QubistHTMLse99.html#x133-22000012.6">12.6<!--tex4ht:ref: sec:movieTool --></a>) to study the convergence of Ferret&#8217;s population, which can sometimes provide important insights
+regarding how to tweak the setup file to improve performance and reliability. The History Tool can
+also be used for demonstrations, or for obtaining a snapshot of the Ferret window from a previous
+generation.
+<!--l. 8067--><p class="noindent" >The following instructions will allow you to load your project into the Ferret History Explorer:
+     <ol  class="enumerate1" >
+     <li 
+  class="enumerate" id="x132-219006x1">
+     Start
+     the
+     Ferret
+     History
+     Tool
+     from
+     the
+     component
+     selector
+     window
+     (see
+     Section
+     <a 
+href="QubistHTMLse10.html#x21-300003.2">3.2<!--tex4ht:ref: sec:launcher --></a>).
+     </li>
+     <li 
+  class="enumerate" id="x132-219008x2">
+     When
+     the
+     History
+                                                                                         
+
+                                                                                         
+     Explorer
+     starts,
+     you
+     will
+     be
+     asked
+     to
+     select
+     a
+     Qubist
+     data
+     directory,
+     which
+     is
+     the
+     directory
+     that
+     contains
+     the
+     History
+     folder
+     and
+     also
+     the
+     OptimalSolutions.mat
+     file,
+     if
+     you
+     have
+     analyzed
+     the
+     run.
+     Don&#8217;t
+     confuse
+     the
+     data
+     directory
+     with
+     the
+     History
+     directory
+     -
+     the
+     data
+     directory
+     is
+     one
+     directory
+                                                                                         
+
+                                                                                         
+     up
+     from
+     the
+     History
+     directory.
+     Navigate
+     to
+     the
+     data
+     directory
+     and
+     click
+     &#8216;OK&#8217;.
+     </li>
+     <li 
+  class="enumerate" id="x132-219010x3">
+     You
+     will
+     be
+     asked
+     to
+     load
+     your
+     project
+     directory.
+     This
+     is
+     important
+     because
+     the
+     Ferret
+     console
+     window
+     is
+     completely
+     regenerated
+     from
+     the
+     History
+     files.
+     The
+     History
+     Explorer
+     will
+     still
+     work
+     if
+                                                                                         
+
+                                                                                         
+     you
+     skip
+     this
+     step,
+     but
+     the
+     &#8216;User
+     Plot&#8217;
+     will
+     probably
+     fail,
+     since
+     Ferret
+     won&#8217;t
+     be
+     able
+     to
+     find
+     your
+     myPlot
+     function,
+     unless
+     it
+     happens
+     to
+     be
+     on
+     your
+     path
+     for
+     some
+     other
+     reason.
+     The
+     Ferret
+     console
+     window
+     may
+     also
+     appear
+     with
+     the
+     wrong
+     name
+     if
+     you
+     don&#8217;t
+     load
+                                                                                         
+
+                                                                                         
+     a
+     project
+     directory.
+     </li>
+     <li 
+  class="enumerate" id="x132-219012x4">
+     A
+     window
+     will
+     pop
+     up
+     asking
+     if
+     you
+     want
+     to
+     execute
+     your
+     init
+     file
+     or
+     another
+     m-file
+     to
+     load
+     additional
+     paths.
+     You
+     should
+     answer
+     &#8216;Yes&#8217;
+     only
+     if
+     you
+     need
+     additional
+     paths
+     to
+     run
+     your
+     myPlot
+     function.
+     Your
+     &#8216;User
+     Plot&#8217;
+     won&#8217;t
+     work
+                                                                                         
+
+                                                                                         
+     if
+     it
+     requires
+     additional
+     paths
+     and
+     you
+     don&#8217;t
+     load
+     them.</li></ol>
+<!--l. 8075--><p class="noindent" >Once loaded, the Ferret console window will appear and should automatically load the final generation from your
+run. A simple user interface will also appear, like the one shown in Figure <a 
+href="#x132-2190132">12.2<!--tex4ht:ref: fig:FHE --></a>. The Ferret History Explorer
+contains a single slider and text box that you can use to display the Ferret console window from any generation of
+your run, even if you had graphics turned off during your run. The maximum slider position is equal to the total
+number of generations from your run. Select the generation to display using either of the following
+methods:
+     <ul class="itemize1">
+     <li class="itemize">
+     Enter
+     a
+     valid
+     generation
+     number
+     into
+     the
+     text
+     box
+     and
+     click
+     the
+     &#8216;return&#8217;
+     key,
+     or
+     </li>
+     <li class="itemize">
+     Select
+     a
+     generation
+     using
+     the
+     slider
+     and
+     click
+                                                                                         
+
+                                                                                         
+     the
+     button
+     labelled
+     &#8216;Load
+     &amp;
+     View
+     Saved
+     Generation&#8217;.</li></ul>
+<!--l. 8081--><p class="noindent" ><hr class="figure"><div class="figure" 
+>
+                                                                                         
+
+                                                                                         
+<a 
+ id="x132-2190132"></a>
+                                                                                         
+
+                                                                                         
+<div class="center" 
+>
+<!--l. 8082--><p class="noindent" >
+
+<!--l. 8083--><p class="noindent" ><img 
+src="figures/FerretHistoryExplorer/FHE.png" alt="PIC"  
+></div>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;12.2: </span><span  
+class="content">The Ferret History Explorer user interface.</span></div><!--tex4ht:label?: x132-2190132 -->
+                                                                                         
+
+                                                                                         
+<!--l. 8087--><p class="noindent" ></div><hr class="endfigure">
+<!--l. 8089--><p class="noindent" >The value displayed in the text box is synched to the slider position, so that both components should display the
+same generation number after a value is entered. Note that the History Explorer does not yet work for Locust, but
+this will probably change in a future update.
+<a 
+ id="dx132-219014"></a>
+<a 
+ id="dx132-219015"></a>
+<a 
+ id="dx132-219016"></a>
+<a 
+ id="dx132-219017"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 8097--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse99.html" >next</a>] [<a 
+href="QubistHTMLse97.html" >prev</a>] [<a 
+href="QubistHTMLse97.html#tailQubistHTMLse97.html" >prev-tail</a>] [<a 
+href="QubistHTMLse98.html" >front</a>] [<a 
+href="QubistHTMLch12.html#QubistHTMLse98.html" >up</a>] </p></div>
+<!--l. 8097--><p class="noindent" ><a 
+ id="tailQubistHTMLse98.html"></a>  
+</body></html> 

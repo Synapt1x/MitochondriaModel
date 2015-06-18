@@ -1,0 +1,77 @@
+% *** BATCH PROCESSING QUEUE ***
+%
+% Use this file as a templete to explore the options allowed by Qubist's
+% batch processing system.
+
+% Set up a template using a very small population and number of
+% generations, for testing purposes only.
+template
+par.general.NPop=1;
+par.general.NGen=10;
+par.stopping.maxTimeSteps=10;
+% dataDir = '~fiege/Documents/batchDataDir';
+% par.parallel.scratchDir='~fiege/Documents/scratch';
+
+% Standard job with standard names for the setup files.
+name = Cyclic Parameters
+path = demos/Cyclic/Cyclic-Parameters-2D
+
+% Standard, with init file specified and a non-standard setup file name.
+path = demos/Data-Modeling/Data-Modeler
+init = init
+setup = FerretSetupBatch
+name=Data-Modeler-1
+
+% Standard, with a different data directory specified.
+skip % ***Skip this job.
+path = demos/Data-Modeling/Data-Modeler
+name = Data-Modeler-3
+init = init
+setup = FerretSetupBatch
+dataDir = FerretData2
+
+% Standard parallel job, with a different data directory specified.
+path = demos/Data-Modeling/Data-Modeler
+init = init
+setup = FerretSetupBatch
+name=Data-Modeler-3
+dataDir = FerretData3
+NWorkers=3
+
+% Standard, with an extPar parameter modified.
+path = demos/Data-Modeling/Data-Modeler
+extPar.K.sigma=0.25;
+dataDir = FerretData4
+
+% Parallel Locust run.  Parallelization turned on by setting a par field directly.
+% (This could have been done more simply by just using the line "NWorkers = 2".)
+path = demos/Data-Modeling/Data-Modeler
+name = Data-Modeler-Locust-1
+init = init
+setup = LocustSetupBatch
+par.parallel.NWorkers = 2
+par.swarm.N = 10
+code = Locust % ***Specifies that Locust should be used.  (Ferret is the default.)
+
+% host is set to a different machine: run will be skipped.
+host = someOtherMachine
+name = Data-Modeler: Other Host
+path = demos/Data-Modeling/Data-Modeler
+init = init
+setup = FerretSetupBatch
+dataDir = FerretData2
+code = Ferret
+
+stop % Stop batch process -> early exit.
+%  ***Lines past this point will not be executed.
+
+% Spectroscopic binaries
+name = Spectroscopic binaries
+path = demos/Advanced/Spectroscopic-Binaries
+init = init
+setup = FerretSetup
+extPar.binaryPar.m1 = 5
+par.general.popSize = 42
+dataDir = 'FerretData_SB'
+code = Ferret
+NWorkers = 8

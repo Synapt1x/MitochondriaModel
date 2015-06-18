@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>6 Parallel Computing with Qubist</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 3706--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLch7.html" >next</a>] [<a 
+href="QubistHTMLch5.html" >prev</a>] [<a 
+href="QubistHTMLch5.html#tailQubistHTMLch5.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLch6.html">tail</a>] [<a 
+href="QubistHTML3.html#QubistHTMLch6.html" >up</a>] </p></div>
+<h2 class="chapterHead"><span class="titlemark">Chapter&#x00A0;6</span><br /><a 
+ id="x56-800006"></a>Parallel Computing with Qubist</h2>
+<a 
+ id="dx56-80001"></a>
+<a 
+ id="dx56-80002"></a>
+<a 
+ id="dx56-80003"></a>
+     <div class="quote">
+     <!--l. 3714--><p class="noindent" ><span 
+class="cmti-10">&#8216;There</span>
+     <span 
+class="cmti-10">are</span>
+     <span 
+class="cmti-10">3</span>
+     <span 
+class="cmti-10">rules</span>
+     <span 
+class="cmti-10">to</span>
+     <span 
+class="cmti-10">follow</span>
+     <span 
+class="cmti-10">when</span>
+     <span 
+class="cmti-10">parallelizing</span>
+     <span 
+class="cmti-10">large</span>
+     <span 
+class="cmti-10">codes.</span>
+     <span 
+class="cmti-10">Unfortunately,</span>
+     <span 
+class="cmti-10">no</span>
+     <span 
+class="cmti-10">one</span>
+     <span 
+class="cmti-10">knows</span>
+     <span 
+class="cmti-10">what</span>
+     <span 
+class="cmti-10">these</span>
+     <span 
+class="cmti-10">rules</span>
+     <span 
+class="cmti-10">are.&#8217;</span><br />
+     -W.
+     Somerset
+     Maugham
+     &amp;
+     Gary
+     Montry</div>
+<a 
+ id="dx56-80004"></a>
+<!--l. 3719--><p class="noindent" >Both Ferret and Locust are capable of parallel runs, which make use of a file system-based parallel computing
+system that I developed for Qubist. This does not rely on MATLAB&#8217;s add-on parallel computing toolbox or any
+other third-party toolboxes. Everything you need for parallel runs is included with Qubist. Parallel
+computing with Qubist is as easy as clicking a few buttons on the Qubist node manager interface, but there
+are a few subtleties that you should be aware of. This chapter will introduce you to Qubist&#8217;s parallel
+computing features and show you how to make full use of multi-CPU computers and clusters for your
+                                                                                         
+
+                                                                                         
+runs.
+<div class="sectionTOCS">
+&#x00A0;<span class="sectionToc" >6.1 <a 
+href="QubistHTMLse37.html#x57-810006.1">Introduction and History</a></span>
+<br />&#x00A0;<span class="sectionToc" >6.2 <a 
+href="QubistHTMLse38.html#x58-820006.2">Starting a Parallel Run from Ferret/Locust</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >6.2.1 <a 
+href="QubistHTMLse38.html#x58-830006.2.1" id="QQ2-58-110">The Launch Command and Options Panel</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >6.2.2 <a 
+href="QubistHTMLse38.html#x58-860006.2.2" id="QQ2-58-113">The Worker Nodes Panel</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >6.2.3 <a 
+href="QubistHTMLse38.html#x58-870006.2.3" id="QQ2-58-114">The Evaluation Mode Panel</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >6.2.4 <a 
+href="QubistHTMLse38.html#x58-880006.2.4" id="QQ2-58-115">The Active Nodes Panel</a></span>
+<br />&#x00A0;<span class="sectionToc" >6.3 <a 
+href="QubistHTMLse39.html#x61-890006.3">Parallel Runs on Multiple Machines</a></span>
+<br />&#x00A0;<span class="sectionToc" >6.4 <a 
+href="QubistHTMLse40.html#x62-900006.4">Common Parallelization Gotchas</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >6.4.1 <a 
+href="QubistHTMLse40.html#x62-910006.4.1" id="QQ2-62-118">Use a Local Disk When Possible</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >6.4.2 <a 
+href="QubistHTMLse40.html#x62-920006.4.2" id="QQ2-62-119">&#8216;Nicing&#8217; Down Runs</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >6.4.3 <a 
+href="QubistHTMLse40.html#x62-930006.4.3" id="QQ2-62-120">Memory Problems</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >6.4.4 <a 
+href="QubistHTMLse40.html#x62-940006.4.4" id="QQ2-62-121">The &#8216;isAbortEval&#8217; Directive</a></span>
+</div>
+
+
+
+                                                                                         
+
+                                                                                         
+<!--l. 3914--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLch7.html" >next</a>] [<a 
+href="QubistHTMLch5.html" >prev</a>] [<a 
+href="QubistHTMLch5.html#tailQubistHTMLch5.html" >prev-tail</a>] [<a 
+href="QubistHTMLch6.html" >front</a>] [<a 
+href="QubistHTML3.html#QubistHTMLch6.html" >up</a>] </p></div>
+<!--l. 3914--><p class="noindent" ><a 
+ id="tailQubistHTMLch6.html"></a>  
+</body></html> 

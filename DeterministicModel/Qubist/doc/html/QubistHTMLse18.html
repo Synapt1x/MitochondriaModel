@@ -1,0 +1,607 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>The Fitness Function</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 1751--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse19.html" >next</a>] [<a 
+href="QubistHTMLse17.html" >prev</a>] [<a 
+href="QubistHTMLse17.html#tailQubistHTMLse17.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLse18.html">tail</a>] [<a 
+href="QubistHTMLch4.html#QubistHTMLse18.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">4.8   </span> <a 
+ id="x33-470004.8"></a>The Fitness Function</h3>
+<a 
+ id="dx33-47001"></a>
+<a 
+ id="dx33-47002"></a>
+<!--l. 1756--><p class="noindent" >At some very simplified level, Ferret could be described as a code for choosing new sets of parameters intelligently,
+based on the performance of previously evaluated parameter sets. Of course, the key word here is &#8216;intelligently&#8217;.
+The success or failure of a parameter search and optimization problem hinges on how &#8216;intelligent&#8217; the
+algorithm really is at learning the structure of the parameter space, so that it can choose parameters
+that are close to the global minimum, while ignoring uninteresting regions of the space. Moreover, it
+must be able to do this reliably, without any knowledge about the internal workings of the fitness
+function.
+<a 
+ id="dx33-47003"></a>
+<!--l. 1759--><p class="noindent" >Ferret does not know or care what your parameters actually represent. It only matters that some parameter sets are
+better than others, as judged by your fitness function. As Ferret searches through the parameter space, regions that
+contain good models become well-explored, while other regions containing inferior models are quickly ignored. The
+most important thing to remember is that Ferret maintains an &#8216;arm&#8217;s length&#8217; relationship with your problem, and
+the division of responsibility between Ferret and your application is absolutely clear. It is your application&#8217;s
+responsibility to give Ferret an appropriate range to search for each parameter, to be able to evaluate the function
+or model that each parameter set represents, and to tell Ferret quantitatively how good each model
+was. It is Ferret&#8217;s responsibility to keep track of where the best models are located in the parameter
+space and to choose the next parameter sets carefully to maximize the chance of finding even better
+solutions.
+<a 
+ id="dx33-47004"></a>
+<!--l. 1762--><p class="noindent" >Every demo and user-defined project must contain a fitness function that evaluates sets of parameters requested by
+Ferret from the parameter ranges specified by the <span 
+class="cmtt-10">par.general.min </span>and <span 
+class="cmtt-10">par.general.max </span>fields of the setup file.
+The basic form of the fitness function is as follows:
+<!--l. 1786--><p class="noindent" ><span 
+class="colorbox" id="colorbox17"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">function</span><span 
+class="cmtt-10">&#x00A0;F=fitness(X,</span><span 
+class="cmtt-10">&#x00A0;extPar)</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;A</span><span 
+class="cmtt-10">&#x00A0;simple</span><span 
+class="cmtt-10">&#x00A0;fitness</span><span 
+class="cmtt-10">&#x00A0;function.</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;X</span><span 
+class="cmtt-10">&#x00A0;--&#x003E;</span><span 
+class="cmtt-10">&#x00A0;Array</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;parameter</span><span 
+class="cmtt-10">&#x00A0;values</span><span 
+class="cmtt-10">&#x00A0;received</span><span 
+class="cmtt-10">&#x00A0;from</span><span 
+class="cmtt-10">&#x00A0;Ferret.</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;extPar</span><span 
+class="cmtt-10">&#x00A0;--&#x003E;</span><span 
+class="cmtt-10">&#x00A0;structure</span><span 
+class="cmtt-10">&#x00A0;made</span><span 
+class="cmtt-10">&#x00A0;by</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;init.m</span><span 
+class="cmtt-10">&#x00A0;file.</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">[NGenes,</span><span 
+class="cmtt-10">&#x00A0;N]=size(X);</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;NGenes=number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;parameters.</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;N=number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;parameter</span><span 
+class="cmtt-10">&#x00A0;sets</span><span 
+class="cmtt-10">&#x00A0;requested.</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">for</span><span 
+class="cmtt-10">&#x00A0;model=N:-1:1</span><br />        <span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Loop</span><span 
+class="cmtt-10">&#x00A0;over</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;parameter</span><span 
+class="cmtt-10">&#x00A0;sets.</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;It</span><span 
+class="cmtt-10">&#x00A0;is</span><span 
+class="cmtt-10">&#x00A0;a</span><span 
+class="cmtt-10">&#x00A0;good</span><br />        <span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;idea</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;loop</span><span 
+class="cmtt-10">&#x00A0;backwards</span><span 
+class="cmtt-10">&#x00A0;so</span><span 
+class="cmtt-10">&#x00A0;that</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;array</span><span 
+class="cmtt-10">&#x00A0;F</span><span 
+class="cmtt-10">&#x00A0;is</span><span 
+class="cmtt-10">&#x00A0;initialized</span><br />        <span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;right</span><span 
+class="cmtt-10">&#x00A0;size</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;first</span><span 
+class="cmtt-10">&#x00A0;time</span><span 
+class="cmtt-10">&#x00A0;through</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;loop.</span><br />        <span 
+class="cmtt-10">%</span><br />        <span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Grab</span><span 
+class="cmtt-10">&#x00A0;a</span><span 
+class="cmtt-10">&#x00A0;single</span><span 
+class="cmtt-10">&#x00A0;column</span><span 
+class="cmtt-10">&#x00A0;--&#x003E;</span><span 
+class="cmtt-10">&#x00A0;one</span><span 
+class="cmtt-10">&#x00A0;set</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;parameters.</span><br />        <span 
+class="cmtt-10">X1=X(:,</span><span 
+class="cmtt-10">&#x00A0;model);</span><br />        <span 
+class="cmtt-10">%</span><br />        <span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Evaluate</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;fitness</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;this</span><span 
+class="cmtt-10">&#x00A0;parameter</span><span 
+class="cmtt-10">&#x00A0;set</span><span 
+class="cmtt-10">&#x00A0;and</span><span 
+class="cmtt-10">&#x00A0;save</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;F(model).</span><br />        <span 
+class="cmtt-10">F(model)=evaluateFitness(X1,</span><span 
+class="cmtt-10">&#x00A0;extPar);</span><br /><span 
+class="cmtt-10">end</span></div>
+</div></span>
+<!--l. 1792--><p class="noindent" >Here, <span 
+class="cmmi-10">extPar </span>represents the external parameter structure generated by the init file (see Section <a 
+href="QubistHTMLse16.html#x30-410004.6">4.6<!--tex4ht:ref: sec:init --></a>), and <span 
+class="cmmi-10">X </span>is a
+two-dimensional array of size <span 
+class="cmmi-10">NGenes </span><span 
+class="cmsy-10">&#x00D7; </span><span 
+class="cmmi-10">N</span>, where <span 
+class="cmmi-10">NGenes </span>is the number of parameters and <span 
+class="cmmi-10">N </span>is the number of
+solutions requested by Ferret. Note that Ferret uses the words &#8216;gene&#8217; and &#8216;parameter&#8217; interchangeably. This is
+different from a traditional genetic algorithm, where a &#8216;gene&#8217; might represent a single 0 or 1 on a string of binary
+bits, and a &#8216;parameter&#8217; might be defined by many such genes.  Ferret is different because the binary bit strings are
+completely absent; all of Ferret&#8217;s genes are real numbers, and its genetic operators are defined over real vector
+spaces.
+<a 
+ id="dx33-47025"></a>
+<!--l. 1795--><p class="noindent" >Each column of <span 
+class="cmmi-10">X </span>represents a single set of parameters that the fitness function must evaluate. Usually, the fitness
+                                                                                         
+
+                                                                                         
+function contains a loop over the number of columns, so that each column can be evaluated as a set of parameters,
+unless the fitness function is simple enough to vectorize over the entire <span 
+class="cmmi-10">X </span>array. This is done by many of the simple
+demos, but is unlikely for a real problem. It is important to note that the number of rows <span 
+class="cmmi-10">NGenes </span>in <span 
+class="cmmi-10">X </span>is
+guaranteed to always be the same, since this represents the number of parameters in your problem. <span 
+class="cmti-10">However, the</span>
+<span 
+class="cmti-10">number of columns </span><span 
+class="cmmi-10">N </span><span 
+class="cmti-10">represents the number of solutions currently required by Ferret and varies unpredictably</span>
+<span 
+class="cmti-10">from one evaluation to the next.  </span>You must therefore always design fitness functions that are flexible
+enough to evaluate an arbitrary number of solutions and return the corresponding number of fitness
+values.
+<a 
+ id="dx33-47026"></a>
+<!--l. 1798--><p class="noindent" >The fitness function must return a matrix <span 
+class="cmmi-10">F</span>, which contains the fitness values. Each column of matrix <span 
+class="cmmi-10">F </span>contains
+the fitness values for the corresponding column of <span 
+class="cmmi-10">X</span>, and <span 
+class="cmmi-10">F </span>is therefore of size <span 
+class="cmmi-10">NObj </span><span 
+class="cmsy-10">&#x00D7; </span><span 
+class="cmmi-10">N</span>, where <span 
+class="cmmi-10">NObj </span>is the
+number of objectives being simultaneously optimized. For multi-objective problems, the order of the rows does not
+matter, but it must be consistent from one evaluation to the next.  <span 
+class="cmbx-10">Note that Ferret is a minimizer. Good</span>
+<span 
+class="cmbx-10">solutions correspond to low values of </span><span 
+class="cmmi-10">F</span><span 
+class="cmbx-10">, which is opposite to the usual convention in the genetic</span>
+<span 
+class="cmbx-10">algorithm literature.</span>
+<a 
+ id="dx33-47027"></a>
+<a 
+ id="dx33-47028"></a>
+<!--l. 1802--><p class="noindent" ><span 
+class="cmmi-10">F </span>is a mandatory output field, but the fitness function may also return three other optional fields. The full signature
+of the fitness function is as follows:
+<!--l. 1819--><p class="noindent" ><span 
+class="colorbox" id="colorbox18"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">[F,</span><span 
+class="cmtt-10">&#x00A0;{auxOutput},</span><span 
+class="cmtt-10">&#x00A0;{saveData},</span><span 
+class="cmtt-10">&#x00A0;{XPhysMod}]=fitness(X,</span><span 
+class="cmtt-10">&#x00A0;{extPar})</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;***</span><span 
+class="cmtt-10">&#x00A0;Braces</span><span 
+class="cmtt-10">&#x00A0;{}</span><span 
+class="cmtt-10">&#x00A0;indicate</span><span 
+class="cmtt-10">&#x00A0;optional</span><span 
+class="cmtt-10">&#x00A0;fields.</span><span 
+class="cmtt-10">&#x00A0;***</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Input</span><span 
+class="cmtt-10">&#x00A0;fields:</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;X</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;--&#x003E;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;[NGenes</span><span 
+class="cmtt-10">&#x00A0;x</span><span 
+class="cmtt-10">&#x00A0;N</span><span 
+class="cmtt-10">&#x00A0;matrix]</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;extPar</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;--&#x003E;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;MATLAB</span><span 
+class="cmtt-10">&#x00A0;structure</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Output</span><span 
+class="cmtt-10">&#x00A0;fields:</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;F</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;--&#x003E;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;[NObj</span><span 
+class="cmtt-10">&#x00A0;x</span><span 
+class="cmtt-10">&#x00A0;N</span><span 
+class="cmtt-10">&#x00A0;matrix]</span><span 
+class="cmtt-10">&#x00A0;(required)</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;auxOutput</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;--&#x003E;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;{N-element</span><span 
+class="cmtt-10">&#x00A0;MATLAB</span><span 
+class="cmtt-10">&#x00A0;cell</span><span 
+class="cmtt-10">&#x00A0;array}</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;{empty</span><span 
+class="cmtt-10">&#x00A0;cell</span><span 
+class="cmtt-10">&#x00A0;array}</span><span 
+class="cmtt-10">&#x00A0;(optional)</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;saveData</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;--&#x003E;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;{N-element</span><span 
+class="cmtt-10">&#x00A0;MATLAB</span><span 
+class="cmtt-10">&#x00A0;cell</span><span 
+class="cmtt-10">&#x00A0;array}</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;{empty</span><span 
+class="cmtt-10">&#x00A0;cell</span><span 
+class="cmtt-10">&#x00A0;array}</span><span 
+class="cmtt-10">&#x00A0;(optional)</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;XPhysMod</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;--&#x003E;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;[NGenes</span><span 
+class="cmtt-10">&#x00A0;x</span><span 
+class="cmtt-10">&#x00A0;N</span><span 
+class="cmtt-10">&#x00A0;matrix]</span><span 
+class="cmtt-10">&#x00A0;(optional)</span></div>
+</div></span>
+<!--l. 1825--><p class="noindent" >The optional output fields are discussed below. Of these, the <span 
+class="cmmi-10">auxOutput </span>field is the most useful and most commonly
+used. The <span 
+class="cmmi-10">saveData </span>field is used much less often, and <span 
+class="cmmi-10">XPhysMod </span>is only used under very uncommon
+circumstances.
+<!--l. 1827--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">4.8.1   </span> <a 
+ id="x33-480004.8.1"></a>auxOutput - the Auxiliary Output Cell Array &amp; Application to Penalty Functions</h4>
+<a 
+ id="dx33-48001"></a>
+<!--l. 1831--><p class="noindent" >The <span 
+class="cmmi-10">auxOutput </span>output argument is a 1 <span 
+class="cmsy-10">&#x00D7; </span><span 
+class="cmmi-10">N </span>cell array, which is a good place to put the results of any useful
+intermediate calculations or side-calculations that you might want to examine at the end of the run. It is important
+to note that anything that you include in the <span 
+class="cmmi-10">auxOutput </span>cell array will be saved inside of your History files, and will
+ultimately appear in your OptimalSolutions.mat file for the best solutions that are evaluated. Therefore, it is a good
+idea to limit the amount of data that you include in <span 
+class="cmmi-10">auxOutput</span>. If you record large amounts of data in <span 
+class="cmmi-10">auxOutput</span>,
+your History files will be very large, and loading them for analysis will be slow and require a lot of
+memory.
+<a 
+ id="dx33-48002"></a>
+<a 
+ id="dx33-48003"></a>
+<a 
+ id="dx33-48004"></a>
+<!--l. 1836--><p class="noindent" >The auxOutput array is carried around with solutions, just like fitness values. Any data that you put in <span 
+class="cmmi-10">auxOutput</span>
+will also be added to your OptimalSolutions.mat file at the end of the run, for those solutions that are included in
+<span 
+class="cmmi-10">OptimalSolutions</span>. I often use <span 
+class="cmmi-10">auxOutput </span>on data modeling problems that require a penalty function to
+avoid regions that violate a constraint. In that case, I would base my fitness function on the following
+                                                                                         
+
+                                                                                         
+pseudo-code:
+<!--l. 1863--><p class="noindent" ><span 
+class="colorbox" id="colorbox19"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">function</span><span 
+class="cmtt-10">&#x00A0;[F,</span><span 
+class="cmtt-10">&#x00A0;auxOutput]=fitness(X,</span><span 
+class="cmtt-10">&#x00A0;extPar)</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Fitness</span><span 
+class="cmtt-10">&#x00A0;function</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;a</span><span 
+class="cmtt-10">&#x00A0;data</span><span 
+class="cmtt-10">&#x00A0;fitting</span><span 
+class="cmtt-10">&#x00A0;problem</span><span 
+class="cmtt-10">&#x00A0;with</span><span 
+class="cmtt-10">&#x00A0;a</span><span 
+class="cmtt-10">&#x00A0;penalty</span><span 
+class="cmtt-10">&#x00A0;function.</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;A</span><span 
+class="cmtt-10">&#x00A0;big</span><span 
+class="cmtt-10">&#x00A0;number</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;scale</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;penalty</span><span 
+class="cmtt-10">&#x00A0;function.</span><br /><span 
+class="cmtt-10">hugeNumber=1e10;</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Count</span><span 
+class="cmtt-10">&#x00A0;backwards</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;avoid</span><span 
+class="cmtt-10">&#x00A0;resizing</span><span 
+class="cmtt-10">&#x00A0;arrays!</span><br /><span 
+class="cmtt-10">for</span><span 
+class="cmtt-10">&#x00A0;i=size(X,2):-1:1</span><br />        <span 
+class="cmtt-10">%</span><br />        <span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Calculate</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;chi-squared</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;fit</span><span 
+class="cmtt-10">&#x00A0;and</span><span 
+class="cmtt-10">&#x00A0;store</span><span 
+class="cmtt-10">&#x00A0;in</span><span 
+class="cmtt-10">&#x00A0;auxOutput,</span><span 
+class="cmtt-10">&#x00A0;NOT</span><span 
+class="cmtt-10">&#x00A0;F.</span><br />        <span 
+class="cmtt-10">auxOutput{i}=calcChiSquared(X(:,i),</span><span 
+class="cmtt-10">&#x00A0;extPar);</span><br />        <span 
+class="cmtt-10">%</span><br />        <span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Calculate</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;degree</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;constraint</span><span 
+class="cmtt-10">&#x00A0;violation.</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;Return</span><span 
+class="cmtt-10">&#x00A0;0</span><span 
+class="cmtt-10">&#x00A0;if</span><span 
+class="cmtt-10">&#x00A0;no</span><br />        <span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;constraints</span><span 
+class="cmtt-10">&#x00A0;are</span><span 
+class="cmtt-10">&#x00A0;violated,</span><span 
+class="cmtt-10">&#x00A0;and</span><span 
+class="cmtt-10">&#x00A0;about</span><span 
+class="cmtt-10">&#x00A0;1</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;maximum</span><span 
+class="cmtt-10">&#x00A0;constraint</span><br />        <span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;violation</span><span 
+class="cmtt-10">&#x00A0;that</span><span 
+class="cmtt-10">&#x00A0;is</span><span 
+class="cmtt-10">&#x00A0;likely</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;be</span><span 
+class="cmtt-10">&#x00A0;encountered.</span><br />        <span 
+class="cmtt-10">constraintViolation=calcViolation(X(:,i),</span><span 
+class="cmtt-10">&#x00A0;extPar);</span><br />        <span 
+class="cmtt-10">%</span><br />        <span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Calculate</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;penalty.</span><br />        <span 
+class="cmtt-10">penalty=hugeNumber*constraintViolation;</span><br />        <span 
+class="cmtt-10">%</span><br />        <span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Calculate</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;fitness.</span><br />        <span 
+class="cmtt-10">F(:,i)=auxOutput{i}+penalty;</span><br /><span 
+class="cmtt-10">end</span></div>
+</div></span>
+<a 
+ id="dx33-48028"></a>
+<!--l. 1870--><p class="noindent" >The actual fitness values returned by this pseudo-code would be meaningless in terms of <span 
+class="cmmi-10">&#x03C7;</span><sup><span 
+class="cmr-7">2</span></sup> for solutions in the
+disallowed region. However, the <span 
+class="cmmi-10">&#x03C7;</span><sup><span 
+class="cmr-7">2</span></sup> values would be available in the <span 
+class="cmmi-10">auxOutput </span>cell array from within the output
+function, the History files, and the OptimalSolutions.mat file (if any penalized solutions are actually present in
+<span 
+class="cmmi-10">OptimalSolutions</span>).
+<!--l. 1872--><p class="noindent" >A penalty function should always be implemented in such a way that <span 
+class="cmmi-10">F </span>increases with the degree of constraint
+violation.  Users often try to implement a simple penalty function like the following:
+<table 
+class="equation"><tr><td><a 
+ id="x33-48029r1"></a>
+<center class="math-display" >
+<img 
+src="QubistHTML4x.png" alt="         { 0,          if no  violation
+penalty =  bigN umber, if violation
+" class="math-display" ></center></td><td class="equation-label">(4.1)</td></tr></table>
+<!--l. 1880--><p class="nopar" >
+<!--l. 1882--><p class="noindent" >This does not work nearly as well because this penalty function is completely flat over the disallowed region, and
+therefore offers no hints about which way to go in order to satisfy the constraints. Ferret never calculates gradients,
+but it does work better when the parameter space offers some indication about where good solutions reside, without
+having to accidentally land solutions in the allowed region! <span 
+class="cmti-10">The art of designing a good penalty function, and perhaps</span>
+<span 
+class="cmti-10">a good fitness function in general, is to build in as many hints as possible to help guide the population to the optimal</span>
+<span 
+class="cmti-10">region.</span>
+<a 
+ id="dx33-48030"></a>
+<a 
+ id="dx33-48031"></a>
+<a 
+ id="dx33-48032"></a>
+<!--l. 1888--><p class="noindent" >Note that <span 
+class="cmmi-10">auxOutput </span>field is optional, and an empty set (<span 
+class="cmmi-10">auxOutput </span>= <span 
+class="cmsy-10">{}</span>) is also allowed.
+<a 
+ id="dx33-48033"></a>
+<!--l. 1893--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">4.8.2   </span> <a 
+ id="x33-490004.8.2"></a>saveData - Extra Data Saved during a Run</h4>
+<a 
+ id="dx33-49001"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 1897--><p class="noindent" >The <span 
+class="cmmi-10">saveData </span>output argument is a 1 <span 
+class="cmsy-10">&#x00D7; </span><span 
+class="cmmi-10">N </span>cell array, which behaves like <span 
+class="cmmi-10">auxOutput</span>, except that the results are
+saved to a special &#8216;<span 
+class="cmmi-10">saveData</span>&#8217; sub-directory of the data directory rather than inside of the History files. The
+<span 
+class="cmmi-10">saveData </span>field is intended for large data structures computed during the evaluation of your fitness function that you
+want to save to disk, but are too large to include in your History files. This field is optional, and an empty set
+(<span 
+class="cmmi-10">saveData </span>= <span 
+class="cmsy-10">{}</span>) is also allowed.
+<!--l. 1900--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">4.8.3   </span> <a 
+ id="x33-500004.8.3"></a>XMod - Parameter Values Modified by the Fitness Function &amp; Application to Normalization
+Constraints</h4>
+<a 
+ id="dx33-50001"></a>
+<a 
+ id="dx33-50002"></a>
+<!--l. 1905--><p class="noindent" >The fitness function is allowed to modify <span 
+class="cmmi-10">X </span>and return the modified values back to Ferret through <span 
+class="cmmi-10">XMod</span>. This is
+an advanced feature that is rarely used, but is occasionally useful for handling constraints. For example, if some
+values of <span 
+class="cmmi-10">X </span>are not allowed due to a constraint, it is possible for the fitness function to move these values to an
+allowed region by modifying them and returning them as <span 
+class="cmmi-10">XMod</span>, and they will appear in the population in the new
+location.
+<a 
+ id="dx33-50003"></a>
+<a 
+ id="dx33-50004"></a>
+<!--l. 1909--><p class="noindent" >It is usually better to handle most types of constraints by imposing fitness penalties for wandering into
+regions that are not allowed, as discussed in Section <a 
+href="#x33-480004.8.1">4.8.1<!--tex4ht:ref: sec:auxOutput --></a>. However, the <span 
+class="cmmi-10">XMod </span>feature is sometimes
+better for normalization constraints that must be enforced exactly. A simple example is a problem in
+which the sum of the parameters (or a subset of them) must add up exactly to a constant value. To be
+specific, if the sum of the parameters must add up to 1, then you can enforce this normalization by the
+following:
+<!--l. 1913--><p class="noindent" ><span 
+class="colorbox" id="colorbox20"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">XMod</span><span 
+class="cmtt-10">&#x00A0;=</span><span 
+class="cmtt-10">&#x00A0;X./repmat(sum(X,1),</span><span 
+class="cmtt-10">&#x00A0;size(X,1),</span><span 
+class="cmtt-10">&#x00A0;1);</span></div>
+</div></span>
+<a 
+ id="dx33-50006"></a>
+<a 
+ id="dx33-50007"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 1923--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse19.html" >next</a>] [<a 
+href="QubistHTMLse17.html" >prev</a>] [<a 
+href="QubistHTMLse17.html#tailQubistHTMLse17.html" >prev-tail</a>] [<a 
+href="QubistHTMLse18.html" >front</a>] [<a 
+href="QubistHTMLch4.html#QubistHTMLse18.html" >up</a>] </p></div>
+<!--l. 1923--><p class="noindent" ><a 
+ id="tailQubistHTMLse18.html"></a>  
+</body></html> 

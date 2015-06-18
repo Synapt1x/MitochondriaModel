@@ -1,0 +1,4 @@
+Discontinuous Trade-Off Surface:
+================================
+
+This is a tricky multi-objective problem with a discontinuous trade-off surface.

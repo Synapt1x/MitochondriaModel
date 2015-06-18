@@ -1,0 +1,14 @@
+Periodic Ripples - Finding a Needle in a Haystack:
+==================================================
+
+This example is a simple 2-dimensional problem, where the optimal solution
+is a single point at the centre of a set of periodic rings.  Every ring (or
+ripple) has a fitness value the is almost as good as global solution in the
+centre.
+
+This kind of problem is quite difficult and a large population size may be
+required to solve it reliably.  If a solution does not land in the the
+vicinity of the grobal solution early in the run, Ferret may be "distracted"
+by one of the much larger, near-optimal rings.  The only solution to increase
+reliability is to increase the population size, so that the early exploration
+of the problem has a greater chance of stumblng on the small optimal region.

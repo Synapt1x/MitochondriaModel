@@ -1,0 +1,2468 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>Polishing Solutions at the End of a Run</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 2583--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse27.html" >next</a>] [<a 
+href="QubistHTMLse25.html" >prev</a>] [<a 
+href="QubistHTMLse25.html#tailQubistHTMLse25.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLse26.html">tail</a>] [<a 
+href="QubistHTMLch4.html#QubistHTMLse26.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">4.16   </span> <a 
+ id="x43-640004.16"></a>Polishing Solutions at the End of a Run</h3>
+<a 
+ id="dx43-64001"></a>
+<a 
+ id="dx43-64002"></a>
+<a 
+ id="dx43-64003"></a>
+<a 
+ id="dx43-64004"></a>
+<!--l. 2590--><p class="noindent" >Ferret is very good at finding globally optimal solutions, but local optimization techniques are often superior for
+polishing solutions to high accuracy if they are started in the neighbourhood of a global solution. Ferret is able to
+call SAMOSA, Anvil, SemiGloSS, or MATLAB&#8217;s built in optimizer fminsearch, as polishers after a run is analyzed.
+All of the Qubist optimizers can be used on multi-objective problems where SAMOSA is the default polisher, while
+fminsearch is limited to single-objective problems. You can choose which polisher you want by setting
+<span 
+class="cmtt-10">par.polish.optimizer </span>to the name of the desired optimizer in your setup file (see Section <a 
+href="QubistHTMLse61.html#x89-1270008.18">8.18<!--tex4ht:ref: sec:par_polish --></a>), or to &#8216;default&#8217; to
+allow Ferret to choose. I recommend that you use the default polisher for most problems because both SAMOSA
+and fminsearch are fundamentally simplex algorithms and relatively fast compared to Anvil. Anvil may be
+useful occasionally, but it is quite a powerful global optimizer in its own right and may take longer to
+finish.
+<!--l. 2592--><p class="noindent" >Polishing your solution set is easy. It is normally done after a run has stopped, but can also be done while the run is
+still active. After analyzing your run, you simply press the polish button and polishing begins automatically. If you
+are using a Qubist optimizer with graphics enabled in its setup file (<span 
+class="cmtt-10">par.interface.graphics=1 </span>in
+SAMOSA_setup.m, AnvilSetup.m, or SemiGloSS_setup.m), then the polisher&#8217;s window will pop up and you can
+watch polishing as it proceeds. Polishing typically involves looping over multiple optimal solutions from
+Ferret and sending them one by one to the polisher. Polishing can be stopped at any time by pressing
+the &#8216;Stop Polish&#8217; button, but you will be asked to wait until the polisher finished with the current
+solution. If you are in a hurry to stop the polisher and the polisher&#8217;s interface is visible, then you
+can stop it immediately by clicking on the &#8216;Stop Polish&#8217; button in the Ferret analysis window and
+then polisher&#8217;s &#8216;Stop&#8217; button. This will stop the polisher, but your Ferret run will continue if it is still
+running.
+<a 
+ id="dx43-64005"></a>
+<!--l. 2595--><p class="noindent" >The default setup files for all of the polishers are located in [Qubist_Home]/user/Ferret/defaults. <span 
+class="cmti-10">Note that this is</span>
+<span 
+class="cmti-10">not the same default directory that the polishers used when called as stand-alone optimizers.  </span>This may seem
+confusing, but it is best to keep the polisher and stand-alone defaults distinct, because it allows different default
+options for these very different applications. By keeping them separate, you can change the defaults for one use
+without affecting the other. You will notice that many of the usual options are commented out if you open the
+polisher default files. This is done to make explicit the fact that Ferret will modify the commented-out fields
+automatically when the polisher starts. Of course, you can also copy and modify the full setup file for your polisher
+to your project directory, where you can modify it as you wish. Settings modified in this manner will override the
+default file.
+<a 
+ id="dx43-64006"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 2598--><p class="noindent" >Polishing your solution set will result in a &#8216;PolishedSolutions.mat&#8217; file, which will be located alongside your
+OptimalSolutions.mat file in your run&#8217;s data directory. A PolishedSolutions.mat file has exactly the same structure
+as an OptimalSolutions.mat file, but contains only solutions from the polisher. The PolishedSolutions.mat file will
+therefore work with all other Qubist tools designed to interact with <span 
+class="cmmi-10">OptimalSolutions</span>, such as the &#8216;View
+OptimalSolutions&#8217; tool and the &#8216;Merge OptimalSolutions&#8217; tool, which are discussed in Chapter <a 
+href="QubistHTMLch12.html#x125-21400012">12<!--tex4ht:ref: ch:otherTools --></a>. However, you can
+usually just discard the PolishedSolutions.mat file because the final step of polishing is to add the contents of
+PolishedSolutions to OptimalSolutions, re-analyze the combined data to produce the final optimal set, and save it as
+OptimalSolutions.mat.
+<!--l. 2600--><p class="noindent" >Please refer to Section <a 
+href="QubistHTMLse61.html#x89-1270008.18">8.18<!--tex4ht:ref: sec:par_polish --></a> for a complete explanation of polisher options. You should also note that polishers can
+also be called by Locust following exactly the same procedure.
+<a 
+ id="dx43-64007"></a>
+<a 
+ id="dx43-64008"></a>
+<a 
+ id="dx43-64009"></a>
+<!--l. 2607--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">4.16.1   </span> <a 
+ id="x43-650004.16.1"></a>History File Options and Crash Recovery</h4>
+<a 
+ id="dx43-65001"></a>
+<a 
+ id="dx43-65002"></a>
+<a 
+ id="dx43-65003"></a>
+<a 
+ id="dx43-65004"></a>
+<a 
+ id="dx43-65005"></a>
+<a 
+ id="dx43-65006"></a>
+<a 
+ id="dx43-65007"></a>
+<!--l. 2617--><p class="noindent" >The parameters that control the generation of History files are specified by just three lines in the <span 
+class="cmtt-10">par.history </span>section of
+the setup file or in the default Ferret setup file ([Qubist_Home]/user/Ferret/defaults/defaultFerretSetup.m). These
+parameters, copied from defaultFerretSetup.m, are as follows:
+<!--l. 2624--><p class="noindent" ><span 
+class="colorbox" id="colorbox40"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;History</span><br /><span 
+class="cmtt-10">par.history.dataDir=&#8217;FerretData&#8217;;</span><br /><span 
+class="cmtt-10">par.history.NGenPerHistoryFile=25;</span><br /><span 
+class="cmtt-10">par.history.saveFrac=0;</span></div>
+</div></span>
+<a 
+ id="dx43-65012"></a>
+<a 
+ id="dx43-65013"></a>
+<!--l. 2632--><p class="noindent" >The <span 
+class="cmtt-10">par.history.dataDir </span>field specifies the data directory for your run. The data directory will contain several
+subdirectories, including the History folder [par.history.dataDir]/History, which holds the History files that
+are required for analysis (see Section <a 
+href="QubistHTMLse25.html#x42-630004.15">4.15<!--tex4ht:ref: sec:analysis --></a>). If <span 
+class="cmtt-10">par.history.dataDir </span>is specified as a local path (i.e.
+<span 
+class="cmtt-10">par.history.dataDir=&#8217;FerretData&#8217;</span>), then the data directory will be generated as a sub-directory inside of
+your project directory, which is specified either by your launchQubist.m file (see Section <a 
+href="QubistHTMLse14.html#x28-370004.4.1">4.4.1<!--tex4ht:ref: sec:localProjects --></a>) or the
+QubistGlobalProjects.m file (see Section <a 
+href="QubistHTMLse14.html#x28-380004.4.2">4.4.2<!--tex4ht:ref: sec:globalProjects --></a>).
+<a 
+ id="dx43-65014"></a>
+<!--l. 2636--><p class="noindent" >If you are performing many runs and want to keep them separate from your program files, then it is best to specify
+the data directory by giving a global path to a data directory outside of your project directory. In either case, it is
+important to ensure that your file permissions allow you to create and write to the specified directory. If you try to
+run Ferret and you do not have sufficient file permissions, then you will see an error dialog box like the one shown in
+Figure <a 
+href="#x43-6501510">4.10<!--tex4ht:ref: fig:dataDirError --></a>: <hr class="figure"><div class="figure" 
+>
+                                                                                         
+
+                                                                                         
+<a 
+ id="x43-6501510"></a>
+                                                                                         
+
+                                                                                         
+<div class="center" 
+>
+<!--l. 2638--><p class="noindent" >
+
+<!--l. 2639--><p class="noindent" ><img 
+src="figures/Ferret/dataDirError.png" alt="PIC"  
+></div>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;4.10: </span><span  
+class="content">Dialog box indicating that the data directory could not be created. In this example, I have set
+my data directory to a global path &#8216;Z:<span 
+class="cmsy-10">\</span>FerretSetup&#8217;, which generates an error because I do not have a disk
+&#8216;Z:&#8217; on my Windows system.</span></div><!--tex4ht:label?: x43-6501510 -->
+                                                                                         
+
+                                                                                         
+<!--l. 2643--><p class="noindent" ></div><hr class="endfigure">
+<!--l. 2643--><p class="noindent" >.
+<!--l. 2645--><p class="noindent" >The dialog box indicates that there was a problem generating the run&#8217;s data directories, including the one that
+normally contains History files. You can continue if you wish, but you won&#8217;t be able to analyze your run, because
+analysis requires the History files that aren&#8217;t being written. This error can be caused by an invalid path or
+insufficient file permissions to create the directory. If you see this, you should probably click &#8216;Abort&#8217; and fix the
+problem, rather than continuing. If you continue, you will be able to watch the optimization of your
+project in the console window, but without the History files, you will not be able to analyze your run or
+compute the final optimal set. This may be of limited use for testing things early in the development of a
+project, but really you should just stop and fix the path or permission problem if you see this error
+dialog.
+<!--l. 2647--><p class="noindent" >MATLAB users who do long-duration calculations know all too well that it is possible to crash MATLAB
+occasionally, whether it is due to an internal segmentation fault, a Java exception, or some external reason like a
+power failure or operating system glitch. Crashes during long runs are extremely serious, and I have
+placed a great deal of emphasis on making Ferret&#8217;s crash recovery relatively painless. So when your
+three-month long Ferret run crashes for some unexplained reason, please remember these two important
+things:
+     <ul class="itemize1">
+     <li class="itemize">
+     <span 
+class="cmti-10">Don&#8217;t</span>
+     <span 
+class="cmti-10">panic</span>.
+     You
+     will
+     be
+     able
+     to
+     resume
+     your
+     run
+     from
+     the
+     last
+     History
+     file
+     that
+     was
+     successfully
+     written
+     to
+     disk,
+     using
+     the
+     method
+     discussed
+     in
+                                                                                         
+
+                                                                                         
+     Section
+     <a 
+href="QubistHTMLse27.html#x45-690004.17">4.17<!--tex4ht:ref: sec:resumeRun --></a>.
+     Very
+     little
+     data
+     will
+     be
+     lost,
+     if
+     any.
+     </li>
+     <li class="itemize">
+     <span 
+class="cmti-10">It&#8217;s</span>
+     <span 
+class="cmti-10">not</span>
+     <span 
+class="cmti-10">my</span>
+     <span 
+class="cmti-10">fault.</span>
+     Well,
+     in
+     reality,
+     I
+     suppose
+     it
+     could
+     be
+     -
+     Ferret
+     is
+     a
+     big
+     machine
+     with
+     a
+     lot
+     of
+     moving
+     parts,
+     and
+     users
+     occasionally
+     find
+     surprising
+     ways
+     to
+     break
+     things.
+     But
+                                                                                         
+
+                                                                                         
+     at
+     least
+     I&#8217;ve
+     done
+     my
+     best
+     to
+     make
+     your
+     crash
+     recovery
+     relatively
+     painless,
+     and
+     your
+     actual
+     data
+     loss
+     will
+     be
+     minimal.
+     In
+     addition,
+     I
+     would
+     be
+     grateful
+     for
+     a
+     bug
+     report
+     with
+     all
+     error
+     messages
+     and
+     perhaps
+     a
+     screenshot,
+     if
+     you
+     really
+     think
+     the
+     problem
+     occurred
+     in
+     Ferret
+                                                                                         
+
+                                                                                         
+     and
+     not
+     your
+     own
+     code.</li></ul>
+<!--l. 2652--><p class="noindent" >Two of the options in <span 
+class="cmtt-10">par.history </span>affect your ability to recover from crashed runs, and I turn to these settings
+next.
+<a 
+ id="dx43-65016"></a>
+<a 
+ id="dx43-65017"></a>
+<!--l. 2656--><p class="noindent" >The field called <span 
+class="cmtt-10">par.history.NGenPerHistoryFile </span>specifies how many generations to include in each History file.
+The default, which is specified in defaultFerretSetup, is normally set to about 25, but this parameter can be changed
+in the setup file to suit your problem. You should consider the following when deciding on a value for this
+parameter:
+     <ul class="itemize1">
+     <li class="itemize">
+     If
+     <span 
+class="cmmi-10">NGenPerHistoryFile</span>
+     is
+     a
+     small
+     number
+     (<span 
+class="cmmi-10">&#x003C; </span>25),
+     then
+     fewer
+     generations
+     will
+     be
+     included
+     in
+     each
+     History
+     file
+     and
+     you
+     will
+     generate
+     more
+     of
+     them.
+     This
+     will
+     probably
+     use
+     slightly
+     more
+                                                                                         
+
+                                                                                         
+     disk
+     space,
+     and
+     your
+     analysis
+     will
+     be
+     slower
+     because
+     you
+     will
+     have
+     more
+     files
+     to
+     load.
+     On
+     the
+     other
+     hand,
+     if
+     <span 
+class="cmmi-10">NGenPerHistoryFile</span>
+     is
+     set
+     to
+     a
+     larger
+     number
+     (<span 
+class="cmmi-10">&#x003E; </span>25),
+     then
+     you
+     will
+     generate
+     fewer
+     History
+     files,
+     use
+     slightly
+     less
+     disk
+     space,
+     and
+     be
+     able
+     to
+     analyze
+     your
+     runs
+                                                                                         
+
+                                                                                         
+     more
+     quickly.
+     </li>
+     <li class="itemize">
+     Lower
+     values
+     of
+     <span 
+class="cmmi-10">NGenPerHistoryFile</span>
+     allow
+     you
+     to
+     recover
+     more
+     quickly
+     from
+     a
+     crash
+     than
+     higher
+     value,
+     because
+     Ferret
+     will
+     restart
+     from
+     the
+     solutions
+     contained
+     in
+     the
+     last
+     History
+     file
+     that
+     was
+     successfully
+     saved.
+     </li>
+     <li class="itemize">
+     History
+     files
+     can
+     sometimes
+     include
+     a
+                                                                                         
+
+                                                                                         
+     large
+     amount
+     of
+     information,
+     especially
+     if
+     you
+     are
+     loading
+     a
+     lot
+     of
+     data
+     in
+     your
+     init
+     file
+     without
+     using
+     the
+     &#8216;noSave&#8217;
+     feature
+     discussed
+     in
+     Section
+     <a 
+href="QubistHTMLse16.html#x30-410004.6">4.6<!--tex4ht:ref: sec:init --></a>.
+     If
+     you
+     use
+     a
+     large
+     value
+     for
+     <span 
+class="cmmi-10">NGenPerHistoryFile</span>,
+     you
+     may
+     require
+     more
+     memory
+     to
+     analyze
+     your
+     run,
+     since
+     information
+     will
+     be
+     loaded
+                                                                                         
+
+                                                                                         
+     from
+     disk
+     in
+     larger
+     chunks.
+     I
+     therefore
+     recommend
+     lower
+     values
+     for
+     systems
+     that
+     do
+     not
+     have
+     much
+     memory.
+     You
+     should
+     also
+     consider
+     using
+     the
+     <span 
+class="cmmi-10">noSave</span>
+     feature
+     if
+     this
+     is
+     a
+     problem.</li></ul>
+<!--l. 2662--><p class="noindent" >My advice is to use the default value for <span 
+class="cmmi-10">NGenPerHistoryFile </span>or slightly larger if your fitness function
+can be evaluated rapidly, but to set it to a smaller value if your fitness function takes a long time to
+evaluate. Generally, I get annoyed if I lose more than a couple hours of run time during a crash, so I
+typically set <span 
+class="cmmi-10">NGenPerHistoryFile </span>to a rather small value (5-10) for my most computationally intensive
+projects. I rarely set this parameter to a value much greater than 25 because the benefits of doing so are
+minimal.
+<a 
+ id="dx43-65018"></a>
+<a 
+ id="dx43-65019"></a>
+<a 
+ id="dx43-65020"></a>
+<!--l. 2667--><p class="noindent" >The <span 
+class="cmtt-10">par.history.saveFrac </span>field controls how much information is saved in your History files. By default,
+<span 
+class="cmtt-10">par.history.saveFrac=0</span>, which indicates that only the optimal solutions from each generation should be saved.
+This saves enough information to compute the global optimal set from all generations at the end of the run, and this
+is therefore the most common setting for this parameter. However, it is possible to save the optimals plus
+some non-optimal members of the population if you set <span 
+class="cmmi-10">saveFrac </span>to a value between 0 and 1. In this
+case, <span 
+class="cmmi-10">saveFrac </span>indicates the minimum fraction of the population to be included in the History files.
+For example, if <span 
+class="cmtt-10">par.history.saveFrac=0.25</span>, then the History files will contain the <span 
+class="cmti-10">intersection </span>of
+                                                                                         
+
+                                                                                         
+the optimal set and the best 25% of the population. If the optimals account for greater than 25%
+of the population, then all optimals will still be saved. It is reasonable to ask why you might want
+to consider saving more solutions that just the optimals at each generation. There are two possible
+reasons:
+     <ul class="itemize1">
+     <li class="itemize">
+     If
+     your
+     run
+     should
+     crash,
+     it
+     can
+     be
+     resumed
+     from
+     the
+     last
+     saved
+     History
+     file.
+     If
+     <span 
+class="cmmi-10">saveFrac &#x003C; </span>1,
+     then
+     only
+     a
+     fraction
+     of
+     the
+     population
+     is
+     saved
+     in
+     each
+     History
+     file,
+     and
+     it
+     does
+     not
+     contain
+     enough
+     information
+     to
+     fully
+     re-populate
+                                                                                         
+
+                                                                                         
+     the
+     <span 
+class="cmmi-10">world</span>
+     from
+     the
+     last
+     saved
+     generation.
+     In
+     this
+     case,
+     missing
+     individuals
+     are
+     set
+     to
+     random
+     solutions,
+     which
+     are
+     likely
+     to
+     be
+     poor,
+     within
+     the
+     search
+     space.
+     This
+     is
+     not
+     a
+     major
+     problem
+     in
+     practice,
+     since
+     the
+     best
+     solutions
+     are
+     always
+     saved
+     in
+     the
+     History
+     files,
+     but
+     it
+                                                                                         
+
+                                                                                         
+     will
+     take
+     Ferret
+     a
+     few
+     generations
+     to
+     improve
+     these
+     relatively
+     poor
+     solutions
+     by
+     crossovers
+     with
+     the
+     saved
+     optimals.
+     If
+     you
+     choose
+     to
+     save
+     all
+     of
+     your
+     solutions
+     or
+     a
+     large
+     fraction
+     of
+     them,
+     this
+     won&#8217;t
+     be
+     necessary
+     and
+     recovery
+     will
+     be
+     faster.
+     </li>
+     <li class="itemize">
+     <a 
+ id="dx43-65021"></a>
+     Ferret,
+                                                                                         
+
+                                                                                         
+     or
+     the
+     Qubist
+     Movie
+     Tool
+     (see
+     Section
+     <a 
+href="QubistHTMLse99.html#x133-22000012.6">12.6<!--tex4ht:ref: sec:movieTool --></a>)
+     can
+     show
+     movies
+     of
+     your
+     run
+     by
+     loading
+     History
+     files
+     and
+     re-generating
+     the
+     appearance
+     of
+     the
+     Ferret
+     console
+     window
+     at
+     any
+     previous
+     generation.
+     However,
+     movie
+     frames
+     produced
+     in
+     this
+     way
+     only
+     contain
+     solutions
+     that
+     were
+     actually
+     saved
+     in
+     the
+     History
+                                                                                         
+
+                                                                                         
+     file.
+     Therefore,
+     your
+     movie
+     will
+     only
+     show
+     the
+     optimals
+     if
+     you
+     use
+     <span 
+class="cmtt-10">par.history.saveFrac=0</span>,
+     which
+     is
+     good
+     enough
+     for
+     most
+     purposes.
+     However,
+     you
+     should
+     always
+     set
+     <span 
+class="cmtt-10">par.history.saveFrac=1</span>
+     if
+     you
+     want
+     to
+     generate
+     a
+     high-quality
+     movie
+     that
+     shows
+     the
+     evolution
+     of
+     the
+     entire
+     population.
+     </li>
+     <li class="itemize">
+     <a 
+ id="dx43-65022"></a>
+     The
+                                                                                         
+
+                                                                                         
+     analysis
+     interface
+     allows
+     you
+     to
+     modify
+     the
+     fuzzy
+     tolerances
+     on
+     the
+     optimal
+     set
+     (<span 
+class="cmtt-10">par.selection.FAbsTol</span>
+     <span 
+class="cmtt-10">&#x003E;</span>
+     <span 
+class="cmtt-10">0</span>
+     or
+     <span 
+class="cmtt-10">par.selection.FRelTol</span>
+     <span 
+class="cmtt-10">&#x003E;</span>
+     <span 
+class="cmtt-10">0</span>),
+     <span 
+class="cmti-10">even</span>
+     <span 
+class="cmti-10">after</span>
+     <span 
+class="cmti-10">the</span>
+     <span 
+class="cmti-10">completion</span>
+     <span 
+class="cmti-10">of</span>
+     <span 
+class="cmti-10">a</span>
+     <span 
+class="cmti-10">run.</span>
+     This
+     can
+     be
+     used
+     to
+     slightly
+     blur
+     the
+     boundaries
+     of
+     the
+     optimal
+     set,
+     which
+     tends
+     to
+     fill
+     it
+     out
+     and
+     sometimes
+                                                                                         
+
+                                                                                         
+     better
+     shows
+     its
+     structure.
+     This
+     feature
+     can
+     also
+     help
+     you
+     to
+     understand
+     your
+     parameter
+     error
+     in
+     a
+     <span 
+class="cmmi-10">&#x03C7;</span><sup><span 
+class="cmr-7">2</span></sup>
+     minimization
+     problem.
+     However,
+     if
+     you
+     increase
+     the
+     tolerance,
+     only
+     solutions
+     actually
+     stored
+     in
+     the
+     History
+     files
+     can
+     appear.
+     If
+     you
+     think
+     your
+     problem
+     might
+     benefit
+     from
+     the
+     flexibility
+     allowed
+     by
+                                                                                         
+
+                                                                                         
+     modifying
+     fuzzy
+     tolerances
+     after
+     the
+     completion
+     of
+     the
+     run,
+     then
+     it
+     may
+     be
+     beneficial
+     to
+     set
+     <span 
+class="cmtt-10">par.history.saveFrac</span>
+     <span 
+class="cmtt-10">&#x003E;</span>
+     <span 
+class="cmtt-10">0</span>
+     so
+     that
+     some
+     non-optimals
+     are
+     included
+     in
+     the
+     History
+     files.</li></ul>
+<a 
+ id="dx43-65023"></a>
+<!--l. 2674--><p class="noindent" >In practice, I normally run Ferret with <span 
+class="cmtt-10">par.history.saveFrac=0</span>, because this minimizes disk usage. I
+do not recommend increasing <span 
+class="cmmi-10">saveFrac </span>just to improve your ability to recover after a run, because
+this recovery will occur over just a few generations anyway, and the introduction of diversity into the
+population from some random solutions might even be beneficial. Ferret actually includes an optional
+operator called &#8216;superMutation&#8217; (see Section <a 
+href="QubistHTMLse50.html#x76-1060008.7">8.7<!--tex4ht:ref: sec:par_mutation --></a>), which wipes out the entire group of non-optimals over
+all populations every now and then, for exactly this reason. A crash and subsequent recovery with
+<span 
+class="cmtt-10">par.history.saveFrac=0 </span>is roughly equivalent to the application of this superMutation operator.
+Anecdotally, I only added the superMutation operator after noticing rapid improvement of a previously stable
+population after such a crash! In my opinion, you should only consider crash recovery time when setting
+<span 
+class="cmmi-10">saveFrac </span>if your fitness function is computationally very expensive. The ability to make better movies or
+effectively add fuzzy tolerances to the optimal set at the end of a run are much better reasons to use
+<span 
+class="cmmi-10">saveFrac &#x003E; </span>0.
+<h4 class="subsectionHead"><span class="titlemark">4.16.2   </span> <a 
+ id="x43-660004.16.2"></a>Problems Encountered with Very Large History Files</h4>
+<a 
+ id="dx43-66001"></a>
+                                                                                         
+
+                                                                                         
+<a 
+ id="dx43-66002"></a>
+<a 
+ id="dx43-66003"></a>
+<a 
+ id="dx43-66004"></a>
+<!--l. 2684--><p class="noindent" >An especially confusing problem arises occasionally when users run projects that involve very large numbers of
+parameters (hundreds or thousands) or require very large data structures, which may result in truly enormous
+History files. By default, MATLAB saves files using <span 
+class="cmtt-10">save -v7 </span>for backward compatibility with all version-7
+MATLAB releases, which imposes a 2 Gb limit on file sizes. If Ferret tries to save a History file that exceeds this
+limit, you may see a warning like the following:
+<!--l. 2691--><p class="noindent" ><span 
+class="colorbox" id="colorbox41"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">Warning:</span><span 
+class="cmtt-10">&#x00A0;Variable</span><span 
+class="cmtt-10">&#x00A0;&#8217;History&#8217;</span><span 
+class="cmtt-10">&#x00A0;cannot</span><span 
+class="cmtt-10">&#x00A0;be</span><span 
+class="cmtt-10">&#x00A0;saved</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;a</span><span 
+class="cmtt-10">&#x00A0;MAT-file</span><span 
+class="cmtt-10">&#x00A0;whose</span><span 
+class="cmtt-10">&#x00A0;version</span><span 
+class="cmtt-10">&#x00A0;is</span><span 
+class="cmtt-10">&#x00A0;older</span><span 
+class="cmtt-10">&#x00A0;than</span><span 
+class="cmtt-10">&#x00A0;7.3.</span><br /><span 
+class="cmtt-10">To</span><span 
+class="cmtt-10">&#x00A0;save</span><span 
+class="cmtt-10">&#x00A0;this</span><span 
+class="cmtt-10">&#x00A0;variable,</span><span 
+class="cmtt-10">&#x00A0;use</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;-v7.3</span><span 
+class="cmtt-10">&#x00A0;switch.</span><br /><span 
+class="cmtt-10">Skipping...</span></div>
+</div></span>
+<!--l. 2697--><p class="noindent" >If you ignore this warning, you may be quite confused (and maybe a little angry) at the end of your run when you
+discover that all of your History files are empty and that you can&#8217;t analyze your run.  Assuming that your MATLAB
+version is fairly new (R2006b or later), the quick fix for this problem is to change your MATLAB MAT-file
+preferences for compatibility with version 7.3 and later, which allows files that exceed the 2 Gb version-7 limit.
+In my R2009b MATLAB version, this option is found under File <span 
+class="cmmi-10">&#x003E;&#x003E; </span>Preferences <span 
+class="cmmi-10">&#x003E;&#x003E; </span>General <span 
+class="cmmi-10">&#x003E;&#x003E;</span>
+MAT-Files.
+<a 
+ id="dx43-66008"></a>
+<a 
+ id="dx43-66009"></a>
+<a 
+ id="dx43-66010"></a>
+<!--l. 2702--><p class="noindent" >A better solution is to determine <span 
+class="cmti-10">why </span>your History files are so large, and make them smaller if possible. The &#8216;noSave&#8217;
+option discussed above helps to decrease the size of History files if their large size is due to data structures
+loaded by your init file, but this technique will not result in significant improvement if the problem is
+caused by saving large parameter sets. For example, if you are optimizing a large &#8216;non-parametric
+problem&#8217; (see Section <a 
+href="QubistHTMLse30.html#x48-720004.20">4.20<!--tex4ht:ref: sec:nonParametric --></a>) with <span 
+class="cmmi-10">P </span>= 500 parameters, saving the entire population of 500 each generation
+(<span 
+class="cmtt-10">par.general.popSize=500; par.history.saveFrac=1</span>), and have specified 100 generations per History file
+(<span 
+class="cmtt-10">par.history.NGenPerHistoryFile=100</span>), then the amount of parameter data <span 
+class="cmti-10">alone </span>in each History file is given
+by
+<table 
+class="equation"><tr><td><a 
+ id="x43-66011r2"></a>
+<center class="math-display" >
+<img 
+src="QubistHTML7x.png" alt="NGenP  erHistoryF ile&#x00D7; popSize&#x00D7; P &#x00D7; 8 = 2 &#x00D7; 109 bytes = 2 Gb.
+" class="math-display" ></center></td><td class="equation-label">(4.2)</td></tr></table>
+<!--l. 2706--><p class="nopar" >
+<!--l. 2708--><p class="noindent" >Your History files will exceed the 2 Gb MATLAB version 7 limit once you add the other data included in each
+History file. Obviously, this problem only arises for a very specific type of problem, but this issue really has resulted
+                                                                                         
+
+                                                                                         
+in bug reports. The best solution is this case is to reduce <span 
+class="cmmi-10">NGenPerHistoryFile</span>, and/or <span 
+class="cmmi-10">saveFrac</span>. This will also
+have the pleasant side effect of freeing up memory while your project is running, which may improve
+performance.
+<!--l. 2710--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">4.16.3   </span> <a 
+ id="x43-670004.16.3"></a>Crash Recovery - General Comments</h4>
+<!--l. 2711--><p class="noindent" >This section has spent some time discussing recovery after a crash. At this point, you are probably wondering how
+often this occurs, and how important these crash recovery features really are. The answer really depends on two
+factors: the operating system that you are using and the real-time duration of your runs. In practice, I
+have found that MATLAB is very stable under both the Windows and MacIntosh operating systems,
+especially when running without a lot of user interaction, and actual MATLAB crashes are infrequent. I
+have experienced many MATLAB segmentation faults under Linux, however, so you may wish to save
+your History files more often if you are a Linux user. These problems were eventually traced to a
+slight, and as far as I know undocumented, incompatibility between my MATLAB version and the
+glibc library installed on my system. MATLAB would often run for days on my system without a
+problem, and then crash. Segmentation faults, which kill the entire MATLAB session, are problems
+(or incompatibilities) with MATLAB itself, and are not caused by errors or bugs in Ferret or your
+application. They are to be distinguished from less disruptive bugs in your fitness function, or perhaps
+Ferret<span class="footnote-mark"><a 
+href="QubistHTML44.html#fn6x10"><sup class="textsuperscript">6</sup></a></span><a 
+ id="x43-67001f6"></a> ,
+which produce error messages on the command line without causing MATLAB to exit.
+<!--l. 2713--><p class="noindent" >Other types of problems can occur if your problem requires very long run times. I use Ferret on some problems that
+can take more than a month to run, and in my experience, it is difficult to run for a month without requiring a
+system re-boot, a network disk coming disconnected, a power interruption, or some other random event that requires
+a re-start. A good crash recovery scheme is essential for long-duration runs, and this has been a core feature of
+Ferret since its earliest days. If a crash does occur during a run, don&#8217;t worry about it, because Ferret is designed to
+let you resume your run with minimal effort and information loss. Procedures for resuming a run are outlined in
+Section <a 
+href="QubistHTMLse27.html#x45-690004.17">4.17<!--tex4ht:ref: sec:resumeRun --></a>.
+<a 
+ id="dx43-67002"></a>
+<a 
+ id="dx43-67003"></a>
+<h4 class="subsectionHead"><span class="titlemark">4.16.4   </span> <a 
+ id="x43-680004.16.4"></a>Anatomy of a History File</h4>
+<a 
+ id="dx43-68001"></a>
+<a 
+ id="dx43-68002"></a>
+<!--l. 2723--><p class="noindent" >History files contain detailed information about the progress of a Ferret run at each generation. These files are used
+internally by Ferret during the analysis of a run, or to resume a run that has crashed or been suspended. Most users
+                                                                                         
+
+                                                                                         
+do not directly load or interact with History files, because the final results from a run are encoded in
+OptimalSolutions.mat and not History files. Nevertheless, I will outline the structure of a History file for the
+occasional curious user who wants to examine them.
+<!--l. 2725--><p class="noindent" >History files are numbered in the order that they are saved, so you will find files named History-1.mat,
+History-2.mat, etc. in the History subdirectory of your run&#8217;s data directory, which is determined by
+<span 
+class="cmtt-10">par.history.dataDir</span>. Loading one of these files into MATLAB&#8217;s workspace results in a MATLAB cell
+array called History (<span 
+class="cmti-10">not </span>History-1, History-2, etc.), where the size of the cell array corresponds to
+<span 
+class="cmtt-10">par.history.NGenPerHistoryFile</span>. Each cell represents a Ferret generation, and you can determine the generation
+number from <span 
+class="cmtt-10">History</span><span 
+class="cmsy-10">{</span><span 
+class="cmitt-10">n</span><span 
+class="cmsy-10">}</span><span 
+class="cmtt-10">.par.bookKeeping.gen</span>, where <span 
+class="cmmi-10">n </span>is the index of a cell. The detailed structure of a single
+History cell is as follows:
+<!--l. 2774--><p class="noindent" ><span 
+class="colorbox" id="colorbox42"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">History{n}</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;.graphics{p}</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Graphics</span><span 
+class="cmtt-10">&#x00A0;information</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;each</span><span 
+class="cmtt-10">&#x00A0;population</span><span 
+class="cmtt-10">&#x00A0;p,</span><span 
+class="cmtt-10">&#x00A0;as</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;displayed</span><span 
+class="cmtt-10">&#x00A0;in</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;upper</span><span 
+class="cmtt-10">&#x00A0;left</span><span 
+class="cmtt-10">&#x00A0;axes</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;Ferret</span><span 
+class="cmtt-10">&#x00A0;console.</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;.popStats</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Matrix</span><span 
+class="cmtt-10">&#x00A0;used</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;encode</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;values</span><span 
+class="cmtt-10">&#x00A0;shown</span><span 
+class="cmtt-10">&#x00A0;in</span><span 
+class="cmtt-10">&#x00A0;the</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;graphics</span><span 
+class="cmtt-10">&#x00A0;axes</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;Ferret</span><span 
+class="cmtt-10">&#x00A0;console</span><span 
+class="cmtt-10">&#x00A0;window.</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Includes</span><span 
+class="cmtt-10">&#x00A0;all</span><span 
+class="cmtt-10">&#x00A0;generations</span><span 
+class="cmtt-10">&#x00A0;up</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;current</span><span 
+class="cmtt-10">&#x00A0;one.</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;.FOptimalSet</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Contains</span><span 
+class="cmtt-10">&#x00A0;information</span><span 
+class="cmtt-10">&#x00A0;about</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;minimum</span><span 
+class="cmtt-10">&#x00A0;and</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;maximum</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;values</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;fitness</span><span 
+class="cmtt-10">&#x00A0;function.</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Includes</span><span 
+class="cmtt-10">&#x00A0;all</span><span 
+class="cmtt-10">&#x00A0;generations</span><span 
+class="cmtt-10">&#x00A0;up</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;current</span><span 
+class="cmtt-10">&#x00A0;one.</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;.min</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Matrix</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;minimum</span><span 
+class="cmtt-10">&#x00A0;values.</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;Each</span><span 
+class="cmtt-10">&#x00A0;row</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;corresponds</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;an</span><span 
+class="cmtt-10">&#x00A0;objective,</span><span 
+class="cmtt-10">&#x00A0;and</span><span 
+class="cmtt-10">&#x00A0;columns</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;correspond</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;generation</span><span 
+class="cmtt-10">&#x00A0;number.</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;.max</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Matrix</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;maximum</span><span 
+class="cmtt-10">&#x00A0;values.</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;.pop{p}</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Information</span><span 
+class="cmtt-10">&#x00A0;about</span><span 
+class="cmtt-10">&#x00A0;population</span><span 
+class="cmtt-10">&#x00A0;number</span><span 
+class="cmtt-10">&#x00A0;p.</span><span 
+class="cmtt-10">&#x00A0;(Recall</span><span 
+class="cmtt-10">&#x00A0;that</span><span 
+class="cmtt-10">&#x00A0;Ferret</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;can</span><span 
+class="cmtt-10">&#x00A0;be</span><span 
+class="cmtt-10">&#x00A0;configured</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;run</span><span 
+class="cmtt-10">&#x00A0;with</span><span 
+class="cmtt-10">&#x00A0;multiple</span><span 
+class="cmtt-10">&#x00A0;populations</span><span 
+class="cmtt-10">&#x00A0;that</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;only</span><span 
+class="cmtt-10">&#x00A0;interact</span><span 
+class="cmtt-10">&#x00A0;weakly</span><span 
+class="cmtt-10">&#x00A0;through</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;&#8216;immigration&#8217;</span><span 
+class="cmtt-10">&#x00A0;operator.</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;.indiv</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Structure</span><span 
+class="cmtt-10">&#x00A0;containing</span><span 
+class="cmtt-10">&#x00A0;information</span><span 
+class="cmtt-10">&#x00A0;about</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;individuals</span><span 
+class="cmtt-10">&#x00A0;in</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;population,</span><span 
+class="cmtt-10">&#x00A0;their</span><span 
+class="cmtt-10">&#x00A0;parameters,</span><span 
+class="cmtt-10">&#x00A0;and</span><span 
+class="cmtt-10">&#x00A0;fitness</span><span 
+class="cmtt-10">&#x00A0;values.</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Most</span><span 
+class="cmtt-10">&#x00A0;fields</span><span 
+class="cmtt-10">&#x00A0;in</span><span 
+class="cmtt-10">&#x00A0;world.pop{p}.indiv</span><span 
+class="cmtt-10">&#x00A0;are</span><span 
+class="cmtt-10">&#x00A0;also</span><span 
+class="cmtt-10">&#x00A0;present</span><span 
+class="cmtt-10">&#x00A0;here.</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;.BBList</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Cell</span><span 
+class="cmtt-10">&#x00A0;array</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;active</span><span 
+class="cmtt-10">&#x00A0;building</span><span 
+class="cmtt-10">&#x00A0;blocks</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;each</span><span 
+class="cmtt-10">&#x00A0;individual.</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;.ranking</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Ranking</span><span 
+class="cmtt-10">&#x00A0;information</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;each</span><span 
+class="cmtt-10">&#x00A0;individual.</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;Similar</span><span 
+class="cmtt-10">&#x00A0;to</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;world.pop{p}.ranking.</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;.elites</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;The</span><span 
+class="cmtt-10">&#x00A0;elites</span><span 
+class="cmtt-10">&#x00A0;that</span><span 
+class="cmtt-10">&#x00A0;were</span><span 
+class="cmtt-10">&#x00A0;present</span><span 
+class="cmtt-10">&#x00A0;at</span><span 
+class="cmtt-10">&#x00A0;this</span><span 
+class="cmtt-10">&#x00A0;generation</span><span 
+class="cmtt-10">&#x00A0;in</span><span 
+class="cmtt-10">&#x00A0;the</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;run.</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;Similar</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;world.pop{p}.elites.</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;.trackers</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Information</span><span 
+class="cmtt-10">&#x00A0;used</span><span 
+class="cmtt-10">&#x00A0;internally</span><span 
+class="cmtt-10">&#x00A0;by</span><span 
+class="cmtt-10">&#x00A0;Ferret</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;auto-adaptation</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;strategy</span><span 
+class="cmtt-10">&#x00A0;parameters.</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;.link</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Information</span><span 
+class="cmtt-10">&#x00A0;used</span><span 
+class="cmtt-10">&#x00A0;internally</span><span 
+class="cmtt-10">&#x00A0;by</span><span 
+class="cmtt-10">&#x00A0;Ferret&#8217;s</span><span 
+class="cmtt-10">&#x00A0;linkage-learning</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;system.</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;.par</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;The</span><span 
+class="cmtt-10">&#x00A0;full</span><span 
+class="cmtt-10">&#x00A0;par</span><span 
+class="cmtt-10">&#x00A0;structure</span><span 
+class="cmtt-10">&#x00A0;returned</span><span 
+class="cmtt-10">&#x00A0;by</span><span 
+class="cmtt-10">&#x00A0;FerretSetup.</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;The</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;generation</span><span 
+class="cmtt-10">&#x00A0;number</span><span 
+class="cmtt-10">&#x00A0;is</span><span 
+class="cmtt-10">&#x00A0;in</span><span 
+class="cmtt-10">&#x00A0;par.bookKeeping.gen.</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;|</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;.user.extPar</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;The</span><span 
+class="cmtt-10">&#x00A0;external</span><span 
+class="cmtt-10">&#x00A0;parameters</span><span 
+class="cmtt-10">&#x00A0;from</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;user&#8217;s</span><span 
+class="cmtt-10">&#x00A0;init</span><span 
+class="cmtt-10">&#x00A0;file.</span><br /></div>
+</div></span>
+<!--l. 2780--><p class="noindent" >Each History cell <span 
+class="cmmi-10">n </span>contains a cell array called <span 
+class="cmtt-10">History</span><span 
+class="cmsy-10">{</span><span 
+class="cmitt-10">n</span><span 
+class="cmsy-10">}</span>.graphics that contains convergence information for all
+populations, which is displayed in the Ferret console window. <span 
+class="cmtt-10">History</span><span 
+class="cmsy-10">{</span><span 
+class="cmitt-10">n</span><span 
+class="cmsy-10">}</span><span 
+class="cmtt-10">.graphics</span><span 
+class="cmsy-10">{</span><span 
+class="cmitt-10">p</span><span 
+class="cmsy-10">} </span>is a matrix with two rows
+that correspond to the plots displayed at generation <span 
+class="cmtt-10">History</span><span 
+class="cmsy-10">{</span><span 
+class="cmitt-10">n</span><span 
+class="cmsy-10">}</span><span 
+class="cmtt-10">.par.bookKeeping.gen </span>in the top left panel of the
+Ferret console, as shown in Figure <a 
+href="QubistHTMLse12.html#x26-330022">4.2<!--tex4ht:ref: fig:FCW1 --></a> and discussed in <a 
+href="QubistHTMLse22.html#x38-570004.12">4.12<!--tex4ht:ref: sec:figures --></a>. The number of columns in <span 
+class="cmtt-10">History</span><span 
+class="cmsy-10">{</span><span 
+class="cmitt-10">n</span><span 
+class="cmsy-10">}</span><span 
+class="cmtt-10">.graphics</span><span 
+class="cmsy-10">{</span><span 
+class="cmitt-10">p</span><span 
+class="cmsy-10">}</span>
+corresponds to the generation number. The plot for generation <span 
+class="cmtt-10">History</span><span 
+class="cmsy-10">{</span><span 
+class="cmitt-10">n</span><span 
+class="cmsy-10">}</span><span 
+class="cmtt-10">.par.bookKeeping.gen </span>and population
+<span 
+class="cmmi-10">p </span>can be reproduced by the command:
+<!--l. 2784--><p class="noindent" ><span 
+class="colorbox" id="colorbox43"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">plot(History{n}.graphics{p}.popStats&#8217;);</span></div>
+</div></span>
+<!--l. 2790--><p class="noindent" >I have used this technique occasionally with older versions of Ferret to generate a graph showing the code&#8217;s
+convergence for the entire run. In this case, I would load the highest numbered History file in my projects data
+directory, examine the History cell array, and set <span 
+class="cmti-10">n </span>to the number corresponding to the last non-empty cell. I would
+then run the above code to generate a plot. <span 
+class="cmti-10">Note that the current version of Ferret makes this information more</span>
+<span 
+class="cmti-10">convenient to extract, since it is copied into the OptimalSolutions.mat file, as described in Section</span>
+<a 
+href="QubistHTMLse28.html#x46-700004.18"><span 
+class="cmti-10">4.18</span><!--tex4ht:ref: sec:OptimalSolutions_file --></a>.
+<!--l. 2792--><p class="noindent" ><span 
+class="cmtt-10">History</span><span 
+class="cmsy-10">{</span><span 
+class="cmitt-10">n</span><span 
+class="cmsy-10">}</span><span 
+class="cmtt-10">.pop </span>is a cell array that contains the saved state of all populations at generation
+<span 
+class="cmtt-10">History</span><span 
+class="cmsy-10">{</span><span 
+class="cmitt-10">n</span><span 
+class="cmsy-10">}</span><span 
+class="cmtt-10">.par.bookKeeping.gen</span>. The structure of this cell array is very similar to <span 
+class="cmtt-10">world.pop</span><span 
+class="cmsy-10">{</span><span 
+class="cmitt-10">p</span><span 
+class="cmsy-10">} </span>(see Section
+<a 
+href="QubistHTMLse19.html#x34-520004.9.1">4.9.1<!--tex4ht:ref: sec:worldStructure --></a>), with the notable difference that only current optimal set at each generation is saved by default. The
+behaviour can be overridden by setting <span 
+class="cmtt-10">par.history.saveFrac=1</span>, as discussed in Section <a 
+href="QubistHTMLse45.html#x69-1010008.2">8.2<!--tex4ht:ref: sec:par_history --></a>, if you
+require non-optimals to be saved. Note, however, that this may increase the size of the History files
+substantially.
+<a 
+ id="dx43-68050"></a>
+<a 
+ id="dx43-68051"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 2797--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse27.html" >next</a>] [<a 
+href="QubistHTMLse25.html" >prev</a>] [<a 
+href="QubistHTMLse25.html#tailQubistHTMLse25.html" >prev-tail</a>] [<a 
+href="QubistHTMLse26.html" >front</a>] [<a 
+href="QubistHTMLch4.html#QubistHTMLse26.html" >up</a>] </p></div>
+<!--l. 2797--><p class="noindent" ><a 
+ id="tailQubistHTMLse26.html"></a>  
+</body></html> 

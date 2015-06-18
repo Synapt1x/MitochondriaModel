@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>The myPlot Function</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 2154--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse21.html" >next</a>] [<a 
+href="QubistHTMLse19.html" >prev</a>] [<a 
+href="QubistHTMLse19.html#tailQubistHTMLse19.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLse20.html">tail</a>] [<a 
+href="QubistHTMLch4.html#QubistHTMLse20.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">4.10   </span> <a 
+ id="x36-550004.10"></a>The myPlot Function</h3>
+<a 
+ id="dx36-55001"></a>
+<a 
+ id="dx36-55002"></a>
+<!--l. 2159--><p class="noindent" >Ferret contains a mechanism that allows you to plot your own function in both the console and analysis windows.
+This is done by setting <span 
+class="cmtt-10">par.interface.myPlot </span>in the setup file to a string corresponding to the name of the user&#8217;s
+plotting routine, which must be on the path loaded by the project. The possible signatures of the myPlot function
+are as follows:
+<!--l. 2167--><p class="noindent" ><span 
+class="colorbox" id="colorbox28"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">function</span><span 
+class="cmtt-10">&#x00A0;myPlot(X)</span><br /><span 
+class="cmtt-10">function</span><span 
+class="cmtt-10">&#x00A0;myPlot(X,extPar)</span><br /><span 
+class="cmtt-10">function</span><span 
+class="cmtt-10">&#x00A0;myPlot(X,F,extPar)</span><br /><span 
+class="cmtt-10">function</span><span 
+class="cmtt-10">&#x00A0;myPlot(X,F,auxOutput,extPar)</span><br /><span 
+class="cmtt-10">function</span><span 
+class="cmtt-10">&#x00A0;myPlot(X,F,auxOutput,rankPareto,extPar)</span></div>
+</div></span>
+<a 
+ id="dx36-55008"></a>
+<!--l. 2174--><p class="noindent" >The most common usage, and the use used by nearly all of the demos, is the third one: <span 
+class="cmtt-10">myPlot(X,F,extPar)</span>. Here,
+the user-defined myPlot function receives the current parameter and evaluated fitness arrays <span 
+class="cmmi-10">X </span>and <span 
+class="cmmi-10">F </span>for all
+individuals, from all populations in the <span 
+class="cmmi-10">world </span>data structure, as well as the <span 
+class="cmmi-10">extPar </span>data structure that is loaded
+from the init file. By using the more elaborate signatures, the <span 
+class="cmmi-10">auxOutput </span>field from the fitness function is also
+available as a cell array, and Pareto rank is available via the <span 
+class="cmmi-10">rankPareto </span>argument. Note that there are no values
+returned to Ferret by the myPlot function, since this function should be used for plotting only. Occasionally, a
+myPlot function requires other information from the FerretSetup file besides <span 
+class="cmmi-10">extPar</span>. Ferret&#8217;s full internal <span 
+class="cmmi-10">par</span>
+structure from the setup file (minus the <span 
+class="cmmi-10">extPar </span>structure) is contained within <span 
+class="cmtt-10">extPar.QubistPar </span>to accommodate
+such rare cases.
+<!--l. 2176--><p class="noindent" >Note that because the <span 
+class="cmti-10">entire </span><span 
+class="cmmi-10">X </span>and <span 
+class="cmmi-10">F </span>matrices are received, the myPlot function often contains lines like the
+following to extract the single &#8216;best&#8217; solution for the purpose of plotting, assuming a single-objective
+problem:
+<!--l. 2182--><p class="noindent" ><span 
+class="colorbox" id="colorbox29"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">function</span><span 
+class="cmtt-10">&#x00A0;myPlot(X,F,extPar)</span><br /><span 
+class="cmtt-10">[FMin,</span><span 
+class="cmtt-10">&#x00A0;index]=min(F);</span><br /><span 
+class="cmtt-10">XMin=X(:,index);</span></div>
+</div></span>
+<!--l. 2188--><p class="noindent" >A multi-objective problem might select the individual to plot randomly with a line like the following:
+<!--l. 2193--><p class="noindent" ><span 
+class="colorbox" id="colorbox30"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">index=ceil(rand*size(X,2)),</span></div>
+</div></span>
+<!--l. 2199--><p class="noindent" >or by some other selection criterion.
+<!--l. 2201--><p class="noindent" >The myPlot function should only contain plotting commands that ultimately result in graphical output. Note that
+Ferret gives control to the relevant graphics axes before calling the myPlot function. <span 
+class="cmti-10">It is crucial that myPlot does</span>
+<span 
+class="cmti-10">not contain commands that attempt to set the figure or axis directly.  </span>If your myPlot command contains such
+commands, then it is likely that your plot will pop up in its own window, which is probably not the desired
+effect!
+<!--l. 2203--><p class="noindent" >Finally, it is important to note that Ferret&#8217;s call to the myPlot function is protected by a try/catch structure that
+                                                                                         
+
+                                                                                         
+captures and ignores all errors that occur in myPlot, because this function is always regarded as non-critical. If
+your plot fails, the error will be handled silently, and Ferret will continue. The &#8216;User Plot&#8217; axes on the
+console and analysis windows will be coloured red and contain a &#8216;Plot Failed&#8217; message, but no other
+information will be available. The reason for this heavy-handed error trapping is that the myPlot function
+must <span 
+class="cmti-10">never </span>contain any processing that is important enough to crash the run if an error occurs. The
+lack of error messages makes it slightly less convenient to debug the myPlot function, but this can
+be done by placing a debugging breakpoint in the file if you see the &#8216;Plot Failed&#8217; message. In any
+case, this behaviour is much better than crashing a long run because of an inconsequential plotting
+error.
+<a 
+ id="dx36-55013"></a>
+<a 
+ id="dx36-55014"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 2209--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse21.html" >next</a>] [<a 
+href="QubistHTMLse19.html" >prev</a>] [<a 
+href="QubistHTMLse19.html#tailQubistHTMLse19.html" >prev-tail</a>] [<a 
+href="QubistHTMLse20.html" >front</a>] [<a 
+href="QubistHTMLch4.html#QubistHTMLse20.html" >up</a>] </p></div>
+<!--l. 2209--><p class="noindent" ><a 
+ id="tailQubistHTMLse20.html"></a>  
+</body></html> 

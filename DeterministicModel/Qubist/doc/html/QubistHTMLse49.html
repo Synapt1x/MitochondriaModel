@@ -1,0 +1,639 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>par.selection</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 4301--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse50.html" >next</a>] [<a 
+href="QubistHTMLse48.html" >prev</a>] [<a 
+href="QubistHTMLse48.html#tailQubistHTMLse48.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLse49.html">tail</a>] [<a 
+href="QubistHTMLch8.html#QubistHTMLse49.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">8.6   </span> <a 
+ id="x74-1050008.6"></a>par.selection</h3>
+<a 
+ id="dx74-105001"></a>
+<!--l. 4305--><p class="noindent" >All genetic algorithms require a selection operator to filter out poor quality solutions in favour of better ones, which
+eventually dominate the population. Ferret&#8217;s selection operator uses a binary tournament, and the <span 
+class="cmtt-10">par.selection</span>
+fields of the setup file control the details of how this operator works.
+<!--l. 4324--><p class="noindent" ><span 
+class="colorbox" id="colorbox72"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Selection</span><br /><span 
+class="cmtt-10">par.selection.PCompete=1;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Probability</span><span 
+class="cmtt-10">&#x00A0;that</span><span 
+class="cmtt-10">&#x00A0;each</span><span 
+class="cmtt-10">&#x00A0;individual</span><span 
+class="cmtt-10">&#x00A0;will</span><span 
+class="cmtt-10">&#x00A0;compete.</span><br /><span 
+class="cmtt-10">par.selection.pressure=1;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Selection</span><span 
+class="cmtt-10">&#x00A0;pressure</span><span 
+class="cmtt-10">&#x00A0;on</span><span 
+class="cmtt-10">&#x00A0;overall</span><span 
+class="cmtt-10">&#x00A0;fitness.</span><br /><span 
+class="cmtt-10">par.selection.BBPressure=1;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Selection</span><span 
+class="cmtt-10">&#x00A0;pressure</span><span 
+class="cmtt-10">&#x00A0;on</span><span 
+class="cmtt-10">&#x00A0;BBs.</span><br /><span 
+class="cmtt-10">par.selection.FAbsTol=0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Absolute</span><span 
+class="cmtt-10">&#x00A0;fitness</span><span 
+class="cmtt-10">&#x00A0;range</span><span 
+class="cmtt-10">&#x00A0;(+/-</span><span 
+class="cmtt-10">&#x00A0;FAbsTol)</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;use</span><span 
+class="cmtt-10">&#x00A0;as</span><span 
+class="cmtt-10">&#x00A0;a</span><span 
+class="cmtt-10">&#x00A0;fuzzy</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML35x.png" alt="                                                                                                                                                                                                                                   `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;fitness</span><span 
+class="cmtt-10">&#x00A0;band.</span><br /><span 
+class="cmtt-10">par.selection.FRelTol=0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Fraction</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;fitness</span><span 
+class="cmtt-10">&#x00A0;range</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;use</span><span 
+class="cmtt-10">&#x00A0;as</span><span 
+class="cmtt-10">&#x00A0;a</span><span 
+class="cmtt-10">&#x00A0;fuzzy</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML36x.png" alt="                                                                                                                                                                                                                                                                                                                                              `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;fitness</span><span 
+class="cmtt-10">&#x00A0;band.</span><br /><span 
+class="cmtt-10">par.selection.FRankTol=0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Fraction</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;rank</span><span 
+class="cmtt-10">&#x00A0;range</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;use</span><span 
+class="cmtt-10">&#x00A0;as</span><span 
+class="cmtt-10">&#x00A0;a</span><span 
+class="cmtt-10">&#x00A0;fuzzy</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML37x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;fitness</span><span 
+class="cmtt-10">&#x00A0;band.</span><br /><span 
+class="cmtt-10">par.selection.shareFitness=0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Fitness</span><span 
+class="cmtt-10">&#x00A0;sharing.</span><br /><span 
+class="cmtt-10">par.selection.clusterScale=1;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Setting</span><span 
+class="cmtt-10">&#x00A0;clusterScale</span><span 
+class="cmtt-10">&#x00A0;&#x003C;</span><span 
+class="cmtt-10">&#x00A0;1</span><span 
+class="cmtt-10">&#x00A0;promotes</span><span 
+class="cmtt-10">&#x00A0;clusters</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML38x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;on</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;requested</span><span 
+class="cmtt-10">&#x00A0;scale.</span><br /><span 
+class="cmtt-10">par.selection.competitionRestriction=0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[-1:1]:</span><span 
+class="cmtt-10">&#x00A0;Negative</span><span 
+class="cmtt-10">&#x00A0;values</span><span 
+class="cmtt-10">&#x00A0;enhance</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML39x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;probability</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;competitions</span><span 
+class="cmtt-10">&#x00A0;between</span><span 
+class="cmtt-10">&#x00A0;nearby</span><span 
+class="cmtt-10">&#x00A0;individuals.</span></div>
+</div></span>
+<!--l. 4330--><p class="noindent" >Tournament selection in Ferret is based on a set of prioritized criteria; in case of a tie, Ferret drops to the next most
+important priority. The selection priorities are as follows:
+     <ol  class="enumerate1" >
+     <li 
+  class="enumerate" id="x74-105018x1">
+     Fitness:
+     Lower
+     values
+     of
+     <span 
+class="cmmi-10">F</span>
+     are
+     preferred
+     (Recall
+     that
+     Ferret,
+     and
+     all
+     other
+     Qubist
+     optimizers,
+     are
+     minimizers),
+     but
+     ties
+     result
+     when
+     fitness
+     values
+     are
+                                                                                         
+
+                                                                                         
+     equal
+     for
+     single-objective
+     problems,
+     or
+     equal
+     in
+     a
+     Pareto-optimal
+     sense
+     for
+     multi-objective
+     problems.
+     Fuzziness
+     is
+     taken
+     into
+     account
+     when
+     <span 
+class="cmtt-10">par.selection.FAbsTol</span>
+     <span 
+class="cmtt-10">&#x003E;</span>
+     <span 
+class="cmtt-10">0</span>,
+     <span 
+class="cmtt-10">par.selection.FRelTol</span>
+     <span 
+class="cmtt-10">&#x003E;</span>
+     <span 
+class="cmtt-10">0</span>
+     and/or
+     <span 
+class="cmtt-10">par.selection.FRankTol</span>
+     <span 
+class="cmtt-10">&#x003E;</span>
+     <span 
+class="cmtt-10">0</span>,
+     as
+     discussed
+     below.
+     </li>
+     <li 
+  class="enumerate" id="x74-105020x2">
+     Gene
+     count:
+     Ferret&#8217;s
+     &#8216;Critical
+     Parameter
+     Detection
+     (CPD)&#8217;
+     system
+     is
+     designed
+     such
+     that
+                                                                                         
+
+                                                                                         
+     solutions
+     with
+     fewer
+     specified
+     parameters
+     are
+     preferred
+     over
+     solutions
+     that
+     are
+     more
+     specific.
+     The
+     reason
+     behind
+     this
+     preference
+     is
+     the
+     idea
+     of
+     <span 
+class="cmti-10">parsimony</span>
+     -
+     that
+     solutions
+     with
+     fewer
+     specified
+     parameters
+     are
+     fundamentally
+     simpler
+     than
+     solutions
+     that
+     are
+     more
+     completely
+     specified.
+     Recall
+     that
+     when
+     a
+     gene
+     is
+     unspecified
+     in
+                                                                                         
+
+                                                                                         
+     Ferret,
+     it
+     is
+     treated
+     as
+     a
+     random
+     number
+     within
+     the
+     current
+     range
+     of
+     that
+     parameter.
+     If
+     random
+     numbers
+     perform
+     as
+     well
+     as
+     a
+     fully
+     specified
+     parameter,
+     then
+     this
+     is
+     an
+     indication
+     that
+     the
+     parameter
+     is
+     unimportant.
+     Solutions
+     with
+     unspecified
+     parameters
+     are
+     more
+     general
+     because
+     they
+     represent
+     an
+     entire
+                                                                                         
+
+                                                                                         
+     class
+     of
+     solutions,
+     where
+     the
+     unspecified
+     parameter
+     can
+     take
+     on
+     any
+     value
+     within
+     the
+     allowed
+     range.
+     Generality
+     increases
+     with
+     the
+     number
+     of
+     unspecified
+     parameters,
+     and
+     hence
+     less
+     specific
+     solutions
+     are
+     regarded
+     as
+     more
+     desirable.
+     </li>
+     <li 
+  class="enumerate" id="x74-105022x3">
+     Niche
+     count:
+     This
+     is
+     a
+     measure
+     of
+     how
+     many
+     individuals
+                                                                                         
+
+                                                                                         
+     are
+     nearby
+     in
+     the
+     parameter
+     space.
+     Solutions
+     that
+     have
+     fewer
+     near
+     neighbours
+     are
+     in
+     a
+     less
+     explored
+     part
+     of
+     parameter
+     space
+     and
+     are
+     therefore
+     more
+     valuable
+     due
+     to
+     their
+     relative
+     uniqueness.
+     Niching
+     can
+     be
+     done
+     in
+     either
+     the
+     parameter
+     space
+     (&#8216;X-niching&#8217;
+     in
+     Ferret),
+     objective
+     space
+     (&#8216;F-niching&#8217;),
+     a
+     combinatorial
+                                                                                         
+
+                                                                                         
+     &#8216;pattern
+     space&#8217;
+     (&#8216;P-niching&#8217;),
+     or
+     any
+     combination
+     of
+     these
+     simultaneously,
+     as
+     discussed
+     in
+     Section
+     <a 
+href="QubistHTMLse52.html#x78-1100008.9">8.9<!--tex4ht:ref: sec:par_niching --></a>.</li></ol>
+<!--l. 4336--><p class="noindent" >Note that if either CPD or niching are turned off, then the corresponding criteria are ignored. The winner of the
+tournament is chosen randomly if both competing solutions are equally good according to the criteria that are
+used.
+<!--l. 4338--><p class="noindent" ><span 
+class="cmtt-10">par.selection.PCompete </span>is the probability that a given individual will enter a tournament each generation.
+Normally, I leave this parameter set to 1, which indicates 100% probability. On occasion, I have reduced this value
+to decrease selection pressure, which places greater emphasis on mutations, crossovers, and especially building
+block selection (see <span 
+class="cmtt-10">par.selection.BBPressure</span>). This decreases the convergence rate and results in
+greater emphasis on exploration, which might be useful if you find that you are obtaining very different
+solutions each time you run your problem. This is sometimes symptomatic of premature convergence
+causing a problem to get trapped in local minima. If you see this happening, then it is a good idea to
+decrease the selection pressure to delay convergence until the parameter space has been explored more
+thoroughly.<span class="footnote-mark"><a 
+href="QubistHTML75.html#fn2x71"><sup class="textsuperscript">2</sup></a></span><a 
+ id="x74-105023f2"></a> 
+In such cases, you can turn down the <span 
+class="cmmi-10">PCompete </span>parameter, although it is usually more effective to turn the
+selection pressure down explicitly by decreasing <span 
+class="cmtt-10">par.selection.pressure</span>.
+<!--l. 4340--><p class="noindent" ><span 
+class="cmtt-10">par.selection.pressure </span>offers <span 
+class="cmti-10">explicit </span>control of the selection pressure. Setting this parameter to a
+value less than 1 will delay the convergence of your problem, which is often a good thing because the
+parameter space will be explored more thoroughly. Note that this does not affect the competition
+probability, but it strongly affects how the winner of each tournament is chosen; the winner will be chosen
+using the normal priorities discussed above a fraction of time equal to <span 
+class="cmtt-10">par.selection.pressure</span>. The
+remainder of the time, the actual fitness values will be ignored in the tournament, causing CPD and
+niching to take top priority. This has a similar effect to decreasing <span 
+class="cmtt-10">par.selection.PCompete</span>, but it is
+usually more effective to decrease <span 
+class="cmtt-10">par.selection.pressure </span>because it puts greater <span 
+class="cmti-10">explicit </span>emphasis on
+niching, which improves the exploration of the parameter space by spreading solutions out as much as
+possible. My advice is therefore to control selection pressure using <span 
+class="cmtt-10">par.selection.pressure </span>rather than
+<span 
+class="cmtt-10">par.selection.PCompete</span>.
+<!--l. 4342--><p class="noindent" >Ferret contains a second selection operator that works on individual building blocks. This selection operator is
+processed after building block crossover (see Section <a 
+href="QubistHTMLse51.html#x77-1090008.8.2">8.8.2<!--tex4ht:ref: sec:par_XOverBB --></a> below) and works like a binary tournament between an
+                                                                                         
+
+                                                                                         
+individual before building block crossover, and an altered form of the same solution after building block crossover.
+<span 
+class="cmtt-10">par.selection.BBPressure </span>controls the pressure on building block selection in exactly the same way that
+<span 
+class="cmtt-10">par.selection.pressure </span>controls the pressure of the normal selection operator. I always leave <span 
+class="cmmi-10">BBPressure </span>set to
+its default value of 1, which means that fitness always takes priority in a building block selection tournament.
+This does not tend to cause problems with premature convergence because building block selection
+involves tournament competitions between solutions that are identical except for a single building
+block (or a small number of building blocks if <span 
+class="cmtt-10">par.link.PMultiLink &#x003E; 0</span>), which typically involves
+only a few parameters rather than the entire parameter set. Therefore building block tournaments
+normally make less drastic changes to solutions than regular tournaments. Building block crossover and
+selection are really the heart of Ferret&#8217;s linkage learning system, and turning down the building block
+selection pressure partially disables the linkage-learning system. This could result in poor parameter space
+exploration and solutions getting trapped in local minima. I&#8217;ve left <span 
+class="cmtt-10">par.selection.BBPressure </span>as
+a control parameter that you can modify, but I don&#8217;t really recommend decreasing its value below
+1.
+<!--l. 4344--><p class="noindent" ><span 
+class="cmtt-10">par.selection.FAbsTol</span>, <span 
+class="cmtt-10">par.selection.FRelTol </span>and <span 
+class="cmtt-10">par.selection.FRankTol </span>are tolerances that can be used
+to add fuzziness to the fitness function. <span 
+class="cmmi-10">FAbsTol </span>is an absolute tolerance, <span 
+class="cmmi-10">FRelTol </span>is a relative tolerance, and
+<span 
+class="cmmi-10">FRankTol </span>is a tolerance in rank. When a tolerance is set, differences in fitness values less than the tolerance are
+ignored when determining the winner of a tournament, and the tournament is decided based on gene count and
+niche count, according to the tournament priorities discussed above. The effect is that solutions spread out within
+the region allowed by the tolerance. This technique is especially useful to understand the errors in fitting parameters
+in data-modeling problems. I gave an example of this in the binary star modeling example in Section <a 
+href="QubistHTMLse31.html#x50-740005.1">5.1<!--tex4ht:ref: sec:binaries --></a>, where I
+set <span 
+class="cmmi-10">FAbsTol </span>= 1 to map out the set of solutions within an absolute tolerance <span 
+class="cmmi-10">FAbsTol </span>= 1 of the
+<span 
+class="cmmi-10">&#x03C7;</span><sub><span 
+class="cmmi-7">reduced</span></sub><sup><span 
+class="cmr-7">2</span></sup> minimum. Of the three tolerance parameters, <span 
+class="cmmi-10">FAbsTol </span>is by far the most useful one, <span 
+class="cmmi-10">FRelTol</span>
+is sometimes useful, and <span 
+class="cmmi-10">FRankTol </span>is hardly used at all. <span 
+class="cmmi-10">FRelTol </span>is a relative tolerance between
+0 and 1, defined as a fraction of the range of each fitness value currently in the population. This is
+sometimes useful for understanding the mathematical degeneracies of a modeling problem when the
+errors used to calculate <span 
+class="cmmi-10">&#x03C7;</span><sup><span 
+class="cmr-7">2</span></sup> are not well known. A small non-zero value of <span 
+class="cmmi-10">FRelTol </span>can also be used
+to add some thickness to Pareto fronts in multi-objective problems, which helps to fill them in and
+better elucidate their structure. <span 
+class="cmmi-10">FRankTol </span>is a fraction of the range of ranks that currently exist in
+the population. I don&#8217;t actually find this very useful in practice, but I&#8217;ve included it as an option for
+completeness.
+<!--l. 4346--><p class="noindent" >Fitness sharing is a technique for spreading out solutions over the optimal set (or Pareto front) that is an alternative
+to niching. In fitness sharing, the rank of a solution is directly modified to take into account the niche count.
+<span 
+class="cmtt-10">par.selection.shareFitness </span>is a real number between 0 and 1 that determines how much the ranks are modified.
+Fitness sharing is turned off when <span 
+class="cmmi-10">shareFitness </span>= 0, and is maximal when <span 
+class="cmmi-10">shareFitness </span>= 1. Fitness sharing can
+operate simultaneously with niching, although I see no point in doing this. Overall, niching seems to be a better
+technique than fitness sharing for most problems, but fitness sharing is a well known technique and I
+have therefore included this option in the code. The only time I use it is when I am not happy with
+the uniformity of the points in an optimal set and I want to try a different technique for diagnostic
+purposes.
+<!--l. 4348--><p class="noindent" >Solution sets occasionally form distinct clusters or &#8216;islands&#8217; in the parameter space. In such cases, it is useful to
+restrict tournament selection and crossovers so that each individual interacts mainly with members
+of its own cluster. This serves to promote the formation of clusters and preserve them by limiting
+their interactions with each other, which could otherwise destroy one cluster in favour of another. It
+also improves the efficiency of the search on such problems, because fewer lethals are generated as a
+result of crossovers between distant clusters. The <span 
+class="cmtt-10">par.selection.clusterScale </span>control parameter
+                                                                                         
+
+                                                                                         
+determines the maximum distance scale for tournament selection and crossover, and hence the scale
+of clustering. This parameter is set to 1 by default, which indicates that clustering is <span 
+class="cmti-10">not </span>enhanced
+because the clustering scale is the same size as the maximum normalized distance possible (<span 
+class="cmmi-10">d </span>= 1) in the
+normalized parameter space <span 
+class="cmtt-10">world.pop</span><span 
+class="cmsy-10">{</span><span 
+class="cmitt-10">p</span><span 
+class="cmsy-10">}</span><span 
+class="cmtt-10">.indiv.genome.X</span>, where <span 
+class="cmmi-10">p </span>is the population number (see
+Section <a 
+href="QubistHTMLse19.html#x34-520004.9.1">4.9.1<!--tex4ht:ref: sec:worldStructure --></a>). Smaller values of <span 
+class="cmmi-10">clusterScale </span>decrease the maximum distance scale of interactions
+and therefore enhance clustering. The distance scale of interactions is equal to the niche radius when
+<span 
+class="cmtt-10">par.selection.clusterScale=par.niching.X</span>.
+<!--l. 4350--><p class="noindent" ><span 
+class="cmtt-10">par.selection.competitionRestriction </span>is a real number ranging from -1 to 1 that affects how competitors are
+chosen in a tournament. When <span 
+class="cmmi-10">competitionRestriction </span>= <span 
+class="cmsy-10">-</span>1, members of the population always choose the nearest
+available member of the population to compete. The opposite is true when <span 
+class="cmmi-10">competitionRestriction </span>= 1,
+where individuals always choose the most distant available member of the population. Competition
+restriction is turned off when the default setting <span 
+class="cmmi-10">competitionRestriction </span>= 0 is used, and all intermediate
+values are possible. Note that this works much like Ferret&#8217;s mating restriction parameter, which is
+discussed in Section <a 
+href="QubistHTMLse51.html#x77-1070008.8">8.8<!--tex4ht:ref: sec:par_XOver --></a>. Negative values might be useful occasionally for the <span 
+class="cmmi-10">competitionRestriction</span>
+parameter (or at least not harmful), but positive values are probably never useful. I rarely use this
+option.
+<a 
+ id="dx74-105024"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 4356--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse50.html" >next</a>] [<a 
+href="QubistHTMLse48.html" >prev</a>] [<a 
+href="QubistHTMLse48.html#tailQubistHTMLse48.html" >prev-tail</a>] [<a 
+href="QubistHTMLse49.html" >front</a>] [<a 
+href="QubistHTMLch8.html#QubistHTMLse49.html" >up</a>] </p></div>
+<!--l. 4356--><p class="noindent" ><a 
+ id="tailQubistHTMLse49.html"></a>  
+</body></html> 
