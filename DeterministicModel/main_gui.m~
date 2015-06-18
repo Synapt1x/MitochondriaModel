@@ -86,15 +86,14 @@ launchQubist
 function plot_Callback(hObject, eventdata, handles) %plot button in gui
 
 %plug in the equations into the ode solver
-[t y] = ode23t(@decoupled_derivative_system2,handles.parameters.time_points, ...
+[t y] = ode23t(@decoupled_derivative_system,handles.parameters.time_points, ...
 handles.parameters.initial_conditions,[],handles.parameters);
 
 %store the values calculated for each variable
 [cytcred o2 Hn Hp] = deal(y(:,1),y(:,2),y(:,3),y(:,4));
 
 %calculate the OCR values from the oxygen
-ocr_values = -((handles.parameters.Vmax.*o2)./(handles.parameters.Km.*...
-        (1+(handles.parameters.K1./cytcred))+o2)).*Hn;
+ocr_values = F_kinetic(cytcred,o2,Hn,handles.parameters);
 %note the negative is omitted here for graphical representation
 
 %plot the Cyt c concentration over time
@@ -105,12 +104,6 @@ plot(handles.Cytc_rate_plot,t,gradient(cytcred));
 
 %plot the O2 concentration over time
 plot(handles.O2_plot,t,o2);
-<<<<<<< HEAD
-hold on
-plot(handles.O2_plot,t,handles.parameters.realData);
-hold off
-=======
->>>>>>> 2891f977fd8d61f75fa85ba6df72e147f18e07d4
 
 %plot the OCR over time
 plot(handles.OCR_plot,t,ocr_values);
