@@ -6,7 +6,7 @@ function parameters = setup
 %import the real data
 parameters.allData = data_formatter;
 parameters.realData = parameters.allData{2,2}(2:(end-1),1:size(...
-    parameters.allData{2,2},2)-1:end); %baseline o2 data from interval 1
+    parameters.allData{2,2},2)-1:end); %baseline o2 data 1from interval 1
 parameters.realOCR = -parameters.allData{3,2}(:,end); %baseline ocr data from interval 1
 
 %convert time points from minutes to seconds
@@ -18,9 +18,9 @@ parameters.K1 = 1495; %bounds: [0.1 1E4]
 parameters.Km = 2096.1; %bounds: [0.1 1E4]
 parameters.p1 = 40.5013; %bounds: [1 1E4]
 parameters.p2 = 1477.4; %bounds: [1 1E4]
-parameters.p3 = 2.1849e-6; %bounds: [1E-6 1]
-parameters.f0 = 33.6195; %bounds: [1 1E4]
-parameters.Dh = 7.4198e-7; %bounds: [1E-6 1]
+parameters.p3 = 1.415e-5; %bounds: [1E-6 1]
+parameters.f0 = 1.1797; %bounds: [1 1E4]
+parameters.Dh = 2.4025e-7; %bounds: [1E-6 1]
 
 %initial conditions
 parameters.Cytcox = 100;
