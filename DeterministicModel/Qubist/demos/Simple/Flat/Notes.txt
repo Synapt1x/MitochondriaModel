@@ -1,9 +1,0 @@
-Perfectly flat function -- Distribution of points
-============================================================
-
-A trivial problem where F=0 everywhere.  Distribution of points should be
-approximately uniform if par.general.logDynRange is empty, implying a linear
-search.
-
-*** See also the Simple/Flat-LogParameters problem to observe the effect of
-logarithmic parameters defined using par.general.logDynRange.

@@ -1,4 +1,0 @@
-Sorting Parameters & XMod:
-=============
-
-This example shows how to sort parameters and re-insert them back into Ferret.

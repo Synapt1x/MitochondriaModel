@@ -1,5 +1,0 @@
-Multi-Objective Test Functions from Zitzler, Deb & Thiele (2000)
-Evolutionary Computation 8(2): 173-195
-
-Available online (Last checked Nov. 2009):
-http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.30.5848&rep=rep1&type=pdf

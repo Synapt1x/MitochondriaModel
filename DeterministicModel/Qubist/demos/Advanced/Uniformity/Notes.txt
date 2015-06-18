@@ -1,4 +1,0 @@
-Modeling Data:
-=============
-
-A difficult non-parametric modeling problem.
