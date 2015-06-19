@@ -35,7 +35,7 @@ parameters.initial_conditions = [parameters.Cytcred,parameters.O2, ...
     parameters.Hn,parameters.Hp]; %Initial Vs
 
 %parameter values for the stochastic simulation
-parameters.s_j = [1 -4 0 0; 0 -1 0 0; -6 -8 1 1; 8 4 -1 -1]; 
+parameters.s_j = [1 -4 0 0; 0 -1 0 0; -6 -8 1 1; 8 4 -1 -1];
 
 %titles and labels for the output graphs
 [parameters.title{1:7}] = deal(['Reduced cytochrome c concentration over'...
