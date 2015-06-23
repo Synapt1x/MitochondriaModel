@@ -38,59 +38,88 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
         % identify all critical reactions
         [Rjs, aj, a_0] = genRj (X0, V,nc, num_rx);
         
-        % generate one estimate for tau (tau prime)
         [eis, gis] = genEis (0.05, V, X, num_species, num_rx);
+        
+        % generate explicit tau
         [tau_prime] = genMeanVar (Rjs, V, X0, eis, gis, tau_prime, aj, a_0, num_species);
+        
+        % generate implicit tau
+        [impTau] = ImplicitTau(Rjs, V, aj, num_species, X0, gis);
+        
+        
+        
+        
+        % check for stiffness of the system (if stiff, choose implicit tau)
+        if impTau > 100*tau_prime
+            tau_one = impTau;
+            implicit = 1;
+        else
+            tau_one = tau_prime;
+            implicit = 0; 
+        end
         
         % comparison for the bound of tau
         compare = abs(5 * (1/a_0));
         
-        if abs(tau_prime) < compare
+        
+        
+        
+        
+        
+        if abs(tau_one) < compare
             % generate 100 individual SSA steps
             for ssaSteps = 1:5
                 while count <=(max_rx-0.5)
                     [tau, j] = TauAndJGen (aj);
                     time = time + abs(tau); % find new time by adding tau to previous time
                     times = [times time]; % add new time to list of times
-                    
                     Vj = V(j,:); % retrieve V values for the selected reaction
                     X0 = X0 + Vj; % get new X0 value
-                   
-                    
                     % if species amount is less than 0, correct it
                     b = find(X0<0);
                     X0(b) = 0;
                     X = [X; X0]; % store all X values in a matrix
                     %if time <= max_rx
                     count = time;
-                    %end
                 end
             end
+           
+            
+            
+            
             
         else
             % generate tau double prime
-            [tau_double_prime] = genTauDoublePrime(aj, Rjs);
+            [tau_two] = genTauDoublePrime(aj, Rjs);
             
             
             % generate changes to species amounts from reactions during tau
-            if abs(tau_prime) < tau_double_prime
-                tau = abs(tau_prime);
+            if abs(tau_one) < tau_two
+                tau = abs(tau_one);
                 % amount each species changes if tau is selected as tau
                 % prime
-                [X0] = amountChanges(X0, aj, V, num_rx, tau, Rjs);
-   
-                [X0] = ImplicitXX(X, V, X0, tau, num_rx);
                 
-                time = time + tau; % find new time by adding tau to previous time
+                if (implicit == 1)
+                    [X0] = amountChanges(X0, aj, V, num_rx, tau, Rjs);
+                    [X0] = ImplicitXX(X, V, X0, tau, num_rx);
+                    time = time + tau; % find new time by adding tau to previous time
+                else
+                    [X0] = amountChanges(X0, aj, V, num_rx, tau, Rjs);
+                end
+                
+           
                 if time > max_rx
                     time = max_rx +0.1;
                 end
                 times = [times time]; % add new time to list of times
                 X = [X; X0]; % store all X values in a matrix
                 count = time; % increment number of reactions
+               
+                
+                
                 
             else
-                tau = abs(tau_double_prime);
+                tau = abs(tau_two);
                 % amount each species changes if tau is tau double prime
                 % (only one critical reaction can occur)
                 [X0] = amountChangesDouble(X0, aj, V, tau, Rjs, num_rx);
@@ -125,6 +154,12 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
     disp(n)
     
 end
+
+
+
+
+
+
 
 % put all times and corresponding species amounts in ascending order 
 [~,I]=sort(all_values(1,:));
