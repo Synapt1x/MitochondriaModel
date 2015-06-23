@@ -10,18 +10,13 @@ and one figure with all three substances on the same plot.
 %}
 
 % user chooses how many simulations to run
-num_sims = 50;
+num_sims = 10;
 
 % user chooses the maximum time for each simulation
 max_rx = 100;   
 
 % interval used for plotting means and calculating variance
 interval = 0.01 * max_rx;
-
-% evaluate derivatives for all equations. Returns a vector of 3 symbolic
-% equations (one for each reaction). Values will be plugged in to the
-% symbolic equations to calculate the aj for each reaction
-%all_rxns = derivEvals ();
 tau_prime = 0;
 
 all_values = [];
@@ -32,15 +27,19 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
     
     % call intialize parameters to define ititial time and concentrations
     [time, times, X0, X, num_rx, V, num_species] = InitializeParameters ();
+    
+    % nc is the maximum amount of a reactant before reaction is critical
     nc = evalCrit(X0);
+    
     while count <=max_rx; % loop through tau steps until max time is reached
         
         % identify all critical reactions
         [Rjs, aj, a_0] = genRj (X0, V,nc, num_rx);
         
+        % epsilon value for each species
         [eis, gis] = genEis (0.05, V, X, num_species, num_rx);
         
-        % generate explicit tau
+        % generate explicit tau 
         [tau_prime] = genMeanVar (Rjs, V, X0, eis, gis, tau_prime, aj, a_0, num_species);
         
         % generate implicit tau
@@ -65,11 +64,10 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
         
         
         
-        
-        if abs(tau_one) < compare
+        if abs(tau_one) < compare % check for tau estimate meeting minimum criteria
             % generate 100 individual SSA steps
-            for ssaSteps = 1:5
-                while count <=(max_rx-0.5)
+            for ssaSteps = 1:5 % loop through a limited number of SSA steps
+                while count <=(max_rx-0.5) % check to ensure max time is not being reached
                     [tau, j] = TauAndJGen (aj);
                     time = time + abs(tau); % find new time by adding tau to previous time
                     times = [times time]; % add new time to list of times
@@ -89,26 +87,24 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
             
             
         else
-            % generate tau double prime
+            % generate a second estimate for tau
             [tau_two] = genTauDoublePrime(aj, Rjs);
             
             
             % generate changes to species amounts from reactions during tau
             if abs(tau_one) < tau_two
                 tau = abs(tau_one);
-                % amount each species changes if tau is selected as tau
-                % prime
-                
-                if (implicit == 1)
+                % amount each species changes if tau is tau one               
+                if (implicit == 1) % using implicit formula
                     [X0] = amountChanges(X0, aj, V, num_rx, tau, Rjs);
                     [X0] = ImplicitXX(X, V, X0, tau, num_rx);
                     time = time + tau; % find new time by adding tau to previous time
-                else
+                else % using explicit formula
                     [X0] = amountChanges(X0, aj, V, num_rx, tau, Rjs);
                 end
                 
            
-                if time > max_rx
+                if time > max_rx % ensure time does not reach maximum time
                     time = max_rx +0.1;
                 end
                 times = [times time]; % add new time to list of times
@@ -122,10 +118,10 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
                 tau = abs(tau_two);
                 % amount each species changes if tau is tau double prime
                 % (only one critical reaction can occur)
-                if (implicit ==1)
+                if (implicit ==1) % calculations for implicit
                     [X0] = amountChangesDouble(X0, aj, V, tau, Rjs, num_rx);
                     [X0] = ImplicitXX(X, V, X0, tau, num_rx);
-                else
+                else % calculations for explicit
                     [X0] = amountChangesDouble(X0, aj, V, tau, Rjs, num_rx);
                 end
                 time = time + tau; % find new time by adding tau to previous time
