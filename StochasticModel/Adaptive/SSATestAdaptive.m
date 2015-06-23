@@ -10,7 +10,7 @@ and one figure with all three substances on the same plot.
 %}
 
 % user chooses how many simulations to run
-num_sims = 10;
+num_sims = 50;
 
 % user chooses the maximum time for each simulation
 max_rx = 100;   
@@ -122,9 +122,12 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
                 tau = abs(tau_two);
                 % amount each species changes if tau is tau double prime
                 % (only one critical reaction can occur)
-                [X0] = amountChangesDouble(X0, aj, V, tau, Rjs, num_rx);
-                
-                [X0] = ImplicitXX(X, V, X0, tau, num_rx);
+                if (implicit ==1)
+                    [X0] = amountChangesDouble(X0, aj, V, tau, Rjs, num_rx);
+                    [X0] = ImplicitXX(X, V, X0, tau, num_rx);
+                else
+                    [X0] = amountChangesDouble(X0, aj, V, tau, Rjs, num_rx);
+                end
                 time = time + tau; % find new time by adding tau to previous time
                 % if time is greater than the max time, correct it 
                 if time > max_rx
