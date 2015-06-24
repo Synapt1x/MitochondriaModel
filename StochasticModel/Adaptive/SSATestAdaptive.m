@@ -34,7 +34,7 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
     while count <=max_rx; % loop through tau steps until max time is reached
         
         % identify all critical reactions
-        [Rjs, aj, a_0] = genRj (X0, V,nc, num_rx);
+        [Rjs, aj, a_0] = genRj (X(end,:), V,nc, num_rx);
         
         % epsilon value for each species
         [eis, gis] = genEis (0.05, V, X, num_species, num_rx);
@@ -88,7 +88,7 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
             
         else
             % generate a second estimate for tau
-            [tau_two] = genTauDoublePrime(aj, Rjs);
+            [tau_two] = genTauDoublePrime(aj, Rjs, tau_one);
             
             
             % generate changes to species amounts from reactions during tau

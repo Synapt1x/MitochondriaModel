@@ -26,24 +26,25 @@ a_0 = sum(aj);
 % positive, then the one element will be zeroed. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Ljs = zeros(1,3); % define a blank vector to store Lj for each reaction
+Ljs = zeros(1,4); % define a blank vector to store Lj for each reaction
 
 % If Rj for a reaction is 1, it means that that reaction is critical. If Rj
 % is 0 for a reaction, it means that that reaction is not critical. Rj will
 % be an input to other functions
-Rjs = zeros(1,3); % define a blank vector to store Rj for each reaction
+Rjs = zeros(1,4); % define a blank vector to store Rj for each reaction
 
 check_rxns = aj>0; % Only reactions with positive ajs will be checked
-check_elements = V <0; % Only species that are reactants will be checked
+%check_elements = V <0; % Only species that are reactants will be checked
 
 for check = 1:numRxns % loop that generates an Lj for each reaction 
     if check_rxns(check) ==1 % check if aj for reaction is positive
-        check_els = check_elements(check, :); % row of which elements to check
+        %check_els = check_elements(check, :); % row of which elements to check
         Vls = V(check, :); % extract the V values for the reaction
+        check_els = find(Vls<0);
         XL = X0(check_els); % get the current amounts of each species
         VL = Vls(check_els); % determines which species are reactants
         possLs = min(XL./VL); %  Lj is ratio of amount of species to amoutn that will be consumed
-        Ljs(check) = possLs;
+        Ljs(check) = abs(possLs);
     else
         Ljs(check) = nc+1; % if aj is not positive, reaction is not critical
     end
