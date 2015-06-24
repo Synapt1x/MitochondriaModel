@@ -45,7 +45,7 @@ handles.output = hObject;
 handles.parameters = varargin{1};
 
 %store all graph handles in the handles structure as an array
-[handles.graphs{1:7}] = deal(handles.Cytc_plot, ...
+[handles.graphs{1:6}] = deal(handles.Cytc_plot, ...
     handles.O2_plot,handles.OCR_plot,handles.H_N_plot,...
     handles.H_P_plot,handles.protons);
 
@@ -93,29 +93,43 @@ function plot_Callback(hObject, eventdata, handles) %plot button in gui
 [cytcred o2 Hn Hp] = deal(y(:,1),y(:,2),y(:,3),y(:,4));
 
 %calculate the OCR values from the oxygen
-ocr_values = -((handles.parameters.Vmax.*o2)./(handles.parameters.Km.*...
+ocr_values = ((handles.parameters.Vmax.*o2)./(handles.parameters.Km.*...
     (1+(handles.parameters.K1./cytcred))+o2)).*Hn;
-%note the negative is omitted here for graphical representation
 
 %plot the Cyt c concentration over time
-plot(handles.Cytc_plot,t,cytcred);
+axes(handles.Cytc_plot);
+plot(t,cytcred,'lineWidth',2.5);
 
-%plot the O2 concentration over time
-plot(handles.O2_plot,t,o2);
+%plot the O2 concentration over time with real O2 data on top
+axes(handles.O2_plot);
+hold on
+plot(t,o2,'lineWidth',2.5); 
+plot(t,handles.parameters.realData(:,end),'g','lineWidth',2.5);
+hold off
 
-%plot the OCR over time
-plot(handles.OCR_plot,t,ocr_values);
+%since OCR is calculated over an interval, repeat the value for all t
+realOCRs = repmat(-handles.parameters.realOCR,[1,numel(t)]);
+
+%plot the OCR over time with real OCR data on top
+axes(handles.OCR_plot);
+hold on
+plot(t,ocr_values,'lineWidth',2.5);
+plot(t,realOCRs,'g','lineWidth',2.5);
+hold off
 
 %plot the Hn concentration over time
-plot(handles.H_N_plot,t,Hn);
+axes(handles.H_N_plot);
+plot(t,Hn,'lineWidth',2.5);
 
 %plot the Hp concentration over time
-plot(handles.H_P_plot,t,Hp);
+axes(handles.H_P_plot);
+plot(t,Hp,'lineWidth',2.5);
 
 totProt = Hn+Hp; %calc total amount of protons
 
 %plot the Hp rate of appearance over time
-plot(handles.protons,t,totProt);
+axes(handles.protons);
+plot(t,totProt,'lineWidth',2.5);
 
 %update all the graph axes
 graph_label(handles);
@@ -195,9 +209,9 @@ function graph_label(handles)
 %titles and labels to the proper text.
 for i=1:numel(handles.parameters.title)
     axes(handles.graphs{i})
-    xlabel(handles.parameters.xlab);
-    ylabel(handles.parameters.ylab{i});
-    title(textwrap({handles.parameters.title{i}},30),'FontWeight',...
-        'bold');
+    xlabel(handles.parameters.xlab,'FontName','Calibri');
+    ylabel(handles.parameters.ylab{i},'FontName','Calibri');
+    title(textwrap({handles.parameters.title{i}},30), ...
+        'FontWeight','bold','FontSize',12);
 end
 
