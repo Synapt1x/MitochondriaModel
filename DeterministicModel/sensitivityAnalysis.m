@@ -1,4 +1,4 @@
-% function modelJacobi = sensitivityAnalysis()
+function modelJacobi = sensitivityAnalysis()
 %{
 Created by: Chris Cadonic
 =====================================================
@@ -13,17 +13,18 @@ carried out below.
 %Initialize the symbolic variables in the model; vars, params and t
 syms r o omega rho vmax K1 Km p1 p2 p3 p4 p5 t;
 
-f1(r,o,omega,rho) = 4*p5 - 4*((vmax.*o)./(Km.*(1+(K1./r))+o)).*...
+%Define each of the equations from the mito model
+f1 = 4*p5 - 4*((vmax.*o)./(Km.*(1+(K1./r))+o)).*...
     omega; %dr/dt
-f2(r,o,omega,rho) = -((vmax.*o)./(Km.*(1+(K1./r))+o)).*omega; %do/dt
-f3(r,o,omega,rho)= -12*p5 - 8*((vmax.*o)./(Km.*(1+(K1./r))+o)).*...
+f2 = -((vmax.*o)./(Km.*(1+(K1./r))+o)).*omega; %do/dt
+f3= -12*p5 - 8*((vmax.*o)./(Km.*(1+(K1./r))+o)).*...
     omega + ((p1*(rho/omega))/((rho/omega)+p2+(p3/omega))).*...
     rho; %domega/dt
-f4(r,o,omega,rho) = 12*p5 + 4*((vmax.*o)./(Km.*(1+(K1./r))+o)).*...
+f4= 12*p5 + 4*((vmax.*o)./(Km.*(1+(K1./r))+o)).*...
     omega - ((p1*(rho/omega))/((rho/omega)+p2+(p3/omega)))*...
     rho; %drho/dt 
 
-%define the inputs for jacobian calculation
+%define arrays containing all funcs and all params
 funcs = [f1,f2,f3,f4];
 params = [vmax,K1,Km,p1,p2,p3,p4];
 
