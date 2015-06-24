@@ -1,9 +1,11 @@
-function tau_double_prime = genTauTwo (aj, Rj, varargin)
+function tau_double_prime = genTauTwo (aj, Rj, othertau)
 inds = find(Rj); % find all critical reactions (ones in the vector)
 aco = sum(aj(inds)); % sum the ajs for all crticial reactions
 
+
+
 if aco==0
-    tau_double_prime = varargin+1;
+    tau_double_prime = othertau;
 else
     mean_dis = -1/ aco; % mean distribution for exponential variate distribution
 
