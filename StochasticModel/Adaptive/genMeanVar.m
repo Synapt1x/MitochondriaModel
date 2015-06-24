@@ -11,6 +11,7 @@ nonCrit(indsReac) = 0; % zero out the Vij's for products
 indsCrit = find(Rjs); % indexes of reactions which are critical will have a 1
 nonCrit(indsCrit, :) = 0; % zero out all elements for critical reactions
 
+
 mean = zeros(1, numSpecies); % blank vector to store mean for each species
 var = zeros(1, numSpecies); % blank vector to store variance for each species
 
@@ -33,11 +34,17 @@ ajv = transpose(aj);
     meanNum =max(eg);
     indsMean = find(eg == meanNum);
     indMean = indsMean(1);
+    while mean(indMean)==0
+        indMean=indMean+1;
+    end
     meanTerm = meanNum./ (abs(mean(indMean))); % the maximum of the mean terms
     
     varNum = max (egs);
     indsVar = find(egs == varNum);
     indVar = indsVar(1);
+    while var(indVar)==0
+        indVar=indVar+1;
+    end
     varTerm = varNum ./ abs((var(indVar))); % the maximum of the variance terms
     
     
