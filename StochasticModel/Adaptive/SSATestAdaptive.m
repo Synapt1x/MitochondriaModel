@@ -87,7 +87,7 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
             
         else
             % generate a second estimate for tau
-            [tau_two] = genTauDoublePrime(aj, Rjs, tau_one);
+            [tau_two] = genTauTwo(aj, Rjs, tau_one);
             
             
             % generate changes to species amounts from reactions during tau
