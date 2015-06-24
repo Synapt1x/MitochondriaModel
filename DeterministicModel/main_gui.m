@@ -14,6 +14,7 @@ Callback functions were programmed manually for use in this model.
 
 % Last Modified by GUIDE v2.5 09-Feb-2015 12:53:55
 
+%% Initialization Code
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
@@ -33,7 +34,7 @@ else
 end
 % End initialization code - DO NOT EDIT
 
-
+%% GUI Creation code
 % --- Executes just before main_gui is made visible.
 function main_gui_OpeningFcn(hObject, eventdata, handles, varargin)
 %set all kinetics buttons to default value (decoupled)
@@ -70,6 +71,7 @@ function varargout = main_gui_OutputFcn(hObject, eventdata, handles)
 % Get default command line output from handles structure
 varargout{1} = handles.output;
 
+%% Main Callback Functions
 
 function optimize_Callback(hObject, eventdata, handles) %optimize button
 
@@ -81,62 +83,6 @@ launchQubist
 % [parameters.V_max parameters.K_1 parameters.K_m] = deal(best_params{:});
 %
 % guidata(hObject,handles);
-
-
-function plot_Callback(hObject, eventdata, handles) %plot button in gui
-
-%plug in the equations into the ode solver
-[t y] = ode23t(@decoupled_derivative_system,handles.parameters.time_points, ...
-    handles.parameters.initial_conditions,[],handles.parameters);
-
-%store the values calculated for each variable
-[cytcred o2 Hn Hp] = deal(y(:,1),y(:,2),y(:,3),y(:,4));
-
-%calculate the OCR values from the oxygen
-ocr_values = ((handles.parameters.Vmax.*o2)./(handles.parameters.Km.*...
-    (1+(handles.parameters.K1./cytcred))+o2)).*Hn;
-
-%plot the Cyt c concentration over time
-axes(handles.Cytc_plot);
-plot(t,cytcred,'lineWidth',2.5);
-
-%plot the O2 concentration over time with real O2 data on top
-axes(handles.O2_plot);
-hold on
-plot(t,o2,'lineWidth',2.5); 
-plot(t,handles.parameters.realData(:,end),'g','lineWidth',2.5);
-hold off
-
-%since OCR is calculated over an interval, repeat the value for all t
-realOCRs = repmat(-handles.parameters.realOCR,[1,numel(t)]);
-
-%plot the OCR over time with real OCR data on top
-axes(handles.OCR_plot);
-hold on
-plot(t,ocr_values,'lineWidth',2.5);
-plot(t,realOCRs,'g','lineWidth',2.5);
-hold off
-
-%plot the Hn concentration over time
-axes(handles.H_N_plot);
-plot(t,Hn,'lineWidth',2.5);
-
-%plot the Hp concentration over time
-axes(handles.H_P_plot);
-plot(t,Hp,'lineWidth',2.5);
-
-totProt = Hn+Hp; %calc total amount of protons
-
-%plot the Hp rate of appearance over time
-axes(handles.protons);
-plot(t,totProt,'lineWidth',2.5);
-
-%update all the graph axes
-graph_label(handles);
-
-save all; %save the workspace in case
-
-guidata(hObject,handles);
 
 function V_max_edit_Callback(hObject, eventdata, handles)
 %extract the new value input by the user
@@ -202,7 +148,63 @@ newDh = str2double(get(hObject, 'String'));
 handles.parameters.Dh = newDh;
 guidata(hObject,handles);
 
+%% Plot function
+function plot_Callback(hObject, eventdata, handles) %plot button in gui
 
+%plug in the equations into the ode solver
+[t y] = ode23t(@decoupled_derivative_system,handles.parameters.time_points, ...
+    handles.parameters.initial_conditions,[],handles.parameters);
+
+%store the values calculated for each variable
+[cytcred o2 Hn Hp] = deal(y(:,1),y(:,2),y(:,3),y(:,4));
+
+%calculate the OCR values from the oxygen
+ocr_values = ((handles.parameters.Vmax.*o2)./(handles.parameters.Km.*...
+    (1+(handles.parameters.K1./cytcred))+o2)).*Hn;
+
+%plot the Cyt c concentration over time
+axes(handles.Cytc_plot);
+plot(t,cytcred,'lineWidth',2.5);
+
+%plot the O2 concentration over time with real O2 data on top
+axes(handles.O2_plot);
+hold on
+plot(t,o2,'lineWidth',2.5); 
+plot(t,handles.parameters.realData(:,end),'g','lineWidth',2.5);
+hold off
+
+%since OCR is calculated over an interval, repeat the value for all t
+realOCRs = repmat(-handles.parameters.realOCR,[1,numel(t)]);
+
+%plot the OCR over time with real OCR data on top
+axes(handles.OCR_plot);
+hold on
+plot(t,ocr_values,'lineWidth',2.5);
+plot(t,realOCRs,'g','lineWidth',2.5);
+hold off
+
+%plot the Hn concentration over time
+axes(handles.H_N_plot);
+plot(t,Hn,'lineWidth',2.5);
+
+%plot the Hp concentration over time
+axes(handles.H_P_plot);
+plot(t,Hp,'lineWidth',2.5);
+
+totProt = Hn+Hp; %calc total amount of protons
+
+%plot the Hp rate of appearance over time
+axes(handles.protons);
+plot(t,totProt,'lineWidth',2.5);
+
+%update all the graph axes
+graph_label(handles);
+
+save all; %save the workspace in case
+
+guidata(hObject,handles);
+
+%% Graphing Function
 function graph_label(handles)
 %since updating the axes elements resets the axis properties such as title,
 %this function is called each time a figure is plotted so as to reset the
