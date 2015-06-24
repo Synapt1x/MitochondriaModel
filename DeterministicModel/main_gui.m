@@ -45,7 +45,7 @@ handles.output = hObject;
 handles.parameters = varargin{1};
 
 %store all graph handles in the handles structure as an array
-[handles.graphs{1:7}] = deal(handles.Cytc_plot,handles.Cytc_rate_plot,...
+[handles.graphs{1:7}] = deal(handles.Cytc_plot, ...
     handles.O2_plot,handles.OCR_plot,handles.H_N_plot,...
     handles.H_P_plot,handles.protons);
 
@@ -86,7 +86,7 @@ launchQubist
 function plot_Callback(hObject, eventdata, handles) %plot button in gui
 
 %plug in the equations into the ode solver
-[t y] = ode23t(@decoupled_derivative_system2,handles.parameters.time_points, ...
+[t y] = ode23t(@decoupled_derivative_system,handles.parameters.time_points, ...
     handles.parameters.initial_conditions,[],handles.parameters);
 
 %store the values calculated for each variable
@@ -99,9 +99,6 @@ ocr_values = -((handles.parameters.Vmax.*o2)./(handles.parameters.Km.*...
 
 %plot the Cyt c concentration over time
 plot(handles.Cytc_plot,t,cytcred);
-
-%plot the Cyt c rate of appearance over time
-plot(handles.Cytc_rate_plot,t,gradient(cytcred));
 
 %plot the O2 concentration over time
 plot(handles.O2_plot,t,o2);

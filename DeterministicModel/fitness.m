@@ -16,7 +16,7 @@ for n=length(X):-1:1
     end
         
     %call ode to solve the system of equations for this solver
-    [t, y] = ode23t(@decoupled_derivative_system2,parameters.time_points, ...
+    [t, y] = ode23t(@decoupled_derivative_system,parameters.time_points, ...
         parameters.initial_conditions,[],parameters);
     
     evaluations = y(:,2); %evaluated data for o2
