@@ -5,12 +5,8 @@ function parameters = setup
 
 %import the real data
 parameters.allData = data_formatter;
-parameters.realData = parameters.allData{2,2}(2:(end-1),1:size(...
-    parameters.allData{2,2},2)-1:end); %baseline o2 data from interval 1
-parameters.realOCR = -parameters.allData{3,2}(:,end); %baseline ocr data from interval 1
-
-%convert time points from minutes to seconds
-parameters.realData(:,1) = parameters.realData(:,1)*60;
+parameters.realData = parameters.allData{2,2}; %all o2 data
+parameters.realOCR = -parameters.allData{2,3}; %all ocr data
 
 %parameter values
 parameters.Vmax =2825.4; %bounds: [0.1 1E4]
@@ -25,17 +21,23 @@ parameters.Dh = 2.4025e-7; %bounds: [1E-6 1]
 %initial conditions
 parameters.Cytcox = 100;
 parameters.Cytcred = 40;
-parameters.O2 = parameters.realData(1,2);
+parameters.O2 = parameters.realData(1);
 parameters.Hn = 40;
 parameters.Hp = 1;
 
 %parameters for defining the IV of the region of interest
-parameters.time_points = parameters.realData(:,1)'; %all the time points for integration;
+%all the time points for integration from allData
+parameters.timePoints = parameters.allData{2,1}';
+%correct the time units to seconds
+parameters.timePoints=parameters.timePoints*60;
+
+%define the time boundaries between conditions
+parameters.oligoT = 18.57*60; %converted to s
+parameters.FCCPT = 20.17*60; %converted to s
+parameters.inhibitT = 28.13*60; %converted to s
+
 parameters.initial_conditions = [parameters.Cytcred,parameters.O2, ...
     parameters.Hn,parameters.Hp]; %Initial Vs
-
-%parameter values for the stochastic simulation
-parameters.s_j = [1 -4 0 0; 0 -1 0 0; -6 -8 1 1; 8 4 -1 -1];
 
 %titles and labels for the output graphs
 [parameters.title{1:6}] = deal(['Reduced cytochrome c concentration over'...
