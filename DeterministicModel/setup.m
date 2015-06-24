@@ -32,9 +32,14 @@ parameters.timePoints = parameters.allData{2,1}';
 parameters.timePoints=parameters.timePoints*60;
 
 %define the time boundaries between conditions
-parameters.oligoT = 18.57*60; %converted to s
-parameters.FCCPT = 20.17*60; %converted to s
-parameters.inhibitT = 28.13*60; %converted to s
+oligoTimes = find(parameters.timePoints<(18.57*60));
+fccpTimes = find(parameters.timePoints<(20.17*60));
+inhibitTimes = find(parameters.timePoints<(28.13*60));
+
+
+parameters.oligoTimes = 18.57*60; %converted to s
+parameters.FCCPTimes = 20.17*60; %converted to s
+parameters.inhibitTimes = 28.13*60; %converted to s
 
 parameters.initial_conditions = [parameters.Cytcred,parameters.O2, ...
     parameters.Hn,parameters.Hp]; %Initial Vs
