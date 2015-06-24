@@ -23,8 +23,8 @@ for n=length(X):-1:1
     evaluatedOCR = -mean(((parameters.Vmax.*y(:,2))./(parameters.Km.*...
         (1+(parameters.K1./y(1)))+y(:,2))).*y(:,3));%evaluated data for OCR
     
-    realo2Data = parameters.realData(:,end); %replicate actual o2 data
-    realOCR = parameters.realOCR(:,end); %replicate actual OCR measurement
+    realo2Data = parameters.realData(:,end); %use actual o2 data
+    realOCR = parameters.realOCR(:,end); %use actual OCR measurement
     
     %evaluate using a least-squares
     F([1,2],n) = [sum((realo2Data-evaluations).^2);(realOCR-evaluatedOCR)^2];
