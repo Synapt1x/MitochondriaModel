@@ -1,10 +1,10 @@
-function impTau = ImplicitTau(Rjs, V, aj, num_species, X0, gis)
+function impTau = ImplicitTau(Rjs, V, aj, num_species, X0, gis, tau_prime)
 V(V>0) = 0; % zero out all product species
 V((Rjs>0), :) = 0; % zero out all critical reactions
 
 means = zeros(1, num_species);
 vars = zeros(1, num_species);
-epsilon = 0.03;
+epsilon = 0.008;
 
 for (ii = 1: num_species)
     vcol = V(:, ii); % retrieve V values for one species
@@ -20,21 +20,26 @@ topTerms = (epsilon*X0 ./ gis);
 topTerm = max(topTerms);
 
 indexes = find(topTerms==topTerm);
-index = indexes(1);
+
+%if length(indexes) >0
+    index = indexes(1);
     
-% Calculations for the first term
-topFirst = topTerm;
-bottomFirst = abs(means(index));
-firstTerm = topFirst / bottomFirst;
+    % Calculations for the first term
+    topFirst = topTerm;
+    bottomFirst = abs(means(index));
+    firstTerm = topFirst / bottomFirst;
 
-% Calculations for the second term
-topSecond = topTerm^2;
-bottomSecond = (vars(index))^2;
-secondTerm = topSecond / bottomSecond;
+    % Calculations for the second term
+    topSecond = topTerm^2;
+    bottomSecond = (vars(index))^2;
+    secondTerm = topSecond / bottomSecond;
 
-bothTerms = [firstTerm secondTerm];
+    bothTerms = [firstTerm secondTerm];
 
-impTau = min(bothTerms); % implicit estimate for tau
+    impTau = min(bothTerms); % implicit estimate for tau
+%else
+    %impTau = tau_prime;
+end
 
 
 

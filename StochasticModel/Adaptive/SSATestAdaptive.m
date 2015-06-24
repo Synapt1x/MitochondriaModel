@@ -43,8 +43,7 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
         [tau_prime] = genMeanVar (Rjs, V, X0, eis, gis, tau_prime, aj, a_0, num_species);
         
         % generate implicit tau
-        [impTau] = ImplicitTau(Rjs, V, aj, num_species, X0, gis);
-        
+        [impTau] = ImplicitTau(Rjs, V, aj, num_species, X0, gis, tau_prime);
         
         
         
@@ -67,7 +66,7 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
         if abs(tau_one) < compare % check for tau estimate meeting minimum criteria
             % generate 100 individual SSA steps
             for ssaSteps = 1:5 % loop through a limited number of SSA steps
-                while count <=(max_rx-0.5) % check to ensure max time is not being reached
+                if count <=(max_rx-0.5) % check to ensure max time is not being reached
                     [tau, j] = TauAndJGen (aj);
                     time = time + abs(tau); % find new time by adding tau to previous time
                     times = [times time]; % add new time to list of times
