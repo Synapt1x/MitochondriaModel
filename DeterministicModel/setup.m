@@ -32,16 +32,17 @@ parameters.timePoints = parameters.allData{2,1}';
 parameters.timePoints=parameters.timePoints*60;
 
 %define the time boundaries between conditions
-oligoTimes = find(parameters.timePoints<(18.57*60));
-fccpTimes = find(parameters.timePoints<(20.17*60));
-inhibitTimes = find(parameters.timePoints<(28.13*60));
+oligoTime = min(find(parameters.timePoints>(18.57*60)));
+fccpTime = min(find(parameters.timePoints>(20.13*60)));
+inhibitTime = min(find(parameters.timePoints>(28.1*60)));
 
+%define the arrays holding the time points for each section
+parameters.baselineTimes = parameters.timePoints(1:oligoTime); 
+parameters.oligoTimes = parameters.timePoints(oligoTime:fccpTime); 
+parameters.FCCPTimes = parameters.timePoints(fccpTime:inhibitTime);
+parameters.inhibitTimes = parameters.timePoints(inhibitTime:end);
 
-parameters.oligoTimes = 18.57*60; %converted to s
-parameters.FCCPTimes = 20.17*60; %converted to s
-parameters.inhibitTimes = 28.13*60; %converted to s
-
-parameters.initial_conditions = [parameters.Cytcred,parameters.O2, ...
+parameters.initialConditions = [parameters.Cytcred,parameters.O2, ...
     parameters.Hn,parameters.Hp]; %Initial Vs
 
 %titles and labels for the output graphs

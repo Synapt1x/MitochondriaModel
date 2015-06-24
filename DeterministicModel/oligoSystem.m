@@ -31,13 +31,13 @@ rot/AA start injection at t = 28.13 m.
 
 dy(1) = 4*parameters.f0 - 4*((parameters.Vmax.*O2) ...
     ./(parameters.Km.*(1+(parameters.K1./Cytcred))+O2))...
-    .*Hn; %dCytcred
+    .*(Hn/Hp); %dCytcred
 dy(2) = -((parameters.Vmax.*O2)./(parameters.Km.* ...
-    (1+(parameters.K1./Cytcred))+O2)).*Hn; %dO2
+    (1+(parameters.K1./Cytcred))+O2)).*(Hn/Hp); %dO2
 dy(3) = -12*parameters.f0 - 8*((parameters.Vmax.*O2)...
-    ./(parameters.Km.*(1+(parameters.K1./Cytcred))+O2)).*Hn;%dHn
+    ./(parameters.Km.*(1+(parameters.K1./Cytcred))+O2)).*(Hn/Hp);%dHn
 dy(4) = 12*parameters.f0 + 4*((parameters.Vmax.*O2)...
-    ./(parameters.Km.*(1+(parameters.K1./Cytcred))+O2)).*Hn;%dHp
+    ./(parameters.Km.*(1+(parameters.K1./Cytcred))+O2)).*(Hn/Hp);%dHp
 
 dy=dy'; %correct vector orientation
 
