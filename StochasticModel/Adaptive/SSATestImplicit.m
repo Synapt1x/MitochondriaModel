@@ -1,4 +1,4 @@
-function SSATestMultiSimsStDev
+function SSATestImplicit
 tic
 %{
 Programmed by: Ella Thomson
@@ -13,7 +13,7 @@ and one figure with all three substances on the same plot.
 num_sims = 10;
 
 % user chooses the maximum time for each simulation
-max_rx = 100;
+max_rx = 100;   
 
 % interval used for plotting means and calculating variance
 interval = 0.01 * max_rx;
@@ -39,9 +39,9 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
         [Rjs, aj, a_0] = genRj (X0, V,nc, num_rx);
         
         % generate one estimate for tau (tau prime)
-        [eis, gis] = genEis (0.05, V, X, num_species, num_rx);
-        [tau_prime] = genMeanVar (Rjs, V, X0, eis, gis, tau_prime, aj, a_0, num_species);
-        
+        [~, gis] = genEis (0.05, V, X, num_species, num_rx);
+        %[tau_prime] = genMeanVar (Rjs, V, X0, eis, gis, tau_prime, aj, a_0, num_species);
+        tau_prime = ImplicitTau(Rjs, V, aj, num_species, X0, gis);
         % comparison for the bound of tau
         compare = abs(5 * (1/a_0));
         
@@ -56,6 +56,7 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
                     Vj = V(j,:); % retrieve V values for the selected reaction
                     X0 = X0 + Vj; % get new X0 value
                    
+                    
                     % if species amount is less than 0, correct it
                     b = find(X0<0);
                     X0(b) = 0;
@@ -77,6 +78,9 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
                 % amount each species changes if tau is selected as tau
                 % prime
                 [X0] = amountChanges(X0, aj, V, num_rx, tau, Rjs);
+   
+                [X0] = ImplicitXX(X, V, X0, tau, num_rx);
+                
                 time = time + tau; % find new time by adding tau to previous time
                 if time > max_rx
                     time = max_rx +0.1;
@@ -90,6 +94,8 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
                 % amount each species changes if tau is tau double prime
                 % (only one critical reaction can occur)
                 [X0] = amountChangesDouble(X0, aj, V, tau, Rjs, num_rx);
+                
+                [X0] = ImplicitXX(X, V, X0, tau, num_rx);
                 time = time + tau; % find new time by adding tau to previous time
                 % if time is greater than the max time, correct it 
                 if time > max_rx
