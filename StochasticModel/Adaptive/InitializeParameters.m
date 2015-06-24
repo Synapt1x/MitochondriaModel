@@ -10,7 +10,7 @@ time = 0; % initial time is 0 seconds
 
 times = [0]; % start a vector to hold all times 
 
-X0 = [400 400 400 400 400]; % initial amounts of each reactant stored in a vector
+X0 = [400 400 800 0 400]; % initial amounts of each reactant stored in a vector
 
 X = X0; % used to store amounts of species at all time pts for one sim
 
