@@ -153,7 +153,7 @@ function plot_Callback(hObject, eventdata, handles) %plot button in gui
 
 %plug in the equations into the ode solver
 [t y] = ode23t(@decoupled_derivative_system,handles.parameters.timePoints, ...
-    handles.parameters.initial_conditions,[],handles.parameters);
+    handles.parameters.initialConditions,[],handles.parameters);
 
 %store the values calculated for each variable
 [cytcred o2 Hn Hp] = deal(y(:,1),y(:,2),y(:,3),y(:,4));

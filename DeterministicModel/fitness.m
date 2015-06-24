@@ -17,7 +17,7 @@ for n=length(X):-1:1
         
     %call ode to solve the system of equations for this solver
     [t, y] = ode23t(@decoupled_derivative_system,parameters.timePoints, ...
-        parameters.initial_conditions,[],parameters);
+        parameters.initialConditions,[],parameters);
     
     evaluations = y(:,2); %evaluated data for o2
     evaluatedOCRs = -((parameters.Vmax.*y(:,2))./(parameters.Km.*...
