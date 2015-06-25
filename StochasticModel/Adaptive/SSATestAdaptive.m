@@ -10,7 +10,7 @@ and one figure with all three substances on the same plot.
 %}
 
 % user chooses how many simulations to run
-num_sims = 10;
+num_sims = 100;
 
 % user chooses the maximum time for each simulation
 max_rx = 100;   
@@ -65,7 +65,8 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
         
         if abs(tau_one) < compare % check for tau estimate meeting minimum criteria
             % generate 100 individual SSA steps
-            for ssaSteps = 1:5 % loop through a limited number of SSA steps
+            ssaSteps=1;
+           while ssaSteps <= 5 % loop through a limited number of SSA steps
                 if count <=(max_rx-0.5) % check to ensure max time is not being reached
                     [tau, j] = TauAndJGen (aj);
                     time = time + abs(tau); % find new time by adding tau to previous time
@@ -78,6 +79,12 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
                     X = [X; X0]; % store all X values in a matrix
                     %if time <= max_rx
                     count = time;
+                    ssaSteps = ssaSteps+1;
+                
+                else
+                    % do nothing
+                    count = max_rx+0.1;
+                    ssaSteps=6;
                 end
             end
            
@@ -88,7 +95,9 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
         else
             % generate a second estimate for tau
             [tau_two] = genTauTwo(aj, Rjs, tau_one);
-            
+             if tau_two <= 1e3
+                 tau_two = tau_two * 10;
+             end
             
             % generate changes to species amounts from reactions during tau
             if abs(tau_one) < tau_two
