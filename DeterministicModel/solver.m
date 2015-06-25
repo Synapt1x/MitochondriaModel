@@ -14,3 +14,6 @@ as a boundary value problem.
     [y2(end,1),y2(end,2),y2(end,3),y2(end,4)],[],parameters);
 [t4,y4] = ode23t(@inhibitSystem, parameters.inhibitTimes, ...
     [y3(end,1),y3(end,2),y3(end,3),y3(end,4)],[],parameters);
+
+t = [t1;t2;t3;t4];
+y = [y1;y2;y3;y4];
