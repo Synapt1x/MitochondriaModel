@@ -75,9 +75,9 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
         else
             % generate tau double prime
             [tau_double_prime] = genTauDoublePrime(aj, Rjs);
-            %if tau_double_prime <= 1e4
-              %   tau_double_prime = tau_double_prime * 10;
-            % end
+            if tau_double_prime <= 1e-4
+                 tau_double_prime = tau_double_prime * 10;
+            end
             
             % generate changes to species amounts from reactions during tau
             if abs(tau_prime) < tau_double_prime
