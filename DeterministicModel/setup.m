@@ -32,9 +32,9 @@ parameters.timePoints = parameters.allData{2,1}';
 parameters.timePoints=parameters.timePoints*60;
 
 %define the time boundaries between conditions
-oligoTime = min(find(parameters.timePoints>(18.57*60)));
-fccpTime = min(find(parameters.timePoints>(20.13*60)));
-inhibitTime = min(find(parameters.timePoints>(28.1*60)));
+oligoTime = min(find(parameters.timePoints>(22.27*60)));
+fccpTime = min(find(parameters.timePoints>(24.77*60)));
+inhibitTime = min(find(parameters.timePoints>(27.43*60)));
 
 %define the arrays holding the time points for each section
 parameters.baselineTimes = parameters.timePoints(1:oligoTime); 
