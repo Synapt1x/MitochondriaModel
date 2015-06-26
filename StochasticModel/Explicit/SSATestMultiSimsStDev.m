@@ -13,15 +13,11 @@ and one figure with all three substances on the same plot.
 num_sims = 10;
 
 % user chooses the maximum time for each simulation
-max_rx = 100;
+max_rx = 50;
 
 % interval used for plotting means and calculating variance
 interval = 0.01 * max_rx;
 
-% evaluate derivatives for all equations. Returns a vector of 3 symbolic
-% equations (one for each reaction). Values will be plugged in to the
-% symbolic equations to calculate the aj for each reaction
-%all_rxns = derivEvals ();
 tau_prime = 0;
 
 all_values = [];

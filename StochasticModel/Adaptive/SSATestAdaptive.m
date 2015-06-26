@@ -13,7 +13,7 @@ and one figure with all three substances on the same plot.
 num_sims = 10;
 
 % user chooses the maximum time for each simulation
-max_rx = 100;   
+max_rx = 50;   
 
 % interval used for plotting means and calculating variance
 interval = 0.01 * max_rx;
@@ -56,16 +56,15 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
             implicit = 0; 
         end
         
-        if implicit==1
-            disp('implicit')
-        end
+        %if implicit==1
+         %   disp('implicit')
+        %else
+         %   disp('exp')
+        %end
+        
         
         % comparison for the bound of tau
         compare = abs(5 * (1/a_0));
-        
-        
-        
-        
         
         if abs(tau_one) < compare % check for tau estimate meeting minimum criteria
             % generate 100 individual SSA steps
@@ -92,9 +91,7 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
                 end
             end
            
-            
-            
-            
+               
             
         else
             % generate a second estimate for tau
