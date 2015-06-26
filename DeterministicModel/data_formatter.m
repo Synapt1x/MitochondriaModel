@@ -13,12 +13,12 @@ matrix, with corresponding labels.
 path_folder = fileparts(which(mfilename));
 
 %Find the data folder containing the data based on this .m file
-filename = fullfile(path_folder, '/Data/oxygraphPracData.xlsx');
+filename = fullfile(path_folder, '/Data/oxygraphData.xlsx');
 
 %Read the oxygraph data from the excel datafile
-all_data_times = xlsread(filename,'Sheet1','A308:A844');
-all_data_o2 = xlsread(filename,'Sheet1','G308:G844');
-all_data_ocr = xlsread(filename,'Sheet1','H308:H844');
+all_data_times = xlsread(filename,'Sheet1','A520:A829');
+all_data_o2 = xlsread(filename,'Sheet1','G520:G829');
+all_data_ocr = xlsread(filename,'Sheet1','H520:H829');
 
 %Store the data into the data_matrix
 [data_matrix{1,1:3}] = deal('times',...
