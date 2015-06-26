@@ -16,6 +16,6 @@ X = X0; % used to store amounts of species at all time pts for one sim
 
 num_rx = 4; % the number of different chemical reactions
 
-V = [-1 3 1 1 0; -1 2 -1 0 1; 1 -2 0 1 0; 0 2 -1 0 -1]; % v values for all reactions
+V = [-1 3 1 1 0; -1 2 -1 0 1; 1 -2 0 1 0; 0 2 -1 -1 -1]; % v values for all reactions
 
 num_species = 5; % the number of species involved in all reactions
