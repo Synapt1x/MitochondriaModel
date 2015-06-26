@@ -6,7 +6,6 @@ tau. The number of non-critical reactions is determined by poisson distributd
 random numbers!
 %}
 
-%numRxns = 3;
 nonPros = {};
 for n = 1:numRxns
     nonPro = find((V(numRxns, :))<0);
