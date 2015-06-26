@@ -39,7 +39,7 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
         % epsilon value for each species
         [eis, gis] = genEis (0.05, V, X, num_species, num_rx);
         
-        % generate explicit tau 
+        % generate explicit tau `
         [tau_prime] = genMeanVar (Rjs, V, X0, eis, gis, tau_prime, aj, a_0, num_species);
         
         % generate implicit tau
@@ -99,9 +99,9 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
         else
             % generate a second estimate for tau
             [tau_two] = genTauTwo(aj, Rjs, tau_one);
-             %if tau_two <= 1e4
-               %  tau_two = tau_two * 10;
-             %end
+             if tau_two <= 1e-4
+                 tau_two = tau_two * 100;
+            end
             
             % generate changes to species amounts from reactions during tau
             if abs(tau_one) < tau_two
