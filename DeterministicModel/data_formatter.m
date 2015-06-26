@@ -1,4 +1,4 @@
-function [data_matrix,realo2,realOCR] = data_formatter
+function [data_matrix,firstintervals] = data_formatter
 % This function reads the excel data files and formats them into vectors
 % for use in the mitochondria model as calibration data.
 %
@@ -31,6 +31,10 @@ data_matrix{2,1} = [all_data_o2{1}, all_data_o2{2}(:,2:end), ...
 data_matrix{3,1} = [all_data_ocr{1}, all_data_ocr{2}(:,2:end), ...
     all_data_ocr{3}(:,2:end), all_data_ocr{4}(:,2:end)];
 
+%convert time units to seconds
+data_matrix{2,1}(:,1) = data_matrix{2,1}(:,1)*60;
+data_matrix{3,1}(:,1) = data_matrix{3,1}(:,1)*60;
+
 %add a final column with an average of all the data
 data_matrix{2,1} = [data_matrix{2,1}, mean(data_matrix{2,1}(:,2:end),2)];
 data_matrix{3,1} = [data_matrix{3,1}, mean(data_matrix{3,1}(:,2:end),2)];
@@ -46,4 +50,7 @@ end
 [firstintervals{2,1},firstintervals{2,2},firstintervals{2,3}, ...
     firstintervals{2,4}] = deal(data_matrix{3,[2,5,8,10]}); %all ocr
 
+%extrapolate each interval using calcSection.m
 
+
+%store the time points as seconds
