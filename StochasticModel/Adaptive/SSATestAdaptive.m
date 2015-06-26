@@ -10,7 +10,7 @@ and one figure with all three substances on the same plot.
 %}
 
 % user chooses how many simulations to run
-num_sims = 100;
+num_sims = 10;
 
 % user chooses the maximum time for each simulation
 max_rx = 100;   
@@ -55,7 +55,7 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
             tau_one = tau_prime;
             implicit = 0; 
         end
-        
+        disp(implicit)
         % comparison for the bound of tau
         compare = abs(5 * (1/a_0));
         
