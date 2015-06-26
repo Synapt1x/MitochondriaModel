@@ -45,26 +45,32 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
         % comparison for the bound of tau
         compare = abs(5 * (1/a_0));
         
-        if abs(tau_prime) < compare
+         if abs(tau_prime) < compare % check for tau estimate meeting minimum criteria
             % generate 100 individual SSA steps
-            for ssaSteps = 1:5
-                while count <=(max_rx-0.5)
+            ssaSteps=1;
+           while ssaSteps <= 5 % loop through a limited number of SSA steps
+                if count <=(max_rx-0.5) % check to ensure max time is not being reached
                     [tau, j] = TauAndJGen (aj);
                     time = time + abs(tau); % find new time by adding tau to previous time
                     times = [times time]; % add new time to list of times
-                    
                     Vj = V(j,:); % retrieve V values for the selected reaction
                     X0 = X0 + Vj; % get new X0 value
-                   
                     % if species amount is less than 0, correct it
                     b = find(X0<0);
                     X0(b) = 0;
                     X = [X; X0]; % store all X values in a matrix
                     %if time <= max_rx
                     count = time;
-                    %end
+                    ssaSteps = ssaSteps+1;
+                
+                else
+                    % do nothing
+                    count = max_rx+0.1;
+                    ssaSteps=6;
                 end
             end
+        
+        
             
         else
             % generate tau double prime
