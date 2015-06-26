@@ -4,14 +4,7 @@ function parameters = setup
 %parameter values for complex IV
 
 %import the real data
-[parameters.allData, parameters.firstintervals] = data_formatter;
-
-parameters.realData = parameters.allData{2,2}(2:(end-1),1:size(...
-    parameters.allData{2,2},2)-1:end); %baseline o2 data from interval 1
-parameters.realOCR = -parameters.allData{3,2}(:,end); %baseline ocr data from interval 1
-
-%convert time points from minutes to seconds
-parameters.realData(:,1) = parameters.realData(:,1)*60;
+[parameters.realData,parameters.realOCR] = data_formatter;
 
 %parameter values
 parameters.Vmax =2825.4; %bounds: [0.1 1E4]
