@@ -4,10 +4,8 @@ function parameters = setup
 %parameter values for complex IV
 
 %import the real data
-parameters.allData = data_formatter;
-parameters.realData = parameters.allData{2,2}(2:(end-1),1:size(...
-    parameters.allData{2,2},2)-1:end); %baseline o2 data from interval 1
-parameters.realOCR = -parameters.allData{3,2}(:,end); %baseline ocr data from interval 1
+[parameters.allData, parameters.realData,parameters.realOCR] ...
+    = data_formatter;
 
 %convert time points from minutes to seconds
 parameters.realData(:,1) = parameters.realData(:,1)*60;
@@ -25,7 +23,7 @@ parameters.Dh = 2.4025e-7; %bounds: [1E-6 1]
 %initial conditions
 parameters.Cytcox = 100;
 parameters.Cytcred = 40;
-parameters.O2 = parameters.realData(1,2);
+parameters.O2 = 1000;
 parameters.Hn = 40;
 parameters.Hp = 1;
 
@@ -33,9 +31,6 @@ parameters.Hp = 1;
 parameters.time_points = parameters.realData(:,1)'; %all the time points for integration;
 parameters.initial_conditions = [parameters.Cytcred,parameters.O2, ...
     parameters.Hn,parameters.Hp]; %Initial Vs
-
-%parameter values for the stochastic simulation
-parameters.s_j = [1 -4 0 0; 0 -1 0 0; -6 -8 1 1; 8 4 -1 -1];
 
 %titles and labels for the output graphs
 [parameters.title{1:6}] = deal(['Reduced cytochrome c concentration over'...
