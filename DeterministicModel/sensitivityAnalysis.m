@@ -26,7 +26,7 @@ f4= 12*p5 + 4*((vmax.*o)./(Km.*(1+(K1./r))+o)).*...
 
 %define arrays containing all funcs and all params
 funcs = [f1,f2,f3,f4];
-params = [vmax,K1,Km,p1,p2,p3,p4];
+params = [vmax,K1,Km,p1,p2,p3,p4,p5,t];
 
 %call jacobian to calculate the jacobian function to calc all derivs
 modelJacobi = jacobian(funcs,params);
