@@ -2,7 +2,7 @@ function dy = oligoSystem(t,y,parameters)
 %{
 Created by: Chris Cadonic
 =====================================================
-This function maintains all the oligomycin derivatives 
+This function maintains all the oligomycin derivatives
 relevant to my masters project.
 
 %}

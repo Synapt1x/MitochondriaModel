@@ -172,7 +172,7 @@ plot(t,cytcred,'lineWidth',2.5);
 %plot the O2 concentration over time with real O2 data on top
 axes(handles.O2_plot);
 hold on
-plot(t,o2,'lineWidth',2.5); 
+plot(t,o2,'lineWidth',2.5);
 plot(t,handles.parameters.realData,'g','lineWidth',2.5);
 hold off
 

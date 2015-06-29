@@ -43,8 +43,8 @@ fccpTime = min(find(parameters.timePoints>=271.8));
 inhibitTime = min(find(parameters.timePoints>=432));
 
 %define the arrays holding the time points for each section
-parameters.baselineTimes = parameters.timePoints(1:oligoTime-1); 
-parameters.oligoTimes = parameters.timePoints(oligoTime:fccpTime-1); 
+parameters.baselineTimes = parameters.timePoints(1:oligoTime-1);
+parameters.oligoTimes = parameters.timePoints(oligoTime:fccpTime-1);
 parameters.FCCPTimes = parameters.timePoints(fccpTime:inhibitTime-1);
 parameters.inhibitTimes = parameters.timePoints(inhibitTime:end);
 
