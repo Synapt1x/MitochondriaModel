@@ -13,10 +13,10 @@ matrix, with corresponding labels.
 %% Read the files for O2 and OCR
 
 %store the folder in which the model is stored
-path_folder = fileparts(which(mfilename)); 
+path_folder = fileparts(which(mfilename));
 
 %file names holding the oxygraph o2 data and Seahorse ocr data
-filenameo2 = fullfile(path_folder, '/Data/oxygraphData.xlsx'); 
+filenameo2 = fullfile(path_folder, '/Data/oxygraphData.xlsx');
 filenameocr = fullfile(path_folder, '/Data/ocr_data.xlsx');
 sheets = {'Nov 26', 'Dec 5', 'Dec 10', 'Dec 17'}; %name of sheets
 

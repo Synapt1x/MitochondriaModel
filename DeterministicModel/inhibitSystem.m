@@ -2,7 +2,7 @@ function dy = inhibitSystem(t,y,parameters)
 %{
 Created by: Chris Cadonic
 =====================================================
-This function maintains all the inhibited system derivatives 
+This function maintains all the inhibited system derivatives
 relevant to my masters project.
 
 %}

@@ -2,7 +2,7 @@ function dy = baselineSystem(t,y,parameters)
 %{
 Created by: Chris Cadonic
 =====================================================
-This function maintains all the baseline derivatives 
+This function maintains all the baseline derivatives
 relevant to my masters project.
 
 %}
