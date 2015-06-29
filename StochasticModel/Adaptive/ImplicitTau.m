@@ -1,4 +1,11 @@
-function impTau = ImplicitTau(Rjs, V, aj, num_species, X0, gis, tau_prime)
+function impTau = ImplicitTau(Rjs, V, aj, num_species, X0, gis)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% this function calculates and return an implicit estimate for tau
+% prime.The function continually makes new estimates for impTau until
+% subsequent estimates are within a predefined threshold of each other. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 V(V>0) = 0; % zero out all product species
 V((Rjs>0), :) = 0; % zero out all critical reactions
 
@@ -37,8 +44,7 @@ indexes = find(topTerms==topTerm);
     bothTerms = [firstTerm secondTerm];
 
     impTau = min(bothTerms); % implicit estimate for tau
-%else
-    %impTau = tau_prime;
+
 end
 
 

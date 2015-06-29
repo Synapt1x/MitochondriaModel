@@ -43,7 +43,7 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
         [tau_prime] = genMeanVar (Rjs, V, X0, eis, gis, tau_prime, aj, a_0, num_species);
         
         % generate implicit tau
-        [impTau] = ImplicitTau(Rjs, V, aj, num_species, X0, gis, tau_prime);
+        [impTau] = ImplicitTau(Rjs, V, aj, num_species, X0, gis);
         
         
         
