@@ -1,10 +1,10 @@
 function [time, times, X0, X, num_rx, V, num_species] = InitializeParameters()
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% initializes the chemical reaction problem by defining an
-% initial time, initial quantities of each reactant and the reaction rates
-% of each chemical reaction. 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%{
+Initializes the chemical reaction problem by defining an initial time, 
+initial quantities of each reactant and the reaction rates of each 
+chemical reaction. 
+%}
 
 time = 0; % initial time is 0 seconds
 
