@@ -1,5 +1,9 @@
 function [X0] = amountChanges(Old_X, aj, V, num_rxns, tau, Rj)
-    
+  
+%{
+Calculates the changes in the species amounts if tau prime is selected for
+tau. Returns a vector of the current species amounts. 
+%}
     final_amount = Old_X;
     
     for n=1 :num_rxns % loop through changes in all species from all reactions
