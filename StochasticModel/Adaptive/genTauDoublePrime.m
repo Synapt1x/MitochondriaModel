@@ -1,4 +1,8 @@
 function tau_double_prime = genTauDoublePrime (aj, Rj, varargin)
+%{
+Generates and returns an explicit estimate for tau double prime. 
+%}
+
 inds = find(Rj); % find all critical reactions (ones in the vector)
 aco = sum(aj(inds)); % sum the ajs for all crticial reactions
 

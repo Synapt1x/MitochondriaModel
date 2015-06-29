@@ -1,5 +1,10 @@
 function [mean_xs_num, variances_xs_num, times_plot_num, st_dev_pos, st_dev_neg] = StepsMeanVar(times_average, num_species, x1_average, x2_average, y_average, z_average, q_average)
 
+%{
+Calculates the means and variances for all species. Uses intervals dependent on step size (2.5% of the total number of steps) 
+Returns the means and variances in matrixes. 
+%}
+
 total_num = length(times_average); % find the total number of points
 int_num = round(0.0025 * total_num); % each inerval is 10% of the total number of points
 
