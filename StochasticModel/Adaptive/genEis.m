@@ -1,5 +1,10 @@
 function [eis, gis] = genEis (epsilon, V, X, numSpecies, numRx)
 
+%{ 
+Generates epsion values for each species. Returns the epsilon values and gi
+values for each species in two separate vectors.
+%}
+
 gis = zeros(1, numSpecies); % blank vector to store gi values for each species
 eis = zeros(1, numSpecies); % blank vector to store epsilon i values for each species
 
