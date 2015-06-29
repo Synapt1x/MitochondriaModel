@@ -1,5 +1,9 @@
 function [xnew] = ImplicitXX(X, V, X0, tau, num_rxns)
 
+%{
+Generates changes to the species amounts if the system is implicit.
+%}
+
 % xnew is an initial guess for the species amounts
 xnew = X0;
 
