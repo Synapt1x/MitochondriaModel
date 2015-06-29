@@ -55,12 +55,7 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
             tau_one = tau_prime;
             implicit = 0; 
         end
-        
-        %if implicit==1
-         %   disp('implicit')
-        %else
-         %   disp('exp')
-        %end
+       
         
         
         % comparison for the bound of tau
