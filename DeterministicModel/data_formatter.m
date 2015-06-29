@@ -1,4 +1,4 @@
-function [data_matrix,firstintervals] = data_formatter
+function [o2data,ocrdata] = data_formatter
 % This function reads the excel data files and formats them into vectors
 % for use in the mitochondria model as calibration data.
 %
@@ -44,13 +44,3 @@ for j=2:11 %loop through the data and store them into all intervals
     data_matrix{3,j} = data_matrix{3,1}((j-1),:);
 end
 
-%store information about the first interval of each section only
-[firstintervals{1,1},firstintervals{1,2},firstintervals{1,3}, ...
-    firstintervals{1,4}] = deal(data_matrix{2,[2,5,8,10]}); %all o2
-[firstintervals{2,1},firstintervals{2,2},firstintervals{2,3}, ...
-    firstintervals{2,4}] = deal(data_matrix{3,[2,5,8,10]}); %all ocr
-
-%extrapolate each interval using calcSection.m
-
-
-%store the time points as seconds
