@@ -1,5 +1,12 @@
 function dy = decoupled_derivative_system(t,y,parameters)
-%This function maintains all the derivatives relevant to the project
+%{
+Created by: Chris Cadonic
+=====================================================
+This function maintains all the derivatives relevant to the project.
+
+The derivatives found in this function pertain to the decoupled 
+system, thus specifically the activity of complex IV.
+%}
 
 %input all our variables into the state variable y
 Cytcred = y(1);
