@@ -1,10 +1,10 @@
 function main
 %{
-%==================================================%
+=====================================================
 Created by: Chris Cadonic
 For: M.Sc program in Biomedical Engineering
 Project: Modeling Mitochondrial Bioenergetics
-%==================================================%
+=====================================================
 This is the primary file for running the mitochondrial model created
 for my master's project as part of the biomedical engineering
 program.

@@ -1,13 +1,15 @@
 function parameters = setup
-%instantiate the values for each variable in the system
-%this parameter set is for the decoupled system, and thus only maintain
-%parameter values for complex IV
+%{
+Created by: Chris Cadonic
+=====================================================
+The setup function handles the values for each variable in the
+system in a structure known as 'parameters'. parameters contains
+all of the model's parameters and also the data, graph labels.
+%}
 
 %import the real data
-parameters.allData = data_formatter;
-parameters.realData = parameters.allData{2,2}(2:(end-1),1:size(...
-    parameters.allData{2,2},2)-1:end); %baseline o2 data from interval 1
-parameters.realOCR = -parameters.allData{3,2}(:,end); %baseline ocr data from interval 1
+[parameters.timePoints,parameters.realo2Data, ...
+    parameters.realOCR] = data_formatter;
 
 %convert time points from minutes to seconds
 parameters.realData(:,1) = parameters.realData(:,1)*60;
@@ -33,6 +35,10 @@ parameters.Hp = 1;
 parameters.time_points = parameters.realData(:,1)'; %all the time points for integration;
 parameters.initial_conditions = [parameters.Cytcred,parameters.O2, ...
     parameters.Hn,parameters.Hp]; %Initial Vs
+
+%define the times at which each section is defined in the Oxy data
+[parameters.oligoTime,parameters.fccpTime, ...
+    parameters.inhibitTime] = deal(121.8,271.8,432);
 
 %titles and labels for the output graphs
 [parameters.title{1:6}] = deal(['Reduced cytochrome c concentration over'...

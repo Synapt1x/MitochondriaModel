@@ -1,5 +1,11 @@
 function dy = fccpSystem(t,y,parameters)
-%This function maintains all the derivatives relevant to the project
+%{
+Created by: Chris Cadonic
+=====================================================
+This function maintains all the FCCP derivatives 
+relevant to my masters project.
+
+%}
 
 %input all our variables into the state variable y
 Cytcred = y(1);
@@ -18,8 +24,8 @@ component in these pairs as equivalent. Thus the other substrates
 do not change in concentration, and we have their time derivatives
 equal to 0.
 
-For the baseline conditions, these are the full equations (without
-FCCP terms in dy(3) and dy(4))
+For the conditions following FCCP injection, these are the full 
+equations (with FCCP terms in dy(3) and dy(4)).
 Both cytochrome c reduced and omega have been reduced to order
 1 due to the constraint that cyt c delivers electrons one at a time
 

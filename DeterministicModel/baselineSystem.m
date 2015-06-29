@@ -1,5 +1,11 @@
 function dy = baselineSystem(t,y,parameters)
-%This function maintains all the derivatives relevant to the project
+%{
+Created by: Chris Cadonic
+=====================================================
+This function maintains all the baseline derivatives 
+relevant to my masters project.
+
+%}
 
 %input all our variables into the state variable y
 Cytcred = y(1);
