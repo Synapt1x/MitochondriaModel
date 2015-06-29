@@ -27,8 +27,6 @@ len = numel(sheets); %number of sheets for looping through data
 %extract all times and all oxygen concentration readings
 all_data_o2 = xlsread(filenameo2,'Sheet1','M520:N829');
 
-%correct times to start at 0 from first time point measuring baseline
-all_data_o2(:,1) = all_data_o2(:,1) - all_data_o2(1,1);
 all_data_o2(1,:)=[]; %delete t=0 time point
 
 %% Extract Seahorse OCR
@@ -52,4 +50,4 @@ realo2 = all_data_o2(:,2);
 %store the average OCR for each segment
 realOCR = mean(data_matrix{1,1}(:,2:end),2);
 realOCR = [mean(realOCR(1:3)),mean(realOCR(4:6)), ...
-    mean(realOCR(7:8)), mean(realOCR(9:end))];
+    mean(realOCR(7:8)), mean(realOCR(9:end))]';

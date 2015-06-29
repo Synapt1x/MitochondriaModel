@@ -7,13 +7,12 @@ system in a structure known as 'parameters'. parameters contains
 all of the model's parameters and also the data, graph labels.
 %}
 
+%% Data Import
 %import the real data
 [parameters.timePoints,parameters.realo2Data, ...
     parameters.realOCR] = data_formatter;
 
-%convert time points from minutes to seconds
-parameters.realData(:,1) = parameters.realData(:,1)*60;
-
+%% Define the Parameters of the Model
 %parameter values
 parameters.Vmax =2825.4; %bounds: [0.1 1E4]
 parameters.K1 = 1495; %bounds: [0.1 1E4]
@@ -24,22 +23,32 @@ parameters.p3 = 1.415e-5; %bounds: [1E-6 1]
 parameters.f0 = 1.1797; %bounds: [1 1E4]
 parameters.Dh = 2.4025e-7; %bounds: [1E-6 1]
 
+
+%% Define Initial Conditions
 %initial conditions
 parameters.Cytcox = 100;
 parameters.Cytcred = 40;
-parameters.O2 = parameters.realData(1,2);
+parameters.O2 = parameters.realo2Data(1);
 parameters.Hn = 40;
 parameters.Hp = 1;
 
 %parameters for defining the IV of the region of interest
-parameters.time_points = parameters.realData(:,1)'; %all the time points for integration;
-parameters.initial_conditions = [parameters.Cytcred,parameters.O2, ...
+parameters.initialConditions = [parameters.Cytcred,parameters.O2, ...
     parameters.Hn,parameters.Hp]; %Initial Vs
 
-%define the times at which each section is defined in the Oxy data
-[parameters.oligoTime,parameters.fccpTime, ...
-    parameters.inhibitTime] = deal(121.8,271.8,432);
+%% Define boundary times for integration
+%define the time boundaries between conditions
+oligoTime = min(find(parameters.timePoints>=121.8));
+fccpTime = min(find(parameters.timePoints>=271.8));
+inhibitTime = min(find(parameters.timePoints>=432));
 
+%define the arrays holding the time points for each section
+parameters.baselineTimes = parameters.timePoints(1:oligoTime-1); 
+parameters.oligoTimes = parameters.timePoints(oligoTime:fccpTime-1); 
+parameters.FCCPTimes = parameters.timePoints(fccpTime:inhibitTime-1);
+parameters.inhibitTimes = parameters.timePoints(inhibitTime:end);
+
+%% Define the labels and titles for GUI Graphs
 %titles and labels for the output graphs
 [parameters.title{1:6}] = deal(['Reduced cytochrome c concentration over'...
     ' time'],'Oxygen concentration over time', ...
