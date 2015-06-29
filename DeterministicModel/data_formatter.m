@@ -1,15 +1,16 @@
-function [o2data,ocrdata] = data_formatter
-% This function reads the excel data files and formats them into vectors
-% for use in the mitochondria model as calibration data.
-%
-% This function reads an excel file in a folder called 'Data', found in the
-% location of this .m file. Data is read and then stored into a data
-% matrix, with corresponding labels.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [data_matrix,realo2,realOCR] = data_formatter
+%{
+This function reads the excel data files and formats them into vectors
+for use in the mitochondria model as calibration data.
+
+This function reads an excel file in a folder called 'Data', found in the
+location of this .m file. Data is read and then stored into a data
+matrix, with corresponding labels.
+%}
 
 path_folder = fileparts(which(mfilename)); %store the folder in which the model is stored
 
-filename1 = fullfile(path_folder, '/Data/All_o2_data.xlsx'); %file name holding the o2 data
+filename1 = fullfile(path_folder, '/Data/All_o2_data.xlsx'); %file name holding the o2 data FIX THIS FOR OXYGRAPH
 filename2 = fullfile(path_folder, '/Data/ocr_data.xlsx'); %file name holding the ocr data
 sheets = {'Nov 26', 'Dec 5', 'Dec 10', 'Dec 17'}; %name of sheets
 len = numel(sheets); %number of sheets for looping through data
@@ -30,10 +31,6 @@ data_matrix{2,1} = [all_data_o2{1}, all_data_o2{2}(:,2:end), ...
     all_data_o2{3}(:,2:end), all_data_o2{4}(:,2:end)];
 data_matrix{3,1} = [all_data_ocr{1}, all_data_ocr{2}(:,2:end), ...
     all_data_ocr{3}(:,2:end), all_data_ocr{4}(:,2:end)];
-
-%convert time units to seconds
-data_matrix{2,1}(:,1) = data_matrix{2,1}(:,1)*60;
-data_matrix{3,1}(:,1) = data_matrix{3,1}(:,1)*60;
 
 %add a final column with an average of all the data
 data_matrix{2,1} = [data_matrix{2,1}, mean(data_matrix{2,1}(:,2:end),2)];
