@@ -10,7 +10,7 @@ and one figure with all three substances on the same plot.
 %}
 
 % user chooses how many simulations to run
-num_sims = 100;
+num_sims = 50;
 
 % user chooses the maximum time for each simulation
 max_rx = 100;   
@@ -97,8 +97,8 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
             % generate a second estimate for tau
             [tau_two] = genTauTwo(aj, Rjs, tau_one);
              if tau_two <= 1e-4
-                 tau_two = tau_two * 100;
-            end
+                 tau_two = 100* tau_two;
+             end
             
             % generate changes to species amounts from reactions during tau
             if abs(tau_one) < tau_two
