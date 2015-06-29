@@ -4,7 +4,13 @@ function parameters = setup
 %parameter values for complex IV
 
 %import the real data
-[parameters.realData,parameters.realOCR] = data_formatter;
+parameters.allData = data_formatter;
+parameters.realData = parameters.allData{2,2}(2:(end-1),1:size(...
+    parameters.allData{2,2},2)-1:end); %baseline o2 data from interval 1
+parameters.realOCR = -parameters.allData{3,2}(:,end); %baseline ocr data from interval 1
+
+%convert time points from minutes to seconds
+parameters.realData(:,1) = parameters.realData(:,1)*60;
 
 %parameter values
 parameters.Vmax =2825.4; %bounds: [0.1 1E4]
@@ -19,7 +25,7 @@ parameters.Dh = 2.4025e-7; %bounds: [1E-6 1]
 %initial conditions
 parameters.Cytcox = 100;
 parameters.Cytcred = 40;
-parameters.O2 = 1000;
+parameters.O2 = parameters.realData(1,2);
 parameters.Hn = 40;
 parameters.Hp = 1;
 

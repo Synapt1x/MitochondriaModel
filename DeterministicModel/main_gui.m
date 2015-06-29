@@ -152,14 +152,13 @@ guidata(hObject,handles);
 function plot_Callback(hObject, eventdata, handles) %plot button in gui
 
 %plug in the equations into the ode solver
-[t y] = ode23t(@decoupled_derivative_system,handles.parameters.time_points, ...
-    handles.parameters.initial_conditions,[],handles.parameters);
+[t y] = solver(handles.parameters);
 
 %store the values calculated for each variable
 [cytcred o2 Hn Hp] = deal(y(:,1),y(:,2),y(:,3),y(:,4));
 
 %calculate the OCR values from the oxygen
-ocr_values = ((handles.parameters.Vmax.*o2)./(handles.parameters.Km.*...
+ocr_values = -((handles.parameters.Vmax.*o2)./(handles.parameters.Km.*...
     (1+(handles.parameters.K1./cytcred))+o2)).*Hn;
 
 %plot the Cyt c concentration over time
@@ -170,17 +169,14 @@ plot(t,cytcred,'lineWidth',2.5);
 axes(handles.O2_plot);
 hold on
 plot(t,o2,'lineWidth',2.5); 
-plot(t,handles.parameters.realData(:,end),'g','lineWidth',2.5);
+plot(t,handles.parameters.realData,'g','lineWidth',2.5);
 hold off
-
-%since OCR is calculated over an interval, repeat the value for all t
-realOCRs = repmat(-handles.parameters.realOCR,[1,numel(t)]);
 
 %plot the OCR over time with real OCR data on top
 axes(handles.OCR_plot);
 hold on
 plot(t,ocr_values,'lineWidth',2.5);
-plot(t,realOCRs,'g','lineWidth',2.5);
+plot(t,handles.parameters.realOCR,'g','lineWidth',2.5);
 hold off
 
 %plot the Hn concentration over time
