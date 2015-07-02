@@ -28,7 +28,7 @@ topTerm = max(topTerms);
 
 indexes = find(topTerms==topTerm);
 
-if length(indexes) >0
+%if length(indexes) >0
     index = indexes(1);
     
     % Calculations for the first term
