@@ -10,16 +10,18 @@ and one figure with all three substances on the same plot.
 %}
 
 % user chooses how many simulations to run
-num_sims = 50;
+num_sims = 100;
 
 % user chooses the maximum time for each simulation
-max_rx = 100;   
+max_rx = 100;
 
 % interval used for plotting means and calculating variance
 interval = 0.01 * max_rx;
 tau_prime = 0;
 
 all_values = [];
+
+disp('Current Simulation Number') 
 
 for n = 1:num_sims % loop through all simulations. Plot after each sim
     
@@ -53,9 +55,9 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
             implicit = 1;
         else
             tau_one = tau_prime;
-            implicit = 0; 
+            implicit = 0;
         end
-       
+        
         
         
         % comparison for the bound of tau
@@ -64,7 +66,7 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
         if abs(tau_one) < compare % check for tau estimate meeting minimum criteria
             % generate 100 individual SSA steps
             ssaSteps=1;
-           while ssaSteps <= 5 % loop through a limited number of SSA steps
+            while ssaSteps <= 5 % loop through a limited number of SSA steps
                 if count <=(max_rx-0.5) % check to ensure max time is not being reached
                     [tau, j] = TauAndJGen (aj);
                     time = time + abs(tau); % find new time by adding tau to previous time
@@ -78,27 +80,27 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
                     %if time <= max_rx
                     count = time;
                     ssaSteps = ssaSteps+1;
-                
+                    
                 else
                     % do nothing
                     count = max_rx+0.1;
                     ssaSteps=6;
                 end
             end
-           
-               
+            
+            
             
         else
             % generate a second estimate for tau
             [tau_two] = genTauTwo(aj, Rjs, tau_one);
-             if tau_two <= 1e-4
-                 tau_two = 100* tau_two;
-             end
+            if tau_two <= 1e-4
+                tau_two = 100* tau_two;
+            end
             
             % generate changes to species amounts from reactions during tau
             if abs(tau_one) < tau_two
                 tau = abs(tau_one);
-                % amount each species changes if tau is tau one               
+                % amount each species changes if tau is tau one
                 if (implicit == 1) % using implicit formula
                     [X0] = amountChanges(X0, aj, V, num_rx, tau, Rjs);
                     [X0] = ImplicitXX(X, V, X0, tau, num_rx);
@@ -107,14 +109,14 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
                     [X0] = amountChanges(X0, aj, V, num_rx, tau, Rjs);
                 end
                 
-           
+                
                 if time > max_rx % ensure time does not reach maximum time
                     time = max_rx +0.1;
                 end
                 times = [times time]; % add new time to list of times
                 X = [X; X0]; % store all X values in a matrix
                 count = time; % increment number of reactions
-               
+                
                 
                 
                 
@@ -129,7 +131,7 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
                     [X0] = amountChangesDouble(X0, aj, V, tau, Rjs, num_rx);
                 end
                 time = time + tau; % find new time by adding tau to previous time
-                % if time is greater than the max time, correct it 
+                % if time is greater than the max time, correct it
                 if time > max_rx
                     time = max_rx+0.1;
                 end
@@ -140,16 +142,16 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
                 X = [X; X0]; % store all X values in a matrix
                 count = time; % increment number of reactions
             end
-        end   
+        end
     end
     % all species amounts for one simulation
     XX = transpose(X);
     
     % store all times and species amounts for one simulations
     all_values_sim = [times; XX];
-    all_values = [all_values all_values_sim]; 
+    all_values = [all_values all_values_sim];
     
-    % store all times and species amounts for all simulations 
+    % store all times and species amounts for all simulations
     all_value_sim = [];
     
     % print the current simulation number (can be removed)
@@ -164,7 +166,7 @@ end
 
 
 
-% put all times and corresponding species amounts in ascending order 
+% put all times and corresponding species amounts in ascending order
 [~,I]=sort(all_values(1,:));
 B=all_values(:,I);
 
