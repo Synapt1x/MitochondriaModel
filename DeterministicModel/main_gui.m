@@ -173,15 +173,15 @@ plot(t,cytcred,'lineWidth',2.5);
 axes(handles.O2_plot);
 hold on
 plot(t,o2,'lineWidth',2.5);
-plot(t,handles.parameters.realData,'g','lineWidth',2.5);
+plot(t,handles.parameters.realo2Data,'g','lineWidth',2.5);
 hold off
 
 %plot the OCR over time with real OCR data on top
-axes(handles.OCR_plot);
-hold on
-plot(t,ocr_values,'lineWidth',2.5);
-plot(t,handles.parameters.realOCR,'g','lineWidth',2.5);
-hold off
+% axes(handles.OCR_plot);
+% hold on
+% plot(t,ocr_values,'lineWidth',2.5);
+% plot(t,handles.parameters.realOCR,'g','lineWidth',2.5);
+% hold off
 
 %plot the Hn concentration over time
 axes(handles.H_N_plot);
@@ -199,8 +199,6 @@ plot(t,totProt,'lineWidth',2.5);
 
 %update all the graph axes
 graph_label(handles);
-
-save all; %save the workspace in case
 
 guidata(hObject,handles);
 
