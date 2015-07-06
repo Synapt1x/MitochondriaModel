@@ -11,7 +11,7 @@ V((Rjs>0), :) = 0; % zero out all critical reactions
 
 means = zeros(1, num_species);
 vars = zeros(1, num_species);
-epsilon = 0.008;
+epsilon = 0.0000008;
 
 for (ii = 1: num_species)
     vcol = V(:, ii); % retrieve V values for one species
@@ -28,13 +28,17 @@ topTerm = max(topTerms);
 
 indexes = find(topTerms==topTerm);
 
+
+bottoms = max(abs(means));
+possFirsts = topTerm/bottoms;
+firstTerm = min(possFirsts);
 %if length(indexes) >0
-    index = indexes(1);
+     index = indexes(1);
     
     % Calculations for the first term
-    topFirst = topTerm;
-    bottomFirst = abs(means(index));
-    firstTerm = topFirst / bottomFirst;
+   % topFirst = topTerm;
+    %bottomFirst = abs(means(index));
+    %firstTerm = topFirst / bottomFirst;
 
     % Calculations for the second term
     topSecond = topTerm^2;
@@ -45,7 +49,7 @@ indexes = find(topTerms==topTerm);
 
     impTau = min(bothTerms); % implicit estimate for tau
 
-end
+ end
 
 
 
