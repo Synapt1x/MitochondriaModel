@@ -1,4 +1,4 @@
-function [Rjs, aj, a_0] = genRj (X0, V, nc, numRxns)
+function [Rjs, aj, a_0] = genRjMito (X0, V, nc, numRxns)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % generates Ls values for each reaction in order to determine whether the
 % reaction is critical. If there are critical reactions, the function
@@ -17,6 +17,10 @@ species5 = X0(5); % NADH2
 species6 = X0(6); % NAD+
 species7 = X0(7); % Cytcox
 species8 = X0(8); % H20
+
+p1=1;
+p2=1;
+p3=1;
 
 % find ajs for each reaction and store in a vector. These need to be
 % changes based on the reactions defined in initializeParameters. Each aj
