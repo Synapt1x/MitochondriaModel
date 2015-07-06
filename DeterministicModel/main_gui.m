@@ -162,7 +162,7 @@ function plot_Callback(hObject, eventdata, handles) %plot button in gui
 [cytcred o2 Hn Hp] = deal(y(:,1),y(:,2),y(:,3),y(:,4));
 
 %calculate the OCR values from the oxygen
-[~,ocr_values] = ocrCalc;
+[~,ocr_values] = ocrCalc(y,handles.parameters);
 
 %plot the Cyt c concentration over time
 axes(handles.Cytc_plot);

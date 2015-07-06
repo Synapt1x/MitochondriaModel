@@ -1,7 +1,0 @@
-function OCRs = ocrCalc(t,y,parameters)
-%{
-This function calculates the average OCR value for each section in the 
-
-
--((parameters.Vmax.*y(:,2))./(parameters.Km.*...
-        (1+(parameters.K1./y(1)))+y(:,2))).*y(:,3)
