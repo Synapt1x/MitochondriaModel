@@ -41,41 +41,64 @@ for ints = int_num:int_num:total_num % generates mean and variance for each inte
     count_num = count_num+1; % increment the counter (started at 1)
     ints_num = [ints_num ints];% add th current interval to the list
     
+    vector = [];
+    for test= 0:num_species-1
+        count = test+1;
+        temp_par = B(count, ints_num(count_num-1):ints_num(count_num));
+        vector= [vector mean(temp_par)];
+        %disp('show new')
+        %disp(vector)
+    end
+    %disp(vector)
+    mean_xs_num(:,count_num) = vector;
+    amt_between = length(mean_xs_num(1,:));
+    
     % the ranges defined below are all the points in the current interval
     % as defined by the cutoff vaues in ints_num 
-    allx1s_num = x1_average(ints_num(count_num-1): ints_num(count_num)); % all x1 amounts in the step range
-    allx2s_num = x2_average(ints_num(count_num-1): ints_num(count_num)); % all x2 amounts in the step range
-    allys_num = y_average(ints_num(count_num-1): ints_num(count_num)); % all y amounts in the step range
-    allzs_num = z_average(ints_num(count_num-1): ints_num(count_num)); % all z amounts in the step range 
-    allqs_num = q_average(ints_num(count_num-1): ints_num(count_num));
-    amt_between = length(allx1s_num); % the number of values in the above range
+    %allx1s_num = x1_average(ints_num(count_num-1): ints_num(count_num)); % all x1 amounts in the step range
+    %allx2s_num = x2_average(ints_num(count_num-1): ints_num(count_num)); % all x2 amounts in the step range
+    %allys_num = y_average(ints_num(count_num-1): ints_num(count_num)); % all y amounts in the step range
+    %allzs_num = z_average(ints_num(count_num-1): ints_num(count_num)); % all z amounts in the step range 
+    %allqs_num = q_average(ints_num(count_num-1): ints_num(count_num));
+    %amt_between = length(allx1s_num); % the number of values in the above range
     
     % calculations for means
-    mean_xs_num(:, count_num) = [mean(allx1s_num) mean(allx2s_num) mean(allys_num) mean(allzs_num) mean(allqs_num)];
+    %mean_xs_num(:, count_num) = [mean(allx1s_num) mean(allx2s_num) mean(allys_num) mean(allzs_num) mean(allqs_num)];
     
     % calculations for variances
     % the overall variance in each interval is the sum of all variances in
     % that interval. The variances for x1, x2, y and z are calculated
     % separately
-    varsX1_num = ((allx1s_num-mean_xs_num(1,count_num)).^2)./amt_between;
-    varsX2_num = ((allx2s_num-mean_xs_num(2,count_num)).^2)./amt_between;
-    varsY_num = ((allys_num-mean_xs_num(3,count_num)).^2)./amt_between;
-    varsZ_num = ((allzs_num-mean_xs_num(4,count_num)).^2)./amt_between;
-    varsQ_num = ((allqs_num-mean_xs_num(5,count_num)).^2)./amt_between;
+    vec_var = [];
+    for truev = 1:num_species
+        temp_store = sum(((mean_xs_num(truev,count_num) - mean_xs_num(truev,count_num)).^2)./amt_between);
+        vec_var = [vec_var temp_store];
+    end
+    variances_xs_num(:,count_num) = vec_var;
+    
+    %varsX1_num = ((allx1s_num-mean_xs_num(1,count_num)).^2)./amt_between;
+    %varsX2_num = ((allx2s_num-mean_xs_num(2,count_num)).^2)./amt_between;
+    %varsY_num = ((allys_num-mean_xs_num(3,count_num)).^2)./amt_between;
+    %varsZ_num = ((allzs_num-mean_xs_num(4,count_num)).^2)./amt_between;
+    %varsQ_num = ((allqs_num-mean_xs_num(5,count_num)).^2)./amt_between;
 
-    variances_xs_num(:,count_num) = [sum(varsX1_num) sum(varsX2_num) sum(varsY_num) sum(varsZ_num) sum(varsQ_num)];
+    %variances_xs_num(:,count_num) = [sum(varsX1_num) sum(varsX2_num) sum(varsY_num) sum(varsZ_num) sum(varsQ_num)];
     
-    st_dev_pos(1,count_num) = mean_xs_num(1,count_num) + sqrt(sum(varsX1_num));
-    st_dev_pos(2,count_num) = mean_xs_num(2,count_num) + sqrt(sum(varsX2_num));
-    st_dev_pos(3,count_num) = mean_xs_num(3,count_num) + sqrt(sum(varsY_num));
-    st_dev_pos(4,count_num) = mean_xs_num(4,count_num) + sqrt(sum(varsZ_num));
-    st_dev_pos(5,count_num) = mean_xs_num(5,count_num) + sqrt(sum(varsQ_num));
+    for st=1:num_species
+        st_dev_pos(st, count_num) = mean_xs_num(st, count_num) + sqrt(variances_xs_num(1,count_num));
+    end
     
-    st_dev_neg(1,count_num) = mean_xs_num(1,count_num) - sqrt(sum(varsX1_num));
-    st_dev_neg(2,count_num) = mean_xs_num(2,count_num) - sqrt(sum(varsX2_num));
-    st_dev_neg(3,count_num) = mean_xs_num(3,count_num) - sqrt(sum(varsY_num));
-    st_dev_neg(4,count_num) = mean_xs_num(4,count_num) - sqrt(sum(varsZ_num));
-    st_dev_neg(5,count_num) = mean_xs_num(5,count_num) - sqrt(sum(varsQ_num));
+    %st_dev_pos(1,count_num) = mean_xs_num(1,count_num) + sqrt(sum(varsX1_num));
+    %st_dev_pos(2,count_num) = mean_xs_num(2,count_num) + sqrt(sum(varsX2_num));
+    %st_dev_pos(3,count_num) = mean_xs_num(3,count_num) + sqrt(sum(varsY_num));
+    %st_dev_pos(4,count_num) = mean_xs_num(4,count_num) + sqrt(sum(varsZ_num));
+    %st_dev_pos(5,count_num) = mean_xs_num(5,count_num) + sqrt(sum(varsQ_num));
+    
+    %st_dev_neg(1,count_num) = mean_xs_num(1,count_num) - sqrt(sum(varsX1_num));
+    %st_dev_neg(2,count_num) = mean_xs_num(2,count_num) - sqrt(sum(varsX2_num));
+    %st_dev_neg(3,count_num) = mean_xs_num(3,count_num) - sqrt(sum(varsY_num));
+    %st_dev_neg(4,count_num) = mean_xs_num(4,count_num) - sqrt(sum(varsZ_num));
+    %st_dev_neg(5,count_num) = mean_xs_num(5,count_num) - sqrt(sum(varsQ_num));
 end
 
 st_dev_pos(:,1) = st_dev_pos(:,2);

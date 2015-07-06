@@ -117,7 +117,7 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
                 times = [times time]; % add new time to list of times
                 X = [X; X0]; % store all X values in a matrix
                 count = time; % increment number of reactions
-                
+   
                 
                 
                 
