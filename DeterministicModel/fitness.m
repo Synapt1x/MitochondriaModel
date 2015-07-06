@@ -19,13 +19,11 @@ for n=length(X):-1:1
     [t, y] = solver(parameters);
     
     evaluations = y(:,2); %evaluated data for o2
-    
-    evaluatedOCRs = -((parameters.Vmax.*y(:,2))./(parameters.Km.*...
-        (1+(parameters.K1./y(1)))+y(:,2))).*y(:,3);%evaluated data for OCR
+    evaluatedOCRs = ocrCalc(y,parameters);%evaluated data for OCR
     
     realo2Data = parameters.realData; %use actual o2 data
     realOCR = parameters.realOCR; %use actual OCR measurement
     
     %evaluate using a least-squares
-    F([1,2],n) = [sum((realo2Data-evaluations).^2);(realOCR-evaluatedOCRs).^2];
+    F([1,2],n) = [sum((realo2Data-evaluations).^2);sum(realOCR-evaluatedOCRs).^2];
 end

@@ -37,25 +37,30 @@ parameters.initialConditions = [parameters.Cytcred,parameters.O2, ...
     parameters.Hn,parameters.Hp]; %Initial Vs
 
 %% Define boundary times for integration
-%define the time boundaries between conditions
-oligoTime = min(find(parameters.timePoints>=121.8));
-fccpTime = min(find(parameters.timePoints>=271.8));
-inhibitTime = min(find(parameters.timePoints>=432));
+%define the time boundaries between conditions; First instance of segment
+%change
+parameters.oligoTime = min(find(parameters.timePoints>=121.8));
+parameters.fccpTime = min(find(parameters.timePoints>=271.8));
+parameters.inhibitTime = min(find(parameters.timePoints>=432));
 
 %define the arrays holding the time points for each section
-parameters.baselineTimes = parameters.timePoints(1:oligoTime-1);
-parameters.oligoTimes = parameters.timePoints(oligoTime:fccpTime-1);
-parameters.FCCPTimes = parameters.timePoints(fccpTime:inhibitTime-1);
-parameters.inhibitTimes = parameters.timePoints(inhibitTime:end);
+parameters.baselineTimes = parameters.timePoints( ...
+    1:parameters.oligoTime-1);
+parameters.parameters.oligoTimes = parameters.timePoints( ...
+    parameters.oligoTime:parameters.fccpTime-1);
+parameters.parameters.fccpTimes = parameters.timePoints( ...
+    parameters.fccpTime:parameters.inhibitTime-1);
+parameters.parameters.inhibitTimes = parameters.timePoints( ...
+    parameters.inhibitTime:end);
 
 %number of points in each section
-numpoints = [numel(parameters.baselineTimes),numel(...
-    parameters.oligoTimes),numel(parameters.FCCPTimes), ...
-    numel(parameters.inhibitTimes)];
+parameters.numpoints = [numel(parameters.baselineTimes),numel(...
+    parameters.parameters.oligoTimes),numel(parameters.parameters.fccpTimes), ...
+    numel(parameters.parameters.inhibitTimes)];
 
 %format the realOCR to repeat OCR avg at each time point in time vector
 %make sure to add to the rude function to path to format this properly
-parameters.realOCRgraph = rude(numpoints,parameters.realOCR)';
+parameters.realOCRgraph = rude(parameters.numpoints,parameters.realOCR)';
 
 %% Define the labels and titles for GUI Graphs
 %titles and labels for the output graphs
