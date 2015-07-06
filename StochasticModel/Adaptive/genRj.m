@@ -9,14 +9,19 @@ function [Rjs, aj, a_0] = genRj (X0, V, nc, numRxns)
 % the minimum value of lj for rj to be considered a critical reaction. This
 % can be a whole number between 2-20. It's usually equal to 10
 
-species1 = X0(1); % amount of x1
-species2 = X0(2); % amount of x2
-species3 = X0(3); % amount of y
-species5 = X0(5);
+species1 = X0(1); % cytcred
+species2 = X0(2); % O2
+species3 = X0(3); % HN+
+species4 = X0(4); % Hp
+species5 = X0(5); % NADH2
+species6 = X0(6); % NAD+
+species7 = X0(7); % Cytcox
+species8 = X0(8); % H20
+
 % find ajs for each reaction and store in a vector. These need to be
 % changes based on the reactions defined in initializeParameters. Each aj
 % is the partial derivative of that reaction
-aj = [0.00001*species1 10*species1*species3 0.5*0.000001*species2*(species2-1) 0.0001*species3*species5];
+aj = [0.0001*species5*species7*(species7-1)*(species7-2)*(species7-3)*(1/24) ];
 %aj = single(all_rxns(species1,species2,species3));
 a_0 = sum(aj); 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
