@@ -165,8 +165,6 @@ function plot_Callback(hObject, eventdata, handles) %plot button in gui
 ocr_values = -((handles.parameters.Vmax.*o2)./(handles.parameters.Km.*...
     (1+(handles.parameters.K1./cytcred))+o2)).*(Hn./Hp);
 
-realOCRgraph = repmat(handles.parameters.realOCR,[1,2]);
-
 %plot the Cyt c concentration over time
 axes(handles.Cytc_plot);
 plot(t,cytcred,'b','lineWidth',2.5);
@@ -182,7 +180,7 @@ hold off
 axes(handles.OCR_plot);
 hold on
 plot(t,ocr_values,'b','lineWidth',2.5);
-plot(t,realOCRgraph,'g','lineWidth',2.5);
+plot(t,handles.parameters.realOCRgraph,'g','lineWidth',2.5);
 hold off
 
 %plot the Hn concentration over time
