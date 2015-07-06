@@ -19,6 +19,7 @@ for n=length(X):-1:1
     [t, y] = solver(parameters);
     
     evaluations = y(:,2); %evaluated data for o2
+    
     evaluatedOCRs = -((parameters.Vmax.*y(:,2))./(parameters.Km.*...
         (1+(parameters.K1./y(1)))+y(:,2))).*y(:,3);%evaluated data for OCR
     

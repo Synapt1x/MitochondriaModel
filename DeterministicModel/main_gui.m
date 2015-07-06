@@ -165,6 +165,8 @@ function plot_Callback(hObject, eventdata, handles) %plot button in gui
 ocr_values = -((handles.parameters.Vmax.*o2)./(handles.parameters.Km.*...
     (1+(handles.parameters.K1./cytcred))+o2)).*(Hn./Hp);
 
+
+
 %plot the Cyt c concentration over time
 axes(handles.Cytc_plot);
 plot(t,cytcred,'b','lineWidth',2.5);
