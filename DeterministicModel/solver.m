@@ -6,7 +6,6 @@ as a boundary value problem.
 
 %Solve by using ode for each section and passing along the final
 %values as initial values for the next section
-
 [t1,y1] = ode45(@baselineSystem, parameters.baselineTimes, ...
     parameters.initialConditions,[],parameters);
 [t2,y2] = ode45(@oligoSystem, parameters.oligoTimes, ...
