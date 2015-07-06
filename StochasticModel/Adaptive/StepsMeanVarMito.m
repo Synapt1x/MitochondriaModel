@@ -42,12 +42,16 @@ for ints = int_num:int_num:total_num % generates mean and variance for each inte
     ints_num = [ints_num ints];% add th current interval to the list
     
     vector = [];
-    for test= 1:num_species-1
+    for test= 0:num_species-1
         count = test+1;
         temp_par = B(count, ints_num(count_num-1):ints_num(count_num));
-        vector= [vector temp_par];
+        vector= [vector mean(temp_par)];
+        %disp('show new')
+        %disp(vector)
     end
+    %disp(vector)
     mean_xs_num(:,count_num) = vector;
+    amt_between = length(mean_xs_num(1,:));
     
     % the ranges defined below are all the points in the current interval
     % as defined by the cutoff vaues in ints_num 
@@ -67,7 +71,7 @@ for ints = int_num:int_num:total_num % generates mean and variance for each inte
     % separately
     vec_var = [];
     for truev = 1:num_species
-        temp_store = sum(((mean_xs_num(truev,count_num) - xs_num(truev,count_num)).^2)./amt_between);
+        temp_store = sum(((mean_xs_num(truev,count_num) - mean_xs_num(truev,count_num)).^2)./amt_between);
         vec_var = [vec_var temp_store];
     end
     variances_xs_num(:,count_num) = vec_var;
