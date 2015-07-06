@@ -21,7 +21,9 @@ species8 = X0(8); % H20
 % find ajs for each reaction and store in a vector. These need to be
 % changes based on the reactions defined in initializeParameters. Each aj
 % is the partial derivative of that reaction
-aj = [0.0001*species5*species7*(species7-1)*(species7-2)*(species7-3)*(1/24) ];
+aj = [0.0001*species5*species7*(species7-1)*(species7-2)*(species7-3)*(1/24)...
+     0.0001*species2*species1*(species1-1)*(species1-2)*(species1-3)*(1/24)...
+     0.0001*];
 %aj = single(all_rxns(species1,species2,species3));
 a_0 = sum(aj); 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
