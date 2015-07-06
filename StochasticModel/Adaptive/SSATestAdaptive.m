@@ -10,10 +10,10 @@ and one figure with all three substances on the same plot.
 %}
 
 % user chooses how many simulations to run
-num_sims = 100;
+num_sims = 50;
 
 % user chooses the maximum time for each simulation
-max_rx = 100;
+max_rx = 50;
 
 % interval used for plotting means and calculating variance
 interval = 0.01 * max_rx;
@@ -28,7 +28,8 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
     count = 0; % start each simulation with reaction time = 0
     
     % call intialize parameters to define ititial time and concentrations
-    [time, times, X0, X, num_rx, V, num_species] = InitializeParameters ();
+    [time, times, X0, X, num_rx, V, num_species] = InitializeParametersMito ();
+    
     
     % nc is the maximum amount of a reactant before reaction is critical
     nc = evalCrit(X0);
@@ -36,10 +37,10 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
     while count <=max_rx; % loop through tau steps until max time is reached
         
         % identify all critical reactions
-        [Rjs, aj, a_0] = genRj (X(end,:), V,nc, num_rx);
+        [Rjs, aj, a_0] = genRjMito (X(end,:), V,nc, num_rx);
         
         % epsilon value for each species
-        [eis, gis] = genEis (0.05, V, X, num_species, num_rx);
+        [eis, gis] = genEisMito (0.05, V, X, num_species, num_rx);
         
         % generate explicit tau `
         [tau_prime] = genMeanVar (Rjs, V, X0, eis, gis, tau_prime, aj, a_0, num_species);
@@ -187,12 +188,12 @@ q_average = B(6,:);
 
 figure(1)
 
-colours = {'b', 'g', 'c', 'r', 'm'};
-titles = {'X1 vs Time', 'X2 vs Time', 'Y vs Time', 'Z vs Time', 'Q vs Time'};
-Ylabs = {'X1', 'X2', 'Y', 'Z', 'Q'};
+colours = {'b', 'g', 'c', 'r', 'm', 'b', 'g', 'c'};
+titles = {'1', '2', '3', '3', '5', '6', '7', '8'};
+Ylabs = {'1', '2', '3', '4', '5', '6', '7', '8'};
 
 for pl = 1:num_species
-    subplot(3,2,pl)
+    subplot(4,2,pl)
     plot(times_plot_num, st_dev_pos(pl,:), colours{pl}) % plots all points from all simulations
     hold on
     plot(times_plot_num, mean_xs_num(pl,:), 'k', 'LineWidth', 3) % plots mean point in each steps interval
