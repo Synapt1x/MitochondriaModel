@@ -13,7 +13,5 @@
 
 function extPar=init
 
-data_matrix = data_formatter;
-extPar.oxygen=data_matrix{2,2};
-extPar.ocr=data_matrix{3,2};
+[extPar.oxygen,extPar.ocr]=data_formatter;
 extPar.parameters=setup;
