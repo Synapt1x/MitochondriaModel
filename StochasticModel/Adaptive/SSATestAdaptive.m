@@ -148,9 +148,12 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
     % all species amounts for one simulation
     XX = transpose(X);
     
+    
     % store all times and species amounts for one simulations
     all_values_sim = [times; XX];
     all_values = [all_values all_values_sim];
+    
+    disp(all_values_sim)
     
     % store all times and species amounts for all simulations
     all_value_sim = [];
@@ -162,15 +165,15 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
 end
 
 
-
-
-
+topcol = all_values(1,:);
+col = find(isnan(topcol));
+all_values(:,col)=[];
 
 
 % put all times and corresponding species amounts in ascending order
 [~,I]=sort(all_values(1,:));
 B=all_values(:,I);
-
+disp(B)
 times_average = B(1,:); % extract row with all times
 %x1_average = B(2,:); % extract row with all X1 amounts
 %x2_average = B(3,:); % extract row with all X2 amounts
@@ -185,6 +188,22 @@ times_average = B(1,:); % extract row with all times
 [mean_xs_num, variances_xs_num, times_plot_num, st_dev_pos, st_dev_neg] = StepsMeanVarMito(times_average,...
     num_species, B);
 
+%disp(mean_xs_num)
+
+%disp('times')
+%disp(times_plot_num)
+
+times_plot_num = [times_plot_num times_plot_num(end)]; 
+
+
+disp('TIMES')
+disp(times_plot_num)
+disp('xs')
+disp(mean_xs_num)
+disp('up')
+disp(st_dev_pos)
+disp('down')
+disp(st_dev_neg)
 
 figure(1)
 

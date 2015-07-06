@@ -86,6 +86,7 @@ for ints = int_num:int_num:total_num % generates mean and variance for each inte
     
     for st=1:num_species
         st_dev_pos(st, count_num) = mean_xs_num(st, count_num) + sqrt(variances_xs_num(1,count_num));
+        st_dev_neg(st, count_num) = mean_xs_num(st, count_num) - sqrt(variances_xs_num(1,count_num));
     end
     
     %st_dev_pos(1,count_num) = mean_xs_num(1,count_num) + sqrt(sum(varsX1_num));

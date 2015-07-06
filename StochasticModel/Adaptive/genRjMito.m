@@ -9,6 +9,7 @@ function [Rjs, aj, a_0] = genRjMito (X0, V, nc, numRxns)
 % the minimum value of lj for rj to be considered a critical reaction. This
 % can be a whole number between 2-20. It's usually equal to 10
 
+
 species1 = X0(1); % cytcred
 species2 = X0(2); % O2
 species3 = X0(3); % HN+
@@ -18,17 +19,18 @@ species6 = X0(6); % NAD+
 species7 = X0(7); % Cytcox
 species8 = X0(8); % H20
 
-p1=1;
-p2=1;
-p3=1;
+p1=0.0000001;
+p2=0.0000001;
+p3=0.0000001;
+p4=0.0000001;
 
 % find ajs for each reaction and store in a vector. These need to be
 % changes based on the reactions defined in initializeParameters. Each aj
 % is the partial derivative of that reaction
-aj = [0.0001*species5*species7*(species7-1)*(species7-2)*(species7-3)*(1/24)...
-     0.0001*species2*species1*(species1-1)*(species1-2)*(species1-3)*(1/24)...
-     0.0001*species4*((p1*(species4/species3))/((species4/species3)+p2+(p3/species3)))...
-      0.0001*((species4-species3)+(species4*log(species4/species3)))];
+aj = [0.000000001*species5*species7*(species7-1)*(species7-2)*(species7-3)*(1/24)...
+     0.0000000001*species2*species1*(species1-1)*(species1-2)*(species1-3)*(1/24)...
+     0.0000000001*species4*((p1*(species4/species3))/((species4/species3)+p2+(p3/species3)))...
+      0.0000000001*p4*((species4-species3)+(species4*log(species4/species3)))];
 %aj = single(all_rxns(species1,species2,species3));
 a_0 = sum(aj); 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
