@@ -48,6 +48,15 @@ parameters.oligoTimes = parameters.timePoints(oligoTime:fccpTime-1);
 parameters.FCCPTimes = parameters.timePoints(fccpTime:inhibitTime-1);
 parameters.inhibitTimes = parameters.timePoints(inhibitTime:end);
 
+%number of points in each section
+numpoints = [numel(parameters.baselineTimes),numel(...
+    parameters.oligoTimes),numel(parameters.FCCPTimes), ...
+    numel(parameters.inhibitTimes)];
+
+%format the realOCR to repeat OCR avg at each time point in time vector
+%make sure to add to the rude function to path to format this properly
+parameters.realOCRgraph = rude(numpoints,parameters.realOCR)';
+
 %% Define the labels and titles for GUI Graphs
 %titles and labels for the output graphs
 [parameters.title{1:6}] = deal(['Reduced cytochrome c concentration over'...
