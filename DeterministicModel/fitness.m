@@ -21,7 +21,7 @@ for n=length(X):-1:1
     evaluations = y(:,2); %evaluated data for o2
     evaluatedOCRs = ocrCalc(y,parameters);%evaluated data for OCR
     
-    realo2Data = parameters.realData; %use actual o2 data
+    realo2Data = parameters.realo2Data; %use actual o2 data
     realOCR = parameters.realOCR; %use actual OCR measurement
     
     %evaluate using a least-squares

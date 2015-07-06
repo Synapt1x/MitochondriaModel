@@ -26,8 +26,8 @@ parameters.Dh = 2.4025e-7; %bounds: [1E-6 1]
 
 %% Define Initial Conditions
 %initial conditions
-parameters.Cytcox = 100;
-parameters.Cytcred = 100;
+parameters.Cytcox = 150;
+parameters.Cytcred = 150;
 parameters.O2 = parameters.realo2Data(1);
 parameters.Hn = 1000;
 parameters.Hp = 100;
