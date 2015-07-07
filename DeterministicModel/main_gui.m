@@ -174,7 +174,7 @@ hold off
 axes(handles.OCR_plot);
 hold on
 cla
-plot(t,ocr_values,'b','lineWidth',2.5);
+plot(t,-ocr_values,'b','lineWidth',2.5);
 plot(t,handles.parameters.realOCRgraph,'g','lineWidth',2.5);
 hold off
 
@@ -186,11 +186,11 @@ plot(t,Hn,'b','lineWidth',2.5);
 axes(handles.H_P_plot);
 plot(t,Hp,'b','lineWidth',2.5);
 
-totProt = Hn+Hp; %calc total amount of protons
+protRatio = (Hn./Hp); %calc total amount of protons
 
 %plot the Hp rate of appearance over time
 axes(handles.protons);
-plot(t,totProt,'b','lineWidth',2.5);
+plot(t,protRatio,'b','lineWidth',2.5);
 
 %update all the graph axes
 graph_label(handles);
