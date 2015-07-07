@@ -18,12 +18,17 @@ for n=length(X):-1:1
     %call ode to solve the system of equations for this solver
     [t, y] = solver(parameters);
     
+    %for fitting O2
     evaluations = y(:,2); %evaluated data for o2
-    evaluatedOCRs = ocrCalc(y,parameters);%evaluated data for OCR
     
     realo2Data = parameters.realo2Data; %use actual o2 data
-    realOCR = parameters.realOCR; %use actual OCR measurement
     
     %evaluate using a least-squares
-    F([1,2],n) = [sum((realo2Data-evaluations).^2);sum(realOCR-evaluatedOCRs).^2];
+    F(1,n) = sum((realo2Data-evaluations).^2);
+    
+    %for fitting OCR
+%     evaluatedOCRs = ocrCalc(y,parameters);%evaluated data for OCR
+%     realOCR = parameters.realOCR; %use actual OCR measurement
+%     F(1,n) = sum(realOCR-evaluatedOCRs).^2);
+   
 end
