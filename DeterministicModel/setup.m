@@ -14,14 +14,14 @@ all of the model's parameters and also the data, graph labels.
 
 %% Define the Parameters of the Model
 %parameter values
-parameters.Vmax =2825.4; %bounds: [0.1 1E4]
-parameters.K1 = 1495; %bounds: [0.1 1E4]
-parameters.Km = 2096.1; %bounds: [0.1 1E4]
-parameters.p1 = 40.5013; %bounds: [1 1E4]
-parameters.p2 = 1477.4; %bounds: [1 1E4]
+parameters.Vmax =31.2834; %bounds: [0.1 1E4]
+parameters.K1 = 990.2484; %bounds: [0.1 1E4]
+parameters.Km = 874.7478; %bounds: [0.1 1E4]
+parameters.p1 = 37.5553; %bounds: [1 1E4]
+parameters.p2 = 3810.5; %bounds: [1 1E4]
 parameters.p3 = 1.415e-5; %bounds: [1E-6 1]
-parameters.f0 = 1.1797; %bounds: [1 1E4]
-parameters.Dh = 2.4025e-7; %bounds: [1E-6 1]
+parameters.f0 = 10; %bounds: [1 1E4]
+parameters.Dh = 1e-6; %bounds: [1E-6 1]
 
 
 %% Define Initial Conditions
