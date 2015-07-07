@@ -14,20 +14,20 @@ all of the model's parameters and also the data, graph labels.
 
 %% Define the Parameters of the Model
 %parameter values
-parameters.Vmax =16.8; %bounds: [0.1 1E4]
-parameters.K1 = 985.3; %bounds: [0.1 1E4]
-parameters.Km = 775.4; %bounds: [0.1 1E4]
-parameters.p1 = 24.91; %bounds: [1 1E4]
-parameters.p2 = 197; %bounds: [1 1E4]
-parameters.p3 = 8.408E-4; %bounds: [1E-6 1]
-parameters.f0 = 99.23; %bounds: [1 1E4]
-parameters.Dh = 2.874E-5; %bounds: [1E-6 1]
+parameters.Vmax =6.3981; %bounds: [0.1 1E4]
+parameters.K1 = 1.5397E3; %bounds: [0.1 1E4]
+parameters.Km = 1.7884E3; %bounds: [0.1 1E4]
+parameters.p1 = 87.6142; %bounds: [1 1E4]
+parameters.p2 = 141.9986; %bounds: [1 1E4]
+parameters.p3 = 9.3923E-4; %bounds: [1E-6 1]
+parameters.f0 = 71.6733; %bounds: [1 1E4]
+parameters.Dh = 6.4097; %bounds: [1E-6 1]
 
 
 %% Define Initial Conditions
 %initial conditions
-parameters.Cytcox = 150;
-parameters.Cytcred = 150;
+parameters.Cytcox = 100;
+parameters.Cytcred = 100;
 parameters.O2 = parameters.realo2Data(1);
 parameters.Hn = 1000;
 parameters.Hp = 100;
