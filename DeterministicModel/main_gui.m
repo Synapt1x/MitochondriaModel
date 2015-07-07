@@ -82,12 +82,6 @@ function optimize_Callback(hObject, eventdata, handles) %optimize button
 %run Qubist for optimization
 launchQubist
 
-%change the parameter values in the model to the ones found by the GA
-% best_params = num2cell(best_params);
-% [parameters.V_max parameters.K_1 parameters.K_m] = deal(best_params{:});
-%
-% guidata(hObject,handles);
-
 function V_max_edit_Callback(hObject, eventdata, handles)
 %extract the new value input by the user
 newVmax = str2double(get(hObject, 'String'));
