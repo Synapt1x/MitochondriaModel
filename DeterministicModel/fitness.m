@@ -5,8 +5,6 @@ parameters=extPar.parameters;
 f=fields(X);
 f(strcmpi(f,'info'))=[];
 
-pause(0.0001);
-
 for n=length(X):-1:1
     if isAbortEval(extPar.status)
         F=[];

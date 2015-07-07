@@ -165,6 +165,7 @@ plot(t,cytcred,'b','lineWidth',2.5);
 %plot the O2 concentration over time with real O2 data on top
 axes(handles.O2_plot);
 hold on
+cla
 plot(t,o2,'b','lineWidth',2.5);
 plot(t,handles.parameters.realo2Data,'g','lineWidth',2.5);
 hold off
@@ -172,6 +173,7 @@ hold off
 %plot the OCR over time with real OCR data on top
 axes(handles.OCR_plot);
 hold on
+cla
 plot(t,ocr_values,'b','lineWidth',2.5);
 plot(t,handles.parameters.realOCRgraph,'g','lineWidth',2.5);
 hold off
