@@ -48,7 +48,10 @@ firstTerm = min(possFirsts);
     bothTerms = [firstTerm secondTerm]; % store both estimates
 
     impTau = min(bothTerms); % implicit estimate for tau
-
+    
+    if impTau < 1
+        impTau = impTau/1000;
+    end
  end
 
 

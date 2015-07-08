@@ -56,4 +56,7 @@ ajv = transpose(aj);
     
     bothTerms = [meanTerm varTerm];
     tauPrime = min(bothTerms); % tau prime is minimum of above two terms
+    if tauPrime > 1
+        tauPrime= tauPrime/1000;
+    end
 %else
