@@ -42,7 +42,7 @@ par.X.p3.range=[1E-4,1E-3];
 %
 par.X.f0.range=[50,250];
 %
-par.X.Dh.range=[1,100];
+par.X.Dh.range=[0.1,10];
 %
 % ====================================
 % Parallel Computing
