@@ -97,6 +97,9 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
             if tau_two <= 1e-4
                 tau_two = 100* tau_two;
             end
+            if tau_two > 1
+                tau_two = tau_two/1000;
+            end
             
             % generate changes to species amounts from reactions during tau
             if abs(tau_one) < tau_two
@@ -116,7 +119,10 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
                 end
                 times = [times time]; % add new time to list of times
                 X = [X; X0]; % store all X values in a matrix
+                prev = count;
                 count = time; % increment number of reactions
+               
+                    
    
                 
                 
@@ -153,7 +159,7 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
     all_values_sim = [times; XX];
     all_values = [all_values all_values_sim];
     
-    disp(all_values_sim)
+    %disp(all_values_sim)
     
     % store all times and species amounts for all simulations
     all_value_sim = [];
@@ -173,7 +179,7 @@ all_values(:,col)=[];
 % put all times and corresponding species amounts in ascending order
 [~,I]=sort(all_values(1,:));
 B=all_values(:,I);
-disp(B)
+%disp(B)
 times_average = B(1,:); % extract row with all times
 %x1_average = B(2,:); % extract row with all X1 amounts
 %x2_average = B(3,:); % extract row with all X2 amounts
@@ -193,17 +199,20 @@ times_average = B(1,:); % extract row with all times
 %disp('times')
 %disp(times_plot_num)
 
-times_plot_num = [times_plot_num times_plot_num(end)]; 
+%times_plot_num = [times_plot_num times_plot_num(end)]; 
 
-
-disp('TIMES')
 disp(times_plot_num)
-disp('xs')
+
 disp(mean_xs_num)
-disp('up')
-disp(st_dev_pos)
-disp('down')
-disp(st_dev_neg)
+
+%disp('TIMES')
+%disp(times_plot_num)
+%disp('xs')
+%disp(mean_xs_num)
+%disp('up')
+%disp(st_dev_pos)
+%disp('down')
+%disp(st_dev_neg)
 
 figure(1)
 
@@ -226,7 +235,7 @@ for pl = 1:num_species
     hold on
 end
 
-varsTitles ={'Variance X1', 'Variance X2', 'Variance Y', 'Variance Z', 'Variance Q'};
+varsTitles ={'1', '2', '3', '4', '5', '6', '7', '8'};
 
 for varct = 1:num_species
     disp(varsTitles{varct})
