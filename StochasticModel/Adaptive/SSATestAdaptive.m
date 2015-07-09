@@ -52,7 +52,7 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
         elseif count<rot_aa_time
             vv = [1 1 1 0];
         else
-            vv = [1 1 1 1];
+            vv = [0 1 1 1];
         end
         
         % identify all critical reactions
@@ -90,6 +90,9 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
                 if count <=(max_rx-0.5) % check to ensure max time is not being reached
                     [tau, j] = TauAndJGen (aj);
                     time = time + abs(tau); % find new time by adding tau to previous time
+                    if time >max_rx
+                        time=max_rx+0.1;
+                    end
                     times = [times time]; % add new time to list of times
                     Vj = V(j,:); % retrieve V values for the selected reaction
                     X0 = X0 + Vj; % get new X0 value
