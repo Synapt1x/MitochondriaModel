@@ -187,7 +187,7 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
     all_value_sim = [];
     
     % print the current simulation number (can be removed)
-    disp('Current Simulation Number')
+    
     disp(n)
     
 end
@@ -227,9 +227,9 @@ times_average = B(1,:); % extract row with all times
 
 %disp(mean_xs_num)
 %disp('TIMES')
-disp(times_plot_num)
+%disp(times_plot_num)
 %disp('xs')
-disp(mean_xs_num)
+%disp(mean_xs_num)
 %disp('up')
 %disp(st_dev_pos)
 %disp('down')
@@ -268,7 +268,8 @@ for pl = 1:num_species
     hold on
 end
 
-varsTitles ={'1', '2', '3', '4', '5', '6', '7', '8'};
+varsTitles ={'Cyt C Red Variance', 'O2 Variance', 'HN Variance', 'HP Variance', ...
+    'NADH2 Variance', 'NAD+ Variance', 'Cyt C Ox Variance', 'H2O Variance'};
 
 for varct = 1:num_species
     disp(varsTitles{varct})
