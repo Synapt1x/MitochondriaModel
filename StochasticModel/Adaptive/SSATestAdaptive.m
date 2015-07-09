@@ -13,7 +13,7 @@ and one figure with all three substances on the same plot.
 num_sims = 50;
 
 % user chooses the maximum time for each simulation
-max_rx = 100;
+max_rx = 75;
 
 % interval used for plotting means and calculating variance
 interval = 0.01 * max_rx;
@@ -52,7 +52,7 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
         elseif count<rot_aa_time
             vv = [1 1 1 0];
         else
-            vv = [0 1 0 1];
+            vv = [1 1 1 1];
         end
         
         % identify all critical reactions
