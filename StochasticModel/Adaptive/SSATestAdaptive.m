@@ -159,7 +159,7 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
     all_values_sim = [times; XX];
     all_values = [all_values all_values_sim];
     
-    %disp(all_values_sim)
+    disp(all_values_sim)
     
     % store all times and species amounts for all simulations
     all_value_sim = [];
