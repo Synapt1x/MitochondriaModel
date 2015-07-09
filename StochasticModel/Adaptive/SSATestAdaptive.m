@@ -41,8 +41,18 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
     
     while count <=max_rx; % loop through tau steps until max time is reached
         
+        if count<oligo_time
+            vv = [1 1 1 1];
+        elseif count<fccp_time
+            vv=[1 1 0 1];
+        elseif count<rot_aa_time
+            vv = [1 1 1 1];
+        else
+            vv = [ 1 1 1 1];
+        end
+        
         % identify all critical reactions
-        [Rjs, aj, a_0] = genRjMito (X(end,:), V,nc, num_rx);
+        [Rjs, aj, a_0] = genRjMito (X(end,:), V,nc, num_rx, vv);
         
         % epsilon value for each species
         [eis, gis] = genEisMito (0.05, V, X, num_species, num_rx);
