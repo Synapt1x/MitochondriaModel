@@ -23,6 +23,8 @@ all_values = [];
 
 disp('Current Simulation Number') 
 
+
+% define time intervals for the various substrates
 oligo_time = max_rx/4;
 fccp_time = 2*(max_rx/4);
 rot_aa_time = 3*(max_rx/4); 
@@ -41,12 +43,13 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
     
     while count <=max_rx; % loop through tau steps until max time is reached
         
-        if count<oligo_time
+        
+        if count<oligo_time % determines which reactions are active in the time interval
             vv = [1 1 1 1];
         elseif count<fccp_time
             vv=[1 1 0 1];
         elseif count<rot_aa_time
-            vv = [1 1 1 1];
+            vv = [1 1 1 0];
         else
             vv = [ 1 1 1 1];
         end
