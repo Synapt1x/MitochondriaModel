@@ -250,8 +250,8 @@ end
 figure(1)
 
 colours = {'b', 'g', 'c', 'r', 'm', 'b', 'g', 'c'};
-titles = {'1', '2', '3', '3', '5', '6', '7', '8'};
-Ylabs = {'1', '2', '3', '4', '5', '6', '7', '8'};
+titles = {'Cyt C Red', 'O2', 'HN', 'HP', 'NADH2', 'NAD+', 'Cyt C Ox', 'H2O'};
+Ylabs = {'Cyt C Red', 'O2', 'HN', 'HP', 'NADH2', 'NAD+', 'Cyt C OX', 'H2O'};
 
 for pl = 1:num_species
     subplot(4,2,pl)
