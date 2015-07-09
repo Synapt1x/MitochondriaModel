@@ -201,13 +201,9 @@ all_values(:,col)=[];
 % put all times and corresponding species amounts in ascending order
 [~,I]=sort(all_values(1,:));
 B=all_values(:,I);
-%disp(B)
+
 times_average = B(1,:); % extract row with all times
-%x1_average = B(2,:); % extract row with all X1 amounts
-%x2_average = B(3,:); % extract row with all X2 amounts
-%y_average = B(4,:); % extract row with all y amounts
-%z_average = B(5,:); % extract row with all x amounts
-%q_average = B(6,:);
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % calculations and plotting for moving average (mean) with number of points
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -215,26 +211,6 @@ times_average = B(1,:); % extract row with all times
 
 [mean_xs_num, variances_xs_num, times_plot_num, st_dev_pos, st_dev_neg] = StepsMeanVarMito(times_average,...
     num_species, B);
-
-%disp(mean_xs_num)
-
-%disp('times')
-%disp(times_plot_num)
-
-%times_plot_num = [times_plot_num times_plot_num(end)]; 
-
-%disp(times_plot_num)
-
-%disp(mean_xs_num)
-%disp('TIMES')
-%disp(times_plot_num)
-%disp('xs')
-%disp(mean_xs_num)
-%disp('up')
-%disp(st_dev_pos)
-%disp('down')
-%disp(st_dev_neg)
-
 
 lena = length(times_plot_num);
 lenb= length(mean_xs_num(1,:));
