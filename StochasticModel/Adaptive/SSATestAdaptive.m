@@ -23,6 +23,11 @@ all_values = [];
 
 disp('Current Simulation Number') 
 
+oligo_time = max_rx/4;
+fccp_time = 2*(max_rx/4);
+rot_aa_time = 3*(max_rx/4); 
+
+
 for n = 1:num_sims % loop through all simulations. Plot after each sim
     
     count = 0; % start each simulation with reaction time = 0
