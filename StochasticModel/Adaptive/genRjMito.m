@@ -31,7 +31,7 @@ ajs = [0.000000000001*species5*species7*(species7-1)*(species7-2)*(species7-3)*(
      0.00000000000001*species2*species1*(species1-1)*(species1-2)*(species1-3)*(1/24)...
      0.000000000001*species4*((p1*(species4/(species3)))/((species4/(species3))+p2+(p3/(species3))))...
       0.00000000001*p4*((species4-species3)+(species4*log(species4/(species3))))];
-aj = ajs.*vv;
+aj = ajs.*vv; % remove inactive reactions 
 %aj = single(all_rxns(species1,species2,species3));
 a_0 = sum(aj); 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
