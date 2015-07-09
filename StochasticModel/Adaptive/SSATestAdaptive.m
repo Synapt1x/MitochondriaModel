@@ -229,11 +229,23 @@ times_average = B(1,:); % extract row with all times
 %disp('TIMES')
 disp(times_plot_num)
 %disp('xs')
-%disp(mean_xs_num)
+disp(mean_xs_num)
 %disp('up')
 %disp(st_dev_pos)
 %disp('down')
 %disp(st_dev_neg)
+
+
+lena = length(times_plot_num);
+lenb= length(mean_xs_num(1,:));
+
+if lena~=lenb
+    num_to_add = lenb-lena;
+    for nn = 1:num_to_add
+        times_plot_num(lena+nn) = times_plot_num(lena+nn-1) +0.01;
+    end
+end
+    
 
 figure(1)
 
