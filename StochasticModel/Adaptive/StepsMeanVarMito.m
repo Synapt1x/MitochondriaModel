@@ -71,7 +71,7 @@ for ints = int_num:int_num:total_num % generates mean and variance for each inte
     % separately
     vec_var = [];
     for truev = 1:num_species
-        temp_store = sum(((mean_xs_num(truev,count_num) - mean_xs_num(truev,count_num)).^2)./amt_between);
+        temp_store = sum(((B(truev,count_num) - mean_xs_num(truev,count_num)).^2)./amt_between);
         vec_var = [vec_var temp_store];
     end
     variances_xs_num(:,count_num) = vec_var;
