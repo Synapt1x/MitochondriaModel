@@ -51,7 +51,7 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
         elseif count<rot_aa_time
             vv = [1 1 1 0];
         else
-            vv = [ 1 1 1 1];
+            vv = [1 1 1 1];
         end
         
         % identify all critical reactions
