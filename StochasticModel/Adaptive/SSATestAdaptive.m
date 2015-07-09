@@ -24,10 +24,11 @@ all_values = [];
 disp('Current Simulation Number') 
 
 
-% define time intervals for the various substrates
-oligo_time = max_rx/4;
-fccp_time = 2*(max_rx/4);
-rot_aa_time = 3*(max_rx/4); 
+% define time intervals for the various substrates. Befre oligo time, thre
+% is basal respiration 
+oligo_time = max_rx/4; % oligomycin is added at oligo time
+fccp_time = 2*(max_rx/4); % FCCP is added at fccp time
+rot_aa_time = 3*(max_rx/4);  % rotenone and antimycin a are addedat rot aa time
 
 
 for n = 1:num_sims % loop through all simulations. Plot after each sim
@@ -131,7 +132,7 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
                     [X0] = amountChanges(X0, aj, V, num_rx, tau, Rjs);
                 end
                 
-                
+                time = time+tau; 
                 if time > max_rx % ensure time does not reach maximum time
                     time = max_rx +0.1;
                 end
@@ -177,7 +178,7 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
     all_values_sim = [times; XX];
     all_values = [all_values all_values_sim];
     
-    disp(all_values_sim)
+    %disp(all_values_sim)
     
     % store all times and species amounts for all simulations
     all_value_sim = [];
@@ -219,12 +220,11 @@ times_average = B(1,:); % extract row with all times
 
 %times_plot_num = [times_plot_num times_plot_num(end)]; 
 
-disp(times_plot_num)
-
-disp(mean_xs_num)
-
-%disp('TIMES')
 %disp(times_plot_num)
+
+%disp(mean_xs_num)
+%disp('TIMES')
+disp(times_plot_num)
 %disp('xs')
 %disp(mean_xs_num)
 %disp('up')
