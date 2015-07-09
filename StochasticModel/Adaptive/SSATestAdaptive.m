@@ -188,7 +188,7 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
     
     % print the current simulation number (can be removed)
     
-    disp(n)
+    %disp(n)
     
 end
 
