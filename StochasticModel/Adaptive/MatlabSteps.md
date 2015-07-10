@@ -16,5 +16,5 @@ A poisson distributed random number was generated for each reaction. The random 
 The selected tau was added to the previous time to generate a new time step. The species amounts were updated according to the propensity function of the reaction selected from the monte carlo step.
 
 ##Iteration
-The monte carlo step and update werre repeated until the maximum time has been reached. 
+The monte carlo step and update were repeated until the maximum time had been reached. 
 
