@@ -1,4 +1,4 @@
-function [avgOCRs,OCRs] = ocrCalc(y,parameters)
+function [avgOCRs,OCRs,calcOCRs] = ocrCalc(y,parameters)
 %{
 Created by: Chris Cadonic
 ===================================================
@@ -9,7 +9,7 @@ as per parameters.numpoints calculated in the setup function.
 
 %calculate OCR values using input values
 calcOCRs = -((parameters.Vmax.*y(:,2))./(parameters.Km.*...
-    (1+(parameters.K1./y(1)))+y(:,2))).*y(:,3);
+    (1+(parameters.K1./y(1)))+y(:,2))).*y(:,3)./y(:,4);
 
 %calculate the average OCR in each segment; primarily used in optimization
 avgOCRs = [mean(calcOCRs(1:parameters.oligoTime-1)), ...
