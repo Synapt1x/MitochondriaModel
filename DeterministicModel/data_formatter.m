@@ -25,4 +25,6 @@ allData = xlsread(filename,'Sheet1','M520:O829');
 allData(1,:)=[]; %delete t=0 time point
 
 %store the times, o2 and ocr data separately
-[allTimes,realo2,realOCR] = deal(allData(:,1),allData(:,2),allData(:,3));
+[allTimes,realo2] = deal(allData(:,1),allData(:,2));
+
+realOCR = gradient(realo2);
