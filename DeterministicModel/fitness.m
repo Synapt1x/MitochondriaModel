@@ -21,12 +21,14 @@ for n=length(X):-1:1
     %for fitting O2
     evaluations = y(:,2); %evaluated data for o2
     realo2Data = parameters.realo2Data; %use actual o2 data
-    %evaluate using a least-squares
-    F(1,n) = sum((realo2Data-evaluations).^2)/numel(realo2Data);
     
-    %for fitting OCR
-    %     evaluatedOCRs = ocrCalc(y,parameters);%evaluated data for OCR
-    %     realOCR = parameters.realOCR; %use actual OCR measurement
-    %     F(1,n) = sum(realOCR-evaluatedOCRs).^2);
+    %for fitting OCR    
+    evaluatedOCRs = ((parameters.Vmax.*y(:,2))./(parameters.Km.*...
+    (1+(parameters.K1./y(1)))+y(:,2))).*y(:,3)./y(:,4);%evaluated data for OCR
+    realOCR = parameters.realOCR; %use OCR calculated from real o2 data
+    
+    %evaluate using a least-squares
+    F(1:2,n) = [sum((realo2Data-evaluations).^2)/numel(realo2Data), ...
+        (sum(realOCR-evaluatedOCRs).^2)/numel(evaluatedOCRs)];
     
 end

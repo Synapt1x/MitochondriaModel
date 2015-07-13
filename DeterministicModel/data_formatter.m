@@ -27,4 +27,4 @@ allData(1,:)=[]; %delete t=0 time point
 %store the times, o2 and ocr data separately
 [allTimes,realo2] = deal(allData(:,1),allData(:,2));
 
-realOCR = gradient(realo2);
+realOCR = -gradient(realo2);
