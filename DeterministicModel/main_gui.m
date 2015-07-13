@@ -156,41 +156,41 @@ function plot_Callback(hObject, eventdata, handles) %plot button in gui
 [cytcred o2 Hn Hp] = deal(y(:,1),y(:,2),y(:,3),y(:,4));
 
 %calculate the OCR values from the oxygen
-[~,ocr_values] = ocrCalc(y,handles.parameters);
+[~,~,ocr_values] = ocrCalc(y,handles.parameters);
 
 %plot the Cyt c concentration over time
 axes(handles.Cytc_plot);
-plot(t,cytcred,'b','lineWidth',2.5);
+plot(t(2:end),cytcred(2:end),'b','lineWidth',2.5);
 
 %plot the O2 concentration over time with real O2 data on top
 axes(handles.O2_plot);
 hold on
-cla
-plot(t,o2,'b','lineWidth',2.5);
-plot(t,handles.parameters.realo2Data,'g','lineWidth',2.5);
+cla % clear axes
+plot(t(2:end),o2(2:end),'b','lineWidth',2.5);
+plot(t(2:end),handles.parameters.realo2Data(2:end),'g','lineWidth',2.5);
 hold off
 
 %plot the OCR over time with real OCR data on top
 axes(handles.OCR_plot);
 hold on
-cla
-plot(t,-ocr_values,'b','lineWidth',2.5);
-plot(t,handles.parameters.realOCRgraph,'g','lineWidth',2.5);
+cla % clear axes
+plot(t(2:end),-ocr_values(2:end),'b','lineWidth',2.5);
+plot(t(2:end),handles.parameters.realOCR(2:end),'g','lineWidth',2.5);
 hold off
 
 %plot the Hn concentration over time
 axes(handles.H_N_plot);
-plot(t,Hn,'b','lineWidth',2.5);
+plot(t(2:end),Hn(2:end),'b','lineWidth',2.5);
 
 %plot the Hp concentration over time
 axes(handles.H_P_plot);
-plot(t,Hp,'b','lineWidth',2.5);
+plot(t(2:end),Hp(2:end),'b','lineWidth',2.5);
 
 protRatio = (Hn./Hp); %calc total amount of protons
 
 %plot the Hp rate of appearance over time
 axes(handles.protons);
-plot(t,protRatio,'b','lineWidth',2.5);
+plot(t(2:end),protRatio(2:end),'b','lineWidth',2.5);
 
 %update all the graph axes
 graph_label(handles);
