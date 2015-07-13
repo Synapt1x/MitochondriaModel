@@ -58,18 +58,6 @@ parameters.numpoints = [numel(parameters.baselineTimes),numel(...
     parameters.oligoTimes),numel(parameters.fccpTimes), ...
     numel(parameters.inhibitTimes)];
 
-%% Format OCR for Averages
-%format the realOCR to repeat OCR avg at each time point in time vector
-
-%first calculate the average OCR for each section
-parameters.avgOCRs = [mean(parameters.realOCR(1:parameters.oligoTime-1)),
-    mean(parameters.realOCR(parameters.oligoTime:parameters.fccpTime-1)),
-    mean(parameters.realOCR(parameters.fccpTime:parameters.inhibitTime-1)),
-    mean(parameters.realOCR(parameters.inhibitTime:end))];
-
-%make sure to add to the rude function to path to format this properly
-parameters.realOCRgraph = rude(parameters.numpoints,parameters.avgOCRs)';
-
 %% Define the labels and titles for GUI Graphs
 %titles and labels for the output graphs
 [parameters.title{1:6}] = deal(['Reduced cytochrome c concentration over'...
