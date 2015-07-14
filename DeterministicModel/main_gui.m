@@ -55,7 +55,7 @@ handles.parameters = varargin{1};
     handles.H_P_plot,handles.protons);
 
 %label the axes for all graphs
-graph_label(handles);
+graphLabel(handles);
 
 %insert the initial paramter values into the textboxes
 set(handles.V_max_edit,'String',handles.parameters.Vmax);
@@ -146,7 +146,25 @@ newDh = str2double(get(hObject, 'String'));
 handles.parameters.Dh = newDh;
 guidata(hObject,handles);
 
-%% Plot function
+function figcytc_Callback(hObject, eventdata, handles)
+openFig(handles.Cytc_plot,handles,1);
+
+function fighn_Callback(hObject, eventdata, handles)
+openFig(handles.H_N_plot,handles,4);
+
+function fighp_Callback(hObject, eventdata, handles)
+openFig(handles.H_P_plot,handles,5);
+
+function figo2_Callback(hObject, eventdata, handles)
+openFig(handles.O2_plot,handles,2);
+
+function figocr_Callback(hObject, eventdata, handles)
+openFig(handles.OCR_plot,handles,3);
+
+function figprot_Callback(hObject, eventdata, handles)
+openFig(handles.protons,handles,6);
+
+%% Plot Callback function
 function plot_Callback(hObject, eventdata, handles) %plot button in gui
 
 %plug in the equations into the ode solver
@@ -194,20 +212,34 @@ axes(handles.protons);
 plot(t(2:end),protRatio(2:end),'b','lineWidth',2.5);
 
 %update all the graph axes
-graph_label(handles);
+graphLabel(handles);
 
 guidata(hObject,handles);
 
-%% Graphing Function
-function graph_label(handles)
-%since updating the axes elements resets the axis properties such as title,
-%this function is called each time a figure is plotted so as to reset the
-%titles and labels to the proper text.
+%% Graph Labeling Function
+function graphLabel(handles)
+%{
+since updating the axes elements resets the axis properties such as title,
+this function is called each time a figure is plotted so as to reset the
+titles and labels to the proper text.
+%}
 for i=1:numel(handles.parameters.title)
     axes(handles.graphs{i})
     xlabel(handles.parameters.xlab,'FontName','Calibri');
     ylabel(handles.parameters.ylab{i},'FontName','Calibri');
     title(textwrap({handles.parameters.title{i}},30), ...
-        'FontWeight','bold','FontSize',12);
+        'FontWeight','bold');
 end
 
+%% Open Large Figure Function
+function openFig(hObject,handles,ObjNum)
+%open a new figure using the graph from the relevant axes
+h2copy = allchild(hObject); %extract all children from hObject
+figure('units','normalized','outerposition',[0 0 1 1]); %create the figure
+hParent = axes; %create handle for axes child
+copyobj(h2copy,hParent) %copy the original graph to the new fig
+
+%now add the correct labels to the new figure
+xlabel(handles.parameters.xlab,'FontName','Calibri');
+ylabel(handles.parameters.ylab{ObjNum},'FontName','Calibri');
+title(handles.parameters.title{ObjNum},'FontWeight','bold');
