@@ -99,7 +99,9 @@ par.zoom.NGen=10;
 par.zoom.safety=0.5;
 % ====================================
 % Analysis
-par.analysis.analyzeWhenDone=false;
+par.analysis.analyzeWhenDone=true;
+par.analysis.maxItNoProgress=100;
+par.analysis.postProces='analyzeResults';
 % ====================================
 % Local Optimization
 par.localOpt.startGen=Inf;

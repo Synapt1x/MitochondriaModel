@@ -1,7 +1,7 @@
 function varargout = main_gui(varargin)
 %{
 Created by: Chris Cadonic
-=====================================================
+=======================================
 This function handles the user interface for the model, which
 provides a GUI that allows the model to be fully accessible. The
 user can alter parameters and manipulate the model, run additional

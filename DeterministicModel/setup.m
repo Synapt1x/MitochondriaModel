@@ -1,7 +1,7 @@
 function parameters = setup
 %{
 Created by: Chris Cadonic
-=====================================================
+========================================
 The setup function handles the values for each variable in the
 system in a structure known as 'parameters'. parameters contains
 all of the model's parameters and also the data, graph labels.
