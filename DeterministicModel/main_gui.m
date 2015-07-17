@@ -54,21 +54,20 @@ handles.parameters = varargin{1};
     handles.O2_plot,handles.OCR_plot,handles.H_N_plot,...
     handles.H_P_plot,handles.protons);
 
+%store all editing text boxes in the handles structure as an array
+[handles.allEdits{1:8}] = deal(handles.V_max_edit, handles.K_1_edit, ...
+    handles.K_m_edit,handles.p1_edit,handles.p2_edit, ...
+    handles.p3_edit, handles.f0_edit,handles.Dh_edit);
+
 %label the axes for all graphs
 graphLabel(handles);
 
 %insert the initial paramter values into the textboxes
-set(handles.V_max_edit,'String',handles.parameters.Vmax);
-set(handles.K_1_edit,'String',handles.parameters.K1);
-set(handles.K_m_edit,'String',handles.parameters.Km);
-set(handles.p1_edit,'String',handles.parameters.p1);
-set(handles.p2_edit,'String',handles.parameters.p2);
-set(handles.p3_edit,'String',handles.parameters.p3);
-set(handles.f0_edit,'String',handles.parameters.f0);
-set(handles.Dh_edit,'String',handles.parameters.Dh);
-
-% Update handles structure
-guidata(hObject, handles);
+setParams(hObject,handles,[handles.parameters.Vmax, ...
+    handles.parameters.K1, handles.parameters.Km, ...
+    handles.parameters.p1, handles.parameters.p2, ...
+    handles.parameters.p3, handles.parameters.f0, ...
+    handles.parameters.Dh]);
 
 % --- Outputs from this function are returned to the command line.
 function varargout = main_gui_OutputFcn(hObject, eventdata, handles)
@@ -164,6 +163,25 @@ openFig(handles.OCR_plot,handles,3);
 function figprot_Callback(hObject, eventdata, handles)
 openFig(handles.protons,handles,6);
 
+function loadparams_Callback(hObject,eventdata,handles)
+folder = fileparts(which(mfilename)); %get the current folder
+
+%open dialog for user to navigate to file
+waitfor(msgbox('Please select the ''BestResults.mat'' file to load.','Load Parameter Set'));
+[filename,filepath] = uigetfile({'*-BestResults.mat';'*.*'},'Select the .mat containing the parameter set to load');
+
+if ~isequal(filename,0) %if a file is selected, load that file    
+    cd(filepath); %change to file's directory
+    load(filename); %load the file
+    cd(folder); %change to previous directory
+    
+    %change all the values of parameters to loaded parameter set
+    setParams(hObject,handles,myResults','changeVals');
+    %additional argin signals setParams to update handles.parameters
+else
+    msgbox('Operation to load parameter set aborted','Aborted');
+end
+
 %% Plot Callback function
 function plot_Callback(hObject, eventdata, handles) %plot button in gui
 
@@ -242,9 +260,31 @@ else
     figure('units','normalized','outerposition',[0 0 1 1]); %create the figure
     hParent = axes; %create handle for axes child
     copyobj(h2copy,hParent) %copy the original graph to the new fig
-
+    
     %now add the correct labels to the new figure
     xlabel(handles.parameters.xlab,'FontName','Calibri');
     ylabel(handles.parameters.ylab{ObjNum},'FontName','Calibri');
     title(handles.parameters.title{ObjNum},'FontWeight','bold');
 end
+
+%% Change all parameter values
+function setParams(hObject,handles,values,varargin)
+%insert the parameter values passed to the function in the GUI
+
+%loop over and change all the displayed values for the parameters
+for i = 1:numel(handles.allEdits)
+    set(handles.allEdits{i},'String',values(i));
+end
+
+%change all the values in the handles.parameters struc if vargin nonempty
+if ~isempty(varargin)
+    [handles.parameters.Vmax, handles.parameters.K1, ...
+        handles.parameters.Km, handles.parameters.p1, ...
+        handles.parameters.p2, handles.parameters.p3, ...
+        handles.parameters.f0, handles.parameters.Dh] ...
+        = deal(values(1), values(2), values(3), values(4), ...
+        values(5),values(6),values(7),values(8));
+end
+
+%update the data in the gui
+guidata(hObject,handles);
