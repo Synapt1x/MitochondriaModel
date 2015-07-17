@@ -100,7 +100,7 @@ par.zoom.safety=0.5;
 % ====================================
 % Analysis
 par.analysis.analyzeWhenDone=true;
-par.analysis.maxItNoProgress=100;
+par.analysis.maxItNoProgress=20;
 par.analysis.postProces='analyzeResults';
 % ====================================
 % Local Optimization
