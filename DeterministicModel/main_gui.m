@@ -235,11 +235,16 @@ end
 function openFig(hObject,handles,ObjNum)
 %open a new figure using the graph from the relevant axes
 h2copy = allchild(hObject); %extract all children from hObject
-figure('units','normalized','outerposition',[0 0 1 1]); %create the figure
-hParent = axes; %create handle for axes child
-copyobj(h2copy,hParent) %copy the original graph to the new fig
+if isempty(h2copy) %check to see if the graph exists yet
+    msgbox(['This function has not been plotted yet. ' ...
+        'Please use the plot button below to graph the function before opening it.'],'No Plot');
+else
+    figure('units','normalized','outerposition',[0 0 1 1]); %create the figure
+    hParent = axes; %create handle for axes child
+    copyobj(h2copy,hParent) %copy the original graph to the new fig
 
-%now add the correct labels to the new figure
-xlabel(handles.parameters.xlab,'FontName','Calibri');
-ylabel(handles.parameters.ylab{ObjNum},'FontName','Calibri');
-title(handles.parameters.title{ObjNum},'FontWeight','bold');
+    %now add the correct labels to the new figure
+    xlabel(handles.parameters.xlab,'FontName','Calibri');
+    ylabel(handles.parameters.ylab{ObjNum},'FontName','Calibri');
+    title(handles.parameters.title{ObjNum},'FontWeight','bold');
+end
