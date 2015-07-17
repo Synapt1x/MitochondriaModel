@@ -1,7 +1,7 @@
 function modelJacobi = sensitivityAnalysis()
 %{
 Created by: Chris Cadonic
-=====================================================
+========================================
 This function houses code for using symbolic variables to represent
 functions in my deterministic model. This function will be essential
 to conducting sensitivity analysis for my masters project by finding

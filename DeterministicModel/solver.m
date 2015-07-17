@@ -1,7 +1,9 @@
 function [t,y] = solver(parameters)
 %{
-This is a temporary attempt to solve the full situation for my model
-as a boundary value problem.
+Created by: Chris Cadonic
+========================================
+This function solves the full situation for my model by step-wise
+solving the ODEs for each section using the appropriate equations.
 %}
 
 %Solve by using ode for each section and passing along the final

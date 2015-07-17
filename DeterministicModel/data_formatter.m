@@ -1,7 +1,7 @@
 function [allTimes,realo2,realOCR] = data_formatter
 %{
 Created by: Chris Cadonic
-=====================================================
+========================================
 This function reads the excel data files and formats them into
 vectors for use in the mitochondria model as calibration data.
 

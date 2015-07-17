@@ -1,7 +1,7 @@
 function dy = oligoSystem(t,y,parameters)
 %{
 Created by: Chris Cadonic
-=====================================================
+========================================
 This function maintains all the oligomycin derivatives
 relevant to my masters project.
 
@@ -18,8 +18,8 @@ To decouple the system, complexes I-III activity is instead
 approximated by parameters.f0.*(Hn./Hp)
 
 Given this, conservation occurs between NADH and NAD, Succ and
-Fum, Q and QH2. Since parameters.f0.*(Hn./Hp) approximates BOTH forward
-and reverse we get consumption and production of each
+Fum, Q and QH2. Since parameters.f0.*(Hn./Hp) approximates BOTH
+forward and reverse we get consumption and production of each
 component in these pairs as equivalent. Thus the other substrates
 do not change in concentration, and we have their time derivatives
 equal to 0.
