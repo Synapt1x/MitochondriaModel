@@ -28,13 +28,13 @@ par.general.NGen=100000;
 par.general.NPop=2;
 % ====================================
 % Parameters (X)
-par.X.Vmax.range=[1,100];
+par.X.Vmax.range=[0.5,20];
 %
-par.X.K1.range=[100,2000];
+par.X.K1.range=[10,150];
 %
-par.X.Km.range=[100,2000];
+par.X.Km.range=[10,150];
 %
-par.X.p1.range=[10,100];
+par.X.p1.range=[1,15];
 %
 par.X.p2.range=[50,400];
 %
@@ -42,7 +42,7 @@ par.X.p3.range=[1E-4,1E-3];
 %
 par.X.f0.range=[50,250];
 %
-par.X.Dh.range=[0.1,10];
+par.X.Dh.range=[0.1,20];
 %
 % ====================================
 % Parallel Computing
