@@ -19,10 +19,10 @@ species6 = X0(6); % NAD+
 species7 = X0(7); % Cytcox
 species8 = X0(8); % H20
 
-p1=0.1;
-p2=0.1;
-p3=0.1;
-p4=0.1;
+p1=100000000;
+p2=10;
+p3=100000000;
+p4=10;
 
 % find ajs for each reaction and store in a vector. These need to be
 % changes based on the reactions defined in initializeParameters. Each aj
