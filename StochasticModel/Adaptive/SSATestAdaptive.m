@@ -21,7 +21,7 @@ tau_prime = 0;
 
 all_values = [];
 
-disp('Current Simulation Number') 
+%disp('Current Simulation Number') 
 
 
 % define time intervals for the various substrates. Befre oligo time, thre
@@ -46,13 +46,13 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
         
         
         if count<oligo_time % determines which reactions are active in the time interval
-            vv = [1 1 1 1];
-        elseif count<fccp_time
-            vv=[1 1 0 1];
-        elseif count<rot_aa_time
             vv = [1 1 1 0];
+        elseif count<fccp_time
+            vv=[1 1 0 0];
+        elseif count<rot_aa_time
+            vv = [1 1 0 1];
         else
-            vv = [1 1 1 1];
+            vv = [0 1 0 1];
         end
         
         % identify all critical reactions
