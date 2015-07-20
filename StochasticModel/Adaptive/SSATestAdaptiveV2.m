@@ -86,6 +86,7 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
         if abs(tau_one) < compare % check for tau estimate meeting minimum criteria
             % generate 100 individual SSA steps
             ssaSteps=1;
+            
             while ssaSteps <= 5 % loop through a limited number of SSA steps
                 if count <=(max_rx-0.5) % check to ensure max time is not being reached
                     [tau, j] = TauAndJGen (aj);
