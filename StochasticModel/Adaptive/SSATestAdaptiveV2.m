@@ -11,10 +11,10 @@ and one figure with all three substances on the same plot.
 %}
 
 % user chooses how many simulations to run
-num_sims = 5;
+num_sims = 3;
 
 % user chooses the maximum time for each simulation
-max_rx = 6.2;
+max_rx = 500;
 
 % interval used for plotting means and calculating variance
 interval = 0.01 * max_rx;
@@ -81,6 +81,7 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
         
         
         
+        
         % comparison for the bound of tau
         compare = abs(5 * (1/a_0));
         
@@ -118,15 +119,17 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
         else
             % generate a second estimate for tau
             [tau_two] = genTauTwo(aj, Rjs, tau_one);
-            if tau_two <= 1e-4
-                tau_two = 100* tau_two;
+            if tau_two <= 1e-8
+                tau_two = (10^12)* tau_two;
             end
             if tau_two > 1
                 tau_two = tau_two/1000;
             end
-            
+            if tau_one < 10^-6
+            tau_one = tau_one * (10^12);
+            end
             pos_neg_count = -1;
-            while (pos_neg_count <0)
+           % while (pos_neg_count <0)
                 
                 % generate changes to species amounts from reactions during tau
                 if abs(tau_one) < tau_two
@@ -177,17 +180,17 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
                     count = time; % increment number of reactions
                 end
                 
-                B = find(X0<0);
-                if size(B) >0
-                    X(end,:) = [];
-                    pos_neg_count = -1;
-                    tau_one = tau_one/2;
-                    tau_two = tau_two/2;
-                else
-                    pos_neg_count=1;
-                end
+                %B = find(X0<0);
+                %if size(B) >0
+                 %   X(end,:) = [];
+                 %   pos_neg_count = -1;
+                  %  tau_one = tau_one/2;
+                  %  tau_two = tau_two/2;
+                %else
+                 %   pos_neg_count=1;
+               % end
                 
-            end
+            %end
         end
         
         
@@ -247,7 +250,7 @@ if lena~=lenb
     end
 end
 
-mean_xs_num = (mean_xs_num/(6.02*(10^17)));
+%mean_xs_num = (mean_xs_num/(6.02*(10^17)));
 figure(1)
 
 disp(mean_xs_num)
