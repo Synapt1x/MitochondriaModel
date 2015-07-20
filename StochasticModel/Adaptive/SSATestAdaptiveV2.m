@@ -10,10 +10,10 @@ and one figure with all three substances on the same plot.
 %}
 
 % user chooses how many simulations to run
-num_sims = 100;
+num_sims = 5;
 
 % user chooses the maximum time for each simulation
-max_rx = 100;
+max_rx = 620;
 
 % interval used for plotting means and calculating variance
 interval = 0.01 * max_rx;
@@ -21,11 +21,11 @@ tau_prime = 0;
 
 all_values = [];
 
-%disp('Current Simulation Number') 
+%disp('Current Simulation Number')
 
 
 % define time intervals for the various substrates. Befre oligo time, thre
-% is basal respiration 
+% is basal respiration
 oligo_time = max_rx/4; % oligomycin is added at oligo time
 fccp_time = 2*(max_rx/4); % FCCP is added at fccp time
 rot_aa_time = 3*(max_rx/4);  % rotenone and antimycin a are addedat rot aa time
@@ -123,55 +123,74 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
                 tau_two = tau_two/1000;
             end
             
-            % generate changes to species amounts from reactions during tau
-            if abs(tau_one) < tau_two
-                tau = abs(tau_one);
-                % amount each species changes if tau is tau one
-                if (implicit == 1) % using implicit formula
-                    [X0] = amountChanges(X0, aj, V, num_rx, tau, Rjs);
-                    [X0] = ImplicitXX(X, V, X0, tau, num_rx);
-                    time = time + tau; % find new time by adding tau to previous time
-                else % using explicit formula
-                    [X0] = amountChanges(X0, aj, V, num_rx, tau, Rjs);
-                end
+            pos_neg_count = -1;
+            while (pos_neg_count <0)
                 
-                time = time+tau; 
-                if time > max_rx % ensure time does not reach maximum time
-                    time = max_rx +0.1;
-                end
-                times = [times time]; % add new time to list of times
-                X = [X; X0]; % store all X values in a matrix
-                prev = count;
-                count = time; % increment number of reactions
-               
+                % generate changes to species amounts from reactions during tau
+                if abs(tau_one) < tau_two
+                    tau = abs(tau_one);
+                    % amount each species changes if tau is tau one
+                    if (implicit == 1) % using implicit formula
+                        [X0] = amountChanges(X0, aj, V, num_rx, tau, Rjs);
+                        [X0] = ImplicitXX(X, V, X0, tau, num_rx);
+                        time = time + tau; % find new time by adding tau to previous time
+                    else % using explicit formula
+                        [X0] = amountChanges(X0, aj, V, num_rx, tau, Rjs);
+                    end
                     
-   
-                
-                
-                
-            else
-                tau = abs(tau_two);
-                % amount each species changes if tau is tau double prime
-                % (only one critical reaction can occur)
-                if (implicit ==1) % calculations for implicit
-                    [X0] = amountChangesDouble(X0, aj, V, tau, Rjs, num_rx);
-                    [X0] = ImplicitXX(X, V, X0, tau, num_rx);
-                else % calculations for explicit
-                    [X0] = amountChangesDouble(X0, aj, V, tau, Rjs, num_rx);
+                    time = time+tau;
+                    if time > max_rx % ensure time does not reach maximum time
+                        time = max_rx +0.1;
+                    end
+                    times = [times time]; % add new time to list of times
+                    X = [X; X0]; % store all X values in a matrix
+                    prev = count;
+                    count = time; % increment number of reactions
+                    
+                    
+                    
+                    
+                    
+                    
+                else
+                    tau = abs(tau_two);
+                    % amount each species changes if tau is tau double prime
+                    % (only one critical reaction can occur)
+                    if (implicit ==1) % calculations for implicit
+                        [X0] = amountChangesDouble(X0, aj, V, tau, Rjs, num_rx);
+                        [X0] = ImplicitXX(X, V, X0, tau, num_rx);
+                    else % calculations for explicit
+                        [X0] = amountChangesDouble(X0, aj, V, tau, Rjs, num_rx);
+                    end
+                    time = time + tau; % find new time by adding tau to previous time
+                    % if time is greater than the max time, correct it
+                    if time > max_rx
+                        time = max_rx+0.1;
+                    end
+                    times = [times time]; % add new time to list of times
+                    % if species amount is less than 0, correct it
+                    %b = find(X0<0);
+                    %X0(b) = 0;
+                    X = [X; X0]; % store all X values in a matrix
+                    count = time; % increment number of reactions
                 end
-                time = time + tau; % find new time by adding tau to previous time
-                % if time is greater than the max time, correct it
-                if time > max_rx
-                    time = max_rx+0.1;
+                
+                B = find(X0<0);
+                if size(B) >0
+                    X(end,:) = [];
+                    pos_neg_count = -1;
+                    tau_one = tau_one/2;
+                    tau_two = tau_two/2;
+                else
+                    pos_neg_count=1;
                 end
-                times = [times time]; % add new time to list of times
-                % if species amount is less than 0, correct it
-                b = find(X0<0);
-                X0(b) = 0;
-                X = [X; X0]; % store all X values in a matrix
-                count = time; % increment number of reactions
+                
             end
         end
+        
+        
+        
+        
     end
     
     
@@ -225,7 +244,7 @@ if lena~=lenb
         times_plot_num(lena+nn) = times_plot_num(lena+nn-1) +0.01;
     end
 end
-    
+
 
 figure(1)
 
