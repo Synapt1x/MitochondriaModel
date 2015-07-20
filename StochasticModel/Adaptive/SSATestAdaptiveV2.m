@@ -247,9 +247,10 @@ if lena~=lenb
     end
 end
 
-mean_xs_num = mean_xs_num/(6.02*(10^14));
+mean_xs_num = (mean_xs_num/(6.02*(10^17)));
 figure(1)
 
+disp(mean_xs_num)
 colours = {'b', 'g', 'c', 'r', 'm', 'b', 'g', 'c'};
 titles = {'Cyt C Red', 'O2', 'HN', 'HP', 'NADH2', 'NAD+', 'Cyt C Ox', 'H2O'};
 Ylabs = {'Cyt C Red', 'O2', 'HN', 'HP', 'NADH2', 'NAD+', 'Cyt C OX', 'H2O'};
