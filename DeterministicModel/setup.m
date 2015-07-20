@@ -23,7 +23,6 @@ parameters.p3 =7.5784e-04; %bounds: [1E-6 1]
 parameters.f0 = 95.3875; %bounds: [1 1E4]
 parameters.Dh = 0.1885; %bounds: [1E-6 1]
 
-
 %% Define Initial Conditions
 %initial conditions in nmol/mL
 parameters.Cytcox = 100;
