@@ -1,5 +1,6 @@
 function SSATestAdaptiveV2
 tic
+
 %{
 Programmed by: Ella Thomson
 Tracks the changes in amounts of three chemical reactants involved in
@@ -13,7 +14,7 @@ and one figure with all three substances on the same plot.
 num_sims = 5;
 
 % user chooses the maximum time for each simulation
-max_rx = 620;
+max_rx = 6.2;
 
 % interval used for plotting means and calculating variance
 interval = 0.01 * max_rx;
@@ -246,7 +247,7 @@ if lena~=lenb
     end
 end
 
-
+mean_xs_num = mean_xs_num/(6.02*(10^14));
 figure(1)
 
 colours = {'b', 'g', 'c', 'r', 'm', 'b', 'g', 'c'};
