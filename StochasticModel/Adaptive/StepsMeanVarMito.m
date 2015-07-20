@@ -6,7 +6,7 @@ Returns the means and variances in matrixes.
 %}
 
 total_num = length(times_average); % find the total number of points
-int_num = round(0.0025 * total_num); % each inerval is 10% of the total number of points
+int_num = ceil(0.0025 * total_num); % each inerval is 10% of the total number of points
 
 % vector which defines the indexes for all intervals 
 mean_points = 1:int_num:total_num;
@@ -37,7 +37,7 @@ variances_xs_num = zeros(num_species, num_pts_size);
 st_dev_pos = zeros(num_species, num_pts_size);
 st_dev_neg = zeros(num_species, num_pts_size);
 
-for ints = int_num:int_num:total_num % generates mean and variance for each interval
+for ints = int_num:int_num:total_num-1 % generates mean and variance for each interval
     count_num = count_num+1; % increment the counter (started at 1)
     ints_num = [ints_num ints];% add th current interval to the list
     

@@ -19,18 +19,18 @@ species6 = X0(6); % NAD+
 species7 = X0(7); % Cytcox
 species8 = X0(8); % H20
 
-p1=100000000;
-p2=10;
-p3=100000000;
-p4=10;
+p1=101.2983;
+p2=10.8150;
+p3=99.3193;
+p4=0.1885;
 
 % find ajs for each reaction and store in a vector. These need to be
 % changes based on the reactions defined in initializeParameters. Each aj
 % is the partial derivative of that reaction
-ajs = [0.000000000001*species5*species7*(species7-1)*(species7-2)*(species7-3)*(1/24)...
-     0.000000000001*species2*species1*(species1-1)*(species1-2)*(species1-3)*(1/24)...
-     0.000000001*species4*((p1*(species4/(species3)))/((species4/(species3))+p2+(p3/(species3))))...
-      0.000000001*p4*((species4-species3)+(species4*log(species4/(species3))))];
+ajs = [0.0001*species3/species4...
+     0.07*(2.1236*species2)/((101.2983*(1+(100.1019/species1)))+species2)...
+     0.00001*species4*((p1*(species4/(species3)))/((species4/(species3))+p2+(p3/(species3))))...
+     0.00001*p4*((species4-species3)+(species4*log(species4/(species3))))];
 aj = ajs.*vv; % remove inactive reactions 
 %aj = single(all_rxns(species1,species2,species3));
 a_0 = sum(aj); 
