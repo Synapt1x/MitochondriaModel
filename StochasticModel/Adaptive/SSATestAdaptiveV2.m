@@ -14,7 +14,7 @@ and one figure with all three substances on the same plot.
 num_sims = 3;
 
 % user chooses the maximum time for each simulation
-max_rx = 500;
+max_rx = 5;
 
 % interval used for plotting means and calculating variance
 interval = 0.01 * max_rx;
@@ -250,7 +250,9 @@ if lena~=lenb
     end
 end
 
-%mean_xs_num = (mean_xs_num/(6.02*(10^17)));
+mean_xs_num = (mean_xs_num/(6.02*(10^17)));
+st_dev_pos = st_dev_pos/(6.02*(10^17));
+st_dev_neg = st_dev_neg/(6.02*(10^17));
 figure(1)
 
 disp(mean_xs_num)
