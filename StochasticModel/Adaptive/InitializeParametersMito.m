@@ -10,7 +10,13 @@ time = 0; % initial time is 0 seconds
 
 times = [0]; % start a vector to hold all times 
 
-X0 = [200 400 400 400 400 400 400 400]; % initial amounts of each reactant stored in a vector
+red_amt = 1.204 * (10^17);
+ox_amt = 1.204 * (10^17);
+hp_amt = 1.204 * (10^17);
+hn_amt = 1.204 * (10^18);
+o2_amt = 2.0595 * (10^17);
+
+X0 = [red_amt o2_amt hn_amt hp_amt 1.204*(10^17) 1.204*(10^17) ox_amt 1.204*(10^17)]; % initial amounts of each reactant stored in a vector
 
 X = X0; % used to store amounts of species at all time pts for one sim
 
