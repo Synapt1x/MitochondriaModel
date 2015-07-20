@@ -10,14 +10,14 @@ function [Rjs, aj, a_0] = genRjMito (X0, V, nc, numRxns, vv)
 % can be a whole number between 2-20. It's usually equal to 10
 
 
-species1 = X0(1); % cytcred
-species2 = X0(2); % O2
-species3 = X0(3); % HN+
-species4 = X0(4); % Hp
-species5 = X0(5); % NADH2
-species6 = X0(6); % NAD+
-species7 = X0(7); % Cytcox
-species8 = X0(8); % H20
+species1 = abs(X0(1)); % cytcred
+species2 = abs(X0(2)); % O2
+species3 = abs(X0(3)); % HN+
+species4 = abs(X0(4)); % Hp
+species5 = abs(X0(5)); % NADH2
+species6 = abs(X0(6)); % NAD+
+species7 = abs(X0(7)); % Cytcox
+species8 = abs(X0(8)); % H20
 
 p1=101.2983;
 p2=10.8150;
@@ -27,10 +27,10 @@ p4=0.1885;
 % find ajs for each reaction and store in a vector. These need to be
 % changes based on the reactions defined in initializeParameters. Each aj
 % is the partial derivative of that reaction
-ajs = [0.0001*species3/species4...
-     0.07*(2.1236*species2)/((101.2983*(1+(100.1019/species1)))+species2)...
-     0.00001*species4*((p1*(species4/(species3)))/((species4/(species3))+p2+(p3/(species3))))...
-     0.00001*p4*((species4-species3)+(species4*log(species4/(species3))))];
+ajs = [(0.00001)*species3/species4...
+     (0.1)*(2.1236*species2)/((101.2983*(1+(100.1019/species1)))+species2)...
+     (0.00001)*species4*((p1*(species4/(species3)))/((species4/(species3))+p2+(p3/(species3))))...
+     (0.00001)*p4*((species4-species3)+(species4*log(species4/(species3))))];
 aj = ajs.*vv; % remove inactive reactions 
 %aj = single(all_rxns(species1,species2,species3));
 a_0 = sum(aj); 
