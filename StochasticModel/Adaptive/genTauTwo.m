@@ -5,7 +5,7 @@ aco = sum(aj(inds)); % sum the ajs for all crticial reactions
 
 
 if aco==0
-    tau_double_prime = othertau;
+    tau_double_prime = othertau/(10^31);
 else
     mean_dis = -1/ aco; % mean distribution for exponential variate distribution
 
