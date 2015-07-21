@@ -250,9 +250,9 @@ if lena~=lenb
     end
 end
 
-mean_xs_num = (mean_xs_num/(6.02*(10^15)));
-st_dev_pos = st_dev_pos/(6.02*(10^15));
-st_dev_neg = st_dev_neg/(6.02*(10^15));
+mean_xs_num = (mean_xs_num/(6.02*(10^14)));
+st_dev_pos = st_dev_pos/(6.02*(10^14));
+st_dev_neg = st_dev_neg/(6.02*(10^14));
 figure(1)
 
 disp(mean_xs_num)
