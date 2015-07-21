@@ -11,7 +11,7 @@ and one figure with all three substances on the same plot.
 %}
 
 % user chooses how many simulations to run
-num_sims = 3;
+num_sims = 1;
 
 % user chooses the maximum time for each simulation
 max_rx = 5;
@@ -45,7 +45,7 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
     
     while count <=max_rx; % loop through tau steps until max time is reached
         
-        
+        disp(count)
         if count<oligo_time % determines which reactions are active in the time interval
             vv = [1 1 1 0];
         elseif count<fccp_time
@@ -137,7 +137,7 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
                     % amount each species changes if tau is tau one
                     if (implicit == 1) % using implicit formula
                         [X0] = amountChanges(X0, aj, V, num_rx, tau, Rjs);
-                        [X0] = ImplicitXX(X, V, X0, tau, num_rx);
+                       % [X0] = ImplicitXX(X, V, X0, tau, num_rx);
                         time = time + tau; % find new time by adding tau to previous time
                     else % using explicit formula
                         [X0] = amountChanges(X0, aj, V, num_rx, tau, Rjs);
@@ -163,7 +163,7 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
                     % (only one critical reaction can occur)
                     if (implicit ==1) % calculations for implicit
                         [X0] = amountChangesDouble(X0, aj, V, tau, Rjs, num_rx);
-                        [X0] = ImplicitXX(X, V, X0, tau, num_rx);
+                        %[X0] = ImplicitXX(X, V, X0, tau, num_rx);
                     else % calculations for explicit
                         [X0] = amountChangesDouble(X0, aj, V, tau, Rjs, num_rx);
                     end
