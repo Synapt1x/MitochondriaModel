@@ -14,7 +14,7 @@ and one figure with all three substances on the same plot.
 num_sims = 1;
 
 % user chooses the maximum time for each simulation
-max_rx = 5;
+max_rx = 30;
 
 % interval used for plotting means and calculating variance 
 interval = 0.01 * max_rx;
@@ -255,7 +255,7 @@ st_dev_pos = st_dev_pos/(6.02*(10^14));
 st_dev_neg = st_dev_neg/(6.02*(10^14));
 figure(1)
 
-disp(mean_xs_num)
+%disp(mean_xs_num)
 colours = {'b', 'g', 'c', 'r', 'm', 'b', 'g', 'c'};
 titles = {'Cyt C Red', 'O2', 'HN', 'HP', 'NADH2', 'NAD+', 'Cyt C Ox', 'H2O'};
 Ylabs = {'Cyt C Red', 'O2', 'HN', 'HP', 'NADH2', 'NAD+', 'Cyt C OX', 'H2O'};
@@ -275,12 +275,12 @@ for pl = 1:num_species
     hold on
 end
 
-varsTitles ={'Cyt C Red Variance', 'O2 Variance', 'HN Variance', 'HP Variance', ...
-    'NADH2 Variance', 'NAD+ Variance', 'Cyt C Ox Variance', 'H2O Variance'};
+%varsTitles ={'Cyt C Red Variance', 'O2 Variance', 'HN Variance', 'HP Variance', ...
+   % 'NADH2 Variance', 'NAD+ Variance', 'Cyt C Ox Variance', 'H2O Variance'};
 
-for varct = 1:num_species
-    disp(varsTitles{varct})
-    disp(mean(variances_xs_num(varct,:)))
-end
+%for varct = 1:num_species
+  %  disp(varsTitles{varct})
+   % disp(mean(variances_xs_num(varct,:)))
+%end
 
 toc
