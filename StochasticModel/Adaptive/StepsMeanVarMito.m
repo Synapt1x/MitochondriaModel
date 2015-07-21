@@ -20,8 +20,8 @@ num_pts_size = length(mean_points);
 
 % blank vector to store amounts at each step interval
 mean_xs_num = zeros(num_species, num_pts_size);
-for xx = 1:num_species-1
-    mean_xs_num(xx,1) = B(xx+1, 1);
+for xx = 1:num_species
+    mean_xs_num(xx,1) = B(xx, 1);
 end
 %mean_xs_num(2,1) = x2_average(1);
 %mean_xs_num(4,1) = z_average(1); 

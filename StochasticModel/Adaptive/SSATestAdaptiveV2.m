@@ -11,7 +11,7 @@ and one figure with all three substances on the same plot.
 %}
 
 % user chooses how many simulations to run
-num_sims = 3;
+num_sims = 1;
 
 % user chooses the maximum time for each simulation
 max_rx = 10;
@@ -218,6 +218,8 @@ all_values(:,col)=[];
 B=all_values(:,I);
 
 times_average = B(1,:); % extract row with all times
+C = B;
+C(1,:) = [];
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % calculations and plotting for moving average (mean) with number of points
@@ -225,7 +227,7 @@ times_average = B(1,:); % extract row with all times
 
 
 [mean_xs_num, variances_xs_num, times_plot_num, st_dev_pos, st_dev_neg] = StepsMeanVarMito(times_average,...
-    num_species, B);
+    num_species, C);
 
 lena = length(times_plot_num);
 lenb= length(mean_xs_num(1,:));
