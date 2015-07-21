@@ -14,7 +14,7 @@ and one figure with all three substances on the same plot.
 num_sims = 1;
 
 % user chooses the maximum time for each simulation
-max_rx = 5;
+max_rx = 10;
 
 % interval used for plotting means and calculating variance
 interval = 0.01 * max_rx;
@@ -27,9 +27,9 @@ all_values = [];
 
 % define time intervals for the various substrates. Befre oligo time, thre
 % is basal respiration
-oligo_time = max_rx/4; % oligomycin is added at oligo time
-fccp_time = 2*(max_rx/4); % FCCP is added at fccp time
-rot_aa_time = 3*(max_rx/4);  % rotenone and antimycin a are addedat rot aa time
+oligo_time = max_rx/8; % oligomycin is added at oligo time
+fccp_time = 2*(max_rx/8); % FCCP is added at fccp time
+rot_aa_time = 3*(max_rx/8);  % rotenone and antimycin a are addedat rot aa time
 
 
 for n = 1:num_sims % loop through all simulations. Plot after each sim
