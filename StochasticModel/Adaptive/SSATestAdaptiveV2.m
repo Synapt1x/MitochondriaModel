@@ -180,21 +180,8 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
                     count = time; % increment number of reactions
                 end
                 
-                %B = find(X0<0);
-                %if size(B) >0
-                 %   X(end,:) = [];
-                 %   pos_neg_count = -1;
-                  %  tau_one = tau_one/2;
-                  %  tau_two = tau_two/2;
-                %else
-                 %   pos_neg_count=1;
-               % end
-                
-            %end
         end
-        
-        
-        
+    
         
     end
     
