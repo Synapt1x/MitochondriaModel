@@ -188,12 +188,18 @@ disp('To be implemented');
 
 function exit_prog_Callback(hObject, eventdata, handles)
 disp('Goodbye! Thank you for using my mitochondrial model!');
-exit;
+close;
+
+function version_Callback(hObject, eventdata, handles)
+disp('To be implemented');
+
+function info_Callback(hObject,eventdata, handles)
+disp('To be implemented');
 
 function save_graph_Callback(hObject, eventdata, handles)
 disp('To be implemented');
 
-function open_fig_Callback(hObject, eventdata, handles)
+function open_graph_Callback(hObject, eventdata, handles)
 disp('To be implemented');
 
 %% Plot Callback function
