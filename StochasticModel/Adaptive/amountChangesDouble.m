@@ -52,7 +52,7 @@ numNon = length(indsNon); % find number of non-critical reactions
 
 for non = 1:numNon
     indNon = indsNon(non); % index of the reaction
-    ajnon = aj(indNon); % retrieve the a value of the reaction
+    ajnon = abs(aj(indNon)); % retrieve the a value of the reaction
     changeNonCrit = V(indNon, :); % changes to each species from the reaction
     numTimes = poissrnd(ajnon*tau); % number of times the reaction occurs
     totalChange = changeNonCrit.* numTimes; % the change in each species
