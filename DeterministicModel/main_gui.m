@@ -182,6 +182,20 @@ else
     msgbox('Operation to load parameter set aborted','Aborted');
 end
 
+%% Menu Callback functions
+function save_fig_Callback(hObject, eventdata, handles) %save the current version of fig
+disp('To be implemented');
+
+function exit_prog_Callback(hObject, eventdata, handles)
+disp('Goodbye! Thank you for using my mitochondrial model!');
+exit;
+
+function save_graph_Callback(hObject, eventdata, handles)
+disp('To be implemented');
+
+function open_fig_Callback(hObject, eventdata, handles)
+disp('To be implemented');
+
 %% Plot Callback function
 function plot_Callback(hObject, eventdata, handles) %plot button in gui
 
