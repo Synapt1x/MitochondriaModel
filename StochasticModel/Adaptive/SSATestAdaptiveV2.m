@@ -27,9 +27,9 @@ all_values = [];
 
 % define time intervals for the various substrates. Befre oligo time, thre
 % is basal respiration
-oligo_time = max_rx/4; % oligomycin is added at oligo time
-fccp_time = 2*(max_rx/4); % FCCP is added at fccp time
-rot_aa_time = 3*(max_rx/4);  % rotenone and antimycin a are addedat rot aa time
+oligo_time = 121.8; % oligomycin is added at oligo time
+fccp_time = 271.8; % FCCP is added at fccp time
+rot_aa_time = 432;  % rotenone and antimycin a are addedat rot aa time
 
 
 for n = 1:num_sims % loop through all simulations. Plot after each sim
