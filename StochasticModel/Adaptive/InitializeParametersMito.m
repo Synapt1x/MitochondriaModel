@@ -14,7 +14,7 @@ red_amt = 1.204 * (10^17);
 ox_amt = 1.204 * (10^17);
 hp_amt = 1.204 * (10^17);
 hn_amt = 1.204 * (10^18);
-o2_amt = 2.0595 * (10^17);
+o2_amt = 2.0595 * (10^17)/2;
 %X0 = [400 400 400 400 400 400 400 400];
 X0 = [red_amt o2_amt hn_amt hp_amt 1.204*(10^17) 1.204*(10^17) ox_amt 1.204*(10^17)]; % initial amounts of each reactant stored in a vector
 
