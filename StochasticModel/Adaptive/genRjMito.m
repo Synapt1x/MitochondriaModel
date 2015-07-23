@@ -27,21 +27,12 @@ p4=0.1885*(10^23);
 % find ajs for each reaction and store in a vector. These need to be
 % changes based on the reactions defined in initializeParameters. Each aj
 % is the partial derivative of that reaction
-
-if tc==1
-    orc = 80;
-elseif tc==2
-    orc = 2;
-elseif tc==3
-    orc = 100;
-else
-    orc = 1; 
-end
+orc = 40;
 
 ajs = abs([(100)*species3/species4...
      (orc)*(2.1236*species2)/((101.2983*(1+(100.1019/species1)))+species2)...
-     (10^(-40))*species4*((p1*(species4/(species3)))/((species4/(species3))+p2+(p3/(species3))))...
-     (10^(-40))*p4*((species4-species3)+(species4*log(species4/(species3))))]);
+     (10^(-4))*species4*((p1*(species4/(species3)))/((species4/(species3))+p2+(p3/(species3))))...
+     (10^(-4))*p4*((species4-species3)+(species4*log(species4/(species3))))]);
 aj = ajs.*vv; % remove inactive reactions 
 %aj = single(all_rxns(species1,species2,species3));
 a_0 = sum(aj); 
