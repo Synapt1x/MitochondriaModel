@@ -14,13 +14,21 @@ global best, which will be stored in the variable result.
 
 %% Initialize vars
 
-[myResults,bestFit(1),bestFit(2)] = deal(inf); %initialize storage variables
+%initialize storage variables
+myResults = inf; 
+bestFit = OptimalSolutions.F(:,1).*inf; 
 
 %% Loop over OptimalSolutions to find Best
 
 % To loop over entire optimal set:
 for n=1:size(OptimalSolutions.X, 2) % Number of columns = number of solutions.
-    if OptimalSolutions.F(1,n)<bestFit(1) && OptimalSolutions.F(2,n)<bestFit(2)
+    
+    %first use bsxfun to check 'greater than' for all elements of bestFit
+    %vs. OptimalSolutions.F
+    checkSize = bsxfun(@gt,bestFit,OptimalSolutions.F(:,n));
+    
+    if all(checkSize) %if current best is greater than optimal then replace bestFit
+                              %all is used to check to see if all F-values are less than best
         myResults=OptimalSolutions.X(:,n);
         bestFit=OptimalSolutions.F(:,n);
     end
