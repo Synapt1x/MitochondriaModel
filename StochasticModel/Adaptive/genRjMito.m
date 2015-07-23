@@ -1,4 +1,4 @@
-function [Rjs, aj, a_0] = genRjMito (X0, V, nc, numRxns, vv)
+function [Rjs, aj, a_0] = genRjMito (X0, V, nc, numRxns, vv, tc)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % generates Ls values for each reaction in order to determine whether the
 % reaction is critical. If there are critical reactions, the function
@@ -27,8 +27,19 @@ p4=0.1885*(10^23);
 % find ajs for each reaction and store in a vector. These need to be
 % changes based on the reactions defined in initializeParameters. Each aj
 % is the partial derivative of that reaction
+
+if tc==1
+    orc = 35;
+elseif tc==2
+    orc = 2;
+elseif tc==3
+    orc = 40;
+else
+    orc = 1; 
+end
+
 ajs = abs([(10^(-70))*species3/species4...
-     (30)*(2.1236*species2)/((101.2983*(1+(100.1019/species1)))+species2)...
+     (orc)*(2.1236*species2)/((101.2983*(1+(100.1019/species1)))+species2)...
      (10^(-40))*species4*((p1*(species4/(species3)))/((species4/(species3))+p2+(p3/(species3))))...
      (10^(-40))*p4*((species4-species3)+(species4*log(species4/(species3))))]);
 aj = ajs.*vv; % remove inactive reactions 
