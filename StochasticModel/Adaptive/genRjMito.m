@@ -20,9 +20,14 @@ species7 = abs(X0(7)); % Cytcox
 species8 = abs(X0(8)); % H20
 
 % parameters list
-p1=101.2983;
-p2=10.8150;
-p3=99.3193;
+
+vmax = 6.02 * (10^14) * 2 * 2.1236;
+k1 =(1/(2*6.02*(10^14))) * 100.1019;
+km= 101.2983;
+p1=2*6.02*(10^14)*10.8150;
+p2=99.3193;
+p3=2*6.02*(10^14)*7.5784*(10^-4);
+f0= 2*6.02*(10^14)*95.3875;
 p4=0.1885;
 
 % find ajs for each reaction and store in a vector. These need to be
@@ -30,12 +35,12 @@ p4=0.1885;
 % is the partial derivative of that reaction
 
 % extra constants
-orc = 40;
 
-ajs = abs([(100)*species3/species4...
-     ((orc)*(2.1236*species2)/((101.2983*(1+(100.1019/species1)))+species2))*(species3/species4)...
-     (10^(-4))*species4*((p1*(species4/(species3)))/((species4/(species3))+p2+(p3/(species3))))...
-     (10^(-4))*p4*((species4-species3)+(species4*log(species4/(species3))))]);
+
+ajs = abs([(f0)*species3/species4...
+     ((vmax*species2)/((km*(1+(k1/species1)))+species2))*(species3/species4)...
+     (species4*((p1*(species4/(species3)))/((species4/(species3))+p2+(p3/(species3)))))...
+     (p4*((species4-species3)+(species4*log(species4/(species3)))))]);
 aj = ajs.*vv; % remove inactive reactions 
 %aj = single(all_rxns(species1,species2,species3));
 a_0 = sum(aj); 
