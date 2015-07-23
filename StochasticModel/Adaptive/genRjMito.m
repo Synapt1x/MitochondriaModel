@@ -29,16 +29,16 @@ p4=0.1885*(10^23);
 % is the partial derivative of that reaction
 
 if tc==1
-    orc = 60;
+    orc = 80;
 elseif tc==2
     orc = 2;
 elseif tc==3
-    orc = 80;
+    orc = 100;
 else
     orc = 1; 
 end
 
-ajs = abs([(10)*species3/species4...
+ajs = abs([(100)*species3/species4...
      (orc)*(2.1236*species2)/((101.2983*(1+(100.1019/species1)))+species2)...
      (10^(-40))*species4*((p1*(species4/(species3)))/((species4/(species3))+p2+(p3/(species3))))...
      (10^(-40))*p4*((species4-species3)+(species4*log(species4/(species3))))]);
