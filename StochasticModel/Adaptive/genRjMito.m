@@ -68,7 +68,7 @@ for check = 1:numRxns % loop that generates an Lj for each reaction
         check_els = find(Vls<0);
         XL = X0(check_els); % get the current amounts of each species
         VL = Vls(check_els); % determines which species are reactants
-        possLs = min(XL./VL); %  Lj is ratio of amount of species to amoutn that will be consumed
+        possLs = min(XL./VL); 
         Ljs(check) = abs(possLs);
     else
         Ljs(check) = nc+1; % if aj is not positive, reaction is not critical
