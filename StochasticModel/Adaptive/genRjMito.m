@@ -19,14 +19,15 @@ species6 = abs(X0(6)); % NAD+
 species7 = abs(X0(7)); % Cytcox
 species8 = abs(X0(8)); % H20
 
-p1=101.2983*(10^23);
-p2=10.8150*(10^23);
-p3=99.3193*(10^23);
-p4=0.1885*(10^23);
+p1=101.2983;
+p2=10.8150;
+p3=99.3193;
+p4=0.1885;
 
 % find ajs for each reaction and store in a vector. These need to be
 % changes based on the reactions defined in initializeParameters. Each aj
 % is the partial derivative of that reaction
+
 orc = 40;
 
 ajs = abs([(100)*species3/species4...

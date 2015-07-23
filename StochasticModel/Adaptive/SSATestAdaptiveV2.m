@@ -3,7 +3,7 @@ tic
 
 %{
 Programmed by: Ella Thomson
-Tracks the changes in amounts of three chemical reactants involved in
+Tracks the changes in amounts of three chemical re1actants involved in
 three chemical reactions. The reactions occur at randomly distributed
 times. The program plots the quantities of all three substances vs time.
 It produces two plots; one figure with each substance on its own plot,
