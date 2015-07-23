@@ -22,7 +22,7 @@ species8 = abs(X0(8)); % H20
 % parameters list
 
 vmax = 6.02 * (10^14) * 2 * 2.1236;
-k1 =(1/(2*6.02*(10^14))) * 100.1019;
+k1 = 100.1019;
 km= 101.2983;
 p1=2*6.02*(10^14)*10.8150;
 p2=99.3193;
@@ -37,10 +37,10 @@ p4=0.1885;
 % extra constants
 
 
-ajs = abs([(f0)*species3/species4...
-     ((vmax*species2)/((km*(1+(k1/species1)))+species2))*(species3/species4)...
-     (species4*((p1*(species4/(species3)))/((species4/(species3))+p2+(p3/(species3)))))...
-     (p4*((species4-species3)+(species4*log(species4/(species3)))))]);
+ajs = abs([(10^-2)*(f0)*species3/species4...
+     ((10^-2)*(vmax*species2)/((km*(1+(k1/species1)))+species2))*(species3/species4)...
+     ((10^-40)*species4*((p1*(species4/(species3)))/((species4/(species3))+p2+(p3/(species3)))))...
+     ((10^-40)*p4*((species4-species3)+(species4*log(species4/(species3)))))]);
 aj = ajs.*vv; % remove inactive reactions 
 %aj = single(all_rxns(species1,species2,species3));
 a_0 = sum(aj); 
