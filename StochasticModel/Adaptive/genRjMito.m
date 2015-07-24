@@ -34,15 +34,12 @@ p4=0.1885;
 % changes based on the reactions defined in initializeParameters. Each aj
 % is the partial derivative of that reaction
 
-% extra constants
-
-
 ajs = abs([(10^-8)*(f0)*species3/species4...
      ((10^-2)*(vmax*species2)/((km*(1+(k1/species1)))+species2))*(species3/species4)...
      ((10^-15)*species4*((p1*(species4/(species3)))/((species4/(species3))+p2+(p3/(species3)))))...
      ((10^-3)*p4*((species4-species3)+(species4*log(species4/(species3)))))]);
 aj = ajs.*vv; % remove inactive reactions 
-%aj = single(all_rxns(species1,species2,species3));
+
 a_0 = sum(aj); 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % check_elements is used to keep track of which elements in the matrix v
