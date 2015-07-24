@@ -1,4 +1,4 @@
-function [Rjs, aj, a_0] = genRjMito (X0, V, nc, numRxns, vv, tc)
+function [Rjs, aj, a_0] = genRjMito (X0, V, nc, numRxns, vv)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % generates Ls values for each reaction in order to determine whether the
 % reaction is critical. If there are critical reactions, the function
