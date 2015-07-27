@@ -179,7 +179,7 @@ if ~isequal(filename,0) %if a file is selected, load that file
     setParams(hObject,handles,myResults','changeVals');
     %additional argin signals setParams to update handles.parameters
 else
-    msgbox('Operation to load parameter set aborted','Aborted');
+    msgbox('Operation to load parameter set aborted.','Aborted');
 end
 
 %% Menu Callback functions
