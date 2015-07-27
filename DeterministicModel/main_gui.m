@@ -179,11 +179,11 @@ function info_Callback(hObject,eventdata, handles)
 disp('To be implemented');
 
 function save_graph_Callback(hObject, eventdata, handles)
-%acquire the desired name for the figure
-[figname,figpath]=uiputfile('.png','Please save the figure file.');
-
 %output the figure to be saved
 newgraph = openGraph('save');
+
+%acquire the desired name for the figure
+[figname,figpath]=uiputfile('.png','Please save the figure file.');
 
 %save figure into fig file pointed out by the user
 saveas(newgraph,[figpath,figname],'png');
