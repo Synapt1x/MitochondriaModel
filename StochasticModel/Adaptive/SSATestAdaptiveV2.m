@@ -48,16 +48,16 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
         disp(count)
         if count<oligo_time % determines which reactions are active in the time interval
             vv = [1 1 1 0];
-            tc = 1;
+            %tc = 1;
         elseif count<fccp_time
             vv=[1 1 0 0];
-            tc = 2;
+            %tc = 2;
         elseif count<rot_aa_time
             vv = [1 1 0 1];
-            tc = 3;
+            %tc = 3;
         else
             vv = [0 1 0 1];
-            tc = 4;
+            %tc = 4;
         end
         
         % identify all critical reactions
