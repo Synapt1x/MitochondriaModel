@@ -173,10 +173,15 @@ disp('Goodbye! Thank you for using my mitochondrial model!');
 close;
 
 function version_Callback(hObject, eventdata, handles)
-disp('To be implemented');
+[~,ver]=system('git describe --abbrev=0');
+[~,cmt]=system('git rev-parse HEAD');
+msgbox(['The current version of this code is ',ver(1:end-1), ...
+    ' and the most recent commit on Github is "',cmt(1:end-1),'".'],'Code Version');
 
 function info_Callback(hObject,eventdata, handles)
-disp('To be implemented');
+system('cd ..'); %go back a folder to get to the main readme file
+open('README.md'); %open the readme file
+system('cd DeterministicModel'); %go back into Deterministic Model
 
 function save_graph_Callback(hObject, eventdata, handles)
 %output the figure to be saved
@@ -294,8 +299,6 @@ else
     varargout{1}=newgraph;
 
 end
-
-
 
 %% Change all parameter values
 function setParams(hObject,handles,values,varargin)
