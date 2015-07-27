@@ -145,24 +145,6 @@ newDh = str2double(get(hObject, 'String'));
 handles.parameters.Dh = newDh;
 guidata(hObject,handles);
 
-function figcytc_Callback(hObject, eventdata, handles)
-openFig(handles.Cytc_plot,handles,1);
-
-function fighn_Callback(hObject, eventdata, handles)
-openFig(handles.H_N_plot,handles,4);
-
-function fighp_Callback(hObject, eventdata, handles)
-openFig(handles.H_P_plot,handles,5);
-
-function figo2_Callback(hObject, eventdata, handles)
-openFig(handles.O2_plot,handles,2);
-
-function figocr_Callback(hObject, eventdata, handles)
-openFig(handles.OCR_plot,handles,3);
-
-function figprot_Callback(hObject, eventdata, handles)
-openFig(handles.protons,handles,6);
-
 function loadparams_Callback(hObject,eventdata,handles)
 folder = fileparts(which(mfilename)); %get the current folder
 
@@ -170,7 +152,7 @@ folder = fileparts(which(mfilename)); %get the current folder
 waitfor(msgbox('Please select the ''BestResults.mat'' file to load.','Load Parameter Set'));
 [filename,filepath] = uigetfile({'*-BestResults.mat';'*.*'},'Select the .mat containing the parameter set to load');
 
-if ~isequal(filename,0) %if a file is selected, load that file    
+if ~isequal(filename,0) %if a file is selected, load that file
     cd(filepath); %change to file's directory
     load(filename); %load the file
     cd(folder); %change to previous directory
@@ -197,10 +179,21 @@ function info_Callback(hObject,eventdata, handles)
 disp('To be implemented');
 
 function save_graph_Callback(hObject, eventdata, handles)
-disp('To be implemented');
+%acquire the desired name for the figure
+[figname,figpath]=uiputfile('.png','Please save the figure file.');
+
+%output the figure to be saved
+newgraph = openGraph('save');
+
+%save figure into fig file pointed out by the user
+saveas(newgraph,[figpath,figname],'png');
+
+%close the figure to free memory
+close(newgraph);
+
 
 function open_graph_Callback(hObject, eventdata, handles)
-disp('To be implemented');
+openGraph; %simply open the figure in a new window
 
 %% Plot Callback function
 function plot_Callback(hObject, eventdata, handles) %plot button in gui
@@ -269,23 +262,37 @@ for i=1:numel(handles.parameters.title)
         'FontWeight','bold');
 end
 
-%% Open Large Figure Function
-function openFig(hObject,handles,ObjNum)
+%% Open Clicked Figure in New Figure
+function varargout = openGraph(varargin)
+%determine which object was clicked
+whichgraph = gco;
+obj=get(gca);
+
 %open a new figure using the graph from the relevant axes
-h2copy = allchild(hObject); %extract all children from hObject
+h2copy = allchild(whichgraph); %extract all children from hObject
 if isempty(h2copy) %check to see if the graph exists yet
     msgbox(['This function has not been plotted yet. ' ...
         'Please use the plot button below to graph the function before opening it.'],'No Plot');
 else
-    figure('units','normalized','outerposition',[0 0 1 1]); %create the figure
+    if ~isempty(varargin)
+        newgraph = figure('Visible','Off','units','normalized','outerposition',[0 0 1 1]); %create the figure
+    else
+        newgraph = figure('units','normalized','outerposition',[0 0 1 1]); %create the figure
+    end
     hParent = axes; %create handle for axes child
     copyobj(h2copy,hParent) %copy the original graph to the new fig
     
     %now add the correct labels to the new figure
-    xlabel(handles.parameters.xlab,'FontName','Calibri');
-    ylabel(handles.parameters.ylab{ObjNum},'FontName','Calibri');
-    title(handles.parameters.title{ObjNum},'FontWeight','bold');
+    xlabel(obj.XLabel.String,'FontName','Calibri');
+    ylabel(obj.YLabel.String,'FontName','Calibri');
+    title(obj.Title.String,'FontSize',16,'FontWeight','bold','FontName','Calibri');
+    
+    %optionally output the figure for the 'save' feature
+    varargout{1}=newgraph;
+
 end
+
+
 
 %% Change all parameter values
 function setParams(hObject,handles,values,varargin)
