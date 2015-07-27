@@ -27,6 +27,7 @@ parameters.Dh = 0.1885; %bounds: [1E-6 1]
 %initial conditions in nmol/mL
 parameters.Cytcox = 100;
 parameters.Cytcred = 100;
+parameters.Cytctot = parameters.Cytcox+parameters.Cytcred;
 parameters.O2 = parameters.realo2Data(1);
 parameters.Hn = 1000;
 parameters.Hp = 100;
