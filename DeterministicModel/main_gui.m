@@ -152,7 +152,7 @@ folder = fileparts(which(mfilename)); %get the current folder
 waitfor(msgbox('Please select the ''BestResults.mat'' file to load.','Load Parameter Set'));
 [filename,filepath] = uigetfile({'*-BestResults.mat';'*.*'},'Select the .mat containing the parameter set to load');
 
-if ~isequal(filename,0) %if a file is selected, load that file
+if ischar(filename) %if a file is selected, load that file
     cd(filepath); %change to file's directory
     load(filename); %load the file
     cd(folder); %change to previous directory
@@ -161,7 +161,7 @@ if ~isequal(filename,0) %if a file is selected, load that file
     setParams(hObject,handles,myResults','changeVals');
     %additional argin signals setParams to update handles.parameters
 else
-    msgbox('Operation to load parameter set aborted.','Aborted');
+    msgbox('No file selected.','Operation aborted.');
 end
 
 %% Menu Callback functions
@@ -186,8 +186,11 @@ newgraph = openGraph('save');
 [figname,figpath]=uiputfile('.png','Please save the figure file.');
 
 %save figure into fig file pointed out by the user
-saveas(newgraph,[figpath,figname],'png');
-
+if ischar(figname) %check if user selected an output name
+    saveas(newgraph,[figpath,figname],'png');
+else %if not, then abort saving and provide message
+    msgbox('No output file name provided.','Operation aborted.');
+end
 %close the figure to free memory
 close(newgraph);
 
