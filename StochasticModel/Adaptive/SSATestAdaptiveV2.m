@@ -61,7 +61,7 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
         end
         
         % identify all critical reactions
-        [Rjs, aj, a_0] = genRjMito (X(end,:), V,nc, num_rx, vv, tc);
+        [Rjs, aj, a_0] = genRjMito (X(end,:), V,nc, num_rx, vv);
         
         % epsilon value for each species
         [eis, gis] = genEisMito (0.05, V, X, num_species, num_rx);
