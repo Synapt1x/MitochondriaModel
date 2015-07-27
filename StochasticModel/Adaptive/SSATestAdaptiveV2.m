@@ -73,7 +73,6 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
         [impTau] = ImplicitTau(Rjs, V, aj, num_species, X0, gis);
         
         
-        
         % check for stiffness of the system (if stiff, choose implicit tau)
         if impTau > 100*tau_prime
             tau_one = impTau;
@@ -83,8 +82,7 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
             implicit = 0;
         end
         
-        
-        
+       
         
         % comparison for the bound of tau
         compare = abs(5 * (1/a_0));
@@ -109,8 +107,7 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
                     X = [X; X0]; % store all X values in a matrix
                     %if time <= max_rx
                     count = time;
-                    ssaSteps = ssaSteps+1;
-                    
+                    ssaSteps = ssaSteps+1;   
                 else
                     % do nothing
                     count = max_rx+0.1;
