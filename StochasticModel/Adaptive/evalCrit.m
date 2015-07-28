@@ -5,4 +5,4 @@ function nc = evalCrit(X0)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 averageStart = sum(X0) / length(X0);
-nc = 0.005.* averageStart;  % crticial amount is 10% of starting amount
+nc = 0.05.* averageStart;  % crticial amount is 10% of starting amount
