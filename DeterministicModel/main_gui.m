@@ -176,7 +176,7 @@ function version_Callback(hObject, eventdata, handles)
 [~,ver]=system('git describe --abbrev=0');
 [~,cmt]=system('git rev-parse HEAD');
 msgbox(['The current version of this code is ',ver(1:end-1), ...
-    ' and the most recent commit on Github is "',cmt(1:end-1),'".'],'Code Version');
+    ' and the most recent Git commit is "',cmt(1:end-1),'".'],'Code Version');
 
 function info_Callback(hObject,eventdata, handles)
 system('cd ..'); %go back a folder to get to the main readme file
