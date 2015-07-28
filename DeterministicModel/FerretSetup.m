@@ -27,7 +27,7 @@ par.general.popSize=125;
 par.general.NGen=100000;
 par.general.NPop=2;
 % ====================================
-% Parameters (X) %
+% Parameters (X)
 par.X.Vmax.range=[0.1,1E4];
 %
 par.X.K1.range=[1,1E4];
