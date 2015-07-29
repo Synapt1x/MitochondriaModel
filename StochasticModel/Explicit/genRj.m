@@ -8,6 +8,7 @@ function [Rjs, aj, a_0] = genRj (X0, V, nc, numRxns)
 
 % the minimum value of lj for rj to be considered a critical reaction. This
 % can be a whole number between 2-20. It's usually equal to 10
+%Synapt1x adding a comment here%
 
 species1 = X0(1); % amount of x1
 species2 = X0(2); % amount of x2
