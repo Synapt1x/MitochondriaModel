@@ -54,6 +54,7 @@ end
 % amount. This amount is calculated in the genCrit function, based on the
 % initial amount of each species, but can be changed. 
 
+% stores a vector of rjs
 Rjs = single(abs(Ljs) < nc); 
 
 
