@@ -15,8 +15,8 @@ tau. Returns a vector of the current species amounts.
             
         else
             poi_ran = poissrnd(tau*aspec); % generate a poisson random number
-            change_amount = poi_ran * vspec; % the change in the substance is the # of reactions * the amount used in each reactin
+            change_amount = poi_ran * vspec; % the change in the substance 
         end
-        final_amount = change_amount + final_amount; % add change to previous amount to get new amount
+        final_amount = change_amount + final_amount; % add to previous amount
     end
     X0 = final_amount; 
