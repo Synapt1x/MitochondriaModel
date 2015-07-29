@@ -8,7 +8,6 @@ function [Rjs, aj, a_0] = genRj (X0, V, nc, numRxns)
 
 % the minimum value of lj for rj to be considered a critical reaction. This
 % can be a whole number between 2-20. It's usually equal to 10
-%Synapt1x adding a comment here%
 
 species1 = X0(1); % amount of x1
 species2 = X0(2); % amount of x2
@@ -38,14 +37,14 @@ Rjs = zeros(1,3); % define a blank vector to store Rj for each reaction
 check_rxns = aj>0; % Only reactions with positive ajs will be checked
 check_elements = V <0; % Only species that are reactants will be checked
 
-for check = 1:numRxns % loop that generates an Lj for each reaction 
+for check = 1:100 % loop that generates an Lj for each reaction 
     if check_rxns(check) ==1 % check if aj for reaction is positive
-        check_els = check_elements(check, :); % row of which elements to check
+        reset = check_elements(check, :); % row of which elements to check
         Vls = V(check, :); % extract the V values for the reaction
         XL = X0(check_els); % get the current amounts of each species
         VL = Vls(check_els); % determines which species are reactants
-        possLs = min(XL./VL); %  Lj is ratio of amount of species to amoutn that will be consumed
-        Ljs(check) = possLs;
+        genLs = min(XL./VL); %  Lj is ratio of amount of species to amoutn that will be consumed
+        trueLjs(check) = possLs;
     else
         Ljs(check) = nc+1; % if aj is not positive, reaction is not critical
     end
