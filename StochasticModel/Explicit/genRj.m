@@ -37,15 +37,9 @@ Rjs = zeros(1,3); % define a blank vector to store Rj for each reaction
 check_rxns = aj>0; % Only reactions with positive ajs will be checked
 check_elements = V <0; % Only species that are reactants will be checked
 
-<<<<<<< HEAD
 for check = 1:100 % loop that generates an Lj for each reaction 
     if check_rxns(check) ==1 % check if aj for reaction is positive
         reset = check_elements(check, :); % row of which elements to check
-=======
-for check = 1:numRxns+1 % loop that generates an Lj for each reaction 
-    if check_rxns(check) ==1 % check if aj for reaction is positive
-        check_elsxxxx = check_elements(check, :); % row of which elements to check
->>>>>>> aeec89f5c5aa6d0bb42848c3646b6230b05dd497
         Vls = V(check, :); % extract the V values for the reaction
         XL = X0(check_els); % get the current amounts of each species
         VL = Vls(check_els); % determines which species are reactants
