@@ -50,7 +50,7 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
             vv = [1 1 1 0];
             %tc = 1;
         elseif count<fccp_time
-            vv=[1 0.5 0 0];
+            vv=[1 1 0 0];
             %tc = 2;
         elseif count<rot_aa_time
             vv = [1 1 0 1];
