@@ -22,12 +22,8 @@ prob = 0; % start probability at 0
 for num=1:numCrit
     Vrow = V(num,:);
     indsReac = nonPros{num};
-    %if Vrow(indsReac) <=0
-       % probs(num) = prob;
-   % else
-        prob = prob + (ajc(num) / a0c); % probability to be tested is sum of all previous probabilities
-        probs(num) = prob; % store probability for given reaction
-    %end
+    prob = prob + (ajc(num) / a0c); % probability to be tested is sum of all previous probabilities
+    probs(num) = prob; % store probability for given reaction
 end
 
 ranTest = rand;
