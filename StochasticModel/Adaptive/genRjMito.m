@@ -30,9 +30,9 @@ p3=2*6.02*(10^14)*7.5784*(10^-4);
 f0= 2*6.02*(10^14)*95.3875;
 p4=0.1885;
 
-c1=10^-5;
+c1=10^-4;
 c2=10^-2;
-c3=10^-25;
+c3=10^-35;
 c4=10^-4;
 
 % find ajs for each reaction and store in a vector. These need to be
