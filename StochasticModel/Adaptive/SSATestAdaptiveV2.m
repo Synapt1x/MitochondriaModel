@@ -27,7 +27,8 @@ all_values = [];
 
 % define time intervals for the various substrates. Befre oligo time, thre
 % is basal respiration
-oligo_time = 121.8; % oligomycin is added at oligo time
+%oligo_time = 121.8; % oligomycin is added at oligo time
+oligo_time = 20;
 fccp_time = 271.8; % FCCP is added at fccp time
 rot_aa_time = 432;  % rotenone and antimycin a are addedat rot aa time
 
