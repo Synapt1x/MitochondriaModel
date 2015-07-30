@@ -1,4 +1,4 @@
-function [Rjs, aj, a_0] = genRjMito (X0, V, nc, numRxns, vv)
+function [Rjs, aj, a_0] = genRjMito (X0, V, nc, numRxns, active)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % generates Ls values for each reaction in order to determine whether the
 % reaction is critical. If there are critical reactions, the function
@@ -38,7 +38,7 @@ ajs = abs([(10^-5)*(f0)*species3/species4,...
      ((10^-2)*(vmax*species2)/((km*(1+(k1/species1)))+species2))*(species3/species4),...
      ((10^-20)*species4*((p1*(species4/(species3)))/((species4/(species3))+p2+(p3/(species3))))),...
      ((10^-2)*p4*((species4-species3)+(species4*log(species4/(species3)))))]);
-aj = ajs.*vv; % remove inactive reactions 
+aj = ajs.*active; % remove inactive reactions 
 
 a_0 = sum(aj); 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
