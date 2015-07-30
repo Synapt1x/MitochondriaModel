@@ -32,7 +32,7 @@ p4=0.1885;
 
 c1=10^-5;
 c2=10^-2;
-c3=10^-20;
+c3=10^-25;
 c4=10^-4;
 
 % find ajs for each reaction and store in a vector. These need to be
