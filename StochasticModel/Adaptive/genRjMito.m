@@ -30,14 +30,19 @@ p3=2*6.02*(10^14)*7.5784*(10^-4);
 f0= 2*6.02*(10^14)*95.3875;
 p4=0.1885;
 
+c1=10^-5;
+c2=10^-2;
+c3=10^-18;
+c4=10^-2;
+
 % find ajs for each reaction and store in a vector. These need to be
 % changes based on the reactions defined in initializeParameters. Each aj
 % is the partial derivative of that reaction
 
-ajs = abs([(10^-5)*(f0)*species3/species4,...
-     ((10^-2)*(vmax*species2)/((km*(1+(k1/species1)))+species2))*(species3/species4),...
-     ((10^-20)*species4*((p1*(species4/(species3)))/((species4/(species3))+p2+(p3/(species3))))),...
-     ((10^-2)*p4*((species4-species3)+(species4*log(species4/(species3)))))]);
+ajs = abs([c1*(f0)*species3/species4,...
+     (c2*(vmax*species2)/((km*(1+(k1/species1)))+species2))*(species3/species4),...
+     (c3*species4*((p1*(species4/(species3)))/((species4/(species3))+p2+(p3/(species3))))),...
+     (c4*p4*((species4-species3)+(species4*log(species4/(species3)))))]);
 aj = ajs.*active; % remove inactive reactions 
 
 a_0 = sum(aj); 
