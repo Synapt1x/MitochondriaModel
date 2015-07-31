@@ -34,7 +34,7 @@ p4=0.1885;
 c1=10^-10;
 c2=(10^-2);
 c3=10^-30;
-c4=10^-4;
+c4=10^-10;
 
 % find ajs for each reaction and store in a vector. These need to be
 % changes based on the reactions defined in initializeParameters. Each aj
