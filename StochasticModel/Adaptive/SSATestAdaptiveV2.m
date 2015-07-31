@@ -114,7 +114,7 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
                     count = time;
                     ssaSteps = ssaSteps+1;  
                     else 
-                        count = quit_time;
+                        count = quit_time+1;
                         ssaSteps=6;
                     end
                 else
