@@ -31,6 +31,7 @@ oligo_time = 121.8; % oligomycin is added at oligo time
 fccp_time = 271.8; % FCCP is added at fccp time
 rot_aa_time = 432;  % rotenone and antimycin a are addedat rot aa time
 
+all_times = [0 121.8 271.8 432 600]; 
 
 for n = 1:num_sims % loop through all simulations. Plot after each sim
     
@@ -48,17 +49,20 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
         disp(count)
         if count<oligo_time % determines which reactions are active in the time interval
             active = [1 1 1 0];
-            %tc = 1;
+            region = 1;
         elseif count<fccp_time
             active=[1 1 0 0];
-            %tc = 2;
+            region = 2;
         elseif count<rot_aa_time
             active = [1 1 0 1];
-            %tc = 3;
+            region = 3;
         else
             active = [0 1 0 1];
-            %tc = 4;
+            region = 4;
         end
+        
+        % find the maximum time in the same region
+        quit_time = all_times(region+1);
         
         % identify all critical reactions
         [Rjs, aj, a_0] = genRjMito (X(end,:), V,nc, num_rx, active);
@@ -93,6 +97,7 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
             
             while ssaSteps <= 5 % loop through a limited number of SSA steps
                 if count <=(max_rx-0.5) % check to ensure max time is not being reached
+                    if count< quit_time
                     [tau, j] = TauAndJGen (aj);
                     time = time + abs(tau); % find new time by adding tau to previous time
                     if time >max_rx
@@ -107,7 +112,11 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
                     X = [X; X0]; % store all X values in a matrix
                     %if time <= max_rx
                     count = time;
-                    ssaSteps = ssaSteps+1;   
+                    ssaSteps = ssaSteps+1;  
+                    else 
+                        count = quit_time;
+                        ssaSteps=6;
+                    end
                 else
                     % do nothing
                     count = max_rx+0.1;
