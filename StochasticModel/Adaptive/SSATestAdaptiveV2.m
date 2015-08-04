@@ -22,8 +22,6 @@ tau_prime = 0;
 
 all_values = [];
 
-%disp('Current Simulation Number')
-
 
 % define time intervals for the various substrates. Befre oligo time, thre
 % is basal respiration
