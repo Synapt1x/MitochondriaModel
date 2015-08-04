@@ -261,12 +261,12 @@ Ylabs = {'Cyt C Red', 'O2', 'HN', 'HP', 'NADH2', 'NAD+', 'Cyt C OX', 'H2O'};
 
 for pl = 1:num_species
     subplot(4,2,pl)
-    %plot(times_plot_num, st_dev_pos(pl,:), colours{pl}) % plots all points from all simulations
-    %hold on
+    plot(times_plot_num, st_dev_pos(pl,:), colours{pl}) % plots all points from all simulations
+    hold on
     plot(times_plot_num, mean_xs_num(pl,:), 'k', 'LineWidth', 3) % plots mean point in each steps interval
-    %hold on
-    %plot(times_plot_num, st_dev_neg(pl,:), colours{pl})
-    %hold on
+    hold on
+    plot(times_plot_num, st_dev_neg(pl,:), colours{pl})
+    hold on
     title(titles{pl})
     xlabel('Time')
     ylabel(Ylabs{pl})
