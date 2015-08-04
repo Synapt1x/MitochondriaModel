@@ -31,10 +31,10 @@ f0= 2*6.02*(10^14)*95.3875;
 p4=0.1885;
 
 % constants list (cjs) 
-c1=10^-6;
+c1=5*(10^-6);
 c2=1.5*(10^-2);
 c3=10^-30;
-c4=5*(10^-8);
+c4=(10^-4);
 
 % find ajs for each reaction and store in a vector. These need to be
 % changes based on the reactions defined in initializeParameters. Each aj
