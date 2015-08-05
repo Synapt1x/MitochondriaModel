@@ -280,4 +280,14 @@ end
    % disp(mean(variances_xs_num(varct,:)))
 %end
 
+%get the current date and time and insert it into a filename
+currtime = datestr(now);
+%remove whitespaces
+currtime(currtime==' ') = '-';
+%save the file name
+filename=['/output/StochasticOutput',currtime,'.mat'];
+
+%save mean and variances of all sims into outputfile
+save(filename,'times_plot_num','mean_xs_num','variances_xs_num');
+
 toc
