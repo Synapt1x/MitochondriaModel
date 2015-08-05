@@ -32,9 +32,9 @@ p4=0.1885;
 
 % constants list (cjs) modified from original best set
 c1=(10^-3);
-c2=9*(10^-2);
-c3=10^-50;
-c4=(10^-4);
+c2=8*(10^-3);
+c3=10^-30;
+c4=(10^-30);
 
 % find ajs for each reaction and store in a vector. These need to be
 % changes based on the reactions defined in initializeParameters. Each aj
