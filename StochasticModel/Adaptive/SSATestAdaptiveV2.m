@@ -14,7 +14,7 @@ and one figure with all three substances on the same plot.
 num_sims = 1;
 
 % user chooses the maximum time for each simulation
-max_rx = 10;
+max_rx = 600;
 
 % interval used for plotting means and calculating variance 
 interval = 0.01 * max_rx;
