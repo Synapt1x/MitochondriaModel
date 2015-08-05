@@ -11,7 +11,7 @@ and one figure with all three substances on the same plot.
 %}
 
 % user chooses how many simulations to run
-num_sims = 1;
+num_sims = 400;
 
 % user chooses the maximum time for each simulation
 max_rx = 618;
