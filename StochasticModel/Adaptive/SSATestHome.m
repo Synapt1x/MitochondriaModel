@@ -11,10 +11,10 @@ and one figure with all three substances on the same plot.
 %}
 
 % user chooses how many simulations to run
-num_sims = 100;
+num_sims = 1;
 
 % user chooses the maximum time for each simulation
-max_rx = 620;
+max_rx = 618;
 
 % interval used for plotting means and calculating variance 
 interval = 0.01 * max_rx;
@@ -105,9 +105,9 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
                     Vj = V(j,:); % retrieve V values for the selected reaction
                     X0 = X0 + Vj; % get new X0 value
                     % if species amount is less than 0, correct it
-                    b = find(X0<0);
-                    X0(b) = 0;
-                    X = [X; X0]; % store all X values in a matrix
+                    %b = find(X0<0);
+                    %X0(b) = 0;
+                    %X = [X; X0]; % store all X values in a matrix
                     %if time <= max_rx
                     count = time;
                     ssaSteps = ssaSteps+1;  
@@ -252,7 +252,6 @@ st_dev_pos = st_dev_pos/(6.02*(10^14));
 st_dev_neg = st_dev_neg/(6.02*(10^14));
 figure(1)
 
-disp(mean_xs_num)
 colours = {'b', 'g', 'c', 'r', 'm', 'b', 'g', 'c'};
 titles = {'Cyt C Red', 'O2', 'HN', 'HP', 'NADH2', 'NAD+', 'Cyt C Ox', 'H2O'};
 Ylabs = {'Cyt C Red', 'O2', 'HN', 'HP', 'NADH2', 'NAD+', 'Cyt C OX', 'H2O'};
