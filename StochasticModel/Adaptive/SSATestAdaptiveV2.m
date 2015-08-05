@@ -14,7 +14,7 @@ and one figure with all three substances on the same plot.
 num_sims = 1;
 
 % user chooses the maximum time for each simulation
-max_rx = 600;
+max_rx = 618;
 
 % interval used for plotting means and calculating variance 
 interval = 0.01 * max_rx;
@@ -105,9 +105,9 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
                     Vj = V(j,:); % retrieve V values for the selected reaction
                     X0 = X0 + Vj; % get new X0 value
                     % if species amount is less than 0, correct it
-                    b = find(X0<0);
-                    X0(b) = 0;
-                    X = [X; X0]; % store all X values in a matrix
+                    %b = find(X0<0);
+                    %X0(b) = 0;
+                    %X = [X; X0]; % store all X values in a matrix
                     %if time <= max_rx
                     count = time;
                     ssaSteps = ssaSteps+1;  
