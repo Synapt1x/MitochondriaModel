@@ -32,7 +32,7 @@ p4=0.1885;
 
 % constants list (cjs) modified from original best set
 c1=9*(10^-5);
-c2=1.7*(10^-2);
+c2=2.8*(10^-2);
 c3=10^-30;
 c4=8*(10^-8);
 
