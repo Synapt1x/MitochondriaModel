@@ -31,10 +31,10 @@ f0= 2*6.02*(10^14)*95.3875;
 p4=0.1885;
 
 % constants list (cjs) modified from original best set
-c1=9*(10^-5);
-c2=2.8*(10^-2);
+c1=8.5*(10^-5); % try to change this parameter up and down 
+c2=2.7*(10^-2); % stick with 2.7
 c3=10^-30;
-c4=8*(10^-8);
+c4=8*(10^-8); % decrease this parameter 
 
 % find ajs for each reaction and store in a vector. These need to be
 % changes based on the reactions defined in initializeParameters. Each aj
