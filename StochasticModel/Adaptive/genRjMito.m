@@ -31,8 +31,8 @@ f0= 2*6.02*(10^14)*95.3875;
 p4=0.1885;
 
 % constants list (cjs) modified from original best set
-c1=8.86*(10^-5); % try to change this parameter up and down 8.5
-c2=2.62*(10^-2); % stick with 2.65
+c1=8.83*(10^-5); % try to change this parameter up and down 8.5
+c2=2.64*(10^-2); % stick with 2.65
 c3=10^-30;
 c4=8*(10^-8); % decrease this parameter 
 
