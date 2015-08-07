@@ -11,7 +11,7 @@ and one figure with all three substances on the same plot.
 %}
 
 % user chooses how many simulations to run
-num_sims = 400;
+num_sims = 1;
 
 % user chooses the maximum time for each simulation
 max_rx = 618;
@@ -63,7 +63,7 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
         quit_time = all_times(region+1);
         
         % identify all critical reactions
-        [Rjs, aj, a_0] = genRjMitoHome (X(end,:), V,nc, num_rx, active);
+        [Rjs, aj, a_0] = genRjMito (X(end,:), V,nc, num_rx, active);
         
         % epsilon value for each species
         [eis, gis] = genEisMito (0.05, V, X, num_species, num_rx);
@@ -250,8 +250,7 @@ end
 mean_xs_num = (mean_xs_num/(6.02*(10^14)));
 st_dev_pos = st_dev_pos/(6.02*(10^14));
 st_dev_neg = st_dev_neg/(6.02*(10^14));
-figure(1)
-
+figure(
 colours = {'b', 'g', 'c', 'r', 'm', 'b', 'g', 'c'};
 titles = {'Cyt C Red', 'O2', 'HN', 'HP', 'NADH2', 'NAD+', 'Cyt C Ox', 'H2O'};
 Ylabs = {'Cyt C Red', 'O2', 'HN', 'HP', 'NADH2', 'NAD+', 'Cyt C OX', 'H2O'};
