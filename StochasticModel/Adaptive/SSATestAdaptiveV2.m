@@ -29,7 +29,7 @@ oligo_time = 121.8; % oligomycin is added at oligo time
 fccp_time = 271.8; % FCCP is added at fccp time
 rot_aa_time = 432;  % rotenone and antimycin a are addedat rot aa time
 
-all_times = [0 121.8 271.8 432 600]; 
+all_times = [0 121.8 271.8 432 600]; % vector to store all changes in reaction times
 
 for n = 1:num_sims % loop through all simulations. Plot after each sim
     
