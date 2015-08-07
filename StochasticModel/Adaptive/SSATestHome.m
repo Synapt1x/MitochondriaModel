@@ -11,7 +11,7 @@ and one figure with all three substances on the same plot.
 %}
 
 % user chooses how many simulations to run
-num_sims = 1;
+num_sims = 400;
 
 % user chooses the maximum time for each simulation
 max_rx = 618;
@@ -252,7 +252,6 @@ st_dev_pos = st_dev_pos/(6.02*(10^14));
 st_dev_neg = st_dev_neg/(6.02*(10^14));
 figure(1)
 
-disp(mean_xs_num)
 colours = {'b', 'g', 'c', 'r', 'm', 'b', 'g', 'c'};
 titles = {'Cyt C Red', 'O2', 'HN', 'HP', 'NADH2', 'NAD+', 'Cyt C Ox', 'H2O'};
 Ylabs = {'Cyt C Red', 'O2', 'HN', 'HP', 'NADH2', 'NAD+', 'Cyt C OX', 'H2O'};
