@@ -1,4 +1,4 @@
-function [allTimes,realo2,realOCR] = data_formatter
+function [allTimes,realo2,realOCR,specData] = data_formatter
 %{
 Created by: Chris Cadonic
 ========================================
@@ -18,6 +18,8 @@ path_folder = fileparts(which(mfilename));
 %file names holding the oxygraph o2 data and Seahorse ocr data
 filename = fullfile(path_folder, '/Data/oxygraphData.xlsx');
 
+specfile = fullfile(path_folder,'/Data/SpecData.xlsx');
+
 %% Extract Oxygraph Data
 
 %extract all times and all oxygen concentration readings
@@ -28,3 +30,20 @@ allData(1,:)=[]; %delete t=0 time point
 [allTimes,realo2] = deal(allData(:,1),allData(:,2));
 
 realOCR = -gradient(realo2);
+
+%% Extract Spec Data
+
+%store all sheet names in a cell
+sheets = {'Trial1-June25','Trial1-July8','Trial1-July15','Trial2-June25','Trial2-July8',....
+    'Trial2-July15','Trial3-June25','Trial3-July8','Trial3-July15'};
+
+%store the times; measurements are 10 seconds apart
+dataMatrix = linspace(0,120,13)';
+
+%loop through all sheets and store the data
+for sheet = 1:numel(sheets)
+    dataMatrix(:,sheet+1) = xlsread(specfile,sheets{sheet},'B2:B14');
+end
+
+%return the times and the average of all measurements
+specData=[dataMatrix(:,1) mean(dataMatrix(:,2:end),2)];
