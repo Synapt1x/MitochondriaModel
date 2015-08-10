@@ -1,7 +1,0 @@
-Modeling Data:
-=============
-
-This is a simple data-modeling problem.  We generate artificial data
-inspired by a simple parameterized galaxy rotation curve model.  Then we
-add some noise to the "data" and attempt to find the model parameters by
-minimizing chi-squared.

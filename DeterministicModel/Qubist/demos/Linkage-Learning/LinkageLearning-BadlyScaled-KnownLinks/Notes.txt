@@ -1,6 +1,0 @@
-Linkage Learning with Some Linkages Known a priori:
-===================================================
-
-This is the same as the LinkageLearning-ScaledDeception demo, EXCEPT that
-some of the links are known a priori.  One incorrect link is also included,
-which decays during the run. 

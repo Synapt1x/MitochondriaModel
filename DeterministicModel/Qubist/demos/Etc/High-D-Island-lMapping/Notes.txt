@@ -1,6 +1,0 @@
-Multi-modal function used to test mapping capabilities when
-par.selection.FAbsTol > 0.  Solutions take the form of multiple islands.
-This is very difficult to maintain -- lethals generated during crossovers
-between islands are expected to be challenging.
-
-Solution is F=0 @ X=[1;1;1;...;1].

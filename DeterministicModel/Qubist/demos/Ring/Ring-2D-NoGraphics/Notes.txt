@@ -1,5 +1,0 @@
-Running Ferret Without Graphics:
-================================
-
-Same as the Ring-2D example, but with graphics turned off: 
-par.interface.graphics = 0;

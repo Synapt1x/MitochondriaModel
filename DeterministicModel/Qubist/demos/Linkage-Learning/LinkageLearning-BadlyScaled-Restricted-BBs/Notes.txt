@@ -1,6 +1,0 @@
-Linkage Learning with Restricted Building Blocks:
-=================================================
-
-This is a badly scaled problem of bounded deception.  Same as
-Linkage-Learning-BadlyScaled demo EXCEPT that linkage learning is restricted
-to a subset of the parameters by setting par.link.restrict.

@@ -1,8 +1,0 @@
-Zoom & Critical Parameter Detection (CPD):
-==========================================
-
-This is the same problem that was solved in examples names 'Triangle-X-Niching'
-and 'Triangle-F-Niching', except that the triangle now occupies only a tiny
-fraction of the parameter space, and Ferret must zoom in to find it.
-
-The point of this demo is to show how CPD and zoom work together.
