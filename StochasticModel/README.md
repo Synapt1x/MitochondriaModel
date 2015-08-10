@@ -20,3 +20,5 @@ InitializeParametersMito.m allows the user to change the initial amounts of each
 evalCrit.m is used to define the percentage of the initial amount of a species required for that species to be deemed critical. The value should be in the range of 0.5-5%. 
 
 amountChanges.m and amountChangesDouble.m update the amount of each species present after a time change of tau prime or tau double prime, respectively. 
+
+genMeanVar.m calculates and returns an estimate for tau prime. 
