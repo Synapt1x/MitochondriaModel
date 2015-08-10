@@ -18,3 +18,5 @@ genRj.m is the function containing a list of parameters and constants for the fo
 InitializeParametersMito.m allows the user to change the initial amounts of each species. This function also defines the initial time for the reaction (should be kept at 0) and the change of state vectors for each reaction, which are stored in a matrix. All of the following values are returned to the main program. 
 
 evalCrit.m is used to define the percentage of the initial amount of a species required for that species to be deemed critical. The value should be in the range of 0.5-5%. 
+
+amountChanges.m and amountChangesDouble.m update the amount of each species present after a time change of tau prime or tau double prime, respectively. 
