@@ -1,6 +1,0 @@
-Tag Parameters
-==============
-
-This is a simple demo of "tag" parameters.  There are 3 parameters, and the
-first one is declared as a tag.  Each of the 6 dots on the display has a
-different tag and a different centre.

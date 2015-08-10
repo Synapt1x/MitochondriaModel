@@ -1,9 +1,0 @@
-Simple 1-Dimensional Problem:
-============================
-
-A simple example showing the minimization of a function with only one variable.
-par.selection.FAbsTol=1 to illustrate how the parameter space can be mapped
-within an absolute tolerance of 1 or the minimum in F.
-
-An auxOutput field is included fo testing: F(i)=auxOutput{i} in OptimalSolutions if
-everything is working correctly.

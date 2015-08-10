@@ -1,8 +1,0 @@
-Hard & Soft Boundaries:
-=======================
-
-This example is the same as the Ring-2D demo, except that it demonstrates
-the use of 'hard' and 'soft' boundaries.  par.zoom.allowZoomOut is turned
-on, and all boundaries are declared 'soft' except for one.  Ferret will
-zoom out, as required, but will never allow solutions past the hard
-boundary.
