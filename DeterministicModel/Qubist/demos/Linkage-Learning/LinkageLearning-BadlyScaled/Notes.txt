@@ -1,0 +1,68 @@
+Linkage Learning:
+================
+
+This is a badly scaled problem of bounded deception.  The parameters of this 
+problem group naturally in sets of 3 linked parameters called building blocks.
+Each building block represents a subspace that is searched primarily by X-Type
+mutations and crossovers.  The building blocks contribute to the overall fitness
+in a quasi-linear GA-easy fashion.  Building blocks are mixed via BB-Type
+crossovers.  This problem is badly scaled; each successive building block
+contributes an exponentially smaller quantity to the fitness function.
+Ferret's search strategy and linkage learning algorithm are *insensitive*
+to building block scale; the scale does not affect the difficulty encountered
+in finding a given building block.
+
+* This demo uses only simple binary linkage, which is specified by setting
+par.link.PMultiLink = 0.  The demo titles LinkageLearning uses the multi-linking
+feature for comparison.
+
+When the demo is run, you should observe that bulding blocks are found at
+approximately the same rate, regardless of scale.  The solution is at
+X=[1; 1; 1;...; 1].  The best solution reported should first show 1's in the
+most significant building blocks and gradually progress to less significant
+blocks.  The population will be enriched with low significance good building
+blocks long before they are reported in the command-line output, which reports
+the best solution at any given generation -- obviously preferentially choosing
+solutions containing good-quality high significance blocks.
+
+Selection is driven very strongly in this demo by BB pressure.  The demo should work
+just fine even setting par.selection.PTournament=0 and par.selection.BBpressure=1.
+
+It is sometimes helpful with linkage learning problems to delay convergence
+until after most of the building blocks are discovered.  This can be accomplished
+in a variety of ways (not all used in the demo FerretSetup file).
+
+1. Decrease the selection pressure.
+
+2. Turn on niching in X.
+
+3. Use selective mutation (par.mutation.selectiveMutation < 0) to break up
+    clusters
+
+4. Apply a mating restriction (par.XOver.matingRestriction.X < 0) so that
+    matings between nearby individuals are preferred.
+
+5. Try a fuzzy fitness function (par.selection.fuzzyTournamentFrac < 1).
+
+6. A relatively high mutation rate is helpful on linkage learning problems
+    because each mutation is restricted to a subspace defined by a single
+    building block.
+
+7. * A high elitism fraction is NOT helpful on badly scaled problems like this
+    one because it puts too much selection pressure on the most significant BBs.
+    par.elitism.frac should be small or zero.  I suggest a very low value like
+    1e-10, so that there is only one elite in each population per generation.
+
+8.  * CPD should be turned off on badly scaled problems because
+    low-significance BBs will look like BBs that are unimportant to the overall
+    fitness and will be replaced by random numbers.
+
+9.  * The BB XOver operator is the key to these problems, since it contains a
+    built-in BB-specific selection operator.  If the problem might be badly
+    scaled, run in single-BB mode: par.XOverBB.multiBB=0, and take
+    several passes through BB Xover per generation: par.XOverBB.NPass=3.
+
+10. * Badly scaled problems require a very low section pressure
+    par.selection.pressure, because this parameter only influences
+    the net selection pressure on fitness values.  BB selection should normally
+    be run at maximum: par.selection.BBPressure=1.

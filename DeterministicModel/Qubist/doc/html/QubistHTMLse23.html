@@ -1,0 +1,274 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>Movies</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 2293--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse24.html" >next</a>] [<a 
+href="QubistHTMLse22.html" >prev</a>] [<a 
+href="QubistHTMLse22.html#tailQubistHTMLse22.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLse23.html">tail</a>] [<a 
+href="QubistHTMLch4.html#QubistHTMLse23.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">4.13   </span> <a 
+ id="x40-580004.13"></a>Movies</h3>
+<a 
+ id="dx40-58001"></a>
+<!--l. 2297--><p class="noindent" >You may find it useful to show a movie of your Ferret run in talks, or view them yourself to help understand how
+your run converged. This is sometimes useful for diagnosing problems. It is easy to generate a movie of your run
+right from the Ferret console window by pressing the &#8216;Show Movie&#8217; button in the lower right part of the window.
+This will bring up a dialogue box like the one shown in Figure <a 
+href="#x40-580029">4.9<!--tex4ht:ref: fig:movieDialogue --></a>. You can safely make a movie at any time during
+your run, whether it is complete or still active.
+<!--l. 2299--><p class="noindent" ><hr class="figure"><div class="figure" 
+>
+                                                                                         
+
+                                                                                         
+<a 
+ id="x40-580029"></a>
+                                                                                         
+
+                                                                                         
+<div class="center" 
+>
+<!--l. 2300--><p class="noindent" >
+
+<!--l. 2301--><p class="noindent" ><img 
+src="figures/Ferret/movieDialogue.png" alt="PIC"  
+></div>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;4.9: </span><span  
+class="content">The dialogue box that results from clicking the &#8216;Show Movie&#8217; button in the Ferret console
+window.</span></div><!--tex4ht:label?: x40-580029 -->
+                                                                                         
+
+                                                                                         
+<!--l. 2305--><p class="noindent" ></div><hr class="endfigure">
+<!--l. 2307--><p class="noindent" >As you can see from the dialogue box, three different movie options are available:
+     <ul class="itemize1">
+     <li class="itemize">
+     Show:
+     In
+     my
+     opinion,
+     this
+     is
+     probably
+     the
+     most
+     useful
+     movie
+     option.
+     All
+     this
+     does
+     is
+     load
+     your
+     History
+     files
+     sequentially,
+     reconstruct
+     the
+     Ferret
+     window
+     from
+     the
+     saved
+     data,
+     and
+     show
+     it
+     before
+     moving
+     on
+     to
+     the
+     next
+     generation.
+     I
+     use
+     this
+                                                                                         
+
+                                                                                         
+     feature
+     often
+     on
+     runs
+     that
+     are
+     still
+     going
+     in
+     order
+     to
+     get
+     an
+     overview
+     of
+     how
+     the
+     run
+     has
+     been
+     progressing
+     and
+     how
+     well
+     the
+     population
+     is
+     converging.
+     This
+     option
+     does
+     not
+     save
+     any
+     files
+     to
+     disk.
+     </li>
+     <li class="itemize">
+     <a 
+ id="dx40-58003"></a>
+     Save
+     Frames:
+     This
+     option
+     is
+     like
+                                                                                         
+
+                                                                                         
+     the
+     &#8216;Show&#8217;
+     option,
+     except
+     that
+     snapshots
+     of
+     the
+     Ferret
+     window
+     will
+     be
+     saved
+     as
+     .mat
+     files,
+     using
+     the
+     same
+     format
+     that
+     MATLAB&#8217;s
+     &#8216;getframe&#8217;
+     function
+     uses
+     for
+     frames.
+     The
+     frames
+     will
+     be
+     saved
+     in
+     the
+     &#8216;movieFrames&#8217;
+     folder
+     of
+     the
+     run&#8217;s
+     data
+     directory.
+     Frames
+     can
+     be
+     viewed
+     in
+     MATLAB
+     by
+                                                                                         
+
+                                                                                         
+     double-clicking
+     on
+     a
+     frame
+     .mat
+     file
+     to
+     load
+     it,
+     and
+     issuing
+     the
+     following
+     commands:
+     <!--l. 2318--><p class="noindent" ><span 
+class="colorbox" id="colorbox33"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">figure(1);</span><br /><span 
+class="cmtt-10">image(movieFrame.cdata);</span><br /><span 
+class="cmtt-10">set(gca,&#8217;XTick&#8217;,[],&#8217;YTick&#8217;,[]);</span><br /><span 
+class="cmtt-10">axis</span><span 
+class="cmtt-10">&#x00A0;image</span></div>
+     </div></span>
+<a 
+ id="dx40-58008"></a>
+<a 
+ id="dx40-58009"></a>
+<a 
+ id="dx40-58010"></a>
+     <!--l. 2327--><p class="noindent" >Frames can be later combined into an AVI movie using the Qubist Movie Tool, which is discussed in Section
+     <a 
+href="QubistHTMLse99.html#x133-22000012.6">12.6<!--tex4ht:ref: sec:movieTool --></a>.
+     </li>
+     <li class="itemize">Make AVI: This option will load your history files and generate frames like the &#8216;Save Frames&#8217; option, and will
+     compile them into an AVI movie. The movie will be located inside of your run&#8217;s data directory, and will have
+     the same name as the data directory with an .avi extension. The default movie name is therefore
+     &#8216;FerretData.avi&#8217;. No movie compressor will be used, for maximum compatibility between systems. If you want
+     more control over how your movie is created (choice of compressor, framerate, and quality), then you should
+     just save frames and run the Qubist Movie Tool on the saved frames. The Movie Tool is discussed in Section
+     <a 
+href="QubistHTMLse99.html#x133-22000012.6">12.6<!--tex4ht:ref: sec:movieTool --></a>.</li></ul>
+<!--l. 2331--><p class="noindent" >Please note that when using the &#8216;Show&#8217; option, only the data actually present in the History files will be
+displayed. If you are only saving the optimal solutions and elites each generation (the default), then
+only these solutions will appear in the movie. If you think you might want to view movies, you might
+consider setting <span 
+class="cmtt-10">par.history.saveFrac=1 </span>to save <span 
+class="cmti-10">all </span>solutions (see Section <a 
+href="QubistHTMLse45.html#x69-1010008.2">8.2<!--tex4ht:ref: sec:par_history --></a>). Alternatively, you
+could set <span 
+class="cmtt-10">par.movie.makeMovie=true </span>to automatically save a frame each generation (see Section
+<a 
+href="QubistHTMLse62.html#x90-1310008.19">8.19<!--tex4ht:ref: sec:par_movie --></a>).
+<!--l. 2333--><p class="noindent" ><span 
+class="cmti-10">Note that you can stop the generation of a movie by clicking the &#8216;Stop Ferret&#8217; button. If Ferret is still running, this</span>
+<span 
+class="cmti-10">won&#8217;t actually stop it. Ferret will stop collecting movie frames and generate an AVI file if you chose this option, and</span>
+<span 
+class="cmti-10">your run will continue automatically.</span>
+<a 
+ id="dx40-58011"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 2338--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse24.html" >next</a>] [<a 
+href="QubistHTMLse22.html" >prev</a>] [<a 
+href="QubistHTMLse22.html#tailQubistHTMLse22.html" >prev-tail</a>] [<a 
+href="QubistHTMLse23.html" >front</a>] [<a 
+href="QubistHTMLch4.html#QubistHTMLse23.html" >up</a>] </p></div>
+<!--l. 2338--><p class="noindent" ><a 
+ id="tailQubistHTMLse23.html"></a>  
+</body></html> 

@@ -1,0 +1,265 @@
+\expandafter\ifx\csname doTocEntry\endcsname\relax \expandafter\endinput\fi
+\doTocEntry\tocchapter{1}{\csname a:TocLink\endcsname{4}{x4-10001}{QQ2-4-1}{Global Optimization with Qubist}}{1}\relax 
+\doTocEntry\tocsubsection{1.0.1}{\csname a:TocLink\endcsname{4}{x4-20001.0.1}{QQ2-4-2}{Qubist's `Front Line' Optimizers}}{4}\relax 
+\doTocEntry\tocsubsection{1.0.2}{\csname a:TocLink\endcsname{4}{x4-30001.0.2}{QQ2-4-3}{Qubist's Secondary Optimizers and Polishers}}{5}\relax 
+\doTocEntry\tocsubsection{1.0.3}{\csname a:TocLink\endcsname{4}{x4-40001.0.3}{QQ2-4-4}{The Big Picture}}{6}\relax 
+\doTocEntry\tocsubsection{1.0.4}{\csname a:TocLink\endcsname{4}{x4-50001.0.4}{QQ2-4-5}{About This User's Guide}}{7}\relax 
+\doTocEntry\tocchapter{2}{\csname a:TocLink\endcsname{6}{x6-60002}{QQ2-6-6}{A Brief Tour of Qubist}}{9}\relax 
+\doTocEntry\tocsection{2.1}{\csname a:TocLink\endcsname{7}{x7-70002.1}{QQ2-7-7}{Multi-Objective Optimization}}{11}\relax 
+\doTocEntry\tocsection{2.2}{\csname a:TocLink\endcsname{8}{x8-80002.2}{QQ2-8-8}{The Ferret Genetic Algorithm}}{14}\relax 
+\doTocEntry\tocsubsection{2.2.1}{\csname a:TocLink\endcsname{8}{x8-90002.2.1}{QQ2-8-9}{History of the Ferret Project}}{16}\relax 
+\doTocEntry\tocsubsection{2.2.2}{\csname a:TocLink\endcsname{8}{x8-100002.2.2}{QQ2-8-10}{Ferret's Features}}{18}\relax 
+\doTocEntry\tocsubsection{2.2.3}{\csname a:TocLink\endcsname{8}{x8-110002.2.3}{QQ2-8-11}{Multi-Objective Optimization with Ferret}}{38}\relax 
+\doTocEntry\toclof{2.1}{\csname a:TocLink\endcsname{8}{x8-110111}{}{\ignorespaces Comparison of Ferret to a scalarization method for a simple non-convex problem with two objectives (equation \o:ref {eq:nonConvex}). Ferret maps a continuous trade-off surface shown in blue when $k=0$ and $k=1$, but the Pareto surface is correctly broken into three isolated `islands' when $k=2$. The red dots and red stars are solutions found using a scalarization approach. Ferret maps the entire Pareto surface for all three cases, but the scalarization method always misses non-convex parts of the Pareto surface.}}{figure}\relax 
+\doTocEntry\tocsubsection{2.2.4}{\csname a:TocLink\endcsname{8}{x8-120002.2.4}{QQ2-8-13}{Cyclic and Discrete Parameters:}}{42}\relax 
+\doTocEntry\tocsubsection{2.2.5}{\csname a:TocLink\endcsname{8}{x8-130002.2.5}{QQ2-8-14}{Automatic Zooming:}}{43}\relax 
+\doTocEntry\tocsubsection{2.2.6}{\csname a:TocLink\endcsname{8}{x8-140002.2.6}{QQ2-8-15}{Critical Parameter Detection}}{43}\relax 
+\doTocEntry\tocsubsection{2.2.7}{\csname a:TocLink\endcsname{8}{x8-150002.2.7}{QQ2-8-16}{Linkage Learning}}{45}\relax 
+\doTocEntry\tocsubsection{2.2.8}{\csname a:TocLink\endcsname{8}{x8-160002.2.8}{QQ2-8-17}{Strategy Auto-Adaptation}}{47}\relax 
+\doTocEntry\tocsubsection{2.2.9}{\csname a:TocLink\endcsname{8}{x8-170002.2.9}{QQ2-8-18}{Advanced Lethal Suppression (ALS)}}{50}\relax 
+\doTocEntry\tocsubsection{2.2.10}{\csname a:TocLink\endcsname{8}{x8-180002.2.10}{QQ2-8-19}{Pausing, Stopping, and Resuming Runs}}{50}\relax 
+\doTocEntry\tocsubsection{2.2.11}{\csname a:TocLink\endcsname{8}{x8-190002.2.11}{QQ2-8-20}{Analysis and Integration of Polishers}}{51}\relax 
+\doTocEntry\tocsubsection{2.2.12}{\csname a:TocLink\endcsname{8}{x8-200002.2.12}{QQ2-8-21}{Integrated Visualization}}{51}\relax 
+\doTocEntry\tocsection{2.3}{\csname a:TocLink\endcsname{12}{x12-210002.3}{QQ2-12-22}{Locust}}{53}\relax 
+\doTocEntry\tocsubsection{2.3.1}{\csname a:TocLink\endcsname{12}{x12-220002.3.1}{QQ2-12-23}{Locust's Features}}{54}\relax 
+\doTocEntry\tocsection{2.4}{\csname a:TocLink\endcsname{14}{x14-230002.4}{QQ2-14-24}{SAMOSA}}{55}\relax 
+\doTocEntry\tocsection{2.5}{\csname a:TocLink\endcsname{15}{x15-240002.5}{QQ2-15-25}{Anvil}}{57}\relax 
+\doTocEntry\tocsection{2.6}{\csname a:TocLink\endcsname{16}{x16-250002.6}{QQ2-16-26}{SemiGloSS}}{60}\relax 
+\doTocEntry\tocsection{2.7}{\csname a:TocLink\endcsname{17}{x17-260002.7}{QQ2-17-27}{Other Tools}}{61}\relax 
+\doTocEntry\tocsection{2.8}{\csname a:TocLink\endcsname{18}{x18-270002.8}{QQ2-18-28}{Customizable Skins}}{65}\relax 
+\doTocEntry\tocchapter{3}{\csname a:TocLink\endcsname{19}{x19-280003}{QQ2-19-29}{Installing Qubist}}{71}\relax 
+\doTocEntry\tocsection{3.1}{\csname a:TocLink\endcsname{20}{x20-290003.1}{QQ2-20-30}{End User License Agreement}}{72}\relax 
+\doTocEntry\toclof{3.1}{\csname a:TocLink\endcsname{20}{x20-290021}{}{\ignorespaces The Qubist End User License Agreement (EULA) screen. You must enter your license code and agree to the terms of the EULA in order to install the package.}}{figure}\relax 
+\doTocEntry\toclof{3.2}{\csname a:TocLink\endcsname{20}{x20-290042}{}{\ignorespaces A Qubist launch error indicating that the launcher could not find the Qubist distribution. If you see this, then you probably have an incorrect path set in your launchQubist.m file. Section \o:ref {sec:launcher} explains how to set this path correctly.}}{figure}\relax 
+\doTocEntry\tocsection{3.2}{\csname a:TocLink\endcsname{21}{x21-300003.2}{QQ2-21-33}{The Launcher File}}{79}\relax 
+\doTocEntry\toclof{3.3}{\csname a:TocLink\endcsname{21}{x21-300383}{}{\ignorespaces The Qubist Component Selector window. This interface can be started by running launchQubist.m, which loads user-defined projects, or startQubist.m, which only loads demos.}}{figure}\relax 
+\doTocEntry\tocchapter{4}{\csname a:TocLink\endcsname{22}{x22-310004}{QQ2-22-35}{Running Ferret}}{87}\relax 
+\doTocEntry\tocsection{4.1}{\csname a:TocLink\endcsname{23}{x23-320004.1}{QQ2-23-36}{Overview}}{89}\relax 
+\doTocEntry\toclof{4.1}{\csname a:TocLink\endcsname{23}{x23-320151}{}{\ignorespaces Schematic flowchart of a Ferret-based application. Bright orange boxes correspond to major Ferret components and pale orange boxes correspond to Ferret configuration files. Dark blue boxes correspond to essential code that must be developed by the user for his/her project, while light blue boxes represent optional functions. Arrows show the direction that information flows. The heavy black arrows represent the two-way communication between Ferret and the project's fitness function.}}{figure}\relax 
+\doTocEntry\tocsection{4.2}{\csname a:TocLink\endcsname{26}{x26-330004.2}{QQ2-26-38}{The Ferret Console Window}}{115}\relax 
+\doTocEntry\toclof{4.2}{\csname a:TocLink\endcsname{26}{x26-330022}{}{\ignorespaces The Ferret console window solving a problem from the Demo menu.}}{figure}\relax 
+\doTocEntry\tocsubsection{4.2.1}{\csname a:TocLink\endcsname{26}{x26-340004.2.1}{QQ2-26-40}{Full Graphics vs. Minimal Graphics Mode}}{118}\relax 
+\doTocEntry\toclof{4.3}{\csname a:TocLink\endcsname{26}{x26-340023}{}{\ignorespaces The Ferret console window running in minimal graphics mode.}}{figure}\relax 
+\doTocEntry\tocsection{4.3}{\csname a:TocLink\endcsname{27}{x27-350004.3}{QQ2-27-42}{Running Demos}}{122}\relax 
+\doTocEntry\toclof{4.4}{\csname a:TocLink\endcsname{27}{x27-350114}{}{\ignorespaces Dialog box prompting the user to load a project or demo's initialization file.}}{figure}\relax 
+\doTocEntry\toclof{4.5}{\csname a:TocLink\endcsname{27}{x27-350125}{}{\ignorespaces Dialog box warning the MATLAB has somewhat poor control over window focus because user interface components run in the same thread as the computation. The solution is to include occasional short pauses in the fitness function.}}{figure}\relax 
+\doTocEntry\toclof{4.6}{\csname a:TocLink\endcsname{27}{x27-350136}{}{\ignorespaces Dialog box asking whether of not a demo or project should be analyzed. This is displayed when a run stops if the setup file does not contain the line {\tt  par.analysis.analyzeWhenDone=true}, and the user has not previously checked the box in the dialogue that asks MATLAB not to show it again.}}{figure}\relax 
+\doTocEntry\toclof{4.7}{\csname a:TocLink\endcsname{27}{x27-350147}{}{\ignorespaces Ferret's Analysis window, showing the parameter/objective space view that can be generated by clicking the `X-F Space' button in the `View' button group, in the upper right hand side of the window. Three other views are possible, as discussed in an example later in this user's guide (see Figure \o:ref {fig:analysisViews}).}}{figure}\relax 
+\doTocEntry\tocsection{4.4}{\csname a:TocLink\endcsname{28}{x28-360004.4}{QQ2-28-47}{Adding User-Defined Projects}}{154}\relax 
+\doTocEntry\tocsubsection{4.4.1}{\csname a:TocLink\endcsname{28}{x28-370004.4.1}{QQ2-28-48}{Local Projects}}{154}\relax 
+\doTocEntry\tocsubsection{4.4.2}{\csname a:TocLink\endcsname{28}{x28-380004.4.2}{QQ2-28-49}{Globally Accessible Projects}}{155}\relax 
+\doTocEntry\tocsubsection{4.4.3}{\csname a:TocLink\endcsname{28}{x28-390004.4.3}{QQ2-28-50}{The Project Definition Fields}}{155}\relax 
+\doTocEntry\tocsection{4.5}{\csname a:TocLink\endcsname{29}{x29-400004.5}{QQ2-29-51}{Stopping Your Run - The Simple Approach}}{157}\relax 
+\doTocEntry\tocsection{4.6}{\csname a:TocLink\endcsname{30}{x30-410004.6}{QQ2-30-52}{The init Function}}{161}\relax 
+\doTocEntry\tocsubsection{4.6.1}{\csname a:TocLink\endcsname{30}{x30-420004.6.1}{QQ2-30-53}{The Standard Technique}}{164}\relax 
+\doTocEntry\tocsubsection{4.6.2}{\csname a:TocLink\endcsname{30}{x30-430004.6.2}{QQ2-30-54}{Advanced Technique: $extPar\_$ as a Global Variable}}{164}\relax 
+\doTocEntry\tocsubsection{4.6.3}{\csname a:TocLink\endcsname{30}{x30-440004.6.3}{QQ2-30-55}{Advanced Technique: Specifying Members of the Initial Population by Hand}}{167}\relax 
+\doTocEntry\tocsubsection{4.6.4}{\csname a:TocLink\endcsname{30}{x30-450004.6.4}{QQ2-30-56}{Minimizing Disk Usage}}{168}\relax 
+\doTocEntry\tocsection{4.7}{\csname a:TocLink\endcsname{32}{x32-460004.7}{QQ2-32-57}{The Setup File}}{169}\relax 
+\doTocEntry\toclof{4.8}{\csname a:TocLink\endcsname{32}{x32-460068}{}{\ignorespaces Two views of the Ferret setup file. These figures can be viewed and explored by selecting `View FerretSetup' in the menu labeled `Other' from either the console or analysis window. The left panel shows the setup file as viewed from Windows or MacIntosh computers, and the panel on the right shows the corresponding figure on Linux computers.}}{figure}\relax 
+\doTocEntry\tocsection{4.8}{\csname a:TocLink\endcsname{33}{x33-470004.8}{QQ2-33-59}{The Fitness Function}}{173}\relax 
+\doTocEntry\tocsubsection{4.8.1}{\csname a:TocLink\endcsname{33}{x33-480004.8.1}{QQ2-33-60}{auxOutput - the Auxiliary Output Cell Array \& Application to Penalty Functions}}{174}\relax 
+\doTocEntry\tocsubsection{4.8.2}{\csname a:TocLink\endcsname{33}{x33-490004.8.2}{QQ2-33-61}{saveData - Extra Data Saved during a Run}}{175}\relax 
+\doTocEntry\tocsubsection{4.8.3}{\csname a:TocLink\endcsname{33}{x33-500004.8.3}{QQ2-33-62}{XMod - Parameter Values Modified by the Fitness Function \& Application to Normalization Constraints}}{176}\relax 
+\doTocEntry\tocsection{4.9}{\csname a:TocLink\endcsname{34}{x34-510004.9}{QQ2-34-63}{The Output Function}}{177}\relax 
+\doTocEntry\tocsubsection{4.9.1}{\csname a:TocLink\endcsname{34}{x34-520004.9.1}{QQ2-34-64}{Organization of the World Data Structure}}{177}\relax 
+\doTocEntry\tocsubsection{4.9.2}{\csname a:TocLink\endcsname{34}{x34-530004.9.2}{QQ2-34-65}{Implementing a Custom Stopping Criterion}}{178}\relax 
+\doTocEntry\tocsubsection{4.9.3}{\csname a:TocLink\endcsname{34}{x34-540004.9.3}{QQ2-34-66}{Advanced Features: Modifying $extPar$ and the $world$}}{181}\relax 
+\doTocEntry\tocsection{4.10}{\csname a:TocLink\endcsname{36}{x36-550004.10}{QQ2-36-67}{The myPlot Function}}{190}\relax 
+\doTocEntry\tocsection{4.11}{\csname a:TocLink\endcsname{37}{x37-560004.11}{QQ2-37-68}{Running Your Project}}{192}\relax 
+\doTocEntry\tocsection{4.12}{\csname a:TocLink\endcsname{38}{x38-570004.12}{QQ2-38-69}{What Do the Figures Represent?}}{193}\relax 
+\doTocEntry\tocsection{4.13}{\csname a:TocLink\endcsname{40}{x40-580004.13}{QQ2-40-70}{Movies}}{211}\relax 
+\doTocEntry\toclof{4.9}{\csname a:TocLink\endcsname{40}{x40-580029}{}{\ignorespaces The dialogue box that results from clicking the `Show Movie' button in the Ferret console window.}}{figure}\relax 
+\doTocEntry\tocsection{4.14}{\csname a:TocLink\endcsname{41}{x41-590004.14}{QQ2-41-72}{Running Ferret Without Graphics}}{218}\relax 
+\doTocEntry\tocsubsection{4.14.1}{\csname a:TocLink\endcsname{41}{x41-600004.14.1}{QQ2-41-73}{Turning Graphics Off}}{218}\relax 
+\doTocEntry\tocsubsection{4.14.2}{\csname a:TocLink\endcsname{41}{x41-610004.14.2}{QQ2-41-74}{Running Ferret from the Command Line}}{218}\relax 
+\doTocEntry\tocsubsection{4.14.3}{\csname a:TocLink\endcsname{41}{x41-620004.14.3}{QQ2-41-75}{Returning Values from Ferret}}{226}\relax 
+\doTocEntry\tocsection{4.15}{\csname a:TocLink\endcsname{42}{x42-630004.15}{QQ2-42-76}{Analysis: Generating Your Final Results}}{228}\relax 
+\doTocEntry\tocsection{4.16}{\csname a:TocLink\endcsname{43}{x43-640004.16}{QQ2-43-77}{Polishing Solutions at the End of a Run}}{230}\relax 
+\doTocEntry\tocsubsection{4.16.1}{\csname a:TocLink\endcsname{43}{x43-650004.16.1}{QQ2-43-78}{History File Options and Crash Recovery}}{231}\relax 
+\doTocEntry\toclof{4.10}{\csname a:TocLink\endcsname{43}{x43-6501510}{}{\ignorespaces Dialog box indicating that the data directory could not be created. In this example, I have set my data directory to a global path `Z:$\delimiter "026E30F $FerretSetup', which generates an error because I do not have a disk `Z:' on my Windows system.}}{figure}\relax 
+\doTocEntry\tocsubsection{4.16.2}{\csname a:TocLink\endcsname{43}{x43-660004.16.2}{QQ2-43-80}{Problems Encountered with Very Large History Files}}{249}\relax 
+\doTocEntry\tocsubsection{4.16.3}{\csname a:TocLink\endcsname{43}{x43-670004.16.3}{QQ2-43-81}{Crash Recovery - General Comments}}{251}\relax 
+\doTocEntry\tocsubsection{4.16.4}{\csname a:TocLink\endcsname{43}{x43-680004.16.4}{QQ2-43-82}{Anatomy of a History File}}{251}\relax 
+\doTocEntry\tocsection{4.17}{\csname a:TocLink\endcsname{45}{x45-690004.17}{QQ2-45-83}{Resuming a Run}}{253}\relax 
+\doTocEntry\toclof{4.11}{\csname a:TocLink\endcsname{45}{x45-6900311}{}{\ignorespaces Dialog box indicating that the data directory already exists. Note the option that allows users to resume their run from the saved History files.}}{figure}\relax 
+\doTocEntry\tocsection{4.18}{\csname a:TocLink\endcsname{46}{x46-700004.18}{QQ2-46-85}{The OptimalSolutions.mat File}}{259}\relax 
+\doTocEntry\tocsection{4.19}{\csname a:TocLink\endcsname{47}{x47-710004.19}{QQ2-47-86}{Automatic Post-Processing of Results}}{261}\relax 
+\doTocEntry\tocsection{4.20}{\csname a:TocLink\endcsname{48}{x48-720004.20}{QQ2-48-87}{Non-Parametric Problems}}{263}\relax 
+\doTocEntry\tocchapter{5}{\csname a:TocLink\endcsname{49}{x49-730005}{QQ2-49-88}{Visualization of Solution Sets}}{267}\relax 
+\doTocEntry\tocsection{5.1}{\csname a:TocLink\endcsname{50}{x50-740005.1}{QQ2-50-89}{Spectroscopic Binaries: Visualization as a Knowledge Discovery Tool}}{268}\relax 
+\doTocEntry\toclot{5.1}{\csname a:TocLink\endcsname{50}{x50-740491}{}{\ignorespaces The actual parameters used to construct the artificial data for the spectroscopic binary problem. 5\% noise was added, and the code was tested by attempting to recover these parameters by modeling the artificial data.}}{table}\relax 
+\doTocEntry\tocsection{5.2}{\csname a:TocLink\endcsname{51}{x51-750005.2}{QQ2-51-91}{Visualizing Results with the Analysis Window}}{279}\relax 
+\doTocEntry\toclof{5.1}{\csname a:TocLink\endcsname{51}{x51-750051}{}{\ignorespaces The Ferret console window after running the binary modeling project for 1000 generations.}}{figure}\relax 
+\doTocEntry\toclof{5.2}{\csname a:TocLink\endcsname{51}{x51-750112}{}{\ignorespaces  The four main views of the Ferret analysis window. Panel a) (top left) `X-F Space': two and three-dimensional projections of parameter and fitness space. The shading in points indicates the rank of the solution. Better solutions (lower rank) are shaded darker blue than relatively poor solutions (lighter blue). The bright blue dot is the best solution that was discovered. Panel b) (top right) `Linkage': A view of the cumulative linkage map, averaged over the solutions in the optimal set. Panel c) (lower left) `C.P.D. Plot' A histogram showing the number of fully specified values present for each parameter (gene) in the optimal set of solutions. This can be thought of qualitatively as the relative importance of each parameter. Panel d) (lower right) `User Plot': An optional plot that can be drawn by the user if {\tt  par.interface.myPlot} is the name of a valid user-defined m-file containing graphics commands.}}{figure}\relax 
+\doTocEntry\toclof{5.3}{\csname a:TocLink\endcsname{51}{x51-750253}{}{\ignorespaces Examples of several types of plots that are possible with the Ferret analysis interface. Panel a) (top left): An image plot with a logarithmic stretch, using the default `bone' colour map. Panel b) (top right): A contour plot with a logarithmic stretch.  The black and white contours are selected using the `Contour/Image Plot Options' interface discussed in Section \o:ref {sec:imageOptions} below. Panel c) (lower left): Same as panel b), except using the `hot' colour map. Most of the standard MATLAB colour maps are available in the plot options interface. Panel d) (lower right): A three-dimensional plot.}}{figure}\relax 
+\doTocEntry\toclof{5.4}{\csname a:TocLink\endcsname{51}{x51-750304}{}{\ignorespaces  Several two-dimensional projections of the optimal set for the spectroscopic binary problem using the image plot option. All solutions shown are within the `observational errors' of the noisy artificial data in the sense that they are within 1 of the reduced $\chi ^2_{reduced}$ minimum value: $\chi ^2_{reduced} \le \chi ^2_{min,reduced} + 1$. Contours can be drawn optionally on any two-dimensional plot, as shown in panel a). Panel a) of Figure \o:ref {fig:analysisViews} shows another projection.}}{figure}\relax 
+\doTocEntry\toclof{5.5}{\csname a:TocLink\endcsname{51}{x51-750425}{}{\ignorespaces Three different projections of the `q' functions defined by equations \o:ref {eq:massRatio} to \o:ref {eq:vscale}. As our analysis predicts, all three functions are well-determined by the model, and therefore collapse the extended distribution of points found by Ferret into a compact cluster of points.}}{figure}\relax 
+\doTocEntry\tocsection{5.3}{\csname a:TocLink\endcsname{52}{x52-760005.3}{QQ2-52-97}{Parameter Space Projections}}{318}\relax 
+\doTocEntry\tocsection{5.4}{\csname a:TocLink\endcsname{53}{x53-770005.4}{QQ2-53-98}{The `Contour/Image Plot Options' Interface}}{319}\relax 
+\doTocEntry\toclof{5.6}{\csname a:TocLink\endcsname{53}{x53-770026}{}{\ignorespaces The `Contour/Image Plot Options' control panel shown here pops up whenever a plot option is selected that requires a two-dimensional image or contour plot.}}{figure}\relax 
+\doTocEntry\tocsection{5.5}{\csname a:TocLink\endcsname{54}{x54-780005.5}{QQ2-54-100}{The `Painted Points' Interface}}{332}\relax 
+\doTocEntry\toclof{5.7}{\csname a:TocLink\endcsname{54}{x54-780057}{}{\ignorespaces Painting points for further analysis: Panel a) (left): It is possible to select points by pressing the small `P' button in the upper right hand corner of the analysis graphics panel and either clicking on individual points or selecting circular regions. Panel b) (right) The selected points are listed in the `Painted Points' interface, and shown in the figure on the right.}}{figure}\relax 
+\doTocEntry\toclof{5.8}{\csname a:TocLink\endcsname{54}{x54-780068}{}{\ignorespaces  Panel a) (left): Different projections, showing the same points selected in Figure \o:ref {fig:paintedPoints}. Panel b) (right) A plot showing the result of executing the `myPlot' function on a set of parameters selected in the Painted Points interface.}}{figure}\relax 
+\doTocEntry\tocsection{5.6}{\csname a:TocLink\endcsname{55}{x55-790005.6}{QQ2-55-103}{Fuzziness}}{339}\relax 
+\doTocEntry\toclof{5.9}{\csname a:TocLink\endcsname{55}{x55-790029}{}{\ignorespaces The Analysis Tolerances window allows the user to interactively set tolerances ({\tt  par.selection.FAbsTol} and {\tt  par.selection.FRelTol}) to be applied to the analysis window. This interface is launched from the `Fuzziness' button on the right side of the Analysis window.}}{figure}\relax 
+\doTocEntry\tocchapter{6}{\csname a:TocLink\endcsname{56}{x56-800006}{QQ2-56-105}{Parallel Computing with Qubist}}{345}\relax 
+\doTocEntry\tocsection{6.1}{\csname a:TocLink\endcsname{57}{x57-810006.1}{QQ2-57-106}{Introduction and History}}{346}\relax 
+\doTocEntry\toclof{6.1}{\csname a:TocLink\endcsname{57}{x57-810081}{}{\ignorespaces Results of a benchmarking experiment of Ferret's parallel computing system, using the GalAPAGOS astrophysical modeling code as the fitness function. The code was run eight times, using one to eight cores on an eight core server. The experiment was done a total of five times, corresponding to the five lines on the figure. Both panels show the same data, on a linear scale (left) and a logarithmic scale (right). The right panel shows a -0.8 power law for comparison.}}{figure}\relax 
+\doTocEntry\tocsection{6.2}{\csname a:TocLink\endcsname{58}{x58-820006.2}{QQ2-58-108}{Starting a Parallel Run from Ferret/Locust}}{354}\relax 
+\doTocEntry\toclof{6.2}{\csname a:TocLink\endcsname{58}{x58-820022}{}{\ignorespaces Qubist's node manager running on a Windows quad-core computer. The `status.0' line refers to the console node, and the three other status lines refer to the three worker nodes. Note that each status line is followed by a time, indicating when each node last wrote to its status file to indicate that it is still alive.}}{figure}\relax 
+\doTocEntry\tocsubsection{6.2.1}{\csname a:TocLink\endcsname{58}{x58-830006.2.1}{QQ2-58-110}{The Launch Command and Options Panel}}{357}\relax 
+\doTocEntry\tocsubsubsection{}{\csname a:TocLink\endcsname{58}{x58-840006.2.1}{QQ2-58-111}{Examples of Launch Commands}}{357}\relax 
+\doTocEntry\tocsubsubsection{}{\csname a:TocLink\endcsname{58}{x58-850006.2.1}{QQ2-58-112}{Is Java Required?}}{362}\relax 
+\doTocEntry\tocsubsection{6.2.2}{\csname a:TocLink\endcsname{58}{x58-860006.2.2}{QQ2-58-113}{The Worker Nodes Panel}}{362}\relax 
+\doTocEntry\tocsubsection{6.2.3}{\csname a:TocLink\endcsname{58}{x58-870006.2.3}{QQ2-58-114}{The Evaluation Mode Panel}}{363}\relax 
+\doTocEntry\tocsubsection{6.2.4}{\csname a:TocLink\endcsname{58}{x58-880006.2.4}{QQ2-58-115}{The Active Nodes Panel}}{363}\relax 
+\doTocEntry\tocsection{6.3}{\csname a:TocLink\endcsname{61}{x61-890006.3}{QQ2-61-116}{Parallel Runs on Multiple Machines}}{365}\relax 
+\doTocEntry\tocsection{6.4}{\csname a:TocLink\endcsname{62}{x62-900006.4}{QQ2-62-117}{Common Parallelization Gotchas}}{366}\relax 
+\doTocEntry\tocsubsection{6.4.1}{\csname a:TocLink\endcsname{62}{x62-910006.4.1}{QQ2-62-118}{Use a Local Disk When Possible}}{366}\relax 
+\doTocEntry\tocsubsection{6.4.2}{\csname a:TocLink\endcsname{62}{x62-920006.4.2}{QQ2-62-119}{`Nicing' Down Runs}}{366}\relax 
+\doTocEntry\tocsubsection{6.4.3}{\csname a:TocLink\endcsname{62}{x62-930006.4.3}{QQ2-62-120}{Memory Problems}}{366}\relax 
+\doTocEntry\tocsubsection{6.4.4}{\csname a:TocLink\endcsname{62}{x62-940006.4.4}{QQ2-62-121}{The `isAbortEval' Directive}}{368}\relax 
+\doTocEntry\tocchapter{7}{\csname a:TocLink\endcsname{63}{x63-950007}{QQ2-63-122}{Self-Optimization of Ferret's Strategy Parameters}}{373}\relax 
+\doTocEntry\tocsection{7.1}{\csname a:TocLink\endcsname{64}{x64-960007.1}{QQ2-64-123}{Auto-Adaptation}}{374}\relax 
+\doTocEntry\toclof{7.1}{\csname a:TocLink\endcsname{64}{x64-960041}{}{\ignorespaces Ferret's strategy auto-adaptation interface allows users to enable or disable the adaptation of parameters, watch how they are optimized, and tweak the distributions used to choose values.}}{figure}\relax 
+\doTocEntry\tocsection{7.2}{\csname a:TocLink\endcsname{65}{x65-970007.2}{QQ2-65-125}{Modifying Parameters During a Run, and Ferret's Polish Mode}}{379}\relax 
+\doTocEntry\toclof{7.2}{\csname a:TocLink\endcsname{65}{x65-970022}{}{\ignorespaces The `Modify FerretSetup' interface (left) and a stern warning presented to users when using the `Modify FerretSetup' interface (right).}}{figure}\relax 
+\doTocEntry\tocsection{7.3}{\csname a:TocLink\endcsname{66}{x66-980007.3}{QQ2-66-127}{Ferret's Polish Mode: Using Ferret as its Own Polisher}}{383}\relax 
+\doTocEntry\tocchapter{8}{\csname a:TocLink\endcsname{67}{x67-990008}{QQ2-67-128}{FerretSetup Parameters}}{387}\relax 
+\doTocEntry\tocsection{8.1}{\csname a:TocLink\endcsname{68}{x68-1000008.1}{QQ2-68-129}{par.user}}{390}\relax 
+\doTocEntry\tocsection{8.2}{\csname a:TocLink\endcsname{69}{x69-1010008.2}{QQ2-69-130}{par.history}}{391}\relax 
+\doTocEntry\tocsection{8.3}{\csname a:TocLink\endcsname{71}{x71-1020008.3}{QQ2-71-131}{par.general}}{393}\relax 
+\doTocEntry\tocsection{8.4}{\csname a:TocLink\endcsname{72}{x72-1030008.4}{QQ2-72-132}{par.strategy}}{398}\relax 
+\doTocEntry\tocsection{8.5}{\csname a:TocLink\endcsname{73}{x73-1040008.5}{QQ2-73-133}{par.parallel}}{406}\relax 
+\doTocEntry\tocsection{8.6}{\csname a:TocLink\endcsname{74}{x74-1050008.6}{QQ2-74-134}{par.selection}}{408}\relax 
+\doTocEntry\tocsection{8.7}{\csname a:TocLink\endcsname{76}{x76-1060008.7}{QQ2-76-135}{par.mutation}}{417}\relax 
+\doTocEntry\tocsection{8.8}{\csname a:TocLink\endcsname{77}{x77-1070008.8}{QQ2-77-136}{par.XOver and par.XOverBB}}{419}\relax 
+\doTocEntry\tocsubsection{8.8.1}{\csname a:TocLink\endcsname{77}{x77-1080008.8.1}{QQ2-77-137}{par.XOver}}{419}\relax 
+\doTocEntry\tocsubsection{8.8.2}{\csname a:TocLink\endcsname{77}{x77-1090008.8.2}{QQ2-77-138}{par.XOverBB}}{424}\relax 
+\doTocEntry\tocsection{8.9}{\csname a:TocLink\endcsname{78}{x78-1100008.9}{QQ2-78-139}{par.niching}}{426}\relax 
+\doTocEntry\tocsubsection{8.9.1}{\csname a:TocLink\endcsname{78}{x78-1110008.9.1}{QQ2-78-140}{`SigmaShare' Niching}}{428}\relax 
+\doTocEntry\toclof{8.1}{\csname a:TocLink\endcsname{78}{x78-1110031}{}{\ignorespaces Illustration of niche shapes, as used in equation \o:ref {eq:nicheShape}.}}{figure}\relax 
+\doTocEntry\tocsubsection{8.9.2}{\csname a:TocLink\endcsname{78}{x78-1120008.9.2}{QQ2-78-142}{`PowerLaw' Niching}}{432}\relax 
+\doTocEntry\toclof{8.2}{\csname a:TocLink\endcsname{78}{x78-1120032}{}{\ignorespaces The effect of varying the power law $p_n$ in powerLaw niching. A value of $\sigma _{share}=0.25$ was chosen. Refer to equation \o:ref {eq:powerLaw} for details.}}{figure}\relax 
+\doTocEntry\tocsubsection{8.9.3}{\csname a:TocLink\endcsname{78}{x78-1130008.9.3}{QQ2-78-144}{Acceleration}}{435}\relax 
+\doTocEntry\tocsubsection{8.9.4}{\csname a:TocLink\endcsname{78}{x78-1140008.9.4}{QQ2-78-145}{Pattern Niching}}{435}\relax 
+\doTocEntry\tocsection{8.10}{\csname a:TocLink\endcsname{79}{x79-1150008.10}{QQ2-79-146}{par.CPD}}{437}\relax 
+\doTocEntry\toclot{8.1}{\csname a:TocLink\endcsname{79}{x79-1150091}{}{\ignorespaces Conversion of $NaN$ values in {\tt  world.pop\{$p$\}.indiv.genome.X} when {\tt  world.pop\{$p$\}.indiv.genome.XFullySpecified} and {\tt  world.pop\{$p$\}.indiv.genome.XPhys} are generated prior to evaluation of the fitness function for population $p$. $NaN$ values are used as placeholders by Ferret's Critical Parameter Detection (CPD) system to indicate parameters that are not specified. A parameter has little impact on the quality of solutions when most of its values are unspecified in {\tt  world.pop\{$p$\}.indiv.genome.X}.}}{table}\relax 
+\doTocEntry\tocsection{8.11}{\csname a:TocLink\endcsname{80}{x80-1160008.11}{QQ2-80-148}{par.immigration}}{441}\relax 
+\doTocEntry\tocsection{8.12}{\csname a:TocLink\endcsname{81}{x81-1170008.12}{QQ2-81-149}{par.elitism}}{442}\relax 
+\doTocEntry\tocsection{8.13}{\csname a:TocLink\endcsname{82}{x82-1180008.13}{QQ2-82-150}{par.link}}{444}\relax 
+\doTocEntry\tocsection{8.14}{\csname a:TocLink\endcsname{84}{x84-1190008.14}{QQ2-84-151}{par.zoom}}{449}\relax 
+\doTocEntry\tocsection{8.15}{\csname a:TocLink\endcsname{85}{x85-1200008.15}{QQ2-85-152}{par.stopping}}{451}\relax 
+\doTocEntry\tocsection{8.16}{\csname a:TocLink\endcsname{86}{x86-1210008.16}{QQ2-86-153}{par.analysis}}{452}\relax 
+\doTocEntry\tocsubsection{8.16.1}{\csname a:TocLink\endcsname{86}{x86-1220008.16.1}{QQ2-86-154}{Manual vs. Automatic Analysis}}{452}\relax 
+\doTocEntry\tocsubsection{8.16.2}{\csname a:TocLink\endcsname{86}{x86-1230008.16.2}{QQ2-86-155}{The Analysis Algorithm}}{452}\relax 
+\doTocEntry\tocsubsection{8.16.3}{\csname a:TocLink\endcsname{86}{x86-1240008.16.3}{QQ2-86-156}{Memory Requirements}}{453}\relax 
+\doTocEntry\tocsubsection{8.16.4}{\csname a:TocLink\endcsname{86}{x86-1250008.16.4}{QQ2-86-157}{Post-Processing of Results}}{460}\relax 
+\doTocEntry\tocsection{8.17}{\csname a:TocLink\endcsname{88}{x88-1260008.17}{QQ2-88-158}{par.localOpt}}{461}\relax 
+\doTocEntry\tocsection{8.18}{\csname a:TocLink\endcsname{89}{x89-1270008.18}{QQ2-89-159}{par.polish}}{467}\relax 
+\doTocEntry\tocsubsection{8.18.1}{\csname a:TocLink\endcsname{89}{x89-1280008.18.1}{QQ2-89-160}{par.polish.fminsearch}}{467}\relax 
+\doTocEntry\tocsubsection{8.18.2}{\csname a:TocLink\endcsname{89}{x89-1290008.18.2}{QQ2-89-161}{par.polish.SAMOSA}}{468}\relax 
+\doTocEntry\tocsubsection{8.18.3}{\csname a:TocLink\endcsname{89}{x89-1300008.18.3}{QQ2-89-162}{par.polish.Anvil \& par.polish.SemiGloSS}}{469}\relax 
+\doTocEntry\tocsection{8.19}{\csname a:TocLink\endcsname{90}{x90-1310008.19}{QQ2-90-163}{par.movie}}{470}\relax 
+\doTocEntry\tocsection{8.20}{\csname a:TocLink\endcsname{91}{x91-1320008.20}{QQ2-91-164}{par.interface}}{471}\relax 
+\doTocEntry\tocchapter{9}{\csname a:TocLink\endcsname{92}{x92-1330009}{QQ2-92-165}{SAMOSA}}{475}\relax 
+\doTocEntry\tocsection{9.1}{\csname a:TocLink\endcsname{93}{x93-1340009.1}{QQ2-93-166}{Introduction}}{476}\relax 
+\doTocEntry\tocsection{9.2}{\csname a:TocLink\endcsname{94}{x94-1350009.2}{QQ2-94-167}{SAMOSA as a Standalone Optimizer}}{478}\relax 
+\doTocEntry\tocsubsection{9.2.1}{\csname a:TocLink\endcsname{94}{x94-1360009.2.1}{QQ2-94-168}{Starting SAMOSA}}{478}\relax 
+\doTocEntry\toclof{9.1}{\csname a:TocLink\endcsname{94}{x94-1360021}{}{\ignorespaces  SAMOSA running the `Data-Modeling/Data-Modeler' problem from the [Qubist\_Home]/demos directory as a standalone optimizer.}}{figure}\relax 
+\doTocEntry\tocsubsection{9.2.2}{\csname a:TocLink\endcsname{94}{x94-1370009.2.2}{QQ2-94-170}{SAMOSA's Graphical Interface}}{481}\relax 
+\doTocEntry\tocsubsection{9.2.3}{\csname a:TocLink\endcsname{94}{x94-1380009.2.3}{QQ2-94-171}{Setup File \& Defaults}}{486}\relax 
+\doTocEntry\tocsection{9.3}{\csname a:TocLink\endcsname{95}{x95-1390009.3}{QQ2-95-172}{SAMOSA as a Polisher}}{487}\relax 
+\doTocEntry\tocsection{9.4}{\csname a:TocLink\endcsname{96}{x96-1400009.4}{QQ2-96-173}{The init Function}}{488}\relax 
+\doTocEntry\tocsection{9.5}{\csname a:TocLink\endcsname{97}{x97-1410009.5}{QQ2-97-174}{The Fitness Function}}{489}\relax 
+\doTocEntry\tocsection{9.6}{\csname a:TocLink\endcsname{98}{x98-1420009.6}{QQ2-98-175}{The Output Function and the Simplex Data structure}}{490}\relax 
+\doTocEntry\tocsubsection{9.6.1}{\csname a:TocLink\endcsname{98}{x98-1430009.6.1}{QQ2-98-176}{The Simplex Data Structure}}{490}\relax 
+\doTocEntry\tocsubsection{9.6.2}{\csname a:TocLink\endcsname{98}{x98-1440009.6.2}{QQ2-98-177}{Built-in Stopping Criteria}}{492}\relax 
+\doTocEntry\tocsubsection{9.6.3}{\csname a:TocLink\endcsname{98}{x98-1450009.6.3}{QQ2-98-178}{Custom Stopping Criterion}}{493}\relax 
+\doTocEntry\tocsection{9.7}{\csname a:TocLink\endcsname{99}{x99-1460009.7}{QQ2-99-179}{The myPlot function}}{495}\relax 
+\doTocEntry\tocsection{9.8}{\csname a:TocLink\endcsname{100}{x100-1470009.8}{QQ2-100-180}{The OptimalSolutions File}}{496}\relax 
+\doTocEntry\tocsection{9.9}{\csname a:TocLink\endcsname{101}{x101-1480009.9}{QQ2-101-181}{Running SAMOSA from the Command Line}}{497}\relax 
+\doTocEntry\tocsection{9.10}{\csname a:TocLink\endcsname{102}{x102-1490009.10}{QQ2-102-182}{The SAMOSA\_setup File}}{501}\relax 
+\doTocEntry\tocsubsection{9.10.1}{\csname a:TocLink\endcsname{102}{x102-1500009.10.1}{QQ2-102-183}{par.user}}{501}\relax 
+\doTocEntry\tocsubsection{9.10.2}{\csname a:TocLink\endcsname{102}{x102-1510009.10.2}{QQ2-102-184}{par.history}}{501}\relax 
+\doTocEntry\tocsubsection{9.10.3}{\csname a:TocLink\endcsname{102}{x102-1520009.10.3}{QQ2-102-185}{par.general}}{502}\relax 
+\doTocEntry\tocsubsection{9.10.4}{\csname a:TocLink\endcsname{102}{x102-1530009.10.4}{QQ2-102-186}{par.simplex}}{505}\relax 
+\doTocEntry\tocsubsection{9.10.5}{\csname a:TocLink\endcsname{102}{x102-1540009.10.5}{QQ2-102-187}{par.stopping}}{509}\relax 
+\doTocEntry\tocsubsection{9.10.6}{\csname a:TocLink\endcsname{102}{x102-1550009.10.6}{QQ2-102-188}{par.interface}}{510}\relax 
+\doTocEntry\tocchapter{10}{\csname a:TocLink\endcsname{103}{x103-15600010}{QQ2-103-189}{Anvil}}{515}\relax 
+\doTocEntry\tocsection{10.1}{\csname a:TocLink\endcsname{104}{x104-15700010.1}{QQ2-104-190}{Anvil as a Standalone Optimizer}}{520}\relax 
+\doTocEntry\tocsubsection{10.1.1}{\csname a:TocLink\endcsname{104}{x104-15800010.1.1}{QQ2-104-191}{Starting Anvil}}{520}\relax 
+\doTocEntry\toclof{10.1}{\csname a:TocLink\endcsname{104}{x104-1580011}{}{\ignorespaces  Anvil running the `Data-Modeling/Data-Modeler' problem from the [Qubist\_Home]/demos directory as a standalone optimizer.}}{figure}\relax 
+\doTocEntry\tocsubsection{10.1.2}{\csname a:TocLink\endcsname{104}{x104-15900010.1.2}{QQ2-104-193}{Anvil's Graphical Interface}}{523}\relax 
+\doTocEntry\tocsubsection{10.1.3}{\csname a:TocLink\endcsname{104}{x104-16000010.1.3}{QQ2-104-194}{Setup File \& Defaults}}{523}\relax 
+\doTocEntry\tocsection{10.2}{\csname a:TocLink\endcsname{105}{x105-16100010.2}{QQ2-105-195}{Anvil as a Polisher}}{525}\relax 
+\doTocEntry\tocsection{10.3}{\csname a:TocLink\endcsname{106}{x106-16200010.3}{QQ2-106-196}{The init Function}}{526}\relax 
+\doTocEntry\tocsection{10.4}{\csname a:TocLink\endcsname{107}{x107-16300010.4}{QQ2-107-197}{The Energy/Fitness Function}}{527}\relax 
+\doTocEntry\tocsection{10.5}{\csname a:TocLink\endcsname{108}{x108-16400010.5}{QQ2-108-198}{The Output Function and the Metal Data Structure}}{530}\relax 
+\doTocEntry\tocsubsection{10.5.1}{\csname a:TocLink\endcsname{108}{x108-16500010.5.1}{QQ2-108-199}{The Metal Data Structure}}{530}\relax 
+\doTocEntry\tocsubsection{10.5.2}{\csname a:TocLink\endcsname{108}{x108-16600010.5.2}{QQ2-108-200}{Built-In Stopping Criteria}}{531}\relax 
+\doTocEntry\tocsubsection{10.5.3}{\csname a:TocLink\endcsname{108}{x108-16700010.5.3}{QQ2-108-201}{Custom Stopping Criterion}}{532}\relax 
+\doTocEntry\tocsection{10.6}{\csname a:TocLink\endcsname{109}{x109-16800010.6}{QQ2-109-202}{The myPlot Function}}{534}\relax 
+\doTocEntry\tocsection{10.7}{\csname a:TocLink\endcsname{110}{x110-16900010.7}{QQ2-110-203}{The OptimalSolutions File}}{535}\relax 
+\doTocEntry\tocsection{10.8}{\csname a:TocLink\endcsname{111}{x111-17000010.8}{QQ2-111-204}{Running Anvil From the Command Line}}{536}\relax 
+\doTocEntry\tocsection{10.9}{\csname a:TocLink\endcsname{112}{x112-17100010.9}{QQ2-112-205}{The AnvilSetup File}}{541}\relax 
+\doTocEntry\tocsubsection{10.9.1}{\csname a:TocLink\endcsname{112}{x112-17200010.9.1}{QQ2-112-206}{par.user}}{541}\relax 
+\doTocEntry\tocsubsection{10.9.2}{\csname a:TocLink\endcsname{112}{x112-17300010.9.2}{QQ2-112-207}{par.history}}{541}\relax 
+\doTocEntry\tocsubsection{10.9.3}{\csname a:TocLink\endcsname{112}{x112-17400010.9.3}{QQ2-112-208}{par.general}}{542}\relax 
+\doTocEntry\tocsubsection{10.9.4}{\csname a:TocLink\endcsname{112}{x112-17500010.9.4}{QQ2-112-209}{par.anneal}}{542}\relax 
+\doTocEntry\tocsubsection{10.9.5}{\csname a:TocLink\endcsname{112}{x112-17600010.9.5}{QQ2-112-210}{par.tracks}}{544}\relax 
+\doTocEntry\tocsubsection{10.9.6}{\csname a:TocLink\endcsname{112}{x112-17700010.9.6}{QQ2-112-211}{par.XOver}}{544}\relax 
+\doTocEntry\tocsubsection{10.9.7}{\csname a:TocLink\endcsname{112}{x112-17800010.9.7}{QQ2-112-212}{par.selection}}{545}\relax 
+\doTocEntry\tocsubsection{10.9.8}{\csname a:TocLink\endcsname{112}{x112-17900010.9.8}{QQ2-112-213}{par.stopping}}{545}\relax 
+\doTocEntry\tocsubsection{10.9.9}{\csname a:TocLink\endcsname{112}{x112-18000010.9.9}{QQ2-112-214}{par.niching}}{547}\relax 
+\doTocEntry\tocsubsection{10.9.10}{\csname a:TocLink\endcsname{112}{x112-18100010.9.10}{QQ2-112-215}{par.CPD}}{547}\relax 
+\doTocEntry\tocsubsection{10.9.11}{\csname a:TocLink\endcsname{112}{x112-18200010.9.11}{QQ2-112-216}{par.interface}}{548}\relax 
+\doTocEntry\tocchapter{11}{\csname a:TocLink\endcsname{113}{x113-18300011}{QQ2-113-217}{Locust}}{551}\relax 
+\doTocEntry\tocsection{11.1}{\csname a:TocLink\endcsname{114}{x114-18400011.1}{QQ2-114-218}{Introduction}}{552}\relax 
+\doTocEntry\tocsubsection{11.1.1}{\csname a:TocLink\endcsname{114}{x114-18500011.1.1}{QQ2-114-219}{History}}{553}\relax 
+\doTocEntry\tocsubsection{11.1.2}{\csname a:TocLink\endcsname{114}{x114-18600011.1.2}{QQ2-114-220}{PSO Basics}}{554}\relax 
+\doTocEntry\tocsubsection{11.1.3}{\csname a:TocLink\endcsname{114}{x114-18700011.1.3}{QQ2-114-221}{Locust as an Enhanced Multi-Objective PSO}}{555}\relax 
+\doTocEntry\tocsection{11.2}{\csname a:TocLink\endcsname{115}{x115-18800011.2}{QQ2-115-222}{Running Locust from the Graphical User Interface}}{558}\relax 
+\doTocEntry\toclof{11.1}{\csname a:TocLink\endcsname{115}{x115-1880021}{}{\ignorespaces  Locust running the `Data-Modeling/Data-Modeler' problem from the [Qubist\_Home]/demos directory.}}{figure}\relax 
+\doTocEntry\tocsubsection{11.2.1}{\csname a:TocLink\endcsname{115}{x115-18900011.2.1}{QQ2-115-224}{Locust Figures}}{561}\relax 
+\doTocEntry\tocsection{11.3}{\csname a:TocLink\endcsname{116}{x116-19000011.3}{QQ2-116-225}{Running Locust from the Command Line}}{562}\relax 
+\doTocEntry\tocsection{11.4}{\csname a:TocLink\endcsname{117}{x117-19100011.4}{QQ2-117-226}{Analysis and Polishing}}{565}\relax 
+\doTocEntry\tocsection{11.5}{\csname a:TocLink\endcsname{118}{x118-19200011.5}{QQ2-118-227}{The Locust History File}}{566}\relax 
+\doTocEntry\tocsection{11.6}{\csname a:TocLink\endcsname{119}{x119-19300011.6}{QQ2-119-228}{The Init Function}}{567}\relax 
+\doTocEntry\tocsection{11.7}{\csname a:TocLink\endcsname{120}{x120-19400011.7}{QQ2-120-229}{The Fitness Function}}{568}\relax 
+\doTocEntry\tocsection{11.8}{\csname a:TocLink\endcsname{121}{x121-19500011.8}{QQ2-121-230}{The Output Function and the Swarm Data Structure}}{569}\relax 
+\doTocEntry\tocsubsection{11.8.1}{\csname a:TocLink\endcsname{121}{x121-19600011.8.1}{QQ2-121-231}{The Swarm Data Structure}}{569}\relax 
+\doTocEntry\tocsubsection{11.8.2}{\csname a:TocLink\endcsname{121}{x121-19700011.8.2}{QQ2-121-232}{Built-In Stopping Criteria}}{570}\relax 
+\doTocEntry\tocsubsection{11.8.3}{\csname a:TocLink\endcsname{121}{x121-19800011.8.3}{QQ2-121-233}{Custom Stopping Criterion}}{571}\relax 
+\doTocEntry\tocsubsection{11.8.4}{\csname a:TocLink\endcsname{121}{x121-19900011.8.4}{QQ2-121-234}{Advanced Features: Modifying $extPar$ and the $swarm$}}{572}\relax 
+\doTocEntry\tocsection{11.9}{\csname a:TocLink\endcsname{122}{x122-20000011.9}{QQ2-122-235}{The myPlot Function}}{576}\relax 
+\doTocEntry\tocsection{11.10}{\csname a:TocLink\endcsname{123}{x123-20100011.10}{QQ2-123-236}{Analysis and the OptimalSolutions File}}{577}\relax 
+\doTocEntry\toclof{11.2}{\csname a:TocLink\endcsname{123}{x123-2010032}{}{\ignorespaces  Locust analysis of the `Data-Modeling/Data-Modeler' problem from the [Qubist\_Home]/demos directory.}}{figure}\relax 
+\doTocEntry\tocsection{11.11}{\csname a:TocLink\endcsname{124}{x124-20200011.11}{QQ2-124-238}{The LocustSetup File}}{582}\relax 
+\doTocEntry\tocsubsection{11.11.1}{\csname a:TocLink\endcsname{124}{x124-20300011.11.1}{QQ2-124-239}{par.user}}{582}\relax 
+\doTocEntry\tocsubsection{11.11.2}{\csname a:TocLink\endcsname{124}{x124-20400011.11.2}{QQ2-124-240}{par.history}}{582}\relax 
+\doTocEntry\tocsubsection{11.11.3}{\csname a:TocLink\endcsname{124}{x124-20500011.11.3}{QQ2-124-241}{par.general}}{583}\relax 
+\doTocEntry\tocsubsection{11.11.4}{\csname a:TocLink\endcsname{124}{x124-20600011.11.4}{QQ2-124-242}{par.parallel}}{588}\relax 
+\doTocEntry\tocsubsection{11.11.5}{\csname a:TocLink\endcsname{124}{x124-20700011.11.5}{QQ2-124-243}{par.swarm}}{588}\relax 
+\doTocEntry\tocsubsection{11.11.6}{\csname a:TocLink\endcsname{124}{x124-20800011.11.6}{QQ2-124-244}{par.selection}}{591}\relax 
+\doTocEntry\tocsubsection{11.11.7}{\csname a:TocLink\endcsname{124}{x124-20900011.11.7}{QQ2-124-245}{par.stopping}}{592}\relax 
+\doTocEntry\tocsubsection{11.11.8}{\csname a:TocLink\endcsname{124}{x124-21000011.11.8}{QQ2-124-246}{par.niching}}{594}\relax 
+\doTocEntry\tocsubsection{11.11.9}{\csname a:TocLink\endcsname{124}{x124-21100011.11.9}{QQ2-124-247}{par.analysis}}{594}\relax 
+\doTocEntry\tocsubsection{11.11.10}{\csname a:TocLink\endcsname{124}{x124-21200011.11.10}{QQ2-124-248}{par.polish}}{595}\relax 
+\doTocEntry\tocsubsection{11.11.11}{\csname a:TocLink\endcsname{124}{x124-21300011.11.11}{QQ2-124-249}{par.interface}}{595}\relax 
+\doTocEntry\tocchapter{12}{\csname a:TocLink\endcsname{125}{x125-21400012}{QQ2-125-250}{Other Qubist Tools}}{599}\relax 
+\doTocEntry\tocsection{12.1}{\csname a:TocLink\endcsname{126}{x126-21500012.1}{QQ2-126-251}{The Ferret/Locust Resume Tool}}{602}\relax 
+\doTocEntry\toclof{12.1}{\csname a:TocLink\endcsname{126}{x126-2150171}{}{\ignorespaces Dialog box allowing you to load additional paths prior to resuming a run.}}{figure}\relax 
+\doTocEntry\tocsection{12.2}{\csname a:TocLink\endcsname{127}{x127-21600012.2}{QQ2-127-253}{The Analyze History Tool}}{610}\relax 
+\doTocEntry\tocsection{12.3}{\csname a:TocLink\endcsname{128}{x128-21700012.3}{QQ2-128-254}{The OptimalSolutions Viewer}}{621}\relax 
+\doTocEntry\tocsection{12.4}{\csname a:TocLink\endcsname{130}{x130-21800012.4}{QQ2-130-255}{The Merge OptimalSolutions Tool}}{629}\relax 
+\doTocEntry\tocsection{12.5}{\csname a:TocLink\endcsname{132}{x132-21900012.5}{QQ2-132-256}{The Ferret History Explorer}}{640}\relax 
+\doTocEntry\toclof{12.2}{\csname a:TocLink\endcsname{132}{x132-2190132}{}{\ignorespaces The Ferret History Explorer user interface.}}{figure}\relax 
+\doTocEntry\tocsection{12.6}{\csname a:TocLink\endcsname{133}{x133-22000012.6}{QQ2-133-258}{The Qubist Movie Tool}}{650}\relax 
+\doTocEntry\tocsubsection{12.6.1}{\csname a:TocLink\endcsname{133}{x133-22100012.6.1}{QQ2-133-259}{Running the Movie Tool}}{650}\relax 
+\doTocEntry\toclof{12.3}{\csname a:TocLink\endcsname{133}{x133-2210033}{}{\ignorespaces The Qubist Movie Tool.}}{figure}\relax 
+\doTocEntry\tocsubsection{12.6.2}{\csname a:TocLink\endcsname{133}{x133-22200012.6.2}{QQ2-133-261}{Making Movies from History Files}}{654}\relax 
+\doTocEntry\tocchapter{13}{\csname a:TocLink\endcsname{134}{x134-22300013}{QQ2-134-262}{Concluding Remarks}}{665}\relax 
+\doTocEntry\toclikechapter{}{\csname a:TocLink\endcsname{135}{x135-22400013}{QQ2-135-263}{Bibliography}}{671}\relax 
+\doTocEntry\toclikechapter{}{\csname a:TocLink\endcsname{136}{x136-22500013}{QQ2-136-264}{Index}}{677}\relax 

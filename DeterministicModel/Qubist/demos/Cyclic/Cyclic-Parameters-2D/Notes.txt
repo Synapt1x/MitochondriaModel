@@ -1,0 +1,13 @@
+Cyclic Parameters in 2 Dimensions:
+==================================
+
+This example shows how to set up cyclic parameters using 'par.general.cyclic'.
+This control parameter just provides a list of the parameters whose endpoints
+are periodic.
+
+The setup file has the matingRestriction parameter turned off, so that many 
+'lethals' are formed between the isolated minima.  Crossover takes place
+approximately along the shortest of the 2 directions allowed between 2 
+solutions in a cyclic parameter.  The search directions are obvious in the
+user plot.  Better (though less illustrative) results can be obtained in this
+example by setting a negative matingRestriction.X ~ -1.

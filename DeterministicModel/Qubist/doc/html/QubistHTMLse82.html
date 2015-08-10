@@ -1,0 +1,1061 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>The AnvilSetup File</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 6448--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse81.html" >prev</a>] [<a 
+href="QubistHTMLse81.html#tailQubistHTMLse81.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLse82.html">tail</a>] [<a 
+href="QubistHTMLch10.html#QubistHTMLse82.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">10.9   </span> <a 
+ id="x112-17100010.9"></a>The AnvilSetup File</h3>
+<a 
+ id="dx112-171001"></a>
+<a 
+ id="dx112-171002"></a>
+<a 
+ id="dx112-171003"></a>
+<!--l. 6454--><p class="noindent" >Anvil&#8217;s setup file is much simpler than Ferret&#8217;s, and perhaps only slightly more complex than SAMOSA&#8217;s. This
+section discusses the options that are available and offers some advice on setting up Anvil for your projects. A
+template setup file is located in [Qubist_Home]/Qubist/user/Anvil/templates/AnvilSetup_template.m. Normally,
+this file should be copied to the project directory, renamed to AnvilSetup.m or another name of your choice, and
+modified to suit your project&#8217;s needs.
+<!--l. 6457--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">10.9.1   </span> <a 
+ id="x112-17200010.9.1"></a>par.user</h4>
+<a 
+ id="dx112-172001"></a>
+<!--l. 6461--><p class="noindent" >The <span 
+class="cmtt-10">par.user </span>branch of the Anvil setup file provides the name of the fitness function and the optional
+output function. <span 
+class="cmtt-10">par.user </span>is similar to the corresponding branches of the Ferret and SAMOSA setup
+files.
+<!--l. 6470--><p class="noindent" ><span 
+class="colorbox" id="colorbox117"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;User</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;par.user.fitnessFcn=&#8217;fitness&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[string]:</span><span 
+class="cmtt-10">&#x00A0;Name</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;fitness</span><span 
+class="cmtt-10">&#x00A0;function.</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;par.user.output=&#8217;&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[string]:</span><span 
+class="cmtt-10">&#x00A0;Name</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;optional</span><span 
+class="cmtt-10">&#x00A0;user-defined</span><span 
+class="cmtt-10">&#x00A0;output</span><span 
+class="cmtt-10">&#x00A0;function</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML115x.png" alt="                                                                       `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;called</span><span 
+class="cmtt-10">&#x00A0;each</span><span 
+class="cmtt-10">&#x00A0;timestep.</span></div>
+</div></span>
+<!--l. 6476--><p class="noindent" ><span 
+class="cmtt-10">par.user.fitnessFcn </span>is a string that sets the name of the energy or fitness function, whose syntax is
+outlined in Section <a 
+href="QubistHTMLse77.html#x107-16300010.4">10.4<!--tex4ht:ref: sec:energy_Anvil --></a>. <span 
+class="cmtt-10">par.user.output </span>is the name of the optional output function, as discussed in
+Section <a 
+href="QubistHTMLse78.html#x108-16400010.5">10.5<!--tex4ht:ref: sec:output_Anvil --></a>. Section <a 
+href="QubistHTMLse78.html#x108-16700010.5.3">10.5.3<!--tex4ht:ref: sec:customStopping_Anvil --></a> shows how to use Anvil&#8217;s output function to implement a custom stopping
+criterion.
+<a 
+ id="dx112-172006"></a>
+<!--l. 6481--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">10.9.2   </span> <a 
+ id="x112-17300010.9.2"></a>par.history</h4>
+<a 
+ id="dx112-173001"></a>
+<!--l. 6490--><p class="noindent" ><span 
+class="colorbox" id="colorbox118"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Data</span><span 
+class="cmtt-10">&#x00A0;Directory</span><br /><span 
+class="cmtt-10">par.history.dataDir=&#8217;AnvilData&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[string]:</span><span 
+class="cmtt-10">&#x00A0;Directory</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;Anvil</span><span 
+class="cmtt-10">&#x00A0;data</span><span 
+class="cmtt-10">&#x00A0;files,</span><span 
+class="cmtt-10">&#x00A0;etc.</span></div>
+</div></span>
+<!--l. 6496--><p class="noindent" ><span 
+class="cmtt-10">par.history </span>contains a single field called <span 
+class="cmtt-10">par.history.dataDir</span>, which is a string that contains the name of the
+                                                                                         
+
+                                                                                         
+data directory. This is most often a local path, relative to the project directory, as shown here, but global paths are
+also allowed. Like SAMOSA, Anvil does not use history files, but retains the &#8216;<span 
+class="cmtt-10">par.history</span>&#8217; name for consistency
+with Ferret and Locust. Your OptimalSolutions.mat file will be written to this directory at the end of the
+run.
+<a 
+ id="dx112-173004"></a>
+<!--l. 6501--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">10.9.3   </span> <a 
+ id="x112-17400010.9.3"></a>par.general</h4>
+<a 
+ id="dx112-174001"></a>
+<!--l. 6505--><p class="noindent" ><span 
+class="cmtt-10">par.general </span>provides basic information about the problem that Anvil is intended to solve. All fields have the same
+meaning as in Ferret. Please refer to Section <a 
+href="QubistHTMLse46.html#x71-1020008.3">8.3<!--tex4ht:ref: sec:par_general --></a> for further information.
+<!--l. 6518--><p class="noindent" ><span 
+class="colorbox" id="colorbox119"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">par.general.min=[-1,</span><span 
+class="cmtt-10">&#x00A0;-1];</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real</span><span 
+class="cmtt-10">&#x00A0;vector]:</span><span 
+class="cmtt-10">&#x00A0;Minimum</span><span 
+class="cmtt-10">&#x00A0;parameter</span><span 
+class="cmtt-10">&#x00A0;values.</span><br /><span 
+class="cmtt-10">par.general.max=[1,</span><span 
+class="cmtt-10">&#x00A0;1];</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real</span><span 
+class="cmtt-10">&#x00A0;vector]:</span><span 
+class="cmtt-10">&#x00A0;Maximum</span><span 
+class="cmtt-10">&#x00A0;parameter</span><span 
+class="cmtt-10">&#x00A0;values.</span><br /><span 
+class="cmtt-10">par.general.cyclic=[];</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer</span><span 
+class="cmtt-10">&#x00A0;vector</span><span 
+class="cmtt-10">&#x00A0;&#x003E;</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Which</span><span 
+class="cmtt-10">&#x00A0;parameters</span><span 
+class="cmtt-10">&#x00A0;are</span><span 
+class="cmtt-10">&#x00A0;cyclic?</span><br /><span 
+class="cmtt-10">par.general.XLabels=;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[Cell</span><span 
+class="cmtt-10">&#x00A0;array</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;strings]:</span><span 
+class="cmtt-10">&#x00A0;Give</span><span 
+class="cmtt-10">&#x00A0;names</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;some</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;all</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML116x.png" alt="                                                                                                                                                                                                   `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;parameters:</span><span 
+class="cmtt-10">&#x00A0;&#8217;A&#8217;,&#8217;B&#8217;,...</span><br /><span 
+class="cmtt-10">par.general.FLabels=;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[Cell</span><span 
+class="cmtt-10">&#x00A0;array</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;strings]:</span><span 
+class="cmtt-10">&#x00A0;Give</span><span 
+class="cmtt-10">&#x00A0;names</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;some</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;all</span><span 
+class="cmtt-10">&#x00A0;fitness</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML117x.png" alt="                                                                                                                                                                                                                                                                                                                           `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;values:</span><span 
+class="cmtt-10">&#x00A0;&#8217;FA&#8217;,&#8217;FB&#8217;,...</span><br /><span 
+class="cmtt-10">par.general.HolderMetricExponent=2;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real]:</span><span 
+class="cmtt-10">&#x00A0;The</span><span 
+class="cmtt-10">&#x00A0;exponent</span><span 
+class="cmtt-10">&#x00A0;used</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;metrics.</span></div>
+</div></span>
+<a 
+ id="dx112-174010"></a>
+<!--l. 6528--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">10.9.4   </span> <a 
+ id="x112-17500010.9.4"></a>par.anneal</h4>
+<a 
+ id="dx112-175001"></a>
+<a 
+ id="dx112-175002"></a>
+<a 
+ id="dx112-175003"></a>
+<a 
+ id="dx112-175004"></a>
+<a 
+ id="dx112-175005"></a>
+<!--l. 6536--><p class="noindent" >The <span 
+class="cmtt-10">par.anneal </span>section of Anvil&#8217;s setup file sets important parameters that affect Anvil&#8217;s cooling schedule and the
+initial size of perturbations.
+<!--l. 6548--><p class="noindent" ><span 
+class="colorbox" id="colorbox120"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Annealing</span><span 
+class="cmtt-10">&#x00A0;constants</span><br /><span 
+class="cmtt-10">par.anneal.T0=250;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real</span><span 
+class="cmtt-10">&#x00A0;&#x003E;</span><span 
+class="cmtt-10">&#x00A0;0]:</span><span 
+class="cmtt-10">&#x00A0;Starting</span><span 
+class="cmtt-10">&#x00A0;temp.</span><br /><span 
+class="cmtt-10">par.anneal.TMin=0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real</span><span 
+class="cmtt-10">&#x00A0;&#x003E;=</span><span 
+class="cmtt-10">&#x00A0;0]:</span><span 
+class="cmtt-10">&#x00A0;Min</span><span 
+class="cmtt-10">&#x00A0;temp.</span><br /><span 
+class="cmtt-10">par.anneal.TCool=1000;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Cooling</span><span 
+class="cmtt-10">&#x00A0;timescale.</span><br /><span 
+class="cmtt-10">par.anneal.Tf=0.00;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real</span><span 
+class="cmtt-10">&#x00A0;&#x003E;=</span><span 
+class="cmtt-10">&#x00A0;0]:</span><span 
+class="cmtt-10">&#x00A0;Temp</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;exit.</span><br /><span 
+class="cmtt-10">par.anneal.PReheat=0.01;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Probability</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;re-heating.</span><br /><span 
+class="cmtt-10">par.anneal.sigma=0.1;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real</span><span 
+class="cmtt-10">&#x00A0;&#x003E;</span><span 
+class="cmtt-10">&#x00A0;0]:</span><span 
+class="cmtt-10">&#x00A0;Initial</span><span 
+class="cmtt-10">&#x00A0;perturbation</span><span 
+class="cmtt-10">&#x00A0;size.</span></div>
+</div></span>
+<!--l. 6554--><p class="noindent" ><span 
+class="cmtt-10">par.annealing.T0 </span>is the initial temperature of the simulated annealing tracks. The cooling schedule is exponential,
+but is modified adaptively by an algorithm that monitors the distribution of energy (or fitness) values at each
+timestep and attempts to set the temperature to a value that improves convergence while also ensuring adequate
+exploration of the parameter space. If we ignore the adaptive cooling algorithm for a moment, then the cooling law
+is given by the following formula:
+<table 
+class="equation"><tr><td><a 
+ id="x112-175013r1"></a>
+<center class="math-display" >
+                                                                                         
+
+                                                                                         
+<img 
+src="QubistHTML118x.png" alt="            (        )
+Ti+1 = Tmin +  1- --1-  (Ti - Tmin).
+                 Tcool
+" class="math-display" ></center></td><td class="equation-label">(10.1)</td></tr></table>
+<!--l. 6558--><p class="nopar" >
+such that tracks cool to a minimum temperature of <span 
+class="cmtt-10">par.anneal.TMin</span>, over a timescale of approximately
+<span 
+class="cmtt-10">par.anneal.TCool</span>. The run will will stop if the temperature reaches the final temperature <span 
+class="cmtt-10">par.anneal.Tf</span>. In the
+event that the fitness stops improving before temperature <span 
+class="cmmi-10">Tf </span>is reached, the system has the opportunity to &#8216;re-heat&#8217;
+with probability <span 
+class="cmtt-10">par.anneal.PReheat </span>each time step. This is done to hopefully bump the simulated
+annealing tracks out of a presumed local minimum so that the run can continue to make progress.
+The <span 
+class="cmmi-10">PReheat </span>probability must be a real number between 0 and 1, and should be set to a value such
+that
+<table 
+class="equation"><tr><td><a 
+ id="x112-175014r2"></a>
+<center class="math-display" >
+<img 
+src="QubistHTML119x.png" alt="par.anneal.P Reheat&#x00D7; par.anneal.TCool &#x003E; 1
+" class="math-display" ></center></td><td class="equation-label">(10.2)</td></tr></table>
+<!--l. 6562--><p class="nopar" >
+for the reheating strategy to be effective. Otherwise, cooling will dominate, and re-heating may not be able to ramp
+up the temperature long enough to bump the system out of a local minimum.
+<a 
+ id="dx112-175015"></a>
+<!--l. 6566--><p class="noindent" >The actual thermal evolution of an Anvil run is more complex than equation <a 
+href="#x112-175013r1">10.1<!--tex4ht:ref: eq:cooling --></a> would suggest because this
+equation ignores adaptive changes to the temperature. Adaptive temperature control can, in fact, dominate the
+thermal evolution, especially near the beginning of a run. This occurs automatically and is affected by a single
+parameter <span 
+class="cmtt-10">par.tracks.window</span>, which is discussed in Section <a 
+href="#x112-17600010.9.5">10.9.5<!--tex4ht:ref: sec:par_tracks_Anvil --></a> below.
+<a 
+ id="dx112-175016"></a>
+<!--l. 6569--><p class="noindent" >The final parameter in this section is <span 
+class="cmtt-10">par.anneal.sigma</span>, which is the size scale of the simulated annealing
+perturbations, relative to the range of parameters. For example, if the search range of a parameter <span 
+class="cmmi-10">i </span>is given by
+<span 
+class="cmmi-10">range</span>(<span 
+class="cmmi-10">i</span>) = <span 
+class="cmmi-10">par.general.max</span>(<span 
+class="cmmi-10">i</span>) <span 
+class="cmsy-10">- </span><span 
+class="cmmi-10">par.general.min</span>(<span 
+class="cmmi-10">i</span>), then perturbations &#x0394;<span 
+class="cmmi-10">x </span>will have a size of approximately
+&#x0394;<span 
+class="cmmi-10">x</span><sub><span 
+class="cmmi-7">i</span></sub> <span 
+class="cmsy-10">&#x2248; </span><span 
+class="cmmi-10">par.anneal.sigma </span><span 
+class="cmsy-10">&#x00D7; </span><span 
+class="cmmi-10">range</span>(<span 
+class="cmmi-10">i</span>) at the beginning of the run. <span 
+class="cmti-10">Note however that Anvil automatically scales the</span>
+<span 
+class="cmti-10">size of the perturbations during the run to maximize the number of accepted moves. </span>Therefore, this control
+parameter is only likely to affect the search during about the first <span 
+class="cmtt-10">par.tracks.window </span>timesteps of a
+run.
+<a 
+ id="dx112-175017"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 6574--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">10.9.5   </span> <a 
+ id="x112-17600010.9.5"></a>par.tracks</h4>
+<a 
+ id="dx112-176001"></a>
+<a 
+ id="dx112-176002"></a>
+<!--l. 6579--><p class="noindent" >An Anvil run always uses multiple simulated annealing tracks, which sample the parameter space more thoroughly
+than the single track used by a traditional simulated annealing code. Multiple tracks are also used by
+Anvil for adaptive temperature control and for auto-scaling perturbations, as discussed in Section
+<a 
+href="#x112-17500010.9.4">10.9.4<!--tex4ht:ref: sec:par_anneal_Anvil --></a>.
+<!--l. 6589--><p class="noindent" ><span 
+class="colorbox" id="colorbox121"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Tracks</span><br /><span 
+class="cmtt-10">par.tracks.N=100;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer]:</span><span 
+class="cmtt-10">&#x00A0;The</span><span 
+class="cmtt-10">&#x00A0;number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;Anvil</span><span 
+class="cmtt-10">&#x00A0;tracks.</span><br /><span 
+class="cmtt-10">par.tracks.window=25;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer]:</span><span 
+class="cmtt-10">&#x00A0;Anvil</span><span 
+class="cmtt-10">&#x00A0;keeps</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;last</span><span 
+class="cmtt-10">&#x00A0;par.tracks.window</span><span 
+class="cmtt-10">&#x00A0;steps</span><span 
+class="cmtt-10">&#x00A0;in</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML120x.png" alt="                                                            `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;memory.</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Affects</span><span 
+class="cmtt-10">&#x00A0;adaptive</span><span 
+class="cmtt-10">&#x00A0;cooling,</span><span 
+class="cmtt-10">&#x00A0;dynamic</span><span 
+class="cmtt-10">&#x00A0;perturbation</span><span 
+class="cmtt-10">&#x00A0;size,</span><span 
+class="cmtt-10">&#x00A0;and</span><span 
+class="cmtt-10">&#x00A0;stopping</span><span 
+class="cmtt-10">&#x00A0;criteria.</span></div>
+</div></span>
+<!--l. 6595--><p class="noindent" >The number of concurrent tracks is equal to <span 
+class="cmtt-10">par.tracks.N</span>, which must be an integer. The default value is
+<span 
+class="cmtt-10">par.tracks.N=100</span>, and I do not recommend values below about 10.
+<a 
+ id="dx112-176008"></a>
+<!--l. 6598--><p class="noindent" >Anvil maintains a record of recent successful moves in memory, and this information is used for adaptive
+temperature control and to dynamically scale the size of the perturbations. The number of successful moves retained
+in this buffer is given by <span 
+class="cmtt-10">par.tracks.window</span>. The default setting is <span 
+class="cmtt-10">par.tracks.window=25</span>, and must be greater
+than zero. A slightly smaller value will make the adaptive temperature control and dynamic perturbation scaling
+more reactive, but it will likely become sporadic if this parameter is too small, so I do not recommend values less
+than about 10. Larger values make temperature control and dynamic perturbation scaling less responsive so that
+changes happen more slowly.
+<a 
+ id="dx112-176009"></a>
+<!--l. 6603--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">10.9.6   </span> <a 
+ id="x112-17700010.9.6"></a>par.XOver</h4>
+<a 
+ id="dx112-177001"></a>
+<a 
+ id="dx112-177002"></a>
+<!--l. 6608--><p class="noindent" >Anvil features a genetic algorithm-like crossover operator that allows simulated annealing search points to
+communicate and cooperate as they search the parameter space. The <span 
+class="cmtt-10">par.XOver </span>field controls Anvil&#8217;s genetic
+algorithm-like crossover operator.
+<!--l. 6617--><p class="noindent" ><span 
+class="colorbox" id="colorbox122"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Crossover:</span><span 
+class="cmtt-10">&#x00A0;A</span><span 
+class="cmtt-10">&#x00A0;GA-like</span><span 
+class="cmtt-10">&#x00A0;crossover</span><span 
+class="cmtt-10">&#x00A0;operator.</span><br /><span 
+class="cmtt-10">par.XOver.PXOver=1;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Probability</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;crossover</span><span 
+class="cmtt-10">&#x00A0;between</span><span 
+class="cmtt-10">&#x00A0;Anvil</span><span 
+class="cmtt-10">&#x00A0;tracks.</span><br /><span 
+class="cmtt-10">par.XOver.strength=0.5;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;The</span><span 
+class="cmtt-10">&#x00A0;strength</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;crossover</span><span 
+class="cmtt-10">&#x00A0;operator.</span><br /><span 
+class="cmtt-10">par.XOver.dispersion=0.1;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Randomization</span><span 
+class="cmtt-10">&#x00A0;during</span><span 
+class="cmtt-10">&#x00A0;crossover.</span></div>
+</div></span>
+<!--l. 6623--><p class="noindent" >Crossovers occur between randomly chosen tracks each time step with a probability equal to <span 
+class="cmtt-10">par.XOver.PXOver</span>.
+The default value is <span 
+class="cmtt-10">par.XOver.PXOver=1</span>, which is fairly common for a genetic algorithm.
+<!--l. 6625--><p class="noindent" >The crossover operator is implemented like Ferret&#8217;s real-valued crossover operator (see Section <a 
+href="QubistHTMLse51.html#x77-1070008.8">8.8<!--tex4ht:ref: sec:par_XOver --></a>), in which
+solutions move toward each other on a straight line joining them in the parameter space. The fraction
+of the distance moved follows a Gaussian random distribution with a standard deviation equal to
+<span 
+class="cmtt-10">par.XOver.strength</span>. Thus, the default setting of <span 
+class="cmtt-10">par.XOver.strength=0.5 </span>means that a track engaging in a
+crossover with another typically moves about halfway on a line joining them. The exact value is not
+critical.
+<!--l. 6627--><p class="noindent" >A &#8216;dispersion&#8217; is added in a random direction with a magnitude equal to <span 
+class="cmmi-10">par.XOver.dispersion</span><span 
+class="cmsy-10">&#x00D7;|</span><span 
+class="cmmi-10">&#x03B4;x</span><span 
+class="cmsy-10">|</span>, where <span 
+class="cmsy-10">|</span><span 
+class="cmmi-10">&#x03B4;x</span><span 
+class="cmsy-10">| </span>is
+                                                                                         
+
+                                                                                         
+the magnitude of the distance moved. A similar dispersion step is used in Ferret&#8217;s crossover operator, as discussed in
+Section <a 
+href="QubistHTMLse51.html#x77-1070008.8">8.8<!--tex4ht:ref: sec:par_XOver --></a>. Anvil&#8217;s dispersion operator plays a role similar to a mutation operator in a genetic algorithm,
+which helps to bump solutions out of local minima and improve the exploration of the parameter
+space.
+<a 
+ id="dx112-177007"></a>
+<!--l. 6632--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">10.9.7   </span> <a 
+ id="x112-17800010.9.7"></a>par.selection</h4>
+<a 
+ id="dx112-178001"></a>
+<!--l. 6636--><p class="noindent" >The <span 
+class="cmtt-10">par.selection </span>field controls Anvil&#8217;s genetic algorithm selection operator, which is based on a binary
+tournament, like Ferret. The selection operator causes simulated annealing search points to compete as they
+collectively search the parameter space. A search point that loses a competition is deleted from the search and
+replaced with a copy of the winner, and continues to search from that point. Thus, the selection operator gradually
+concentrates the simulated annealing tracks in the best region found by <span 
+class="cmti-10">any </span>track, which is likely to be in the
+vicinity of the global minimum.
+<!--l. 6648--><p class="noindent" ><span 
+class="colorbox" id="colorbox123"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Selection</span><br /><span 
+class="cmtt-10">par.selection.PSelect=1;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Selection</span><span 
+class="cmtt-10">&#x00A0;pressure</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;a</span><span 
+class="cmtt-10">&#x00A0;GA-like</span><span 
+class="cmtt-10">&#x00A0;selection</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML121x.png" alt=" `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;operator.</span><br /><span 
+class="cmtt-10">par.selection.FAbsTol=0.1;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real</span><span 
+class="cmtt-10">&#x00A0;&#x003E;=</span><span 
+class="cmtt-10">&#x00A0;0]:</span><span 
+class="cmtt-10">&#x00A0;Absolute</span><span 
+class="cmtt-10">&#x00A0;fitness</span><span 
+class="cmtt-10">&#x00A0;range</span><span 
+class="cmtt-10">&#x00A0;(+/-</span><span 
+class="cmtt-10">&#x00A0;FAbsTol)</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML122x.png" alt="                                                                                                          `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;use</span><span 
+class="cmtt-10">&#x00A0;as</span><span 
+class="cmtt-10">&#x00A0;a</span><span 
+class="cmtt-10">&#x00A0;fuzzy</span><span 
+class="cmtt-10">&#x00A0;fitness</span><span 
+class="cmtt-10">&#x00A0;band.</span><br /><span 
+class="cmtt-10">par.selection.FRelTol=0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real</span><span 
+class="cmtt-10">&#x00A0;&#x003E;=</span><span 
+class="cmtt-10">&#x00A0;0]:</span><span 
+class="cmtt-10">&#x00A0;Relative</span><span 
+class="cmtt-10">&#x00A0;fitness</span><span 
+class="cmtt-10">&#x00A0;range</span><span 
+class="cmtt-10">&#x00A0;(+/-</span><span 
+class="cmtt-10">&#x00A0;FAbsTol)</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;use</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML123x.png" alt="                                                                                                                                                                                                                                       `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;as</span><span 
+class="cmtt-10">&#x00A0;a</span><span 
+class="cmtt-10">&#x00A0;fuzzy</span><span 
+class="cmtt-10">&#x00A0;fitness</span><span 
+class="cmtt-10">&#x00A0;band.</span></div>
+</div></span>
+<!--l. 6654--><p class="noindent" ><span 
+class="cmtt-10">par.selection.PSelect </span>is the probability that a track will enter into a tournament each timestep. The default
+value is <span 
+class="cmmi-10">PSelect </span>= 1, which is common for a genetic algorithm.
+<a 
+ id="dx112-178009"></a>
+<!--l. 6657--><p class="noindent" ><span 
+class="cmtt-10">par.selection.FAbsTol </span>and <span 
+class="cmtt-10">par.selection.FRelTol </span>work exactly like the corresponding &#8216;fuzziness&#8217; operators in
+Ferret - differences in fitness values less than the absolute or relative tolerance are ignored in competitions (see
+Section <a 
+href="QubistHTMLse49.html#x74-1050008.6">8.6<!--tex4ht:ref: sec:par_selection --></a>). Like Ferret, Anvil will attempt to map out any region of parameter space that falls within the fitness
+tolerance of the minimum value discovered during the search.
+<a 
+ id="dx112-178010"></a>
+<!--l. 6662--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">10.9.8   </span> <a 
+ id="x112-17900010.9.8"></a>par.stopping</h4>
+<a 
+ id="dx112-179001"></a>
+<a 
+ id="dx112-179002"></a>
+<!--l. 6667--><p class="noindent" >Anvil contains several built in stopping criteria that may be useful for some problems. These are set using the
+<span 
+class="cmtt-10">par.stopping </span>field of the setup file.
+<!--l. 6685--><p class="noindent" ><span 
+class="colorbox" id="colorbox124"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Stopping</span><span 
+class="cmtt-10">&#x00A0;criteria</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">par.stopping.maxTimeSteps=100;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer</span><span 
+class="cmtt-10">&#x00A0;&#x003E;</span><span 
+class="cmtt-10">&#x00A0;0]:</span><span 
+class="cmtt-10">&#x00A0;Maximum</span><span 
+class="cmtt-10">&#x00A0;number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;time</span><span 
+class="cmtt-10">&#x00A0;steps</span><br /><span 
+class="cmtt-10">par.stopping.maxItNoImprovement=25;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer]:</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Maximum</span><span 
+class="cmtt-10">&#x00A0;number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;steps</span><span 
+class="cmtt-10">&#x00A0;with</span><span 
+class="cmtt-10">&#x00A0;no</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML124x.png" alt="                                                                                          `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;improvement.</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Tolerance</span><span 
+class="cmtt-10">&#x00A0;on</span><span 
+class="cmtt-10">&#x00A0;X</span><span 
+class="cmtt-10">&#x00A0;and</span><span 
+class="cmtt-10">&#x00A0;F</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;mainly</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;single-objective</span><span 
+class="cmtt-10">&#x00A0;problems.</span><br /><span 
+class="cmtt-10">par.stopping.XTol=0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real</span><span 
+class="cmtt-10">&#x00A0;&#x003E;</span><span 
+class="cmtt-10">&#x00A0;0]:</span><span 
+class="cmtt-10">&#x00A0;Tolerance</span><span 
+class="cmtt-10">&#x00A0;on</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;solution.</span><br /><span 
+class="cmtt-10">par.stopping.FTol=0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real</span><span 
+class="cmtt-10">&#x00A0;&#x003E;</span><span 
+class="cmtt-10">&#x00A0;0]:</span><span 
+class="cmtt-10">&#x00A0;Tolerance</span><span 
+class="cmtt-10">&#x00A0;on</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;energy.</span><br /><span 
+class="cmtt-10">par.stopping.boolean=@and;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[boolean</span><span 
+class="cmtt-10">&#x00A0;operator]:</span><span 
+class="cmtt-10">&#x00A0;Should</span><span 
+class="cmtt-10">&#x00A0;be</span><span 
+class="cmtt-10">&#x00A0;&#8217;@and&#8217;</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;&#8217;@or&#8217;.</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Max</span><span 
+class="cmtt-10">&#x00A0;number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;solutions</span><span 
+class="cmtt-10">&#x00A0;allowed</span><span 
+class="cmtt-10">&#x00A0;in</span><span 
+class="cmtt-10">&#x00A0;final</span><span 
+class="cmtt-10">&#x00A0;optimal</span><span 
+class="cmtt-10">&#x00A0;set.</span><br /><span 
+class="cmtt-10">par.stopping.maxNOptimals=1000;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer]:</span><span 
+class="cmtt-10">&#x00A0;Max</span><span 
+class="cmtt-10">&#x00A0;number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;optimals.</span></div>
+</div></span>
+<!--l. 6691--><p class="noindent" >Anvil is stopped if the number of steps taken reaches the maximum allowed number of steps
+<span 
+class="cmtt-10">par.stopping.maxTimeSteps</span>. Anvil can also monitor its progress and be set to abort if there is no improvement in
+the solutions, over all tracks, for a certain number of generations. Specifically, Anvil will exit if no track has
+improved after <span 
+class="cmtt-10">par.stopping.maxItNoImprovement </span>timesteps. This parameter has a default value
+of 25, should be set to an integer greater than zero, and works for both single and multi-objective
+                                                                                         
+
+                                                                                         
+problems.
+<!--l. 6693--><p class="noindent" >Exit criteria based on tolerances are also available, which are mainly used for single-objective problems:
+     <ul class="itemize1">
+     <li class="itemize">
+     The
+     standard
+     deviation
+     of
+     all
+     parameter
+     values,
+     over
+     the
+     set
+     of
+     all
+     tracks,
+     falls
+     below
+     par.stopping.XTol.
+     </li>
+     <li class="itemize">
+     The
+     standard
+     deviation
+     of
+     all
+     fitness
+     values,
+     over
+     the
+     set
+     of
+     all
+     tracks,
+     falls
+     below
+     par.stopping.FTol.</li></ul>
+<!--l. 6698--><p class="noindent" >These two criteria are combined with a boolean operator: <span 
+class="cmtt-10">par.stopping.boolean=@and</span>, if <span 
+class="cmti-10">both </span>must be true to
+exit, or <span 
+class="cmtt-10">par.stopping.boolean=@or</span>, if Anvil should exit when <span 
+class="cmti-10">either </span>criterion is true. Note the function handle
+syntax of these fields - the &#8216;@&#8217; symbol is required. Because these exit criteria are based on standard deviations, they
+require a sufficiently large number of tracks <span 
+class="cmtt-10">par.tracks.N </span>(see Section <a 
+href="#x112-17600010.9.5">10.9.5<!--tex4ht:ref: sec:par_tracks_Anvil --></a>) to get a reasonable standard
+deviation estimate. I would worry about using these criteria if the number of tracks is fewer than about
+                                                                                         
+
+                                                                                         
+10.
+<!--l. 6700--><p class="noindent" >Finally, <span 
+class="cmtt-10">par.stopping.maxNOptimals </span>is the maximum number of solutions allowed in the final optimal set. Note
+that unlike Ferret and Locust, Anvil does not require an analysis step (see Section <a 
+href="QubistHTMLse25.html#x42-630004.15">4.15<!--tex4ht:ref: sec:analysis --></a>) and therefore must carry its
+optimal solution set around with it during the run. Moreover, Anvil uses a niching technique (see Section <a 
+href="#x112-18000010.9.9">10.9.9<!--tex4ht:ref: sec:par_niching_Anvil --></a>) to
+spread solutions evenly over the optimal set, and this requires a metric to be computed over the number of optimals.
+A large number of optmals can degrade performance, so Anvil allows you to limit the size of the optimal set.
+<span 
+class="cmtt-10">par.stopping.maxNOptimals=1000 </span>by default, but you should consider reducing it if your run seems to slow down
+as it progresses.
+<a 
+ id="dx112-179016"></a>
+<a 
+ id="dx112-179017"></a>
+<!--l. 6706--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">10.9.9   </span> <a 
+ id="x112-18000010.9.9"></a>par.niching</h4>
+<a 
+ id="dx112-180001"></a>
+<!--l. 6710--><p class="noindent" >Anvil&#8217;s selection operator employs a simplified form of niching (see Sections <a 
+href="QubistHTMLse31.html#x50-740005.1">5.1<!--tex4ht:ref: sec:binaries --></a> and <a 
+href="QubistHTMLse52.html#x78-1100008.9">8.9<!--tex4ht:ref: sec:par_niching --></a>) to help keep tracks spread
+out over the optimal set. Like Ferret&#8217;s niching operator, this allows Anvil to map solution sets for problems with
+optimal sets that don&#8217;t reduce to a single point. These problems are typically multi-objective problems, or
+single-objective problems where a fuzzy tolerance has been defined (<span 
+class="cmtt-10">par.selection.FAbsTol &#x003E; 0 </span>or
+<span 
+class="cmtt-10">par.selection.FRelTol &#x003E; 0</span>).
+<!--l. 6721--><p class="noindent" ><span 
+class="colorbox" id="colorbox125"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Niching</span><br /><span 
+class="cmtt-10">par.niching.priority=&#8217;XF&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[string:</span><span 
+class="cmtt-10">&#x00A0;re-order</span><span 
+class="cmtt-10">&#x00A0;2</span><span 
+class="cmtt-10">&#x00A0;letters,</span><span 
+class="cmtt-10">&#x00A0;&#8217;X&#8217;,</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;&#8217;F&#8217;]:</span><span 
+class="cmtt-10">&#x00A0;Priority</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML125x.png" alt="    `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;niching.</span><span 
+class="cmtt-10">&#x00A0;If</span><span 
+class="cmtt-10">&#x00A0;empty,</span><span 
+class="cmtt-10">&#x00A0;use</span><span 
+class="cmtt-10">&#x00A0;Pareto</span><span 
+class="cmtt-10">&#x00A0;niching.</span><br /><span 
+class="cmtt-10">par.niching.X=0.25;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0:1]:</span><span 
+class="cmtt-10">&#x00A0;X-Niching:</span><span 
+class="cmtt-10">&#x00A0;Typically</span><span 
+class="cmtt-10">&#x00A0;~0.25</span><span 
+class="cmtt-10">&#x00A0;is</span><span 
+class="cmtt-10">&#x00A0;about</span><span 
+class="cmtt-10">&#x00A0;right.</span><br /><span 
+class="cmtt-10">par.niching.F=0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0:1]:</span><span 
+class="cmtt-10">&#x00A0;F-Niching:</span><span 
+class="cmtt-10">&#x00A0;Typically</span><span 
+class="cmtt-10">&#x00A0;~0.25</span><span 
+class="cmtt-10">&#x00A0;is</span><span 
+class="cmtt-10">&#x00A0;about</span><span 
+class="cmtt-10">&#x00A0;right.</span><br /><span 
+class="cmtt-10">par.niching.exponent=2;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real:</span><span 
+class="cmtt-10">&#x00A0;usually</span><span 
+class="cmtt-10">&#x00A0;&#x003E;</span><span 
+class="cmtt-10">&#x00A0;0</span><span 
+class="cmtt-10">&#x00A0;&amp;</span><span 
+class="cmtt-10">&#x00A0;&#x003C;~</span><span 
+class="cmtt-10">&#x00A0;2]:</span><span 
+class="cmtt-10">&#x00A0;Used</span><span 
+class="cmtt-10">&#x00A0;in</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;niche</span><span 
+class="cmtt-10">&#x00A0;function.</span></div>
+</div></span>
+<!--l. 6727--><p class="noindent" >Anvil&#8217;s niching parameters work exactly like the settings that control Ferret&#8217;s niching system, except that there is
+no &#8216;pattern niching&#8217; in Anvil, so Ferret&#8217;s &#8216;P&#8217; option in <span 
+class="cmtt-10">par.niching.priority </span>has no counterpart.
+Therefore, the <span 
+class="cmtt-10">par.niching.priority </span>setting must be either <span 
+class="cmtt-10">par.niching.priority=&#8217;XF&#8217; </span>for <span 
+class="cmmi-10">X </span>priority,
+<span 
+class="cmtt-10">par.niching.priority=&#8217;FX&#8217; </span>for <span 
+class="cmmi-10">F </span>priority, or <span 
+class="cmtt-10">par.niching.priority=&#8217;&#8217; </span>for no priority, which implies Pareto
+niching. See Section <a 
+href="QubistHTMLse52.html#x78-1100008.9">8.9<!--tex4ht:ref: sec:par_niching --></a> for details.
+<a 
+ id="dx112-180008"></a>
+<!--l. 6732--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">10.9.10   </span> <a 
+ id="x112-18100010.9.10"></a>par.CPD</h4>
+<a 
+ id="dx112-181001"></a>
+<a 
+ id="dx112-181002"></a>
+<!--l. 6737--><p class="noindent" >Anvil has a simple critical parameter detection (CPD) system that works something like Ferret&#8217;s CPD system. The
+goal of CPD is the same in both codes: to find parameters that have little effect on the solutions,
+when such parameters exist, and to use this information to effectively reduce the dimensionality of the
+problem.
+<!--l. 6745--><p class="noindent" ><span 
+class="colorbox" id="colorbox126"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Critical</span><span 
+class="cmtt-10">&#x00A0;Parameter</span><span 
+class="cmtt-10">&#x00A0;Detection</span><br /><span 
+class="cmtt-10">par.CPD.PDeactivatePar=0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0:1]:</span><span 
+class="cmtt-10">&#x00A0;Probability</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;parameter</span><span 
+class="cmtt-10">&#x00A0;deactivation.</span><br /><span 
+class="cmtt-10">par.CPD.PReactivatePar=0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0:1]:</span><span 
+class="cmtt-10">&#x00A0;Probability</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;parameter</span><span 
+class="cmtt-10">&#x00A0;reactivation.</span></div>
+</div></span>
+<!--l. 6751--><p class="noindent" ><span 
+class="cmtt-10">par.CPD.PDeactivatePar </span>and <span 
+class="cmtt-10">par.CPD.PReactivatePar </span>work exactly like Ferret&#8217;s <span 
+class="cmtt-10">par.CPD.PDeactivateGenes</span>
+                                                                                         
+
+                                                                                         
+and <span 
+class="cmtt-10">par.CPD.PReactivateGenes</span>. Please refer to Sections <a 
+href="QubistHTMLse2.html#x8-140002.2.6">2.2.6<!--tex4ht:ref: sec:CPD --></a> and <a 
+href="QubistHTMLse53.html#x79-1150008.10">8.10<!--tex4ht:ref: sec:par_CPD --></a> for details.
+<a 
+ id="dx112-181006"></a>
+<!--l. 6756--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">10.9.11   </span> <a 
+ id="x112-18200010.9.11"></a>par.interface</h4>
+<a 
+ id="dx112-182001"></a>
+<!--l. 6760--><p class="noindent" >The <span 
+class="cmtt-10">par.interface </span>settings are exactly like those used by SAMOSA. Please refer to Section <a 
+href="QubistHTMLse73.html#x102-1550009.10.6">9.10.6<!--tex4ht:ref: sec:par_interface_SAMOSA --></a> for
+details.
+<!--l. 6780--><p class="noindent" ><span 
+class="colorbox" id="colorbox127"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Graphics</span><span 
+class="cmtt-10">&#x00A0;&amp;</span><span 
+class="cmtt-10">&#x00A0;messages</span><br /><span 
+class="cmtt-10">par.interface.graphics=1;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer:</span><span 
+class="cmtt-10">&#x00A0;1</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;-1]:</span><span 
+class="cmtt-10">&#x00A0;Graphics</span><span 
+class="cmtt-10">&#x00A0;on</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;off?</span><br /><span 
+class="cmtt-10">par.interface.verbose=1;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[logical]:</span><span 
+class="cmtt-10">&#x00A0;Verbose</span><span 
+class="cmtt-10">&#x00A0;output</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;warnings,</span><span 
+class="cmtt-10">&#x00A0;etc.?</span><br /><span 
+class="cmtt-10">par.interface.plotStep=1;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer</span><span 
+class="cmtt-10">&#x00A0;&#x003E;=</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;How</span><span 
+class="cmtt-10">&#x00A0;often</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;update</span><span 
+class="cmtt-10">&#x00A0;graphics?</span><br /><span 
+class="cmtt-10">par.interface.myPlot=&#8217;&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[string]:</span><span 
+class="cmtt-10">&#x00A0;Name</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;custom</span><span 
+class="cmtt-10">&#x00A0;plot</span><span 
+class="cmtt-10">&#x00A0;function.</span><br /><span 
+class="cmtt-10">par.interface.fontUnits=&#8217;points&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[string]:</span><span 
+class="cmtt-10">&#x00A0;Must</span><span 
+class="cmtt-10">&#x00A0;be</span><span 
+class="cmtt-10">&#x00A0;&#8217;points&#8217;</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;&#8217;pixels&#8217;.</span><br /><span 
+class="cmtt-10">par.interface.titleFontSize=10;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer]:</span><span 
+class="cmtt-10">&#x00A0;Self-explanatory.</span><br /><span 
+class="cmtt-10">par.interface.labelFontSize=8;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer]:</span><span 
+class="cmtt-10">&#x00A0;Self-explanatory.</span><br /><span 
+class="cmtt-10">par.interface.axisFontSize=8;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer]:</span><span 
+class="cmtt-10">&#x00A0;Self-explanatory.</span><br /><span 
+class="cmtt-10">par.interface.xAxis.type=&#8217;X&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[string:</span><span 
+class="cmtt-10">&#x00A0;&#8217;X&#8217;</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;&#8217;F&#8217;]:</span><span 
+class="cmtt-10">&#x00A0;Default</span><span 
+class="cmtt-10">&#x00A0;X-axis</span><span 
+class="cmtt-10">&#x00A0;type</span><span 
+class="cmtt-10">&#x00A0;(X</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;F)</span><br /><span 
+class="cmtt-10">par.interface.xAxis.value=1;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer</span><span 
+class="cmtt-10">&#x00A0;&#x003E;=</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Default</span><span 
+class="cmtt-10">&#x00A0;X-axis</span><span 
+class="cmtt-10">&#x00A0;variable</span><span 
+class="cmtt-10">&#x00A0;(1-NPar</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;NObj)</span><br /><span 
+class="cmtt-10">par.interface.yAxis.type=&#8217;X&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[string:</span><span 
+class="cmtt-10">&#x00A0;&#8217;X&#8217;</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;&#8217;F&#8217;]:</span><span 
+class="cmtt-10">&#x00A0;Default</span><span 
+class="cmtt-10">&#x00A0;Y-axis</span><span 
+class="cmtt-10">&#x00A0;type</span><span 
+class="cmtt-10">&#x00A0;(X</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;F)</span><br /><span 
+class="cmtt-10">par.interface.yAxis.value=2;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer</span><span 
+class="cmtt-10">&#x00A0;&#x003E;=</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Default</span><span 
+class="cmtt-10">&#x00A0;Y-axis</span><span 
+class="cmtt-10">&#x00A0;variable</span><span 
+class="cmtt-10">&#x00A0;(1-NPar</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;NObj)</span><br /><span 
+class="cmtt-10">par.interface.zAxis.type=&#8217;F&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[string:</span><span 
+class="cmtt-10">&#x00A0;&#8217;X&#8217;</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;&#8217;F&#8217;]:</span><span 
+class="cmtt-10">&#x00A0;Default</span><span 
+class="cmtt-10">&#x00A0;Y-axis</span><span 
+class="cmtt-10">&#x00A0;type</span><span 
+class="cmtt-10">&#x00A0;(X</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;F)</span><br /><span 
+class="cmtt-10">par.interface.zAxis.value=1;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer</span><span 
+class="cmtt-10">&#x00A0;&#x003E;=</span><span 
+class="cmtt-10">&#x00A0;1]:Default</span><span 
+class="cmtt-10">&#x00A0;Y-axis</span><span 
+class="cmtt-10">&#x00A0;variable</span><span 
+class="cmtt-10">&#x00A0;(1-NPar</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;NObj)</span></div>
+</div></span>
+<a 
+ id="dx112-182017"></a>
+<a 
+ id="dx112-182018"></a>
+<a 
+ id="dx112-182019"></a>
+<a 
+ id="dx112-182020"></a>
+<a 
+ id="dx112-182021"></a>
+<!--l. 6792--><p class="noindent" >This concludes our discussion of Qubist&#8217;s secondary optimizers, which are most often used as polishers for Ferret&#8217;s
+optimal solution sets. If you have followed this guide up to this point, you will have a complete understanding of
+how to run Ferret and polish your results. We will now turn to Locust, the second front line optimizer in the Qubist
+package. Using Locust and polishing results is similar to running Ferret. Therefore, the chapter on Locust will be
+brief.
+                                                                                         
+
+                                                                                         
+<!--l. 6794--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse81.html" >prev</a>] [<a 
+href="QubistHTMLse81.html#tailQubistHTMLse81.html" >prev-tail</a>] [<a 
+href="QubistHTMLse82.html" >front</a>] [<a 
+href="QubistHTMLch10.html#QubistHTMLse82.html" >up</a>] </p></div>
+<!--l. 6794--><p class="noindent" ><a 
+ id="tailQubistHTMLse82.html"></a>  
+</body></html> 

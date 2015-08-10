@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>Running Locust from the Graphical User Interface</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 6896--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse85.html" >next</a>] [<a 
+href="QubistHTMLse83.html" >prev</a>] [<a 
+href="QubistHTMLse83.html#tailQubistHTMLse83.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLse84.html">tail</a>] [<a 
+href="QubistHTMLch11.html#QubistHTMLse84.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">11.2   </span> <a 
+ id="x115-18800011.2"></a>Running Locust from the Graphical User Interface</h3>
+<a 
+ id="dx115-188001"></a>
+<!--l. 6900--><p class="noindent" >Locust is usually started from the Qubist component selector shown in Figure <a 
+href="QubistHTMLse10.html#x21-300383">3.3<!--tex4ht:ref: fig:componentSelector --></a>. It can also be started using the
+&#8216;startLocust&#8217; function in the Qubist home directory, but this will only give you access to demos, and not your own
+projects. The Locust interface is shown in Figure <a 
+href="#x115-1880021">11.1<!--tex4ht:ref: fig:Locust_window --></a>. Like the other optimizers, demos and projects are selected
+from the menus labelled &#8216;Demos&#8217; and &#8216;Projects&#8217;. User-defined projects are added in the launchQubist.m file,
+following the procedure outlined in Section <a 
+href="QubistHTMLse14.html#x28-360004.4">4.4<!--tex4ht:ref: sec:projects --></a>. Once a project has been loaded, it can be run by clicking the &#8216;Start
+Locust&#8217; button.
+<!--l. 6902--><p class="noindent" ><hr class="figure"><div class="figure" 
+>
+                                                                                         
+
+                                                                                         
+<a 
+ id="x115-1880021"></a>
+                                                                                         
+
+                                                                                         
+<div class="center" 
+>
+<!--l. 6903--><p class="noindent" >
+
+<!--l. 6904--><p class="noindent" ><img 
+src="figures/Locust/LCW1.png" alt="PIC"  
+></div>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;11.1: </span><span  
+class="content"><a 
+ id="dx115-188003"></a> Locust running the &#8216;Data-Modeling/Data-Modeler&#8217; problem from the [Qubist_Home]/demos
+directory.</span></div><!--tex4ht:label?: x115-1880021 -->
+                                                                                         
+
+                                                                                         
+<!--l. 6908--><p class="noindent" ></div><hr class="endfigure">
+<h4 class="subsectionHead"><span class="titlemark">11.2.1   </span> <a 
+ id="x115-18900011.2.1"></a>Locust Figures</h4>
+<!--l. 6912--><p class="noindent" >The Locust user interface shows a few graphs that update while the project is running. Locust&#8217;s interface is much
+simpler than the Ferret console (Figure <a 
+href="QubistHTMLse12.html#x26-330022">4.2<!--tex4ht:ref: fig:FCW1 --></a>), but still quite informative. I prefer to run Locust through the interface,
+rather than on the command line (see Section <a 
+href="QubistHTMLse85.html#x116-19000011.3">11.3<!--tex4ht:ref: sec:commandLine_Locust --></a>) because the graphs provide real-time information about how
+well the code is converging, and can prevent a lot of wasted time if things go wrong. All figures update each time
+step, unless the graphics are frozen by clicking the &#8216;Freeze Plot&#8217; button. This bypasses all graphics to allow Locust
+to run faster, even though this usually provides only a marginal improvement, except for simple problems where
+the fitness function evaluates much more rapidly than the graphics calls. When clicked, the &#8216;Freeze
+Plot&#8217; button changes to &#8216;Unfreeze Plot&#8217;; clicking this button again turns the graphical system back
+on.
+<!--l. 6914--><p class="noindent" >The upper left graph represents a two-dimensional projection of the swarm at the current time step, shown with
+blue dots. &#8216;Personal best&#8217; solutions are shown as green dots, and &#8216;global best&#8217; solutions are shown as red asterisks.
+The projection can be changed using the &#8216;X-Axis&#8217; and &#8216;Y-Axis&#8217; menus.
+<!--l. 6916--><p class="noindent" >The upper right pair of graphs provide convergence information for the run. The blue line in the top plot indicates
+how many swarm members are within the optimal set, as a function of time step. The green line indicates the
+median fitness of the swarm for single-objective problems, or the median rank of swarm members for multi-objective
+problems. <span 
+class="cmti-10">Recall that Locust, like all of the Qubist optimizers, is a minimizer, and lower fitness values correspond to</span>
+<span 
+class="cmti-10">better solutions.  </span>The lower plot shows the minimum fitness value (solid line) and maximum fitness value
+(dashed line) for members of the optimal set as a function of time step, for each objective function.
+Different objective functions are cycled through different colours, using MATLAB&#8217;s usual colour order for
+plotting (type &#8216;help plot&#8217; on the MATLAB command line for details). All functions are &#8216;squashed&#8217;
+using the squashing transformation given by equation <a 
+href="QubistHTMLse65.html#x94-137006r1">9.1<!--tex4ht:ref: eq:squash --></a>, and the motivation for using this function
+are discussed following the equation. During a Locust run, you should see the fitness values and the
+median rank decrease. For multi-objective problems and fuzzy single-objective problems, the number of
+solutions in the optimal set should increase until it levels off once the swarm is mostly within the optimal
+set.
+<!--l. 6918--><p class="noindent" >The lower left plot is the User Plot. Any graphical commands given called by your &#8216;myPlot&#8217; function are sent
+directly to this window. Please refer to Section <a 
+href="QubistHTMLse91.html#x122-20000011.9">11.9<!--tex4ht:ref: sec:myPlot_Locust --></a> for details.
+<a 
+ id="dx115-189001"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 6923--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse85.html" >next</a>] [<a 
+href="QubistHTMLse83.html" >prev</a>] [<a 
+href="QubistHTMLse83.html#tailQubistHTMLse83.html" >prev-tail</a>] [<a 
+href="QubistHTMLse84.html" >front</a>] [<a 
+href="QubistHTMLch11.html#QubistHTMLse84.html" >up</a>] </p></div>
+<!--l. 6923--><p class="noindent" ><a 
+ id="tailQubistHTMLse84.html"></a>  
+</body></html> 

@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>Analysis: Generating Your Final Results</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 2562--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse26.html" >next</a>] [<a 
+href="QubistHTMLse24.html" >prev</a>] [<a 
+href="QubistHTMLse24.html#tailQubistHTMLse24.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLse25.html">tail</a>] [<a 
+href="QubistHTMLch4.html#QubistHTMLse25.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">4.15   </span> <a 
+ id="x42-630004.15"></a>Analysis: Generating Your Final Results</h3>
+<a 
+ id="dx42-63001"></a>
+<a 
+ id="dx42-63002"></a>
+<!--l. 2567--><p class="noindent" >As Ferret runs, it generates &#8216;History&#8217; files in the project&#8217;s data directory (called &#8216;FerretSetup&#8217; by default), which
+contains detailed information about the state of the run at each generation and the solutions that were
+considered to be optimal at that generation. The optimal solutions discovered at later generations are
+always at least as good, and usually superior to the &#8216;optimals&#8217; recorded in History files from early
+generations.
+<!--l. 2569--><p class="noindent" >A run can be analyzed after it is stopped, or at any point while it is running. There are several methods for doing
+this, but all methods trigger an identical sequence of events that compute the final optimal set of
+solutions from your run. Analysis also starts Ferret&#8217;s integrated visualization system, which is designed to
+help you to explore your solution set and understand its structure and distribution in the parameter
+space.
+<a 
+ id="dx42-63003"></a>
+<!--l. 2572--><p class="noindent" >The easiest way to analyze a run is to click the &#8216;Analyze&#8217; button on the Ferret console window or select &#8216;Analyze
+History&#8217; from the &#8216;Control&#8217; menu, as discussed in Section <a 
+href="QubistHTMLse13.html#x27-350004.3">4.3<!--tex4ht:ref: sec:demos --></a>. This will bring up Ferret&#8217;s analysis window, as shown
+in Figure <a 
+href="QubistHTMLse13.html#x27-350147">4.7<!--tex4ht:ref: fig:analysis --></a>. Other views of this window are shown in Figure <a 
+href="QubistHTMLse32.html#x51-750112">5.2<!--tex4ht:ref: fig:analysisViews --></a>, which shows the results from a detailed
+data-modeling example presented in Section <a 
+href="QubistHTMLse31.html#x50-740005.1">5.1<!--tex4ht:ref: sec:binaries --></a>. Analysis also generates an &#8216;OptimalSolutions.mat&#8217; file in the data
+directory (<span 
+class="cmtt-10">par.history.dataDir</span>), which contains contains all of the final results from your run, including the final
+optimal set and other information generated during the analysis of the run. The OptimalSolutions.mat file is
+discussed in detail in Section <a 
+href="QubistHTMLse28.html#x46-700004.18">4.18<!--tex4ht:ref: sec:OptimalSolutions_file --></a>.
+<a 
+ id="dx42-63004"></a>
+<!--l. 2575--><p class="noindent" >In addition to the method discussed above, it is also possible to trigger the re-analysis of a run from the analysis
+window by pressing the &#8216;Re-Analyze&#8217; button located in the &#8216;Analysis&#8217; window. Re-analysis is usually only necessary
+if the &#8216;Fuzziness&#8217; button is used to add or modify a fuzzy tolerance for the generation of the optimal set. Fuzzy
+tolerances are discussed in Section <a 
+href="QubistHTMLse36.html#x55-790005.6">5.6<!--tex4ht:ref: sec:fuzziness --></a>, and the Fuzzy Tolerance interface, which is opened by pressing the Fuzziness
+button, is shown in Figure <a 
+href="QubistHTMLse36.html#x55-790029">5.9<!--tex4ht:ref: fig:setAnalysisTolerances --></a>.
+<a 
+ id="dx42-63005"></a>
+<!--l. 2578--><p class="noindent" >Finally, you should be aware that the Qubist package contains an &#8216;Analyze History Tool&#8217; that can be launched from
+the component selector menu when you run launchQubist. This tool is <span 
+class="cmti-10">extremely </span>useful, because it enables you to
+put off analyzing your runs until you are ready to do so. I most often use this feature when I&#8217;m doing several
+similar runs, often over the course of several days, and want to do all of the analysis at the same time
+when everything finishes. The Analyze History Tool is discussed in Section <a 
+href="QubistHTMLse95.html#x127-21600012.2">12.2<!--tex4ht:ref: sec:analyzeHistoryTool --></a> of the &#8216;Other Tools&#8217;
+chapter.
+<a 
+ id="dx42-63006"></a>
+<a 
+ id="dx42-63007"></a>
+                                                                                         
+
+                                                                                         
+                                                                                         
+
+                                                                                         
+<!--l. 2583--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse26.html" >next</a>] [<a 
+href="QubistHTMLse24.html" >prev</a>] [<a 
+href="QubistHTMLse24.html#tailQubistHTMLse24.html" >prev-tail</a>] [<a 
+href="QubistHTMLse25.html" >front</a>] [<a 
+href="QubistHTMLch4.html#QubistHTMLse25.html" >up</a>] </p></div>
+<!--l. 2583--><p class="noindent" ><a 
+ id="tailQubistHTMLse25.html"></a>  
+</body></html> 

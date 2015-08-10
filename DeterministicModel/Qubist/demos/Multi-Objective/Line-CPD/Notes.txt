@@ -1,0 +1,21 @@
+Critical Parameter Detection in Two Dimensions: Mapping a Line:
+==================================================================
+
+This example illustrates a capability unique to Ferret called "Critical Parameter Detection",
+or CPD for short.  CPD is designed to determine which parameters of a problem are actually
+important to optimizing the fitness function.
+
+In this example, we search for the set of points that have the smallest distance 
+to two distinct points residing in a 2-dimensional subspace, embedded within 
+a 10-dimensional parameter space.  The optimal trade-off surface for this problem 
+is a line joining the points.  Therefore, only the parameters corresponding to the
+2-dimensional subspace are important.  CPD causes the extraneous eight genes
+(parameters) to gradually die out from the population, and may even go extinct.
+
+CPD is controlled by several parameters:
+par.CPD.PDeactivateGenes=0; % [0:1]: Probability of gene deactivation.
+par.CPD.PReactivateGenes=0; % [0:1]: Probability of gene reactivation.
+par.CPD.useTemplates=0; % [0 or 1]: Use templates to replace NaN's in evaluation when possible.
+par.CPD.NaN2Random=1; %  [0 or 1, usually 1]: Replace undefined genes (NaN's) with random numbers?
+
+See the demo titled "Triangle-Subspace-CPD" for a more thorough discussion of CPD.

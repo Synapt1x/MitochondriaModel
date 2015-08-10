@@ -1,0 +1,1750 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>The LocustSetup File</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 7497--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse92.html" >prev</a>] [<a 
+href="QubistHTMLse92.html#tailQubistHTMLse92.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLse93.html">tail</a>] [<a 
+href="QubistHTMLch11.html#QubistHTMLse93.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">11.11   </span> <a 
+ id="x124-20200011.11"></a>The LocustSetup File</h3>
+<a 
+ id="dx124-202001"></a>
+<a 
+ id="dx124-202002"></a>
+<a 
+ id="dx124-202003"></a>
+<a 
+ id="dx124-202004"></a>
+<!--l. 7505--><p class="noindent" >The Locust setup file is relatively simple and compact compared to the other Qubist optimizers. As usual, I will
+walk you through the setup options and try to provide some useful advice. Locust&#8217;s default setup file is located in
+[Qubist_Home]/Qubist/user/Locust/defaults/defaultLocustSetup.m. You can modify these defaults if
+you are sure that you know what you are doing, but it is better to copy the template setup file from
+[Qubist_Home]/Qubist/user/Locust/templates/LocustSetup_template.m into your project directory, rename it to
+LocustSetup.m (or the setup file name that you set in your launchQubist.m file), and modify the settings
+there.
+<!--l. 7508--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">11.11.1   </span> <a 
+ id="x124-20300011.11.1"></a>par.user</h4>
+<a 
+ id="dx124-203001"></a>
+<!--l. 7512--><p class="noindent" >The <span 
+class="cmtt-10">par.user </span>branch of the setup file contains the name of the fitness function (<span 
+class="cmtt-10">par.user.fitnessFcn</span>) and the
+name of the optional output function (<span 
+class="cmtt-10">par.user.output</span>). Both of these fields must be strings and not function
+handles. The name of the output function can be an empty string, to indicate that no output function is used, but a
+fitness function name must be given.
+<!--l. 7522--><p class="noindent" ><span 
+class="colorbox" id="colorbox140"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;User</span><br /><span 
+class="cmtt-10">par.user.fitnessFcn=&#8217;fitness&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[string]:</span><span 
+class="cmtt-10">&#x00A0;Name</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;fitness</span><span 
+class="cmtt-10">&#x00A0;function.</span><br /><span 
+class="cmtt-10">par.user.output=&#8217;&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[string]:</span><span 
+class="cmtt-10">&#x00A0;Name</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;optional</span><span 
+class="cmtt-10">&#x00A0;user-defined</span><span 
+class="cmtt-10">&#x00A0;output</span><span 
+class="cmtt-10">&#x00A0;function</span><span 
+class="cmtt-10">&#x00A0;called</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML130x.png" alt="                                                                          `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;each</span><span 
+class="cmtt-10">&#x00A0;time</span><span 
+class="cmtt-10">&#x00A0;step.</span><br /><span 
+class="cmtt-10">par.user.extPar=[];</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Do</span><span 
+class="cmtt-10">&#x00A0;not</span><span 
+class="cmtt-10">&#x00A0;edit</span><span 
+class="cmtt-10">&#x00A0;this</span><span 
+class="cmtt-10">&#x00A0;line.</span></div>
+</div></span>
+<a 
+ id="dx124-203007"></a>
+<!--l. 7531--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">11.11.2   </span> <a 
+ id="x124-20400011.11.2"></a>par.history</h4>
+<a 
+ id="dx124-204001"></a>
+<a 
+ id="dx124-204002"></a>
+<!--l. 7536--><p class="noindent" >The <span 
+class="cmtt-10">par.history </span>branch of the setup file contains two options that control how History files are saved.
+<!--l. 7545--><p class="noindent" ><span 
+class="colorbox" id="colorbox141"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;History</span><br /><span 
+class="cmtt-10">par.history.dataDir=&#8217;LocustData&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[string]:</span><span 
+class="cmtt-10">&#x00A0;Directory</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;Locust</span><span 
+class="cmtt-10">&#x00A0;data</span><span 
+class="cmtt-10">&#x00A0;files,</span><span 
+class="cmtt-10">&#x00A0;etc.</span><br /><span 
+class="cmtt-10">par.history.NStepsPerHistoryFile=25;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer</span><span 
+class="cmtt-10">&#x00A0;&#x003E;=</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;How</span><span 
+class="cmtt-10">&#x00A0;many</span><span 
+class="cmtt-10">&#x00A0;time</span><span 
+class="cmtt-10">&#x00A0;steps</span><span 
+class="cmtt-10">&#x00A0;per</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML131x.png" alt="                                                                                  `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;History</span><span 
+class="cmtt-10">&#x00A0;file?</span></div>
+</div></span>
+                                                                                         
+
+                                                                                         
+<!--l. 7551--><p class="noindent" ><span 
+class="cmtt-10">par.history.dataDir </span>is a string containing the name of the data directory where the History file directory and the
+OptimalSolutions.mat file will be stored. This is usually specified as a local directory within the project directory, as
+shown here, but full global paths are also allowed.
+<!--l. 7553--><p class="noindent" ><span 
+class="cmtt-10">par.history.NStepsPerHistoryFile </span>is the number of time steps that are to be saved per History
+file. The advice that I gave in the section on Ferret&#8217;s History file and crash recovery options (Section
+<a 
+href="QubistHTMLse26.html#x43-650004.16.1">4.16.1<!--tex4ht:ref: sec:crash --></a>) applies here also. Smaller values of NStepsPerHistoryFile are better for projects with expensive
+fitness functions, because a run can be resumed from the last saved History file after a crash or error.
+Larger values are more suitable for projects where the fitness function is cheap and the run duration is
+short.
+<a 
+ id="dx124-204007"></a>
+<!--l. 7558--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">11.11.3   </span> <a 
+ id="x124-20500011.11.3"></a>par.general</h4>
+<a 
+ id="dx124-205001"></a>
+<!--l. 7562--><p class="noindent" ><span 
+class="cmtt-10">par.general </span>contains basic options that tell Locust about the structure of your problem&#8217;s parameter space. All of
+these options are also in Ferret&#8217;s <span 
+class="cmtt-10">par.general </span>section and are discussed in Section <a 
+href="QubistHTMLse46.html#x71-1020008.3">8.3<!--tex4ht:ref: sec:par_general --></a> in detail. I will only briefly
+review them here:
+     <ul class="itemize1">
+     <li class="itemize">
+     <span 
+class="cmtt-10">par.general.min</span>
+     and
+     <span 
+class="cmtt-10">par.general.max</span>
+     respectively
+     give
+     the
+     minimum
+     and
+     maximum
+     bounds
+     of
+     the
+     parameter
+     space.
+     They
+     must
+     be
+     be
+     row
+     vectors
+     of
+     length
+     equal
+                                                                                         
+
+                                                                                         
+     to
+     the
+     number
+     of
+     parameters.
+     Locust
+     checks
+     bounds
+     at
+     each
+     step,
+     and
+     particles
+     are
+     not
+     allowed
+     to
+     leave
+     these
+     bounds.
+     </li>
+     <li class="itemize">
+     <span 
+class="cmtt-10">par.general.cyclic</span>
+     is
+     a
+     row
+     vector
+     containing
+     an
+     index
+     of
+     parameters
+     designated
+     as
+     cyclic.
+     All
+     values
+     must
+     be
+     integers
+     between
+     1
+     and
+     <span 
+class="cmmi-10">N</span><sub><span 
+class="cmmi-7">par</span></sub>,
+     where
+     <span 
+class="cmmi-10">N</span><sub><span 
+class="cmmi-7">par</span></sub>
+                                                                                         
+
+                                                                                         
+     is
+     the
+     number
+     of
+     parameters.
+     Cyclic
+     parameters
+     are
+     especially
+     intuitive
+     for
+     a
+     PSO.
+     Designating
+     a
+     parameter
+     as
+     cyclic
+     imposes
+     periodic
+     boundary
+     conditions
+     on
+     that
+     parameter;
+     if
+     a
+     particle
+     goes
+     beyond
+     the
+     minimum
+     or
+     maximum
+     sides
+     of
+     the
+     parameter
+     bounds,
+     it
+     reappears
+     on
+     the
+     other
+     side
+     with
+     the
+     same
+                                                                                         
+
+                                                                                         
+     velocity.
+     </li>
+     <li class="itemize">
+     <span 
+class="cmtt-10">par.general.XLabels</span>
+     and
+     <span 
+class="cmtt-10">par.general.FLabels</span>
+     are
+     optional
+     cell
+     arrays
+     of
+     strings
+     that
+     respectively
+     give
+     the
+     names
+     of
+     the
+     parameters
+     and
+     the
+     objective.
+     Parameter
+     and
+     objective
+     names
+     that
+     are
+     not
+     specified
+     are
+     given
+     the
+     generic
+     names
+     &#8216;<span 
+class="cmmi-10">X</span><sub><span 
+class="cmr-7">1</span></sub>&#8217;,
+     &#8216;<span 
+class="cmmi-10">X</span><sub><span 
+class="cmr-7">2</span></sub>&#8217;,
+     &#8216;<span 
+class="cmmi-10">X</span><sub><span 
+class="cmr-7">3</span></sub>&#8217;,
+     etc.
+     for
+     parameters
+     and
+     &#8216;<span 
+class="cmmi-10">F</span><sub><span 
+class="cmr-7">1</span></sub>&#8217;,
+     &#8216;<span 
+class="cmmi-10">F</span><sub><span 
+class="cmr-7">2</span></sub>&#8217;,
+     &#8216;<span 
+class="cmmi-10">F</span><sub><span 
+class="cmr-7">3</span></sub>&#8217;,
+                                                                                         
+
+                                                                                         
+     etc.
+     for
+     objectives.
+     </li>
+     <li class="itemize">
+     <span 
+class="cmtt-10">par.general.HolderMetricExponent</span>
+     is
+     the
+     metric
+     exponent
+     used
+     to
+     calculate
+     distances
+     for
+     Locust&#8217;s
+     niching
+     mechanism.
+     I
+     always
+     use
+     <span 
+class="cmtt-10">par.general.HolderMetricExponent=2</span>,
+     which
+     specifies
+     a
+     Euclidean
+     space.
+     I
+     have
+     not
+     fully
+     explored
+     this
+     parameter,
+     but
+     I
+     don&#8217;t
+     believe
+     that
+     different
+     values
+     are
+     likely
+     to
+     make
+     much
+                                                                                         
+
+                                                                                         
+     difference.</li></ul>
+<!--l. 7580--><p class="noindent" ><span 
+class="colorbox" id="colorbox142"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;General</span><br /><span 
+class="cmtt-10">par.general.min=[-1,-1];</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real</span><span 
+class="cmtt-10">&#x00A0;vector]:</span><span 
+class="cmtt-10">&#x00A0;Minimum</span><span 
+class="cmtt-10">&#x00A0;values</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;all</span><span 
+class="cmtt-10">&#x00A0;parameters.</span><br /><span 
+class="cmtt-10">par.general.max=[1,1];</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real</span><span 
+class="cmtt-10">&#x00A0;vector]:</span><span 
+class="cmtt-10">&#x00A0;Maximum</span><span 
+class="cmtt-10">&#x00A0;values</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;all</span><span 
+class="cmtt-10">&#x00A0;parameters.</span><br /><span 
+class="cmtt-10">par.general.cyclic=[];</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer</span><span 
+class="cmtt-10">&#x00A0;vector</span><span 
+class="cmtt-10">&#x00A0;&#x003E;</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Which</span><span 
+class="cmtt-10">&#x00A0;parameters</span><span 
+class="cmtt-10">&#x00A0;are</span><span 
+class="cmtt-10">&#x00A0;cyclic?</span><br /><span 
+class="cmtt-10">par.general.XLabels=;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Give</span><span 
+class="cmtt-10">&#x00A0;names</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;some</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;all</span><span 
+class="cmtt-10">&#x00A0;parameters:</span><span 
+class="cmtt-10">&#x00A0;&#8217;A&#8217;,&#8217;B&#8217;,...</span><br /><span 
+class="cmtt-10">par.general.FLabels=;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Give</span><span 
+class="cmtt-10">&#x00A0;names</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;some</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;all</span><span 
+class="cmtt-10">&#x00A0;fitness</span><span 
+class="cmtt-10">&#x00A0;values:</span><span 
+class="cmtt-10">&#x00A0;&#8217;FA&#8217;,&#8217;FB&#8217;,...</span><br /><span 
+class="cmtt-10">par.general.HolderMetricExponent=2;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;The</span><span 
+class="cmtt-10">&#x00A0;exponent</span><span 
+class="cmtt-10">&#x00A0;used</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;metrics.</span></div>
+</div></span>
+<a 
+ id="dx124-205009"></a>
+<!--l. 7589--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">11.11.4   </span> <a 
+ id="x124-20600011.11.4"></a>par.parallel</h4>
+<a 
+ id="dx124-206001"></a>
+<!--l. 7593--><p class="noindent" >I designed Qubist&#8217;s parallel computing system specifically for Ferret and ported it to Locust during the development
+of the greatly improved Locust-2 version, as discussed in Section <a 
+href="QubistHTMLse83.html#x114-18500011.1.1">11.1.1<!--tex4ht:ref: sec:history_Locust --></a>. Almost all of the code for parallel
+computing is shared between these optimizers, and Locust&#8217;s parallel computing options are identical to Ferret&#8217;s.
+Please refer to Chapter <a 
+href="QubistHTMLch6.html#x56-800006">6<!--tex4ht:ref: ch:parallel --></a> and Section <a 
+href="QubistHTMLse48.html#x73-1040008.5">8.5<!--tex4ht:ref: sec:par_parallel --></a> for details.
+<!--l. 7608--><p class="noindent" ><span 
+class="colorbox" id="colorbox143"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Parallel</span><span 
+class="cmtt-10">&#x00A0;Computing</span><br /><span 
+class="cmtt-10">par.parallel.NWorkers=0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer</span><span 
+class="cmtt-10">&#x00A0;&#x003E;=</span><span 
+class="cmtt-10">&#x00A0;0]:</span><span 
+class="cmtt-10">&#x00A0;Number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;worker</span><span 
+class="cmtt-10">&#x00A0;nodes</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;launch</span><span 
+class="cmtt-10">&#x00A0;initially.</span><br /><span 
+class="cmtt-10">par.parallel.minChunkSize=10;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer]:</span><span 
+class="cmtt-10">&#x00A0;Minimum</span><span 
+class="cmtt-10">&#x00A0;number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;evaluations</span><span 
+class="cmtt-10">&#x00A0;in</span><span 
+class="cmtt-10">&#x00A0;each</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML132x.png" alt="                                                                                                  `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;work</span><span 
+class="cmtt-10">&#x00A0;chunk.</span><br /><span 
+class="cmtt-10">par.parallel.timeout=30;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer</span><span 
+class="cmtt-10">&#x00A0;&#x003E;=</span><span 
+class="cmtt-10">&#x00A0;0]:</span><span 
+class="cmtt-10">&#x00A0;Maximum</span><span 
+class="cmtt-10">&#x00A0;time</span><span 
+class="cmtt-10">&#x00A0;in</span><span 
+class="cmtt-10">&#x00A0;seconds</span><span 
+class="cmtt-10">&#x00A0;before</span><span 
+class="cmtt-10">&#x00A0;an</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML133x.png" alt="                                                                                                                                                                                                        `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;unresponsive</span><span 
+class="cmtt-10">&#x00A0;node</span><span 
+class="cmtt-10">&#x00A0;disconnects.</span><br /><span 
+class="cmtt-10">par.parallel.latency=0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real</span><span 
+class="cmtt-10">&#x00A0;&#x003E;</span><span 
+class="cmtt-10">&#x00A0;0]:</span><span 
+class="cmtt-10">&#x00A0;Time</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;pause</span><span 
+class="cmtt-10">&#x00A0;in</span><span 
+class="cmtt-10">&#x00A0;seconds</span><span 
+class="cmtt-10">&#x00A0;after</span><span 
+class="cmtt-10">&#x00A0;writing</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML134x.png" alt="                                                                                                                                                                                                                                                                                                                                       `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;scratch</span><span 
+class="cmtt-10">&#x00A0;directory.</span><br /><span 
+class="cmtt-10">par.parallel.useJava=true;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[logical]:</span><span 
+class="cmtt-10">&#x00A0;Is</span><span 
+class="cmtt-10">&#x00A0;Java</span><span 
+class="cmtt-10">&#x00A0;required</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;worker</span><span 
+class="cmtt-10">&#x00A0;nodes?</span><br /><span 
+class="cmtt-10">par.parallel.writeLogFiles=true;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[logical]:</span><span 
+class="cmtt-10">&#x00A0;Are</span><span 
+class="cmtt-10">&#x00A0;log</span><span 
+class="cmtt-10">&#x00A0;files</span><span 
+class="cmtt-10">&#x00A0;required?</span></div>
+</div></span>
+<a 
+ id="dx124-206012"></a>
+<!--l. 7617--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">11.11.5   </span> <a 
+ id="x124-20700011.11.5"></a>par.swarm</h4>
+<a 
+ id="dx124-207001"></a>
+<!--l. 7621--><p class="noindent" >The <span 
+class="cmtt-10">par.swarm </span>options control the size, dynamics, and topology of the particle swarm. These options will probably
+have a significant effect on your runs. Therefore, they should be modified to fine-tune your setup, but this must be
+done with some care.
+<!--l. 7637--><p class="noindent" ><span 
+class="colorbox" id="colorbox144"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;PSO</span><span 
+class="cmtt-10">&#x00A0;constants</span><br /><span 
+class="cmtt-10">par.swarm.N=100;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer</span><span 
+class="cmtt-10">&#x00A0;&#x003E;=</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;particles</span><span 
+class="cmtt-10">&#x00A0;in</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;swarm.</span><br /><span 
+class="cmtt-10">par.swarm.cg=0.5;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real]:</span><span 
+class="cmtt-10">&#x00A0;Global</span><span 
+class="cmtt-10">&#x00A0;best</span><span 
+class="cmtt-10">&#x00A0;constant.</span><br /><span 
+class="cmtt-10">par.swarm.cp=1;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real]:</span><span 
+class="cmtt-10">&#x00A0;Personal</span><span 
+class="cmtt-10">&#x00A0;best</span><span 
+class="cmtt-10">&#x00A0;constant.</span><br /><span 
+class="cmtt-10">par.swarm.dt=1;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real]:</span><span 
+class="cmtt-10">&#x00A0;Time</span><span 
+class="cmtt-10">&#x00A0;step</span><span 
+class="cmtt-10">&#x00A0;(usually</span><span 
+class="cmtt-10">&#x00A0;1)</span><br /><span 
+class="cmtt-10">par.swarm.TDamp=10;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real]:</span><span 
+class="cmtt-10">&#x00A0;Damping</span><span 
+class="cmtt-10">&#x00A0;constant.</span><br /><span 
+class="cmtt-10">par.swarm.globalFrac=1;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real]:</span><span 
+class="cmtt-10">&#x00A0;Number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;global</span><span 
+class="cmtt-10">&#x00A0;neighbourhoods</span><span 
+class="cmtt-10">&#x00A0;as</span><span 
+class="cmtt-10">&#x00A0;fraction</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;swarm</span><span 
+class="cmtt-10">&#x00A0;size.</span><br /><span 
+class="cmtt-10">par.swarm.globalRange=0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real]:</span><span 
+class="cmtt-10">&#x00A0;Fuzziness</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;global</span><span 
+class="cmtt-10">&#x00A0;neighbourhoods.</span><br /><span 
+class="cmtt-10">par.swarm.PCompeteGlobal=0.1;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real]:</span><span 
+class="cmtt-10">&#x00A0;Probability</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;globals</span><span 
+class="cmtt-10">&#x00A0;competing.</span><br /><span 
+class="cmtt-10">par.swarm.PKick=0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real</span><span 
+class="cmtt-10">&#x00A0;&#x003C;&#x003C;</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Probability</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;perturbing</span><span 
+class="cmtt-10">&#x00A0;swarm</span><span 
+class="cmtt-10">&#x00A0;with</span><span 
+class="cmtt-10">&#x00A0;a</span><span 
+class="cmtt-10">&#x00A0;random</span><span 
+class="cmtt-10">&#x00A0;&#8216;kick&#8217;.</span><br /><span 
+class="cmtt-10">par.swarm.kickSize=0.05;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real</span><span 
+class="cmtt-10">&#x00A0;&#x003C;~</span><span 
+class="cmtt-10">&#x00A0;0.1]:</span><span 
+class="cmtt-10">&#x00A0;Size</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;kick.</span></div>
+</div></span>
+<!--l. 7643--><p class="noindent" ><span 
+class="cmtt-10">par.swarm.N </span>is the number of particles in the swarm. I recommend using about 100 to perhaps a few hundred
+particles for most problems. Locust will often find good solutions with as few as <span 
+class="cmsy-10">~</span>10 particles, but very small
+swarms worry me when the goal is to find solutions that are truly optimal in a global sense. PSOs work by exploring
+the parameter space by the action of many particles sampling the space in parallel. If the number of particles is
+small, then the sampling will be less thorough, and it is possible to miss the global solution or solution set.
+At the other extreme, I don&#8217;t see much benefit to extremely large swarms (more than about 1000
+particles), except for perhaps on very difficult problems in very large parameter spaces. However, you
+would almost certainly be better off using Ferret than Locust, if your problem is really this difficult.
+My advice is to start with about 100 particles and decrease the number of particles gradually, if you
+want, and if experience shows that this decreases the run time without losing reliability. You should
+increase the size of the swarm if you notice that you are getting different answers each time that you
+run the code, because this indicates that Locust is probably getting trapped in a local minimum.
+Larger swarms sample the parameter space more thoroughly and this often helps such consistency
+problems.
+                                                                                         
+
+                                                                                         
+<!--l. 7645--><p class="noindent" ><span 
+class="cmtt-10">par.swarm.cg </span>and <span 
+class="cmtt-10">par.swarm.cp </span>are respectively the global best and personal best constants used in equation <a 
+href="QubistHTMLse83.html#x114-186003r11.1">11.1<!--tex4ht:ref: eq:PSO --></a>.
+They should both be around 1, although I prefer to use a <span 
+class="cmmi-10">cg </span>value that is a little smaller than <span 
+class="cmmi-10">cp </span>(<span 
+class="cmmi-10">cp </span>= 1;
+<span 
+class="cmmi-10">cg </span>= 0<span 
+class="cmmi-10">.</span>5). Decreasing <span 
+class="cmmi-10">cg </span>relative to <span 
+class="cmmi-10">cp </span>places more emphasis on exploration of the parameter space
+because the particles search more independently and are influenced less by the global best solution or
+solutions. Increasing <span 
+class="cmmi-10">cg </span>relative to <span 
+class="cmmi-10">cp </span>places more emphasis on the exploitation of the global solution or
+solutions, at the expense of exploration, because all particles will be drawn to the optimal region more
+rapidly.
+<!--l. 7647--><p class="noindent" >Particles communicate with each other via the global solution(s), and the strength of this communication is critical
+to the success of the algorithm. Too little communication (<span 
+class="cmmi-10">cg </span><span 
+class="cmsy-10">&#x226A; </span>1) causes all of the particles to act almost
+independently. Try setting <span 
+class="cmmi-10">cg </span>= 0 as an experiment, and you will discover that using <span 
+class="cmmi-10">N </span>particles to explore the
+space independently is <span 
+class="cmti-10">extremely </span>inefficient (i.e long convergence times, if convergence occurs at all) compared to
+the default setting (<span 
+class="cmmi-10">cg </span>= 0<span 
+class="cmmi-10">.</span>5), which allows enough communication for collective swarm behaviour
+to emerge. Conversely, setting <span 
+class="cmmi-10">cg </span><span 
+class="cmsy-10">&#x226B; </span>1 results in poor solutions because the particles converge too
+quickly, before the parameter space has been sufficiently explored. These are good parameters to modify
+as you fine-tune your setup file. However, I would keep <span 
+class="cmmi-10">cg </span>and <span 
+class="cmmi-10">cp </span>similar in size and avoid extreme
+values.
+<!--l. 7649--><p class="noindent" ><span 
+class="cmtt-10">par.swarm.dt </span>is the time step between updates to the swarm positions and velocities, and the default setting is
+<span 
+class="cmtt-10">par.swarm.dt=1</span>. Equation <a 
+href="QubistHTMLse83.html#x114-186003r11.1">11.1<!--tex4ht:ref: eq:PSO --></a> shows that this will cause particles to move most of the distance between their
+present positions, and their personal best and global best orbit centres during a time step. Such large jumps would
+cause very large errors in the orbits if Locust really used equation <a 
+href="QubistHTMLse83.html#x114-186003r11.1">11.1<!--tex4ht:ref: eq:PSO --></a> to update positions and velocities. Recall,
+however, that Locust uses an exact analytical solution to the orbital dynamics, which diminishes these numerical
+errors to an insignificant level. Therefore, the time step <span 
+class="cmmi-10">dt </span>affects the rate of sampling of the parameter space as
+particles move around on their orbits, but has no significant effect on the accuracy of the obits. I find that <span 
+class="cmmi-10">dt </span><span 
+class="cmsy-10">&#x2248; </span>1
+provides the best sampling and the fastest convergence. A fun thing to try is to set <span 
+class="cmmi-10">dt </span><span 
+class="cmsy-10">&#x2248; </span>0<span 
+class="cmmi-10">.</span>01, which
+allows you to see the actual motion of particles moving smoothly on their orbits. This is particularly
+useful for demonstrations and talks, or when explaining the concepts of PSOs. Turning <span 
+class="cmmi-10">dt </span>back up
+to <span 
+class="cmmi-10">dt </span><span 
+class="cmsy-10">&#x2248; </span>1 is like setting the particles on identical orbits (excluding the stochastic effects of <span 
+class="cmmi-10">&#x03BE;</span><sub><span 
+class="cmmi-7">g</span></sub> and
+<span 
+class="cmmi-10">&#x03BE;</span><sub><span 
+class="cmmi-7">p</span></sub> variable in equation <a 
+href="QubistHTMLse83.html#x114-186003r11.1">11.1<!--tex4ht:ref: eq:PSO --></a>), but observing them with a strobe that only flashes once per orbit or
+so.
+<a 
+ id="dx124-207013"></a>
+<!--l. 7652--><p class="noindent" >PSOs require some damping so that orbits eventually decay and particles converge to the optimal region.
+<span 
+class="cmtt-10">par.swarm.TDamp </span>controls the time required for damping to occur. Smaller values of <span 
+class="cmmi-10">TDamp </span>correspond to more
+damping with shorter damping times, while larger values of <span 
+class="cmmi-10">TDamp </span>result in less damping and longer damping
+times. I have implemented this parameter so that <span 
+class="cmtt-10">par.swarm.TDamp=1 </span>corresponds to a <span 
+class="cmti-10">critically damped oscillator </span>-
+an oscillator whose motion damps out in the shortest time possible. <span 
+class="cmmi-10">TDamp &#x003E; </span>1 corresponds to an
+underdamped oscillator, whose motion damps out over multiple orbits. <span 
+class="cmmi-10">TDamp &#x003C; </span>1 would correspond to
+an overdamped oscillator, whose damping is so strong that oscillations do not even occur. <span 
+class="cmti-10">Clearly,</span>
+<span 
+class="cmti-10">Locust must operate in the regime of underdamped orbits,  since many orbits are required to explore</span>
+<span 
+class="cmti-10">the space. Therefore, you should not use values of TDamp less than 1, and I recommend a value of</span>
+<span 
+class="cmti-10">about </span><span 
+class="cmmi-10">TDamp </span>= 10<span 
+class="cmti-10">. </span>Values much smaller than this default will cause orbits to damp before sufficient
+exploration occurs, while values that are much larger will prevent orbits from ever settling into the optimal
+region.
+<a 
+ id="dx124-207014"></a>
+<a 
+ id="dx124-207015"></a>
+<!--l. 7656--><p class="noindent" ><span 
+class="cmtt-10">par.swarm.globalFrac </span>is the number of global neighbourhoods as a fraction of the size of the swarm. For example,
+the default value of <span 
+class="cmtt-10">par.swarm.globalFrac=1 </span>means that each particle is in its own global neighbourhood at the
+                                                                                         
+
+                                                                                         
+start of the run, and the particle&#8217;s global best solution is the same as its personal best. This swarm
+topology won&#8217;t persist for very long for most problems because global neighbourhoods will start to merge
+automatically, but this technique allows the start of the run to be devoted entirely to exploration by individual
+particles. Collective swarm behaviour, which requires multiple particles per global neighbourhood, won&#8217;t
+emerge until later in the run after neighbourhoods start to merge. This allows a gradual transition from
+individual exploration of the parameter space to collective exploitation of the optimal region, which works
+extremely well in practice. You don&#8217;t <span 
+class="cmti-10">have </span>to use <span 
+class="cmtt-10">par.swarm.globalFrac=1</span>, but I would definitely
+recommend setting <span 
+class="cmtt-10">par.swarm.globalFrac </span>to a significant fraction of the swarm size, and definitely
+not less than 0.1 or so. A high value for <span 
+class="cmmi-10">globalFrac </span>cannot hurt your run, but it might help a lot.
+The only potentially negative effect of a large <span 
+class="cmmi-10">globalFrac </span>is that it tends to delay convergence until
+neighbourhoods merge. However, this delay of convergence often buys significant improvements to
+the exploration of the parameter space, which justifies the extra computational expense for many
+problems.
+<a 
+ id="dx124-207016"></a>
+<!--l. 7659--><p class="noindent" >Setting <span 
+class="cmtt-10">par.swarm.globalRange = 0 </span>(the default value) tells Locust to assign each particle&#8217;s global solution as
+the nearest global in the parameter space. Thus, neighbourhoods have hard boundaries, and mixing
+only occurs when particles cross neighbourhood boundaries. Setting <span 
+class="cmtt-10">par.swarm.globalRange &#x003E; 0</span>
+causes global neighbourhoods to become &#8216;fuzzy&#8217; in the sense that particles will be assigned globals
+probabilistically following an exponential distribution such that the n&#8217;th nearest global with be chosen with
+probability
+<table 
+class="equation"><tr><td><a 
+ id="x124-207017r3"></a>
+<center class="math-display" >
+<img 
+src="QubistHTML135x.png" alt="P &#x221D; e-n&#x22C5;globalRange.
+" class="math-display" ></center></td><td class="equation-label">(11.3)</td></tr></table>
+<!--l. 7662--><p class="nopar" >
+For example, if <span 
+class="cmmi-10">globalRange </span>= 1, the second nearest global will be chosen 1<span 
+class="cmmi-10">&#x2215;e </span><span 
+class="cmsy-10">&#x2248; </span>0<span 
+class="cmmi-10">.</span>37 times as frequently as the
+nearest global. I usually just use <span 
+class="cmmi-10">globalRange </span>= 0, but non-zero values might be useful if you want greater mixing
+between global neighbourhoods. In my experience, this parameter does not have a large effect on the behaviour of
+the code.
+<a 
+ id="dx124-207018"></a>
+<!--l. 7666--><p class="noindent" >Global neighbourhoods merge by competitions in a binary tournament between globals. Every time step, a fraction
+of globals approximately equal to <span 
+class="cmtt-10">par.swarm.PCompeteGlobal </span>enter into a binary competition in which their fitness
+values are compared in a Pareto-optimal sense. If there is a clear winner, taking into account fuzzy fitness functions
+(see Section <a 
+href="#x124-20800011.11.6">11.11.6<!--tex4ht:ref: sec:par_selection_Locust --></a>), then the inferior global is replaced with a copy of the superior solution, which
+causes their corresponding global neighbourhoods to merge. Mergers are not always permanent, since
+neighbourhoods can also split when multiple solutions are present in a neighbourhood that are equally
+good. A large value for <span 
+class="cmmi-10">PCompeteGlobal </span>is like a high selection pressure in a genetic algorithm; it
+                                                                                         
+
+                                                                                         
+emphasizes exploitation of the optimal region over exploration of the space, and increases the rate of
+convergence at the expense of the thoroughness of the search. Low values of <span 
+class="cmmi-10">PCompeteGlobal </span>will decrease
+mergers, resulting in more neighbourhoods later in the run, thus encouraging more exploration while
+delaying convergence. I find that the default value of <span 
+class="cmmi-10">PCompeteGlobal </span>= 0<span 
+class="cmmi-10">.</span>1 works well for many
+problems, but this is a good parameter to adjust if you want to adjust the convergence rate of your
+run.
+<a 
+ id="dx124-207019"></a>
+<!--l. 7669--><p class="noindent" >Locust contains a &#8216;kick&#8217; operator, which works much like a genetic algorithm&#8217;s mutation operator, and can similarly
+help on problems that have many local minima. <span 
+class="cmtt-10">par.swarm.PKick </span>is the probability that a Gaussian random kick
+will be applied to both the position and velocity of all particles simultaneously during a given time step. This has
+the effect of stirring up the swarm and hopefully knocking it out of a local minimum. Obviously, this must be done
+very sparingly, or it will interfere with convergence. I recommend that you only use this feature if Locust seems to
+be getting stuck frequently or of there is evidence of local minima in the parameter space. <span 
+class="cmtt-10">par.swarm.PKick </span>should
+be set to no more than a few percent, and values greater than 0.05 are probably too disruptive to be
+useful. <span 
+class="cmtt-10">par.swarm.kickSize </span>is the size of the kick, relative to the last move of each particle. Values of
+<span 
+class="cmmi-10">kickSize </span>= 0<span 
+class="cmmi-10">.</span>05 are usually adequate, but values that are much larger will almost certainly result in poor
+convergence.
+<a 
+ id="dx124-207020"></a>
+<!--l. 7673--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">11.11.6   </span> <a 
+ id="x124-20800011.11.6"></a>par.selection</h4>
+<a 
+ id="dx124-208001"></a>
+<!--l. 7677--><p class="noindent" >Locust allows fuzzy tolerances that affect how personal best and global best solutions are selected, as well as
+how winners are chosen in the binary tournaments that allow global neighbourhoods to merge (see
+Section <a 
+href="#x124-20700011.11.5">11.11.5<!--tex4ht:ref: sec:par_swarm_Locust --></a>). Fuzzy tolerances also affect how the final optimal set is chosen during the analysis
+procedure.
+<!--l. 7689--><p class="noindent" ><span 
+class="colorbox" id="colorbox145"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Selection</span><br /><span 
+class="cmtt-10">par.selection.FAbsTol=0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Absolute</span><span 
+class="cmtt-10">&#x00A0;fitness</span><span 
+class="cmtt-10">&#x00A0;range</span><span 
+class="cmtt-10">&#x00A0;(+/-</span><span 
+class="cmtt-10">&#x00A0;FAbsTol)</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;use</span><span 
+class="cmtt-10">&#x00A0;as</span><span 
+class="cmtt-10">&#x00A0;a</span><span 
+class="cmtt-10">&#x00A0;fuzzy</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML136x.png" alt="    `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;fitness</span><span 
+class="cmtt-10">&#x00A0;band.</span><br /><span 
+class="cmtt-10">par.selection.FRelTol=0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Fraction</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;fitness</span><span 
+class="cmtt-10">&#x00A0;range</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;use</span><span 
+class="cmtt-10">&#x00A0;as</span><span 
+class="cmtt-10">&#x00A0;a</span><span 
+class="cmtt-10">&#x00A0;fuzzy</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML137x.png" alt="                                                                                                               `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;fitness</span><span 
+class="cmtt-10">&#x00A0;band.</span><br /><span 
+class="cmtt-10">par.selection.exploitFrac=0.5;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0:1]:</span><span 
+class="cmtt-10">&#x00A0;Fraction</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;swarm</span><span 
+class="cmtt-10">&#x00A0;devoted</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;exploiting</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML138x.png" alt="                                                                                                                                                                                                                         `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;best-ranked</span><span 
+class="cmtt-10">&#x00A0;solutions,</span><span 
+class="cmtt-10">&#x00A0;as</span><span 
+class="cmtt-10">&#x00A0;opposed</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;exploring.</span></div>
+</div></span>
+<a 
+ id="dx124-208009"></a>
+<!--l. 7696--><p class="noindent" ><span 
+class="cmtt-10">par.selection.FAbsTol </span>and <span 
+class="cmtt-10">par.selection.FRelTol </span>correspond respectively to the absolute and relative
+tolerances of the fitness functions and are applied whenever one solution is compared to another during a Locust run
+or during analysis. Just like the corresponding options in Ferret, the net result is that Locust is insensitive to
+differences in the fitness function that are less than these tolerances, and the fitness function gains
+a certain amount of fuzziness when either <span 
+class="cmmi-10">FAbsTol </span>or <span 
+class="cmmi-10">FRelTol </span>is greater than zero. These control
+parameters work exactly like the corresponding options in Ferret. Please refer to Section <a 
+href="QubistHTMLse49.html#x74-1050008.6">8.6<!--tex4ht:ref: sec:par_selection --></a> for further
+details.
+<!--l. 7698--><p class="noindent" ><span 
+class="cmtt-10">par.selection.exploitFrac </span>works like the strategy parameter of the same name in Ferret. This option tells
+Locust what fraction of the swarm to devote to exploiting the best solutions in the optimal region, as opposed to
+exploring the extended structure of the optimal set in problems with fuzzy fitness functions. Note that <span 
+class="cmmi-10">exploitFrac</span>
+has no effect on non-fuzzy problems where <span 
+class="cmmi-10">FAbsTol </span>= 0 and <span 
+class="cmmi-10">FRelTol </span>= 0.
+<a 
+ id="dx124-208010"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 7703--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">11.11.7   </span> <a 
+ id="x124-20900011.11.7"></a>par.stopping</h4>
+<a 
+ id="dx124-209001"></a>
+<!--l. 7707--><p class="noindent" >Locust contains simple built-in stopping criteria that are very similar to the stopping criteria in Ferret, SAMOSA,
+and Anvil. These can be used for simple problems when a custom stopping criterion is not required or has not yet
+been implemented in the output function (see Section <a 
+href="QubistHTMLse90.html#x121-19500011.8">11.8<!--tex4ht:ref: sec:output_Locust --></a>).
+<!--l. 7723--><p class="noindent" ><span 
+class="colorbox" id="colorbox146"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Stopping</span><span 
+class="cmtt-10">&#x00A0;criteria</span><br /><span 
+class="cmtt-10">par.stopping.maxTimeSteps=Inf;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer</span><span 
+class="cmtt-10">&#x00A0;&#x003E;</span><span 
+class="cmtt-10">&#x00A0;0]:</span><span 
+class="cmtt-10">&#x00A0;Maximum</span><span 
+class="cmtt-10">&#x00A0;number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;time</span><span 
+class="cmtt-10">&#x00A0;steps.</span><br /><span 
+class="cmtt-10">par.stopping.maxFEval=Inf;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[Integer</span><span 
+class="cmtt-10">&#x00A0;&#x003E;</span><span 
+class="cmtt-10">&#x00A0;0]:</span><span 
+class="cmtt-10">&#x00A0;Maximum</span><span 
+class="cmtt-10">&#x00A0;number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;function</span><span 
+class="cmtt-10">&#x00A0;evaluations</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML139x.png" alt="                                                                                          `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;(approximate).</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Tolerance</span><span 
+class="cmtt-10">&#x00A0;on</span><span 
+class="cmtt-10">&#x00A0;X</span><span 
+class="cmtt-10">&#x00A0;and</span><span 
+class="cmtt-10">&#x00A0;F</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;mainly</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;single-objective</span><span 
+class="cmtt-10">&#x00A0;problems.</span><br /><span 
+class="cmtt-10">par.stopping.XTol=NaN;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real</span><span 
+class="cmtt-10">&#x00A0;&#x003E;</span><span 
+class="cmtt-10">&#x00A0;0,</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;real</span><span 
+class="cmtt-10">&#x00A0;vector</span><span 
+class="cmtt-10">&#x00A0;(length=#</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;parameters)]:</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML140x.png" alt="                                                                                                                                                                                                                                                                   `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;Tolerance</span><span 
+class="cmtt-10">&#x00A0;on</span><span 
+class="cmtt-10">&#x00A0;parameters.</span><br /><span 
+class="cmtt-10">par.stopping.FTol=NaN;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real</span><span 
+class="cmtt-10">&#x00A0;&#x003E;</span><span 
+class="cmtt-10">&#x00A0;0,</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;real</span><span 
+class="cmtt-10">&#x00A0;vector</span><span 
+class="cmtt-10">&#x00A0;(length=#</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;objectives)]:</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML141x.png" alt="                                                                                                                                                                                                                                                                                                                                                                                      `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;Tolerance</span><span 
+class="cmtt-10">&#x00A0;on</span><span 
+class="cmtt-10">&#x00A0;objectives.</span><br /><span 
+class="cmtt-10">par.stopping.boolean=@or;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[boolean</span><span 
+class="cmtt-10">&#x00A0;operator]:</span><span 
+class="cmtt-10">&#x00A0;&#8217;@or&#8217;</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;&#8217;@and&#8217;</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;exit</span><span 
+class="cmtt-10">&#x00A0;criteria.</span></div>
+</div></span>
+<!--l. 7729--><p class="noindent" >Locust will stop if the number of time steps exceeds <span 
+class="cmtt-10">par.stopping.maxTimeSteps</span>, or the number
+of parameter sets evaluated by the fitness function exceeds <span 
+class="cmtt-10">par.stopping.maxFEval</span>. The function
+evaluation count should be accurate enough for any reasonable purpose, but it not guaranteed to be exact.
+These criteria are turned off by setting <span 
+class="cmmi-10">maxTimeSteps </span>and <span 
+class="cmmi-10">maxFEval </span>to <span 
+class="cmmi-10">NaN </span>or <span 
+class="cmmi-10">Inf</span>, which is the
+default.
+<a 
+ id="dx124-209013"></a>
+<!--l. 7732--><p class="noindent" >Locust provides an additional stopping criterion based on the convergence of the swarm. These stopping criteria are
+as follows:
+     <ul class="itemize1">
+     <li class="itemize">
+     The
+     standard
+     deviation
+     of
+     the
+     particle
+     coordinates
+     (<span 
+class="cmtt-10">swarm.coords.X</span>)
+     must
+     be
+     less
+     than
+     <span 
+class="cmtt-10">par.stopping.XTol</span>
+     in
+     all
+     parameters.
+     <span 
+class="cmmi-10">XTol</span>
+     may
+     be
+     either
+     a
+     scalar
+     or
+     a
+     vector
+     whose
+                                                                                         
+
+                                                                                         
+     length
+     is
+     equal
+     to
+     the
+     number
+     of
+     parameters.
+     </li>
+     <li class="itemize">
+     The
+     standard
+     deviation
+     of
+     the
+     particle
+     objectives
+     (<span 
+class="cmtt-10">swarm.coords.F</span>)
+     must
+     be
+     less
+     than
+     <span 
+class="cmtt-10">par.stopping.FTol</span>
+     in
+     all
+     objectives.
+     <span 
+class="cmmi-10">FTol</span>
+     may
+     be
+     either
+     a
+     scalar
+     or
+     a
+     vector
+     whose
+     length
+     is
+     equal
+     to
+     the
+     number
+     of
+     objectives.</li></ul>
+<!--l. 7737--><p class="noindent" >These convergence criteria are turned off by setting <span 
+class="cmtt-10">par.stopping.XTol=0 </span>or <span 
+class="cmtt-10">par.stopping.FTol=0</span>.
+                                                                                         
+
+                                                                                         
+<!--l. 7739--><p class="noindent" ><span 
+class="cmtt-10">par.stopping.boolean </span>must be a function handle whose value is either @or, or @and. If <span 
+class="cmtt-10">par.stopping.boolean=@and</span>,
+Locust will exit when both of the <span 
+class="cmmi-10">XTol </span>and <span 
+class="cmmi-10">FTol </span>criteria are satisfied. The code only requires one criterion to be
+true if <span 
+class="cmtt-10">par.stopping.boolean=@or</span>.
+<a 
+ id="dx124-209014"></a>
+<!--l. 7744--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">11.11.8   </span> <a 
+ id="x124-21000011.11.8"></a>par.niching</h4>
+<a 
+ id="dx124-210001"></a>
+<a 
+ id="dx124-210002"></a>
+<a 
+ id="dx124-210003"></a>
+<a 
+ id="dx124-210004"></a>
+<!--l. 7751--><p class="noindent" >As a multi-objective optimizer, Locust&#8217;s goal is to map the Pareto front as thoroughly as possible by encouraging
+solutions to spread out as much as possible over the trade-off surface. Of course, parameter space mapping is also
+required for single-objective problems with optimal regions that are not point-like, which is most commonly due to a
+fuzzy objective function (See Section <a 
+href="#x124-20800011.11.6">11.11.6<!--tex4ht:ref: sec:par_selection_Locust --></a>, as well as the example in Section <a 
+href="QubistHTMLse31.html#x50-740005.1">5.1<!--tex4ht:ref: sec:binaries --></a>.). Ferret accomplishes this by
+means of its niching system, which is discussed in Section <a 
+href="QubistHTMLse52.html#x78-1100008.9">8.9<!--tex4ht:ref: sec:par_niching --></a>. When I started thinking about multi-objective
+particle swarms, it quickly became obvious that I needed something like Ferret&#8217;s niching system to keep particles
+well-spread out and to keep global neighbourhoods from merging too rapidly. Fortunately, Ferret&#8217;s niching system
+was very well developed by this point, and similar techniques could be applied to Locust with little
+modification.
+<!--l. 7762--><p class="noindent" ><span 
+class="colorbox" id="colorbox147"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Niching</span><br /><span 
+class="cmtt-10">par.niching.priority=&#8217;XF&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[string:</span><span 
+class="cmtt-10">&#x00A0;re-order</span><span 
+class="cmtt-10">&#x00A0;2</span><span 
+class="cmtt-10">&#x00A0;letters,</span><span 
+class="cmtt-10">&#x00A0;&#8217;X&#8217;,</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;&#8217;F&#8217;]:</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML142x.png" alt="`&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;Priority</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;niching.</span><span 
+class="cmtt-10">&#x00A0;If</span><span 
+class="cmtt-10">&#x00A0;empty,</span><span 
+class="cmtt-10">&#x00A0;use</span><span 
+class="cmtt-10">&#x00A0;Pareto</span><span 
+class="cmtt-10">&#x00A0;niching.</span><br /><span 
+class="cmtt-10">par.niching.X=0.25;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0:1]:</span><span 
+class="cmtt-10">&#x00A0;X-Niching:</span><span 
+class="cmtt-10">&#x00A0;Typically</span><span 
+class="cmtt-10">&#x00A0;~0.25</span><span 
+class="cmtt-10">&#x00A0;is</span><span 
+class="cmtt-10">&#x00A0;about</span><span 
+class="cmtt-10">&#x00A0;right.</span><br /><span 
+class="cmtt-10">par.niching.F=0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0:1]:</span><span 
+class="cmtt-10">&#x00A0;F-Niching:</span><span 
+class="cmtt-10">&#x00A0;Typically</span><span 
+class="cmtt-10">&#x00A0;~0.25</span><span 
+class="cmtt-10">&#x00A0;is</span><span 
+class="cmtt-10">&#x00A0;about</span><span 
+class="cmtt-10">&#x00A0;right.</span><br /><span 
+class="cmtt-10">par.niching.exponent=2;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real:</span><span 
+class="cmtt-10">&#x00A0;usually</span><span 
+class="cmtt-10">&#x00A0;&#x003E;</span><span 
+class="cmtt-10">&#x00A0;0</span><span 
+class="cmtt-10">&#x00A0;&amp;</span><span 
+class="cmtt-10">&#x00A0;&#x003C;~</span><span 
+class="cmtt-10">&#x00A0;2]:</span><span 
+class="cmtt-10">&#x00A0;Used</span><span 
+class="cmtt-10">&#x00A0;in</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;niche</span><span 
+class="cmtt-10">&#x00A0;function.</span></div>
+</div></span>
+<!--l. 7768--><p class="noindent" ><span 
+class="cmtt-10">par.niching.priority</span>, <span 
+class="cmtt-10">par.niching.X</span>, <span 
+class="cmtt-10">par.niching.F</span>, and <span 
+class="cmtt-10">par.niching.exponent </span>work exactly like the
+corresponding options in Ferret, with the slight exception that there is no analogue to &#8216;pattern niching&#8217; in Locust.
+Therefore <span 
+class="cmtt-10">par.niching.priority </span>can only contain the letters &#8216;X&#8217; and &#8216;F&#8217;; <span 
+class="cmtt-10">par.niching.priority=&#8217;XF&#8217; </span>and
+<span 
+class="cmtt-10">par.niching.priority=&#8217;FX&#8217; </span>are the only valid choices. Ferret&#8217;s niching options are explained in detail in Section
+<a 
+href="QubistHTMLse52.html#x78-1100008.9">8.9<!--tex4ht:ref: sec:par_niching --></a>, and everything in that section applies equally well to Locust.
+<a 
+ id="dx124-210011"></a>
+<!--l. 7773--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">11.11.9   </span> <a 
+ id="x124-21100011.11.9"></a>par.analysis</h4>
+<a 
+ id="dx124-211001"></a>
+<a 
+ id="dx124-211002"></a>
+<!--l. 7778--><p class="noindent" >Locust&#8217;s analysis procedure is based entirely on Ferret&#8217;s, with the only modifications due to differences between
+Ferret&#8217;s <span 
+class="cmmi-10">world </span>data structure and Locust&#8217;s <span 
+class="cmmi-10">swarm </span>structure. Section <a 
+href="QubistHTMLse59.html#x86-1210008.16">8.16<!--tex4ht:ref: sec:par_analysis --></a>, which discussed Ferret&#8217;s analysis options,
+applies equally well to Locust.
+<!--l. 7796--><p class="noindent" ><span 
+class="colorbox" id="colorbox148"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Analysis</span><br /><span 
+class="cmtt-10">par.analysis.FRelTol=0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Fraction</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;fitness</span><span 
+class="cmtt-10">&#x00A0;range</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;use</span><span 
+class="cmtt-10">&#x00A0;as</span><span 
+class="cmtt-10">&#x00A0;a</span><span 
+class="cmtt-10">&#x00A0;fuzzy</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML143x.png" alt="`&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;fitness</span><span 
+class="cmtt-10">&#x00A0;band.</span><br /><span 
+class="cmtt-10">par.analysis.FAbsTol=0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Absolute</span><span 
+class="cmtt-10">&#x00A0;fitness</span><span 
+class="cmtt-10">&#x00A0;range</span><span 
+class="cmtt-10">&#x00A0;(+/-</span><span 
+class="cmtt-10">&#x00A0;FAbsTol)</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;use</span><span 
+class="cmtt-10">&#x00A0;as</span><span 
+class="cmtt-10">&#x00A0;a</span><span 
+class="cmtt-10">&#x00A0;fuzzy</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML144x.png" alt="                                                                                                            `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;fitness</span><span 
+class="cmtt-10">&#x00A0;band.</span><br /><span 
+class="cmtt-10">par.analysis.analyzeWhenDone=false;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[logical]:</span><span 
+class="cmtt-10">&#x00A0;Do</span><span 
+class="cmtt-10">&#x00A0;analysis</span><span 
+class="cmtt-10">&#x00A0;automatically</span><span 
+class="cmtt-10">&#x00A0;when</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML145x.png" alt="                                                                                                                                                                                                                      `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;evolution</span><span 
+class="cmtt-10">&#x00A0;stops.</span><br /><span 
+class="cmtt-10">par.analysis.conserveMemory=false;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[logical]:</span><span 
+class="cmtt-10">&#x00A0;Minimize</span><span 
+class="cmtt-10">&#x00A0;memory</span><span 
+class="cmtt-10">&#x00A0;usage</span><span 
+class="cmtt-10">&#x00A0;during</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML146x.png" alt="                                                                                                                                                                                                                                                                                                                                 `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;analysis?</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;(Analysis</span><span 
+class="cmtt-10">&#x00A0;will</span><span 
+class="cmtt-10">&#x00A0;be</span><span 
+class="cmtt-10">&#x00A0;slower)</span><br /><span 
+class="cmtt-10">par.analysis.maxItNoProgress=100;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer</span><span 
+class="cmtt-10">&#x00A0;&#x003E;=</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Max</span><span 
+class="cmtt-10">&#x00A0;iterations</span><span 
+class="cmtt-10">&#x00A0;with</span><span 
+class="cmtt-10">&#x00A0;no</span><span 
+class="cmtt-10">&#x00A0;progress</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML147x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;before</span><span 
+class="cmtt-10">&#x00A0;analysis</span><span 
+class="cmtt-10">&#x00A0;stops.</span><br /><span 
+class="cmtt-10">par.analysis.postProcess=&#8217;&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[string]:</span><span 
+class="cmtt-10">&#x00A0;Name</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;code</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;process</span><span 
+class="cmtt-10">&#x00A0;OptimalSolutions</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML148x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;when</span><span 
+class="cmtt-10">&#x00A0;analysis</span><span 
+class="cmtt-10">&#x00A0;is</span><span 
+class="cmtt-10">&#x00A0;done.</span></div>
+</div></span>
+<a 
+ id="dx124-211016"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 7805--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">11.11.10   </span> <a 
+ id="x124-21200011.11.10"></a>par.polish</h4>
+<a 
+ id="dx124-212001"></a>
+<a 
+ id="dx124-212002"></a>
+<a 
+ id="dx124-212003"></a>
+<!--l. 7811--><p class="noindent" >Locust&#8217;s polishing system can be started from the analysis window by clicking on the &#8216;Polish&#8217; button. The
+<span 
+class="cmtt-10">par.polish </span>options are identical to Ferret&#8217;s polishing options, and are discussed thoroughly in Section
+<a 
+href="QubistHTMLse61.html#x89-1270008.18">8.18<!--tex4ht:ref: sec:par_polish --></a>.
+<!--l. 7837--><p class="noindent" ><span 
+class="colorbox" id="colorbox149"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;***</span><span 
+class="cmtt-10">&#x00A0;Polisher</span><span 
+class="cmtt-10">&#x00A0;Setup</span><span 
+class="cmtt-10">&#x00A0;***</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;par.polish.optimizer=&#8217;fminsearch&#8217;;</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;par.polish.optimizer=&#8217;SAMOSA&#8217;;</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;par.polish.optimizer=&#8217;Anvil&#8217;;</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;par.polish.optimizer=&#8217;SemiGloSS&#8217;;</span><br /><span 
+class="cmtt-10">par.polish.optimizer=&#8217;default&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;string]:</span><span 
+class="cmtt-10">&#x00A0;Use</span><span 
+class="cmtt-10">&#x00A0;defaults.</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;fminsearch:</span><br /><span 
+class="cmtt-10">par.polish.fminsearch.NTracks=Inf;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer]:</span><span 
+class="cmtt-10">&#x00A0;Maximum</span><span 
+class="cmtt-10">&#x00A0;number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;tracks.</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML149x.png" alt="                                                                                                                                                                                                                     `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;&#8216;Inf&#8217;</span><span 
+class="cmtt-10">&#x00A0;--&#x003E;</span><span 
+class="cmtt-10">&#x00A0;all</span><span 
+class="cmtt-10">&#x00A0;in</span><span 
+class="cmtt-10">&#x00A0;optimal</span><span 
+class="cmtt-10">&#x00A0;set.</span><br /><span 
+class="cmtt-10">par.polish.fminsearch.options=[];</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;options</span><span 
+class="cmtt-10">&#x00A0;structure</span><span 
+class="cmtt-10">&#x00A0;from</span><span 
+class="cmtt-10">&#x00A0;optimset.</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;SAMOSA</span><span 
+class="cmtt-10">&#x00A0;uses</span><span 
+class="cmtt-10">&#x00A0;its</span><span 
+class="cmtt-10">&#x00A0;own</span><span 
+class="cmtt-10">&#x00A0;setup</span><span 
+class="cmtt-10">&#x00A0;file.</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;Here,</span><span 
+class="cmtt-10">&#x00A0;we</span><span 
+class="cmtt-10">&#x00A0;just</span><span 
+class="cmtt-10">&#x00A0;add</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;tracks</span><span 
+class="cmtt-10">&#x00A0;requested.</span><br /><span 
+class="cmtt-10">par.polish.SAMOSA=defaultSAMOSA_setup;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[m-file</span><span 
+class="cmtt-10">&#x00A0;name]:</span><span 
+class="cmtt-10">&#x00A0;Name</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;SAMOSA</span><span 
+class="cmtt-10">&#x00A0;setup</span><span 
+class="cmtt-10">&#x00A0;function.</span><br /><span 
+class="cmtt-10">par.polish.SAMOSA.NTracks=Inf;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer]:</span><span 
+class="cmtt-10">&#x00A0;Maximum</span><span 
+class="cmtt-10">&#x00A0;number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;tracks.</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;&#8216;Inf&#8217;</span><span 
+class="cmtt-10">&#x00A0;--&#x003E;</span><span 
+class="cmtt-10">&#x00A0;all</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML150x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;in</span><span 
+class="cmtt-10">&#x00A0;optimal</span><span 
+class="cmtt-10">&#x00A0;set.</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Single/Multi-Objective:</span><span 
+class="cmtt-10">&#x00A0;Anvil</span><span 
+class="cmtt-10">&#x00A0;&amp;</span><span 
+class="cmtt-10">&#x00A0;SemiGloSS</span><span 
+class="cmtt-10">&#x00A0;uses</span><span 
+class="cmtt-10">&#x00A0;their</span><span 
+class="cmtt-10">&#x00A0;own</span><span 
+class="cmtt-10">&#x00A0;setup</span><span 
+class="cmtt-10">&#x00A0;files.</span><br /><span 
+class="cmtt-10">par.polish.Anvil=defaultAnvilSetup;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[m-file</span><span 
+class="cmtt-10">&#x00A0;name]:</span><span 
+class="cmtt-10">&#x00A0;Name</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;Anvil</span><span 
+class="cmtt-10">&#x00A0;setup</span><span 
+class="cmtt-10">&#x00A0;function.</span><br /><span 
+class="cmtt-10">par.polish.SemiGloSS=defaultSemiGloSS_setup;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[m-file</span><span 
+class="cmtt-10">&#x00A0;name]:</span><span 
+class="cmtt-10">&#x00A0;Name</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;SemiGloSS</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML151x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;setup</span><span 
+class="cmtt-10">&#x00A0;function.</span></div>
+</div></span>
+<a 
+ id="dx124-212025"></a>
+<!--l. 7846--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">11.11.11   </span> <a 
+ id="x124-21300011.11.11"></a>par.interface</h4>
+<a 
+ id="dx124-213001"></a>
+<!--l. 7850--><p class="noindent" >Locust&#8217;s <span 
+class="cmtt-10">par.interface </span>options affect the fonts and colours of the Locust console window and the analysis window,
+as well as the default axes that are displayed. None of these options are critical to the run and I rarely change them.
+This section of the setup file is copied almost verbatim from Ferret&#8217;s <span 
+class="cmtt-10">par.interface </span>section, with the
+addition of <span 
+class="cmtt-10">par.interface.plotStep</span>. The <span 
+class="cmmi-10">plotStep </span>option controls how often the graphics are updated.
+For example, the default setting of <span 
+class="cmtt-10">par.interface.plotStep=1 </span>tells Locust to update the graphics
+every time step, <span 
+class="cmtt-10">par.interface.plotStep=10 </span>would update graphics only every tenth time step,
+etc. Please refer to Ferret&#8217;s <span 
+class="cmtt-10">par.interface </span>options in Section <a 
+href="QubistHTMLse63.html#x91-1320008.20">8.20<!--tex4ht:ref: sec:par_interface --></a> for information about the other
+options.
+<!--l. 7876--><p class="noindent" ><span 
+class="colorbox" id="colorbox150"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Graphics</span><span 
+class="cmtt-10">&#x00A0;&amp;</span><span 
+class="cmtt-10">&#x00A0;messages</span><br /><span 
+class="cmtt-10">par.interface.graphics=1;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer:</span><span 
+class="cmtt-10">&#x00A0;1</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;-1]:</span><span 
+class="cmtt-10">&#x00A0;Graphics</span><span 
+class="cmtt-10">&#x00A0;on</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;off?</span><br /><span 
+class="cmtt-10">par.interface.myColorMap=&#8217;bone&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[string:</span><span 
+class="cmtt-10">&#x00A0;colormap</span><span 
+class="cmtt-10">&#x00A0;name]</span><span 
+class="cmtt-10">&#x00A0;User</span><span 
+class="cmtt-10">&#x00A0;choice</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;colormap.</span><br /><span 
+class="cmtt-10">par.interface.plotStep=1;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer</span><span 
+class="cmtt-10">&#x00A0;&#x003E;=</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;How</span><span 
+class="cmtt-10">&#x00A0;often</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;update</span><span 
+class="cmtt-10">&#x00A0;graphics?</span><br /><span 
+class="cmtt-10">par.interface.myPlot=&#8217;&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[string]:</span><span 
+class="cmtt-10">&#x00A0;Name</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;custom</span><span 
+class="cmtt-10">&#x00A0;plot</span><span 
+class="cmtt-10">&#x00A0;function.</span><br /><span 
+class="cmtt-10">par.interface.fontUnits=&#8217;points&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[string]:</span><span 
+class="cmtt-10">&#x00A0;Must</span><span 
+class="cmtt-10">&#x00A0;be</span><span 
+class="cmtt-10">&#x00A0;&#8217;points&#8217;</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;&#8217;pixels&#8217;.</span><br /><span 
+class="cmtt-10">par.interface.titleFontSize=12;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer</span><span 
+class="cmtt-10">&#x00A0;&#x003E;=</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Self-explanatory.</span><br /><span 
+class="cmtt-10">par.interface.labelFontSize=10;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer</span><span 
+class="cmtt-10">&#x00A0;&#x003E;=</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Self-explanatory.</span><br /><span 
+class="cmtt-10">par.interface.axisFontSize=8;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer</span><span 
+class="cmtt-10">&#x00A0;&#x003E;=</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Self-explanatory.</span><br /><span 
+class="cmtt-10">par.interface.xAxis.type=&#8217;X&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[string:</span><span 
+class="cmtt-10">&#x00A0;&#8217;X&#8217;</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;&#8217;F&#8217;]:</span><span 
+class="cmtt-10">&#x00A0;Default</span><span 
+class="cmtt-10">&#x00A0;X-axis</span><span 
+class="cmtt-10">&#x00A0;type</span><br /><span 
+class="cmtt-10">par.interface.xAxis.value=1;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer</span><span 
+class="cmtt-10">&#x00A0;&#x003E;=</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Default</span><span 
+class="cmtt-10">&#x00A0;X-axis</span><span 
+class="cmtt-10">&#x00A0;variable</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML152x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;(1</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;NPar</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;NObj)</span><br /><span 
+class="cmtt-10">par.interface.yAxis.type=&#8217;X&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[string:</span><span 
+class="cmtt-10">&#x00A0;&#8217;X&#8217;</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;&#8217;F&#8217;]:</span><span 
+class="cmtt-10">&#x00A0;Default</span><span 
+class="cmtt-10">&#x00A0;Y-axis</span><span 
+class="cmtt-10">&#x00A0;type</span><br /><span 
+class="cmtt-10">par.interface.yAxis.value=2;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer</span><span 
+class="cmtt-10">&#x00A0;&#x003E;=</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Default</span><span 
+class="cmtt-10">&#x00A0;Y-axis</span><span 
+class="cmtt-10">&#x00A0;variable</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML153x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;(1</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;NPar</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;NObj)</span><br /><span 
+class="cmtt-10">par.interface.zAxis.type=&#8217;F&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[string:</span><span 
+class="cmtt-10">&#x00A0;&#8217;X&#8217;</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;&#8217;F&#8217;]:</span><span 
+class="cmtt-10">&#x00A0;Default</span><span 
+class="cmtt-10">&#x00A0;Y-axis</span><span 
+class="cmtt-10">&#x00A0;type</span><br /><span 
+class="cmtt-10">par.interface.zAxis.value=1;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer</span><span 
+class="cmtt-10">&#x00A0;&#x003E;=</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Default</span><span 
+class="cmtt-10">&#x00A0;Y-axis</span><span 
+class="cmtt-10">&#x00A0;variable</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML154x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;(1</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;NPar</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;NObj)</span><br /><span 
+class="cmtt-10">par.interface.NPix=50;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer</span><span 
+class="cmtt-10">&#x00A0;&#x003E;=</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Size</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;grid</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;contour</span><span 
+class="cmtt-10">&#x00A0;and</span><span 
+class="cmtt-10">&#x00A0;mesh</span><span 
+class="cmtt-10">&#x00A0;plots.</span><br /><span 
+class="cmtt-10">par.interface.NContours=10;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer</span><span 
+class="cmtt-10">&#x00A0;&#x003E;=</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;contour</span><span 
+class="cmtt-10">&#x00A0;levels</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;contour</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML155x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;plots.</span></div>
+</div></span>
+<a 
+ id="dx124-213023"></a>
+<a 
+ id="dx124-213024"></a>
+<a 
+ id="dx124-213025"></a>
+<a 
+ id="dx124-213026"></a>
+<a 
+ id="dx124-213027"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 7891--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse92.html" >prev</a>] [<a 
+href="QubistHTMLse92.html#tailQubistHTMLse92.html" >prev-tail</a>] [<a 
+href="QubistHTMLse93.html" >front</a>] [<a 
+href="QubistHTMLch11.html#QubistHTMLse93.html" >up</a>] </p></div>
+<!--l. 7891--><p class="noindent" ><a 
+ id="tailQubistHTMLse93.html"></a>  
+</body></html> 

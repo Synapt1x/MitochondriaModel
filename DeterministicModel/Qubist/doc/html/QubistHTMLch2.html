@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>2 A Brief Tour of Qubist</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 325--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLch3.html" >next</a>] [<a 
+href="QubistHTMLch1.html" >prev</a>] [<a 
+href="QubistHTMLch1.html#tailQubistHTMLch1.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLch2.html">tail</a>] [<a 
+href="QubistHTML3.html#QubistHTMLch2.html" >up</a>] </p></div>
+<h2 class="chapterHead"><span class="titlemark">Chapter&#x00A0;2</span><br /><a 
+ id="x6-60002"></a>A Brief Tour of Qubist</h2>
+<a 
+ id="dx6-6001"></a>
+     <div class="quote">
+     <!--l. 330--><p class="noindent" ><span 
+class="cmti-10">&#8216;The</span>
+     <span 
+class="cmti-10">computer</span>
+     <span 
+class="cmti-10">programmer</span>
+     <span 
+class="cmti-10">is</span>
+     <span 
+class="cmti-10">a</span>
+     <span 
+class="cmti-10">creator</span>
+     <span 
+class="cmti-10">of</span>
+     <span 
+class="cmti-10">universes</span>
+     <span 
+class="cmti-10">for</span>
+     <span 
+class="cmti-10">which</span>
+     <span 
+class="cmti-10">he</span>
+     <span 
+class="cmti-10">alone</span>
+     <span 
+class="cmti-10">is</span>
+     <span 
+class="cmti-10">the</span>
+     <span 
+class="cmti-10">lawgiver.</span>
+     <span 
+class="cmti-10">Universes</span>
+     <span 
+class="cmti-10">of</span>
+     <span 
+class="cmti-10">virtually</span>
+     <span 
+class="cmti-10">unlimited</span>
+     <span 
+class="cmti-10">complexity</span>
+     <span 
+class="cmti-10">can</span>
+     <span 
+class="cmti-10">be</span>
+     <span 
+class="cmti-10">created</span>
+     <span 
+class="cmti-10">in</span>
+     <span 
+class="cmti-10">the</span>
+     <span 
+class="cmti-10">form</span>
+     <span 
+class="cmti-10">of</span>
+     <span 
+class="cmti-10">computer</span>
+     <span 
+class="cmti-10">programs.&#8217;</span><br />
+     -Joseph
+     Weizenbaum,
+     <span 
+class="cmti-10">Computer</span>
+     <span 
+class="cmti-10">Power</span>
+     <span 
+class="cmti-10">and</span>
+     <span 
+class="cmti-10">Human</span>
+                                                                                         
+
+                                                                                         
+     <span 
+class="cmti-10">Reason</span></div>
+<!--l. 334--><p class="noindent" >In this chapter, we take a brief tour of the five optimizers in Qubist, as well as several other analysis and
+visualization tools that are included with the package. Ferret is Qubist&#8217;s oldest optimizer, its most
+sophisticated, and really the origin of the entire Qubist package. It is therefore fitting that we should begin
+this chapter by discussing Qubist&#8217;s flagship optimizer in some detail before moving on to the other
+components.
+<div class="sectionTOCS">
+&#x00A0;<span class="sectionToc" >2.1 <a 
+href="QubistHTMLse1.html#x7-70002.1">Multi-Objective Optimization</a></span>
+<br />&#x00A0;<span class="sectionToc" >2.2 <a 
+href="QubistHTMLse2.html#x8-80002.2">The Ferret Genetic Algorithm</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >2.2.1 <a 
+href="QubistHTMLse2.html#x8-90002.2.1" id="QQ2-8-9">History of the Ferret Project</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >2.2.2 <a 
+href="QubistHTMLse2.html#x8-100002.2.2" id="QQ2-8-10">Ferret&#8217;s Features</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >2.2.3 <a 
+href="QubistHTMLse2.html#x8-110002.2.3" id="QQ2-8-11">Multi-Objective Optimization with Ferret</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >2.2.4 <a 
+href="QubistHTMLse2.html#x8-120002.2.4" id="QQ2-8-13">Cyclic and Discrete Parameters:</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >2.2.5 <a 
+href="QubistHTMLse2.html#x8-130002.2.5" id="QQ2-8-14">Automatic Zooming:</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >2.2.6 <a 
+href="QubistHTMLse2.html#x8-140002.2.6" id="QQ2-8-15">Critical Parameter Detection</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >2.2.7 <a 
+href="QubistHTMLse2.html#x8-150002.2.7" id="QQ2-8-16">Linkage Learning</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >2.2.8 <a 
+href="QubistHTMLse2.html#x8-160002.2.8" id="QQ2-8-17">Strategy Auto-Adaptation</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >2.2.9 <a 
+href="QubistHTMLse2.html#x8-170002.2.9" id="QQ2-8-18">Advanced Lethal Suppression (ALS)</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >2.2.10 <a 
+href="QubistHTMLse2.html#x8-180002.2.10" id="QQ2-8-19">Pausing, Stopping, and Resuming Runs</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >2.2.11 <a 
+href="QubistHTMLse2.html#x8-190002.2.11" id="QQ2-8-20">Analysis and Integration of Polishers</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >2.2.12 <a 
+href="QubistHTMLse2.html#x8-200002.2.12" id="QQ2-8-21">Integrated Visualization</a></span>
+<br />&#x00A0;<span class="sectionToc" >2.3 <a 
+href="QubistHTMLse3.html#x12-210002.3">Locust</a></span>
+<br />&#x00A0;&#x00A0;<span class="subsectionToc" >2.3.1 <a 
+href="QubistHTMLse3.html#x12-220002.3.1" id="QQ2-12-23">Locust&#8217;s Features</a></span>
+<br />&#x00A0;<span class="sectionToc" >2.4 <a 
+href="QubistHTMLse4.html#x14-230002.4">SAMOSA</a></span>
+<br />&#x00A0;<span class="sectionToc" >2.5 <a 
+href="QubistHTMLse5.html#x15-240002.5">Anvil</a></span>
+<br />&#x00A0;<span class="sectionToc" >2.6 <a 
+href="QubistHTMLse6.html#x16-250002.6">SemiGloSS</a></span>
+<br />&#x00A0;<span class="sectionToc" >2.7 <a 
+href="QubistHTMLse7.html#x17-260002.7">Other Tools</a></span>
+<br />&#x00A0;<span class="sectionToc" >2.8 <a 
+href="QubistHTMLse8.html#x18-270002.8">Customizable Skins</a></span>
+</div>
+
+
+
+
+
+
+
+                                                                                         
+
+                                                                                         
+<!--l. 829--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLch3.html" >next</a>] [<a 
+href="QubistHTMLch1.html" >prev</a>] [<a 
+href="QubistHTMLch1.html#tailQubistHTMLch1.html" >prev-tail</a>] [<a 
+href="QubistHTMLch2.html" >front</a>] [<a 
+href="QubistHTML3.html#QubistHTMLch2.html" >up</a>] </p></div>
+<!--l. 829--><p class="noindent" ><a 
+ id="tailQubistHTMLch2.html"></a>  
+</body></html> 

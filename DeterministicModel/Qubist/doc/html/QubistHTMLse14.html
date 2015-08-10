@@ -1,0 +1,364 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>Adding User-Defined Projects</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 1359--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse15.html" >next</a>] [<a 
+href="QubistHTMLse13.html" >prev</a>] [<a 
+href="QubistHTMLse13.html#tailQubistHTMLse13.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLse14.html">tail</a>] [<a 
+href="QubistHTMLch4.html#QubistHTMLse14.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">4.4   </span> <a 
+ id="x28-360004.4"></a>Adding User-Defined Projects</h3>
+<a 
+ id="dx28-36001"></a>
+<!--l. 1364--><p class="noindent" >It is very easy to add a user-defined project to the &#8216;Project&#8217; menu, simply by editing a few lines of text. <span 
+class="cmti-10">Note that</span>
+<span 
+class="cmti-10">these projects will be visible to all Qubist optimizers, and should run without modification. </span>I have occasionally
+thought about developing a more GUI-based approach to adding projects for Qubist, but I don&#8217;t think there would
+be much point because Qubist users all write code and edit files anyway. The current file-based approach is very
+simple and utterly reliable.
+<!--l. 1366--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">4.4.1   </span> <a 
+ id="x28-370004.4.1"></a>Local Projects</h4>
+<a 
+ id="dx28-37001"></a>
+<!--l. 1370--><p class="noindent" >A Qubist local project is one that is defined inside of a user&#8217;s own launchQubist.m file, so that each user of the
+Qubist package may have a different set of local projects. It is also possible to define global projects that are
+accessible to all users, as discussed in Section <a 
+href="#x28-380004.4.2">4.4.2<!--tex4ht:ref: sec:globalProjects --></a>.
+                                                                                         
+
+                                                                                         
+<a 
+ id="dx28-37002"></a>
+<!--l. 1375--><p class="noindent" >To add a local project, scroll down to near the bottom of the launchQubist.m file, and look for the following
+instructions:
+<!--l. 1409--><p class="noindent" ><span 
+class="colorbox" id="colorbox8"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">function</span><span 
+class="cmtt-10">&#x00A0;projects=Qubist_UserProjects</span><br /><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;To</span><span 
+class="cmtt-10">&#x00A0;add</span><span 
+class="cmtt-10">&#x00A0;your</span><span 
+class="cmtt-10">&#x00A0;own</span><span 
+class="cmtt-10">&#x00A0;LOCAL</span><span 
+class="cmtt-10">&#x00A0;(per</span><span 
+class="cmtt-10">&#x00A0;user)</span><span 
+class="cmtt-10">&#x00A0;projects</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;Projects</span><span 
+class="cmtt-10">&#x00A0;menu:</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Edit</span><span 
+class="cmtt-10">&#x00A0;this</span><span 
+class="cmtt-10">&#x00A0;file</span><span 
+class="cmtt-10">&#x00A0;and</span><span 
+class="cmtt-10">&#x00A0;add</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;path</span><span 
+class="cmtt-10">&#x00A0;info</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;your</span><span 
+class="cmtt-10">&#x00A0;projects</span><span 
+class="cmtt-10">&#x00A0;in</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;following</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;format:</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;projects{n}.path=&#8217;/full/path/to/project/directory&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%[default:</span><span 
+class="cmtt-10">&#x00A0;./]</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;projects{n}.name=&#8217;Project</span><span 
+class="cmtt-10">&#x00A0;Name&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%[default:</span><span 
+class="cmtt-10">&#x00A0;deepest</span><span 
+class="cmtt-10">&#x00A0;directory</span><span 
+class="cmtt-10">&#x00A0;in</span><span 
+class="cmtt-10">&#x00A0;projects{n}.path]</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;projects{n}.init=&#8217;initializationCode&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%[default:</span><span 
+class="cmtt-10">&#x00A0;none]</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;projects{n}.setup=&#8217;FerretSetupFile&#8217;;</span><span 
+class="cmtt-10">&#x00A0;[default:</span><span 
+class="cmtt-10">&#x00A0;&#8217;FerretSetup&#8217;]</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Here,</span><span 
+class="cmtt-10">&#x00A0;n</span><span 
+class="cmtt-10">&#x00A0;is</span><span 
+class="cmtt-10">&#x00A0;an</span><span 
+class="cmtt-10">&#x00A0;integer</span><span 
+class="cmtt-10">&#x00A0;giving</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;entry</span><span 
+class="cmtt-10">&#x00A0;in</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;projects</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;menu.</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;Start</span><span 
+class="cmtt-10">&#x00A0;at</span><span 
+class="cmtt-10">&#x00A0;n=1</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;1st</span><span 
+class="cmtt-10">&#x00A0;entry,</span><span 
+class="cmtt-10">&#x00A0;n=2</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;2nd,</span><span 
+class="cmtt-10">&#x00A0;etc.</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Path</span><span 
+class="cmtt-10">&#x00A0;should</span><span 
+class="cmtt-10">&#x00A0;be</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;full</span><span 
+class="cmtt-10">&#x00A0;directory</span><span 
+class="cmtt-10">&#x00A0;path</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;project,</span><span 
+class="cmtt-10">&#x00A0;which</span><span 
+class="cmtt-10">&#x00A0;contains</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;setup</span><span 
+class="cmtt-10">&#x00A0;file</span><span 
+class="cmtt-10">&#x00A0;and</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;fitness</span><span 
+class="cmtt-10">&#x00A0;m-file.</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;Name</span><span 
+class="cmtt-10">&#x00A0;is</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;arbitrary</span><span 
+class="cmtt-10">&#x00A0;name</span><span 
+class="cmtt-10">&#x00A0;of</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;project.</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;Init</span><span 
+class="cmtt-10">&#x00A0;is</span><span 
+class="cmtt-10">&#x00A0;an</span><span 
+class="cmtt-10">&#x00A0;optional</span><span 
+class="cmtt-10">&#x00A0;initilization</span><span 
+class="cmtt-10">&#x00A0;m-file</span><span 
+class="cmtt-10">&#x00A0;that</span><span 
+class="cmtt-10">&#x00A0;produces</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;an</span><span 
+class="cmtt-10">&#x00A0;external</span><span 
+class="cmtt-10">&#x00A0;parameter</span><span 
+class="cmtt-10">&#x00A0;structure</span><span 
+class="cmtt-10">&#x00A0;that</span><span 
+class="cmtt-10">&#x00A0;is</span><span 
+class="cmtt-10">&#x00A0;passed</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;Ferret.</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;Setup</span><span 
+class="cmtt-10">&#x00A0;is</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;name</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;Ferret</span><span 
+class="cmtt-10">&#x00A0;setup</span><span 
+class="cmtt-10">&#x00A0;file.</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">projects={};</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;=========================================================================</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;MODIFY</span><span 
+class="cmtt-10">&#x00A0;THESE</span><span 
+class="cmtt-10">&#x00A0;LINES</span><span 
+class="cmtt-10">&#x00A0;TO</span><span 
+class="cmtt-10">&#x00A0;ADD</span><span 
+class="cmtt-10">&#x00A0;LOCAL</span><span 
+class="cmtt-10">&#x00A0;PROJECTS</span><span 
+class="cmtt-10">&#x00A0;VISIBLE</span><span 
+class="cmtt-10">&#x00A0;ONLY</span><span 
+class="cmtt-10">&#x00A0;TO</span><span 
+class="cmtt-10">&#x00A0;THE</span><span 
+class="cmtt-10">&#x00A0;CURRENT</span><span 
+class="cmtt-10">&#x00A0;USER:</span><br /><br /><span 
+class="cmtt-10">projects{1}.path=&#8217;C:\Documents</span><span 
+class="cmtt-10">&#x00A0;and</span><span 
+class="cmtt-10">&#x00A0;Settings\JFiege\My</span><span 
+class="cmtt-10">&#x00A0;Documents\myQubistProject&#8217;;</span><br /><span 
+class="cmtt-10">projects{1}.name=&#8217;Sample</span><span 
+class="cmtt-10">&#x00A0;Qubist</span><span 
+class="cmtt-10">&#x00A0;Project&#8217;;</span><br /><span 
+class="cmtt-10">projects{1}.init=&#8217;init&#8217;;</span><br /><span 
+class="cmtt-10">projects{1}.setup=&#8217;setup&#8217;;</span></div>
+</div></span>
+<!--l. 1415--><p class="noindent" >To add your first project, simple follow along and change the four lines near the bottom to reflect your
+project files. To add a second project, add similar lines for projects<span 
+class="cmsy-10">{</span>2<span 
+class="cmsy-10">}</span>, and so on for projects 3, 4 ,5,
+etc.:
+<!--l. 1425--><p class="noindent" ><span 
+class="colorbox" id="colorbox9"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">projects{2}.path=...</span><br /><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;&#8217;C:\Documents</span><span 
+class="cmtt-10">&#x00A0;and</span><span 
+class="cmtt-10">&#x00A0;Settings\Jason</span><span 
+class="cmtt-10">&#x00A0;D.</span><span 
+class="cmtt-10">&#x00A0;Fiege\My</span><span 
+class="cmtt-10">&#x00A0;Documents\anotherSampleFerretProject&#8217;;</span><br /><span 
+class="cmtt-10">projects{2}.name=&#8217;Another</span><span 
+class="cmtt-10">&#x00A0;Sample</span><span 
+class="cmtt-10">&#x00A0;Ferret</span><span 
+class="cmtt-10">&#x00A0;Project&#8217;;</span><br /><span 
+class="cmtt-10">projects{2}.init=&#8217;init&#8217;;</span><br /><span 
+class="cmtt-10">projects{2}.setup=&#8217;setup&#8217;;</span></div>
+</div></span>
+<!--l. 1431--><p class="noindent" >Note the line &#8216;MODIFY THESE LINES TO ADD LOCAL PROJECTS VISIBLE ONLY TO THE CURRENT
+USER&#8217;. Each user should have his or her own launchQubist.m file, located in some central location
+like their home directory. Projects defined here will appear only for the owner of the launchQubist.m
+file.
+<a 
+ id="dx28-37037"></a>
+<h4 class="subsectionHead"><span class="titlemark">4.4.2   </span> <a 
+ id="x28-380004.4.2"></a>Globally Accessible Projects</h4>
+<a 
+ id="dx28-38001"></a>
+<!--l. 1438--><p class="noindent" >In addition to local projects, you can also add <span 
+class="cmti-10">global </span>projects that are available to all users of your Qubist
+distribution. This is done by editing the file [Qubist_Home]/user/projects/QubistGlobalProjects.m, in which you
+will find the following lines:
+<!--l. 1453--><p class="noindent" ><span 
+class="colorbox" id="colorbox10"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;=========================================================================</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;MODIFY</span><span 
+class="cmtt-10">&#x00A0;THESE</span><span 
+class="cmtt-10">&#x00A0;LINES</span><span 
+class="cmtt-10">&#x00A0;TO</span><span 
+class="cmtt-10">&#x00A0;ADD</span><span 
+class="cmtt-10">&#x00A0;*GLOBAL*</span><span 
+class="cmtt-10">&#x00A0;PROJECTS</span><span 
+class="cmtt-10">&#x00A0;VISIBLE</span><span 
+class="cmtt-10">&#x00A0;TO</span><span 
+class="cmtt-10">&#x00A0;*ALL*</span><span 
+class="cmtt-10">&#x00A0;USERS:</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;projects{1}.path=&#8217;/Users/fiege/Documents/myGlobalProject&#8217;;</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;projects{1}.name=&#8217;Sample</span><span 
+class="cmtt-10">&#x00A0;Global</span><span 
+class="cmtt-10">&#x00A0;Qubist</span><span 
+class="cmtt-10">&#x00A0;Project&#8217;;</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;projects{1}.init=&#8217;init&#8217;;</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;projects{1}.setup=&#8217;FerretSetup&#8217;;</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;=====================================================================</span></div>
+</div></span>
+<!--l. 1459--><p class="noindent" >The format for adding globally accessible projects is identical to the format for adding local projects. The only
+difference is that the QubistGlobalProjects.m file is visible to <span 
+class="cmti-10">all </span>users because it is located inside of the
+Qubist home directory, while each user can define local projects in his or her own launchQubist.m
+file.
+<a 
+ id="dx28-38011"></a>
+<!--l. 1463--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">4.4.3   </span> <a 
+ id="x28-390004.4.3"></a>The Project Definition Fields</h4>
+<a 
+ id="dx28-39001"></a>
+<a 
+ id="dx28-39002"></a>
+<!--l. 1468--><p class="noindent" >Each project added requires a data structure called <span 
+class="cmtt-10">project</span><span 
+class="cmsy-10">{</span><span 
+class="cmmi-10">n</span><span 
+class="cmsy-10">}</span>, where <span 
+class="cmmi-10">n </span>is a unique number assigned to the
+project. So what do the fields of <span 
+class="cmtt-10">project</span><span 
+class="cmsy-10">{</span><span 
+class="cmmi-10">n</span><span 
+class="cmsy-10">} </span>represent? The <span 
+class="cmtt-10">project</span><span 
+class="cmsy-10">{</span><span 
+class="cmmi-10">n</span><span 
+class="cmsy-10">}</span><span 
+class="cmtt-10">.name </span>line is the name of
+the project, as you want it to appear in the Projects menu. The <span 
+class="cmtt-10">project</span><span 
+class="cmsy-10">{</span><span 
+class="cmmi-10">n</span><span 
+class="cmsy-10">}</span><span 
+class="cmtt-10">.path </span>line is obvious;
+this is just where your project can be found on your file system.  <span 
+class="cmti-10">However, it is critically important</span>
+<span 
+class="cmti-10">to understand that Ferret will load this path </span>only <span 
+class="cmti-10">for your project, but not any sub-directories. </span>The
+                                                                                         
+
+                                                                                         
+<span 
+class="cmtt-10">project</span><span 
+class="cmsy-10">{</span><span 
+class="cmmi-10">n</span><span 
+class="cmsy-10">}</span><span 
+class="cmtt-10">.init </span>and <span 
+class="cmtt-10">project</span><span 
+class="cmsy-10">{</span><span 
+class="cmmi-10">n</span><span 
+class="cmsy-10">}</span><span 
+class="cmtt-10">.setup </span>fields are respectively the names of your init and setup
+files, which are discussed below. If you need subdirectories to be loaded, then this must be done by
+putting &#8216;addpath&#8217; lines in your init file, or another m-file called by your init file, as discussed in Section
+<a 
+href="QubistHTMLse16.html#x30-410004.6">4.6<!--tex4ht:ref: sec:init --></a>.
+                                                                                         
+
+                                                                                         
+<!--l. 1470--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse15.html" >next</a>] [<a 
+href="QubistHTMLse13.html" >prev</a>] [<a 
+href="QubistHTMLse13.html#tailQubistHTMLse13.html" >prev-tail</a>] [<a 
+href="QubistHTMLse14.html" >front</a>] [<a 
+href="QubistHTMLch4.html#QubistHTMLse14.html" >up</a>] </p></div>
+<!--l. 1470--><p class="noindent" ><a 
+ id="tailQubistHTMLse14.html"></a>  
+</body></html> 

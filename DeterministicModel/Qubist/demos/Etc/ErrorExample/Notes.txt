@@ -1,0 +1,13 @@
+Error Example:
+==============
+
+*** This statement generates an intentional error! ***
+*** This demo will not run.  It is meant to demonstrate Test Mode. *** 
+
+This is an example of a fitness function with an error.
+Try it using both the "normal mode" and the "test mode", which
+you can toggle between using a menu item under the "Other" menu.
+
+Test mode is useful because it turns off all error trapping,
+allowing the user to see a trace of any errors that are
+encountered during the execution of the user's fitness function.

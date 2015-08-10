@@ -1,0 +1,12 @@
+*** Qubist Build Info ***
+
+Versions: Qubist 5.2, Ferret 5.2, Anvil 1.4
+Locust 2.4, SAMOSA 1.4, SemiGloSS 1.2
+Build Time: 03-Apr-2015 01:53:01
+
+Last Modifications to Source Code:
+Ferret: 24-Mar-2015 03:11:26
+Anvil: 24-Mar-2015 03:11:25
+Locust: 24-Mar-2015 03:11:27
+SAMOSA: 03-Apr-2015 01:10:20
+SemiGloSS: 24-Mar-2015 03:11:28

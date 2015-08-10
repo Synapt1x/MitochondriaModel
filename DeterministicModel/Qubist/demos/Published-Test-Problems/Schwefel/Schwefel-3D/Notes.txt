@@ -1,0 +1,3 @@
+The Schwefel function is a classic multi-modal function used to test global
+optimization routines.  There are MANY local minima. The
+solution is F=0 @ X(i)=420.9687 for all values of i. (approximate)

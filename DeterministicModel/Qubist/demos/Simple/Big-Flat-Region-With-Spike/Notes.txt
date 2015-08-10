@@ -1,0 +1,14 @@
+A sharp Gaussian spike in an otherwise flat high-dimensional space
+==================================================================
+
+This is a difficult problem, where the fitness function is nearly flat
+everywhere, except for a single narrow off-centre Gaussian spike.  The
+depth of the spike is 1.1, and we try to map out the region up to
+F < min(F)+1.  This is difficult because early in the run, before the
+spike has been discovered, the entire space meets this criterion.  In
+effect, Ferret tries to map the entire space early on, distracting it
+from the spike.
+
+This problem becomes much more difficult as the dimensionality increases.
+The dimensionality is set in init.m.  How high can we go before the
+solution can't be found?

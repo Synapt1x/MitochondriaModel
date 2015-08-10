@@ -1,0 +1,466 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>par.strategy</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 4211--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse48.html" >next</a>] [<a 
+href="QubistHTMLse46.html" >prev</a>] [<a 
+href="QubistHTMLse46.html#tailQubistHTMLse46.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLse47.html">tail</a>] [<a 
+href="QubistHTMLch8.html#QubistHTMLse47.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">8.4   </span> <a 
+ id="x72-1030008.4"></a>par.strategy</h3>
+<a 
+ id="dx72-103001"></a>
+<!--l. 4215--><p class="noindent" >The <span 
+class="cmtt-10">par.strategy </span>section of the setup file includes options that control Ferret&#8217;s auto-adaptation features, which
+allow it to model and optimize its own performance on your problem while it runs. Auto-adaptation was outlined
+briefly in Section <a 
+href="QubistHTMLse2.html#x8-160002.2.8">2.2.8<!--tex4ht:ref: sec:strategy --></a> and the features of the auto-adaptation console are discussed more thoroughly in Section
+<a 
+href="QubistHTMLse41.html#x64-960007.1">7.1<!--tex4ht:ref: sec:autoadapt --></a>.
+<!--l. 4230--><p class="noindent" ><span 
+class="colorbox" id="colorbox70"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Strategy</span><span 
+class="cmtt-10">&#x00A0;Parameters</span><br /><span 
+class="cmtt-10">par.strategy.isAdaptive=true;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[logical]:</span><span 
+class="cmtt-10">&#x00A0;Global</span><span 
+class="cmtt-10">&#x00A0;switch</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;strategy</span><span 
+class="cmtt-10">&#x00A0;adaptation.</span><br /><span 
+class="cmtt-10">par.strategy.NGen=10;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer</span><span 
+class="cmtt-10">&#x00A0;&#x003E;</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;generations</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;use</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;trackers.</span><br /><span 
+class="cmtt-10">%</span><br /><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Which</span><span 
+class="cmtt-10">&#x00A0;strategy</span><span 
+class="cmtt-10">&#x00A0;parameters</span><span 
+class="cmtt-10">&#x00A0;are</span><span 
+class="cmtt-10">&#x00A0;allowed</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;adapt?</span><span 
+class="cmtt-10">&#x00A0;(true</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;false)</span><br /><span 
+class="cmtt-10">par.strategy.adapt.mutation.scale=true;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[logical]</span><br /><span 
+class="cmtt-10">par.strategy.adapt.XOver.dispersion=true;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[logical]</span><br /><span 
+class="cmtt-10">par.strategy.adapt.XOver.strength=true;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[logical]</span><br /><span 
+class="cmtt-10">par.strategy.adapt.XOver.ALS=true;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[logical]</span><br /><span 
+class="cmtt-10">par.strategy.adapt.XOver.matingRestriction=true;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[logical]</span><br /><span 
+class="cmtt-10">par.strategy.adapt.niching.acceleration=true;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[logical]</span></div>
+</div></span>
+<!--l. 4236--><p class="noindent" ><span 
+class="cmtt-10">par.strategy.isAdaptive </span>is a logical value (true/false, or equivalently 1/0) that toggles auto-adaptation on
+(true/1) or off (false/0). <span 
+class="cmti-10">This parameter overrides the toggles for individual strategy parameters in the</span>
+<span 
+class="cmtt-10">par.strategy.adapt </span><span 
+class="cmti-10">structure discussed below.</span>
+<!--l. 4238--><p class="noindent" >Strategy auto-adaptation builds a model of Ferret&#8217;s performance based on data gathered while the code runs.
+However, the model must remain current as the run progresses and encounters different parts of the fitness
+landscape. Therefore, it needs to weight recent experience more strongly while gradually &#8216;forgetting&#8217; generations in
+the more distant past that are probably no longer relevant. This is modeled as an exponential decay,
+where <span 
+class="cmtt-10">par.strategy.NGen </span>represents the &#8216;decay time constant&#8217; or roughly the number of generations
+required to forget. I typically use a value of about 10-25 generations, although this is probably not
+critical.
+<!--l. 4240--><p class="noindent" >All of the fields inside <span 
+class="cmtt-10">par.strategy.adapt </span>are logical values (true/false, or equivalently 1/0) that toggle the
+auto-adaptation of an individual strategy parameter. They are all over-ridden and set to false/0 when
+<span 
+class="cmtt-10">par.strategy.isAdaptive=false</span>. When <span 
+class="cmtt-10">par.strategy.isAdaptive=true</span>, then the <span 
+class="cmtt-10">par.strategy.adapt</span>
+<span 
+class="cmtt-10">parameters </span>can be used to turn individual strategy parameters on or off.
+     <ul class="itemize1">
+     <li class="itemize">
+     <span 
+class="cmtt-10">par.strategy.adapt.mutation.scale</span>
+     controls
+     the
+     auto-adaptation
+     of
+     the
+     mutation
+     scale.
+     The
+                                                                                         
+
+                                                                                         
+     mutation
+     scale
+     is
+     set
+     initially
+     to
+     the
+     value
+     in
+     <span 
+class="cmtt-10">par.mutation.scale</span>
+     and
+     is
+     allowed
+     to
+     evolve
+     without
+     any
+     imposed
+     constraints
+     on
+     the
+     upper
+     bound.
+     The
+     lower
+     bound
+     is
+     zero.
+     </li>
+     <li class="itemize">
+     <span 
+class="cmtt-10">par.strategy.adapt.XOver.dispersion</span>
+     controls
+     the
+     auto-adaptation
+     of
+     the
+     dispersion
+     parameter
+     used
+     in
+     crossover.
+     The
+     dispersion
+     is
+     set
+     initially
+                                                                                         
+
+                                                                                         
+     to
+     the
+     value
+     in
+     par.XOver.dispersion
+     and
+     is
+     allowed
+     to
+     evolve
+     without
+     any
+     imposed
+     constraints
+     on
+     the
+     upper
+     bound.
+     The
+     lower
+     bound
+     is
+     zero.
+     </li>
+     <li class="itemize">
+     <span 
+class="cmtt-10">par.strategy.adapt.XOver.strength</span>
+     controls
+     the
+     auto-adaptation
+     of
+     the
+     crossover
+     strength.
+     The
+     crossover
+     strength
+     is
+     set
+     initially
+     to
+     the
+     value
+     in
+     <span 
+class="cmtt-10">par.XOver.strength</span>
+     and
+     is
+                                                                                         
+
+                                                                                         
+     allowed
+     to
+     evolve
+     without
+     any
+     imposed
+     constraints
+     on
+     the
+     upper
+     bound.
+     The
+     lower
+     bound
+     is
+     zero.
+     </li>
+     <li class="itemize">
+     <span 
+class="cmtt-10">par.strategy.adapt.XOver.ALS</span>
+     controls
+     the
+     auto-adaptation
+     of
+     the
+     crossover
+     setting
+     for
+     Advanced
+     Lethal
+     Suppression
+     (ALS).
+     The
+     ALS
+     parameter
+     is
+     set
+     initially
+     to
+     the
+     value
+     in
+     <span 
+class="cmtt-10">par.XOver.ALS</span>
+     and
+     is
+     allowed
+     to
+                                                                                         
+
+                                                                                         
+     evolve
+     within
+     its
+     normal
+     interval
+     of
+     [0,
+     1].
+     <span 
+class="cmti-10">This</span>
+     <span 
+class="cmti-10">parameter</span>
+     <span 
+class="cmti-10">is</span>
+     <span 
+class="cmti-10">usually</span>
+     <span 
+class="cmti-10">poorly</span>
+     <span 
+class="cmti-10">defined</span>
+     <span 
+class="cmti-10">by</span>
+     <span 
+class="cmti-10">auto-adaptation.</span>
+     <span 
+class="cmti-10">It</span>
+     <span 
+class="cmti-10">is</span>
+     <span 
+class="cmti-10">harmless</span>
+     <span 
+class="cmti-10">to</span>
+     <span 
+class="cmti-10">allow</span>
+     <span 
+class="cmti-10">it</span>
+     <span 
+class="cmti-10">to</span>
+     <span 
+class="cmti-10">auto-adapt,</span>
+     <span 
+class="cmti-10">but</span>
+     <span 
+class="cmti-10">the</span>
+     <span 
+class="cmti-10">benefit</span>
+     <span 
+class="cmti-10">is</span>
+     <span 
+class="cmti-10">often</span>
+     <span 
+class="cmti-10">minor.</span>
+     </li>
+     <li class="itemize">
+     <span 
+class="cmtt-10">par.strategy.adapt.XOver.matingRestriction</span>
+     controls
+     the
+     auto-adaptation
+     of
+     the
+     mating
+     restriction
+     parameter.
+     The
+     matingRestriction
+     parameter
+     is
+     set
+                                                                                         
+
+                                                                                         
+     initially
+     to
+     the
+     value
+     in
+     <span 
+class="cmtt-10">par.XOver.matingRestriction</span>,
+     and
+     is
+     constrained
+     to
+     its
+     [-1,
+     1]
+     interval.
+     </li>
+     <li class="itemize">
+     <span 
+class="cmtt-10">par.strategy.adapt.niching.acceleration</span>
+     controls
+     the
+     auto-adaptation
+     of
+     niche
+     acceleration.
+     This
+     feature
+     allows
+     Ferret
+     to
+     preferentially
+     explore
+     the
+     parameter
+     space
+     in
+     search
+     directions
+     that
+     coincide
+     with
+     the
+     spatial
+     distribution
+     of
+     the
+     population,
+     as
+                                                                                         
+
+                                                                                         
+     described
+     in
+     Section
+     <a 
+href="QubistHTMLse52.html#x78-1130008.9.3">8.9.3<!--tex4ht:ref: sec:acceleration --></a>
+     below.
+     The
+     acceleration
+     parameter
+     must
+     be
+     in
+     the
+     range
+     of
+     [0,1]
+     and
+     is
+     set
+     initially
+     to
+     the
+     value
+     contained
+     in
+     <span 
+class="cmtt-10">par.niching.acceleration</span>.
+     For
+     most
+     problems,
+     the
+     acceleration
+     parameter
+     will
+     drift
+     to
+     low
+     values
+     in
+     the
+     [0,0.5]
+     range.</li></ul>
+<!--l. 4251--><p class="noindent" >I developed the auto-adaptation feature for Ferret-4, and it is therefore a relatively recent addition to the code.
+However, it has been used quite a lot already and works well. I normally turn auto-adaptation on for all parameters
+and only turn it off if I suspect a problem based on the appearance of the graphs in the auto-adaptation console (i.e.
+a strategy parameter heading for a very small or very large value). This happened frequently with early and less
+reliable versions of the auto-adaptation technique, but I have not needed to do this for any project for quite some
+time.
+<a 
+ id="dx72-103013"></a>
+                                                                                         
+
+                                                                                         
+                                                                                         
+
+                                                                                         
+<!--l. 4257--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse48.html" >next</a>] [<a 
+href="QubistHTMLse46.html" >prev</a>] [<a 
+href="QubistHTMLse46.html#tailQubistHTMLse46.html" >prev-tail</a>] [<a 
+href="QubistHTMLse47.html" >front</a>] [<a 
+href="QubistHTMLch8.html#QubistHTMLse47.html" >up</a>] </p></div>
+<!--l. 4257--><p class="noindent" ><a 
+ id="tailQubistHTMLse47.html"></a>  
+</body></html> 

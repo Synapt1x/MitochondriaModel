@@ -1,0 +1,21 @@
+Diversity-preserving Strategies: Mapping a Ring of Solutions:
+============================================================
+
+This example demonstrates how Ferret can map a family of solutions to a
+problem with a single objective when the optimal set is a 'valley' filled with
+many solutions of the same fitness. 
+
+The solution is a filled oval ring, which must be populated with
+solutions.  This is accomplished by setting par.niching.X > 0 (about 0.1 - 0.25)
+is usually about right.  Setting the mating restriction to a negative value
+causes solutions to crossover preferentially with their neighbours.  This reduces
+the number of "lethals" (poor quality solutions) that would arise in the central
+part of the oval from parents on opposite sides of the high performance ring.  
+Try setting par.XOver.matingRestriction.X to zero or a less negative value (or even
+a positive number), and see what happens.  Note that 
+-1 <= par.XOver.matingRestriction.X <= 1.
+
+Note that this is an example of a "class-finding" problem that uses the full-blown
+machinery of a multi-objective genetic algorithm (niching, etc.) on a problem with
+a single objective.  Class-finding problems are characterized by a single objective
+function with a flat-bottomed valley where a class of optimal solutions resides.

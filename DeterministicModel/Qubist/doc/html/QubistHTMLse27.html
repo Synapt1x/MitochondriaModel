@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>Resuming a Run</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 2797--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse28.html" >next</a>] [<a 
+href="QubistHTMLse26.html" >prev</a>] [<a 
+href="QubistHTMLse26.html#tailQubistHTMLse26.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLse27.html">tail</a>] [<a 
+href="QubistHTMLch4.html#QubistHTMLse27.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">4.17   </span> <a 
+ id="x45-690004.17"></a>Resuming a Run</h3>
+<a 
+ id="dx45-69001"></a>
+<a 
+ id="dx45-69002"></a>
+<!--l. 2802--><p class="noindent" >Resuming a crashed or suspended Ferret run is easy because the History files save enough of the state of the <span 
+class="cmmi-10">world </span>-
+Ferret&#8217;s top-level data structure - to regenerate <span 
+class="cmti-10">at least </span>the state of the optimal solutions, even when resuming from
+a crash that did not perform any cleanup operations. The entire state of the <span 
+class="cmmi-10">world </span>is restored if Ferret stopped in an
+orderly fashion. The easiest way to resume a run is just to point Ferret at the project&#8217;s original data directory, by
+setting <span 
+class="cmtt-10">par.general.dataDir </span>in the setup file, and re-start it. Ferret will notice that the directory is not
+empty and will present you with the dialogue box shown in Figure <a 
+href="#x45-6900311">4.11<!--tex4ht:ref: fig:resumeRun --></a>. To resume your run, just
+click the &#8216;Resume&#8217; button and your run will be re-constructed automatically from the saved History
+files!
+<!--l. 2804--><p class="noindent" ><hr class="figure"><div class="figure" 
+>
+                                                                                         
+
+                                                                                         
+<a 
+ id="x45-6900311"></a>
+                                                                                         
+
+                                                                                         
+<div class="center" 
+>
+<!--l. 2805--><p class="noindent" >
+
+<!--l. 2806--><p class="noindent" ><img 
+src="figures/Ferret/resumeRun.png" alt="PIC"  
+></div>
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;4.11: </span><span  
+class="content">Dialog box indicating that the data directory already exists. Note the option that allows users
+to resume their run from the saved History files.</span></div><!--tex4ht:label?: x45-6900311 -->
+                                                                                         
+
+                                                                                         
+<!--l. 2810--><p class="noindent" ></div><hr class="endfigure">
+<!--l. 2810--><p class="noindent" >.
+<!--l. 2812--><p class="noindent" >This technique is very convenient for resuming runs, but it does not work if the project or the History files have
+been moved, which actually comes up more often that you might think. For example:
+     <ul class="itemize1">
+     <li class="itemize">
+     If
+     you
+     are
+     in
+     the
+     habit
+     of
+     moving
+     files
+     to
+     archive
+     them,
+     and
+     you
+     suddenly
+     feel
+     the
+     need
+     to
+     restart
+     an
+     old
+     run.
+     </li>
+     <li class="itemize">
+     If
+     you
+     need
+     to
+     migrate
+     a
+     long-duration
+     run
+     to
+     a
+     different
+     computer
+     that
+                                                                                         
+
+                                                                                         
+     does
+     not
+     share
+     the
+     same
+     file
+     system.
+     </li>
+     <li class="itemize">
+     If
+     you
+     work
+     with
+     colleagues
+     or
+     students
+     and
+     send
+     them
+     your
+     History
+     files,
+     and
+     they
+     need
+     to
+     restart
+     your
+     run
+     for
+     some
+     reason.
+     </li>
+     <li class="itemize">
+     If
+     your
+     project
+     is
+     coded
+     such
+     that
+     it
+     names
+     the
+     run
+                                                                                         
+
+                                                                                         
+     automatically
+     using
+     the
+     date,
+     and
+     you
+     need
+     to
+     restart
+     it
+     at
+     a
+     later
+     date.</li></ul>
+<a 
+ id="dx45-69004"></a>
+<!--l. 2819--><p class="noindent" >I have personally encountered all of these situations, and I developed the Qubist Resume Tool out of necessity. The
+Resume Tool is started from the component selector by running the launchQubist.m file and is very easy to use. It
+will guide you through a series of dialogue boxes that are designed to load the last saved History file of your project
+from disk, reconstruct Ferret&#8217;s <span 
+class="cmmi-10">world </span>data structure, set all necessary paths for the run, and start Ferret right where
+you left off with minimal effort. The Resume Tool also works for Locust runs, and is discussed in Section
+<a 
+href="QubistHTMLse94.html#x126-21500012.1">12.1<!--tex4ht:ref: sec:resumeTool --></a>.
+<a 
+ id="dx45-69005"></a>
+<a 
+ id="dx45-69006"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 2825--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse28.html" >next</a>] [<a 
+href="QubistHTMLse26.html" >prev</a>] [<a 
+href="QubistHTMLse26.html#tailQubistHTMLse26.html" >prev-tail</a>] [<a 
+href="QubistHTMLse27.html" >front</a>] [<a 
+href="QubistHTMLch4.html#QubistHTMLse27.html" >up</a>] </p></div>
+<!--l. 2825--><p class="noindent" ><a 
+ id="tailQubistHTMLse27.html"></a>  
+</body></html> 

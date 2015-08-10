@@ -1,0 +1,276 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>par.CPD</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 4632--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse54.html" >next</a>] [<a 
+href="QubistHTMLse52.html" >prev</a>] [<a 
+href="QubistHTMLse52.html#tailQubistHTMLse52.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLse53.html">tail</a>] [<a 
+href="QubistHTMLch8.html#QubistHTMLse53.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">8.10   </span> <a 
+ id="x79-1150008.10"></a>par.CPD</h3>
+<a 
+ id="dx79-115001"></a>
+<!--l. 4636--><p class="noindent" >The <span 
+class="cmtt-10">par.CPD </span>options control Ferret&#8217;s critical parameter detection (CPD) algorithm. The purpose of the CPD system
+is to &#8216;weed out&#8217; model parameters that have little effect on the quality of solutions, which effectively reduces the
+dimensionality of the problem. This works by occasionally &#8216;deactivating&#8217; a gene, which is signaled by setting its
+internal value to <span 
+class="cmmi-10">NaN </span>in <span 
+class="cmtt-10">world.pop</span><span 
+class="cmsy-10">{</span><span 
+class="cmmi-10">p</span><span 
+class="cmsy-10">}</span><span 
+class="cmtt-10">.indiv.genome.X</span>. Note that <span 
+class="cmtt-10">world.pop</span><span 
+class="cmsy-10">{</span><span 
+class="cmmi-10">p</span><span 
+class="cmsy-10">}</span><span 
+class="cmtt-10">.indiv.genome.XPhys </span>contains
+the <span 
+class="cmti-10">actual </span>parameter values that are sent to the fitness function, usually with <span 
+class="cmmi-10">NaN </span>values replaced by
+real-valued parameter values, as discussed below. Please refer to Section <a 
+href="QubistHTMLse19.html#x34-520004.9.1">4.9.1<!--tex4ht:ref: sec:worldStructure --></a> for a discussion of these
+fields.
+<!--l. 4647--><p class="noindent" ><span 
+class="colorbox" id="colorbox77"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Critical</span><span 
+class="cmtt-10">&#x00A0;Parameter</span><span 
+class="cmtt-10">&#x00A0;Detection</span><br /><span 
+class="cmtt-10">par.CPD.PDeactivateGenes=0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Probability</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;gene</span><span 
+class="cmtt-10">&#x00A0;deactivation.</span><br /><span 
+class="cmtt-10">par.CPD.PReactivateGenes=0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Probability</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;gene</span><span 
+class="cmtt-10">&#x00A0;reactivation.</span><br /><span 
+class="cmtt-10">par.CPD.useTemplates=false;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[logical]:</span><span 
+class="cmtt-10">&#x00A0;Use</span><span 
+class="cmtt-10">&#x00A0;templates</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;replace</span><span 
+class="cmtt-10">&#x00A0;NaN&#8217;s</span><span 
+class="cmtt-10">&#x00A0;in</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML54x.png" alt="                                                                                                                                                                `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;evaluation</span><span 
+class="cmtt-10">&#x00A0;when</span><span 
+class="cmtt-10">&#x00A0;possible</span><br /><span 
+class="cmtt-10">par.CPD.NaN2Random=true;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmtt-10">&#x00A0;[logical,</span><span 
+class="cmtt-10">&#x00A0;usually</span><span 
+class="cmtt-10">&#x00A0;true]:</span><span 
+class="cmtt-10">&#x00A0;Replace</span><span 
+class="cmtt-10">&#x00A0;undefined</span><span 
+class="cmtt-10">&#x00A0;genes</span><span 
+class="cmtt-10">&#x00A0;(NaN&#8217;s)</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML55x.png" alt="                                                                                                                                                                                                                                                                                           `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;with</span><span 
+class="cmtt-10">&#x00A0;random</span><span 
+class="cmtt-10">&#x00A0;numbers?</span></div>
+</div></span>
+<!--l. 4653--><p class="noindent" ><span 
+class="cmtt-10">par.CPD.PDeactivateGenes </span>is the probability that a gene will be deactivated each generation. Thus, we would
+expect approximately <span 
+class="cmmi-10">par.CPD.PDeactivateGenes</span> <span 
+class="cmsy-10">&#x00D7; </span><span 
+class="cmmi-10">NGenes </span><span 
+class="cmsy-10">&#x00D7; </span><span 
+class="cmmi-10">N </span>deactivations in total each generation, for a
+problem with <span 
+class="cmmi-10">NGenes </span>parameters and a population size of <span 
+class="cmmi-10">N</span>. Clearly, <span 
+class="cmtt-10">par.CPD.PDeactivateGenes </span>should be very
+small. I usually use a value on the order of 0.001, although the exact value makes little difference for the reasons
+discussed below.  <span 
+class="cmti-10">Note that the entire CPD system is deactivated when </span><span 
+class="cmtt-10">par.CPD.PDeactivateGenes=0</span><span 
+class="cmti-10">. </span>There is also
+a reciprocal &#8216;reactivation&#8217; operator, which converts <span 
+class="cmmi-10">NaN </span>values (deactivated genes) to a random value within the
+parameter range. Reactivation occurs with probability <span 
+class="cmtt-10">par.CPD.PReactivateGenes</span>, which should be similar in size
+to the deactivation probability.
+<!--l. 4655--><p class="noindent" >The <span 
+class="cmtt-10">par.CPD.NaN2Random </span>and <span 
+class="cmtt-10">par.CPD.useTemplates </span>parameters determine whether or not and how
+underspecified solutions containing <span 
+class="cmmi-10">NaN </span>values are converted to fully specified parameter sets prior to evaluation by
+the user&#8217;s fitness function. When <span 
+class="cmmi-10">NaN</span>2<span 
+class="cmmi-10">Random </span>evaluates to <span 
+class="cmmi-10">true</span>, <span 
+class="cmmi-10">NaN </span>values are converted to a random number
+within the current parameter range before they are sent to the fitness function. When <span 
+class="cmmi-10">useTemplates </span>is <span 
+class="cmmi-10">true</span>, Ferret
+replaces <span 
+class="cmmi-10">NaN </span>values in underspecified solutions with the corresponding genes from a template solution, which is
+chosen randomly from the set of fittest individuals in the population. In both cases, it is important to
+realize that <span 
+class="cmmi-10">NaN </span>values are maintained internally by <span 
+class="cmtt-10">world.pop</span><span 
+class="cmsy-10">{</span><span 
+class="cmmi-10">p</span><span 
+class="cmsy-10">}</span><span 
+class="cmtt-10">.indiv.genome.X</span>, so the degree to
+which a given solution is specified internally remains unchanged. Note that the <span 
+class="cmmi-10">NaN</span>2<span 
+class="cmmi-10">Random </span>setting
+overrides the <span 
+class="cmmi-10">useTemplate </span>setting when both are <span 
+class="cmmi-10">true</span>; in this case, Ferret ignores the <span 
+class="cmmi-10">useTemplates</span>
+directive and replaces <span 
+class="cmmi-10">NaN </span>values with random numbers prior to evaluation of the fitness function.
+When <span 
+class="cmmi-10">useTemplates </span>and <span 
+class="cmmi-10">NaN</span>2<span 
+class="cmmi-10">Random </span>are both set to <span 
+class="cmmi-10">false</span>, <span 
+class="cmmi-10">NaN </span>values are sent directly to the
+fitness function, and it is up to the user to determine what this means and handle their evaluation. I
+recommend using the <span 
+class="cmmi-10">NaN</span>2<span 
+class="cmmi-10">Random </span>setting for most problems, and I hardly ever use templates.
+Table <a 
+href="#x79-1150091">8.1<!--tex4ht:ref: tab:CPD --></a> shows the effect of the different combinations of <span 
+class="cmmi-10">NaN</span>2<span 
+class="cmmi-10">Random </span>and <span 
+class="cmmi-10">useTemplates </span>that are
+possible.
+<div class="table">
+                                                                                         
+
+                                                                                         
+<!--l. 4658--><p class="noindent" ><a 
+ id="x79-1150091"></a><hr class="float"><div class="float" 
+>
+                                                                                         
+
+                                                                                         
+<div class="tabular"> <table id="TBL-2" class="tabular" 
+cellspacing="0" cellpadding="0" rules="groups" 
+><colgroup id="TBL-2-1g"><col 
+id="TBL-2-1"></colgroup><colgroup id="TBL-2-2g"><col 
+id="TBL-2-2"></colgroup><colgroup id="TBL-2-3g"><col 
+id="TBL-2-3"></colgroup><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-2-1-1"  
+class="td11">NaN2Random</td><td  style="white-space:nowrap; text-align:left;" id="TBL-2-1-2"  
+class="td11">useTemplate</td><td  style="white-space:nowrap; text-align:left;" id="TBL-2-1-3"  
+class="td11">received by fitness function</td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-2-2-1"  
+class="td11">false              </td><td  style="white-space:nowrap; text-align:left;" id="TBL-2-2-2"  
+class="td11">false           </td><td  style="white-space:nowrap; text-align:left;" id="TBL-2-2-3"  
+class="td11"><span 
+class="cmmi-10">NaN                        </span></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-2-3-1"  
+class="td11">false </td><td  style="white-space:nowrap; text-align:left;" id="TBL-2-3-2"  
+class="td11">true </td><td  style="white-space:nowrap; text-align:left;" id="TBL-2-3-3"  
+class="td11">template values</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-2-4-1"  
+class="td11">true              </td><td  style="white-space:nowrap; text-align:left;" id="TBL-2-4-2"  
+class="td11">false           </td><td  style="white-space:nowrap; text-align:left;" id="TBL-2-4-3"  
+class="td11">random values                 </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-2-5-1"  
+class="td11">true              </td><td  style="white-space:nowrap; text-align:left;" id="TBL-2-5-2"  
+class="td11">true           </td><td  style="white-space:nowrap; text-align:left;" id="TBL-2-5-3"  
+class="td11">random values                 </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-6-"><td  style="white-space:nowrap; text-align:left;" id="TBL-2-6-1"  
+class="td11">            </td></tr></table></div>
+<br />                       <div class="caption" 
+><span class="id">Table&#x00A0;8.1:                                     </span><span  
+class="content">Conversion                                     of
+<span 
+class="cmmi-10">NaN </span>values in <span 
+class="cmtt-10">world.pop</span><span 
+class="cmsy-10">{</span><span 
+class="cmmi-10">p</span><span 
+class="cmsy-10">}</span><span 
+class="cmtt-10">.indiv.genome.X </span>when <span 
+class="cmtt-10">world.pop</span><span 
+class="cmsy-10">{</span><span 
+class="cmmi-10">p</span><span 
+class="cmsy-10">}</span><span 
+class="cmtt-10">.indiv.genome.XFullySpecified </span>and
+<span 
+class="cmtt-10">world.pop</span><span 
+class="cmsy-10">{</span><span 
+class="cmmi-10">p</span><span 
+class="cmsy-10">}</span><span 
+class="cmtt-10">.indiv.genome.XPhys </span>are generated prior to evaluation of the fitness function for population
+<span 
+class="cmmi-10">p</span>. <span 
+class="cmmi-10">NaN </span>values are used as placeholders by Ferret&#8217;s Critical Parameter Detection (CPD) system to indicate
+parameters that are not specified. A parameter has little impact on the quality of solutions when most of its
+values are unspecified in <span 
+class="cmtt-10">world.pop</span><span 
+class="cmsy-10">{</span><span 
+class="cmmi-10">p</span><span 
+class="cmsy-10">}</span><span 
+class="cmtt-10">.indiv.genome.X</span>.</span></div><!--tex4ht:label?: x79-1150091 -->
+                                                                                         
+
+                                                                                         
+</div><hr class="endfloat" />
+</div>
+<!--l. 4671--><p class="noindent" >The role of the <span 
+class="cmtt-10">par.CPD.DeactivateGenes </span>probability is to seed occasional <span 
+class="cmmi-10">NaN </span>values into the population.
+However, whether a given gene becomes unspecified or not throughout the population is determined almost entirely
+by how well these seeds proliferate via Ferret&#8217;s selection operator - the amount of initial seeding barely matters at
+all. It is for this reason that the values of <span 
+class="cmmi-10">PDeactivateGenes </span>and <span 
+class="cmmi-10">PReactivateGenes </span>are not critical, as long as they
+are small.
+<a 
+ id="dx79-115010"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 4676--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse54.html" >next</a>] [<a 
+href="QubistHTMLse52.html" >prev</a>] [<a 
+href="QubistHTMLse52.html#tailQubistHTMLse52.html" >prev-tail</a>] [<a 
+href="QubistHTMLse53.html" >front</a>] [<a 
+href="QubistHTMLch8.html#QubistHTMLse53.html" >up</a>] </p></div>
+<!--l. 4676--><p class="noindent" ><a 
+ id="tailQubistHTMLse53.html"></a>  
+</body></html> 

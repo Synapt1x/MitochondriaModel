@@ -1,0 +1,1126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>The SAMOSA_setup File</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 5743--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse72.html" >prev</a>] [<a 
+href="QubistHTMLse72.html#tailQubistHTMLse72.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLse73.html">tail</a>] [<a 
+href="QubistHTMLch9.html#QubistHTMLse73.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">9.10   </span> <a 
+ id="x102-1490009.10"></a>The SAMOSA_setup File</h3>
+<a 
+ id="dx102-149001"></a>
+<a 
+ id="dx102-149002"></a>
+<a 
+ id="dx102-149003"></a>
+<!--l. 5749--><p class="noindent" >This section will run through all of SAMOSA&#8217;s setup parameters. This optimizer is <span 
+class="cmti-10">tiny </span>compared to Ferret, or
+even Anvil or Locust, so the setup files do not have many options. A template setup file is located in
+[Qubist_Home]/Qubist/user/SAMOSA/templates/SAMOSA_setup_template.m. Normally, this file should be copied
+to the project directory and renamed to SAMOSA_setup.m.
+<!--l. 5751--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">9.10.1   </span> <a 
+ id="x102-1500009.10.1"></a>par.user</h4>
+<a 
+ id="dx102-150001"></a>
+<!--l. 5755--><p class="noindent" >The <span 
+class="cmtt-10">par.user </span>fields tell SAMOSA the name of your fitness function and optional output function. They work
+exactly like the corresponding fields in Ferret (see Section <a 
+href="QubistHTMLse44.html#x68-1000008.1">8.1<!--tex4ht:ref: sec:par_user --></a>).
+<!--l. 5764--><p class="noindent" ><span 
+class="colorbox" id="colorbox103"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;User</span><br /><span 
+class="cmtt-10">par.user.fitnessFcn=&#8217;fitness&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[string]:</span><span 
+class="cmtt-10">&#x00A0;Name</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;the</span><span 
+class="cmtt-10">&#x00A0;fitness</span><span 
+class="cmtt-10">&#x00A0;function.</span><br /><span 
+class="cmtt-10">par.user.output=&#8217;&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[string]:</span><span 
+class="cmtt-10">&#x00A0;Name</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;optional</span><span 
+class="cmtt-10">&#x00A0;user-defined</span><span 
+class="cmtt-10">&#x00A0;output</span><span 
+class="cmtt-10">&#x00A0;function</span><span 
+class="cmtt-10">&#x00A0;called</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML100x.png" alt="                                                                          `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;each</span><span 
+class="cmtt-10">&#x00A0;generation.</span></div>
+</div></span>
+<!--l. 5770--><p class="noindent" >The fitness function (<span 
+class="cmtt-10">par.user.fitnessFcn</span>) is required, unless you want it to default to the standard name
+&#8216;fitness&#8217;, but the output function is optional. An empty string (<span 
+class="cmtt-10">&#8217;&#8217;</span>) indicates that no output function has been
+defined.
+<a 
+ id="dx102-150006"></a>
+<!--l. 5775--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">9.10.2   </span> <a 
+ id="x102-1510009.10.2"></a>par.history</h4>
+<a 
+ id="dx102-151001"></a>
+<!--l. 5784--><p class="noindent" ><span 
+class="colorbox" id="colorbox104"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;History</span><br /><span 
+class="cmtt-10">par.history.dataDir=&#8217;SAMOSA_data&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[string]:</span><span 
+class="cmtt-10">&#x00A0;Directory</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;SAMOSA</span><span 
+class="cmtt-10">&#x00A0;data</span><span 
+class="cmtt-10">&#x00A0;files,</span><span 
+class="cmtt-10">&#x00A0;etc.</span></div>
+</div></span>
+<!--l. 5790--><p class="noindent" >The History section of the setup file contains a single field <span 
+class="cmtt-10">par.history.dataDir</span>, which gives the location of your
+run&#8217;s data directory. This is most often a local path inside of the project directory, as shown here.
+However, it is also possible to specify a directory elsewhere on the file system by specifying a global
+path.
+                                                                                         
+
+                                                                                         
+<!--l. 5792--><p class="noindent" ><span 
+class="cmtt-10">par.history.dataDir </span>works exactly like the corresponding field in Ferret&#8217;s setup file, and is discussed in greater
+detail in Section <a 
+href="QubistHTMLse45.html#x69-1010008.2">8.2<!--tex4ht:ref: sec:par_history --></a>. Note that <span 
+class="cmtt-10">par.history </span>is a slight misnomer because SAMOSA does not actually use
+History files. However, this name is used to maintain consistency with the setup files used by Ferret and
+Locust.
+<a 
+ id="dx102-151004"></a>
+<!--l. 5797--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">9.10.3   </span> <a 
+ id="x102-1520009.10.3"></a>par.general</h4>
+<a 
+ id="dx102-152001"></a>
+<!--l. 5801--><p class="noindent" >The <span 
+class="cmtt-10">par.general </span>section of the setup file contains settings to tell SAMOSA about your problem&#8217;s parameters and
+other basic information to initialize the simplex. Many of these fields are identical to Ferret&#8217;s <span 
+class="cmtt-10">par.general </span>field,
+discussed in Section <a 
+href="QubistHTMLse46.html#x71-1020008.3">8.3<!--tex4ht:ref: sec:par_general --></a>.
+<!--l. 5821--><p class="noindent" ><span 
+class="colorbox" id="colorbox105"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;General</span><br /><span 
+class="cmtt-10">par.general.XLabels=;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[Cell</span><span 
+class="cmtt-10">&#x00A0;array</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;strings]:</span><span 
+class="cmtt-10">&#x00A0;Give</span><span 
+class="cmtt-10">&#x00A0;names</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;some</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;all</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML101x.png" alt="`&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;parameters:</span><span 
+class="cmtt-10">&#x00A0;&#8217;A&#8217;,&#8217;B&#8217;,...</span><br /><span 
+class="cmtt-10">par.general.FLabels=;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[Cell</span><span 
+class="cmtt-10">&#x00A0;array</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;strings]:</span><span 
+class="cmtt-10">&#x00A0;Give</span><span 
+class="cmtt-10">&#x00A0;names</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;some</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;all</span><span 
+class="cmtt-10">&#x00A0;fitness</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML102x.png" alt="                                                                                                                   `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;values:</span><span 
+class="cmtt-10">&#x00A0;&#8217;FA&#8217;,&#8217;FB&#8217;,...</span><br /><span 
+class="cmtt-10">par.general.X0=[];</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real</span><span 
+class="cmtt-10">&#x00A0;column</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;row</span><span 
+class="cmtt-10">&#x00A0;vector,</span><span 
+class="cmtt-10">&#x00A0;length=number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML103x.png" alt="                                                                                                                                                                                                                       `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;parameters]:</span><span 
+class="cmtt-10">&#x00A0;Initial</span><span 
+class="cmtt-10">&#x00A0;central</span><span 
+class="cmtt-10">&#x00A0;position</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;simplex.</span><br /><span 
+class="cmtt-10">par.general.min=[];</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real</span><span 
+class="cmtt-10">&#x00A0;vector]:</span><span 
+class="cmtt-10">&#x00A0;Min</span><span 
+class="cmtt-10">&#x00A0;bounds</span><span 
+class="cmtt-10">&#x00A0;on</span><span 
+class="cmtt-10">&#x00A0;X:</span><span 
+class="cmtt-10">&#x00A0;Leave</span><span 
+class="cmtt-10">&#x00A0;empty</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;unbounded</span><span 
+class="cmtt-10">&#x00A0;min.</span><br /><span 
+class="cmtt-10">par.general.max=[];</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real</span><span 
+class="cmtt-10">&#x00A0;vector]:</span><span 
+class="cmtt-10">&#x00A0;Max</span><span 
+class="cmtt-10">&#x00A0;bounds</span><span 
+class="cmtt-10">&#x00A0;on</span><span 
+class="cmtt-10">&#x00A0;X:</span><span 
+class="cmtt-10">&#x00A0;Leave</span><span 
+class="cmtt-10">&#x00A0;empty</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;unbounded</span><span 
+class="cmtt-10">&#x00A0;max.</span><br /><span 
+class="cmtt-10">par.general.eps=0.25;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real</span><span 
+class="cmtt-10">&#x00A0;&#x003E;</span><span 
+class="cmtt-10">&#x00A0;0]:</span><span 
+class="cmtt-10">&#x00A0;Initial</span><span 
+class="cmtt-10">&#x00A0;scatter</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;vertices.</span><br /><span 
+class="cmtt-10">par.general.maxOptimals=Inf;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer</span><span 
+class="cmtt-10">&#x00A0;&#x003E;</span><span 
+class="cmtt-10">&#x00A0;0]:</span><span 
+class="cmtt-10">&#x00A0;Maximum</span><span 
+class="cmtt-10">&#x00A0;number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;optimals</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;keep</span><span 
+class="cmtt-10">&#x00A0;in</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML104x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;OptimalSolutions.</span><br /><span 
+class="cmtt-10">par.general.deterministic=false;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[logical]:</span><span 
+class="cmtt-10">&#x00A0;Use</span><span 
+class="cmtt-10">&#x00A0;Matlab</span><span 
+class="cmtt-10">&#x00A0;random</span><span 
+class="cmtt-10">&#x00A0;number</span><span 
+class="cmtt-10">&#x00A0;generator,</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML105x.png" alt=""  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;built-in</span><span 
+class="cmtt-10">&#x00A0;deterministic</span><span 
+class="cmtt-10">&#x00A0;generator?</span><br /><span 
+class="cmtt-10">par.general.FAbsTol=0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real</span><span 
+class="cmtt-10">&#x00A0;vector</span><span 
+class="cmtt-10">&#x00A0;&#x003E;</span><span 
+class="cmtt-10">&#x00A0;0]:</span><span 
+class="cmtt-10">&#x00A0;Absolute</span><span 
+class="cmtt-10">&#x00A0;tolerances</span><span 
+class="cmtt-10">&#x00A0;on</span><span 
+class="cmtt-10">&#x00A0;fitness</span><span 
+class="cmtt-10">&#x00A0;values.</span></div>
+</div></span>
+<!--l. 5827--><p class="noindent" ><span 
+class="cmtt-10">par.general.XLabels </span>and <span 
+class="cmtt-10">par.general.FLabels </span>are cell arrays of strings, which contain the names of your
+parameters. These fields work exactly like their counterparts in Ferret (see Section <a 
+href="QubistHTMLse46.html#x71-1020008.3">8.3<!--tex4ht:ref: sec:par_general --></a>). <span 
+class="cmtt-10">par.general.XLabels=</span><span 
+class="cmsy-10">{}</span>
+and <span 
+class="cmtt-10">par.general.FLabels=</span><span 
+class="cmsy-10">{} </span>indicate that generic names like <span 
+class="cmmi-10">X</span>1, <span 
+class="cmmi-10">X</span>2, etc. and <span 
+class="cmmi-10">F</span>1, <span 
+class="cmmi-10">F</span>2, etc. should be
+used.
+<!--l. 5829--><p class="noindent" ><span 
+class="cmtt-10">par.general.min </span>and <span 
+class="cmtt-10">par.general.max </span>are the bounds of the box that SAMOSA will search, <span 
+class="cmti-10">if you want to run it</span>
+<span 
+class="cmti-10">as a bounded optimizer</span>. If you leave these fields empty (<span 
+class="cmtt-10">par.general.min=[] </span>and <span 
+class="cmtt-10">par.general.max=[]</span>), then
+SAMOSA will run as an unbounded optimizer. It is also possible to specify lower bounds but not upper bounds, or
+vice-versa. Moreover, you can use &#8216;NaN&#8217; as a placeholder for unbounded parameters. For example, the setting
+<div class="eqnarray">
+<center class="math-display" >
+<img 
+src="QubistHTML106x.png" alt=" par.general.min  =   [0; NaN ; 0; N aN];
+par.general.max  =   [1; 1; N aN; N aN];                      (9.4)
+" class="math-display" ></center>
+</div>indicates the following:
+     <ul class="itemize1">
+     <li class="itemize">
+     Parameter
+                                                                                         
+
+                                                                                         
+     1
+     is
+     bounded
+     from
+     0
+     to
+     1.
+     </li>
+     <li class="itemize">
+     Parameter
+     2
+     has
+     no
+     minimum
+     bound,
+     but
+     must
+     not
+     exceed
+     1.
+     </li>
+     <li class="itemize">
+     Parameter
+     3
+     has
+     a
+     minimum
+     value
+     of
+     0,
+     but
+     has
+     no
+     maximum
+     bound.
+     </li>
+     <li class="itemize">
+     Parameter
+     4
+     is
+     completely
+     unbounded.</li></ul>
+<!--l. 5842--><p class="noindent" ><span 
+class="cmtt-10">par.general.X0 </span>is the starting position for one vertex of the simplex. This can be left empty (<span 
+class="cmtt-10">par.general.X0=[]</span>)
+                                                                                         
+
+                                                                                         
+if (and only if) <span 
+class="cmtt-10">par.general.min </span>and <span 
+class="cmtt-10">par.general.max </span>do not contain <span 
+class="cmmi-10">NaN </span>values. SAMOSA will attempt to use
+the centre of your parameter space in this situation if <span 
+class="cmtt-10">par.general.X0=[]</span>:
+<table 
+class="equation"><tr><td><a 
+ id="x102-152018r5"></a>
+<center class="math-display" >
+<img 
+src="QubistHTML107x.png" alt="par.general.X0 = 0.5*(par.general.min + par.general.max ).
+" class="math-display" ></center></td><td class="equation-label">(9.5)</td></tr></table>
+<!--l. 5845--><p class="nopar" >
+<span 
+class="cmti-10">It is therefore crucial that either </span><span 
+class="cmtt-10">par.general.X0</span><span 
+class="cmti-10">, or both </span><span 
+class="cmtt-10">par.general.min </span><span 
+class="cmti-10">and </span><span 
+class="cmtt-10">par.general.max </span><span 
+class="cmti-10">are defined.</span>
+Otherwise, SAMOSA won&#8217;t be able to obtain <span 
+class="cmtt-10">par.general.X0 </span>and won&#8217;t know where to start, which will lead to an
+error message.
+<!--l. 5848--><p class="noindent" >The initial state of the simplex is a random configuration of vertices about <span 
+class="cmtt-10">par.general.X0</span>. <span 
+class="cmtt-10">par.general.eps </span>is
+the magnitude of the scatter about the &#8216;central&#8217; initial vertex <span 
+class="cmmi-10">X</span>0 - specifically the standard deviation of the distance
+in each dimension. Any bounds that have been defined will be enforced during initialization.
+<!--l. 5850--><p class="noindent" >As SAMOSA runs, it accumulates optimal solutions. Usually the number of solutions found is manageable, but
+you can limit them by setting <span 
+class="cmtt-10">par.general.maxOptimals </span>to the maximum number that you want.
+<span 
+class="cmtt-10">par.general.maxOptimals=Inf </span>by default.
+<!--l. 5852--><p class="noindent" >Some of SAMOSA&#8217;s operations are stochastic because it uses Pareto ranking for vertices and sometimes has to select
+randomly between vertices of equal rank. SAMOSA normally uses the built-in random number generator that is
+called by the &#8216;rand&#8217; function. However, SAMOSA can alternatively use a simple &#8216;deterministic&#8217; random number
+generator, for all stochastic functions, by setting <span 
+class="cmtt-10">par.general.deterministic=true</span>. The effect of this setting is
+that you should obtain exactly the same run each time, as long as the initial conditions (i.e. <span 
+class="cmmi-10">X</span>0) or other settings
+have not changed. This can be useful for debugging occasionally.
+<!--l. 5854--><p class="noindent" ><span 
+class="cmtt-10">par.general.FAbsTol </span>is used to set absolute fuzzy tolerances on fitness values and is similar to the
+<span 
+class="cmtt-10">par.selection.FAbsTol </span>setting in the Ferret setup file (see Section <a 
+href="QubistHTMLse49.html#x74-1050008.6">8.6<!--tex4ht:ref: sec:par_selection --></a>). <span 
+class="cmtt-10">par.selection.FAbsTol </span>is a real scalar,
+or a real vector of positive numbers whose length is equal to the number of parameters. <span 
+class="cmmi-10">FAbsTol </span>is padded with
+zeros if it is a vector and its length is less than the number of parameters. Extra entries exceeding the number of
+parameters are truncated. Relative tolerances analogous to Ferret&#8217;s <span 
+class="cmtt-10">par.selection.FRelTol </span>parameter are not
+currently supported.
+<!--l. 5856--><p class="noindent" ><span 
+class="cmtt-10">par.general.FAbsTol </span>makes objectives &#8216;fuzzy&#8217; and SAMOSA will not distinguish between vertices that differ in
+fitness by less than <span 
+class="cmtt-10">par.general.FAbsTol </span>when computing vertex rank or adding vertices to the set of optimal
+solutions. FAbsTol is applied to all objectives for multi-objective problems. Running SAMOSA with
+<span 
+class="cmtt-10">par.general.FAbsTol &#x003E; 0 </span>is somewhat like running Ferret in a mapping mode, with <span 
+class="cmtt-10">par.selection.FAbsTol &#x003E;</span>
+<span 
+class="cmtt-10">0</span>.
+<a 
+ id="dx102-152019"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 5861--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">9.10.4   </span> <a 
+ id="x102-1530009.10.4"></a>par.simplex</h4>
+<a 
+ id="dx102-153001"></a>
+<!--l. 5865--><p class="noindent" >A simplex moves by a sequence of reflections, single-vertex expansions away from the centroid, single-vertex
+contractions toward the centroid, and multi-vertex contractions toward the best vertex. The <span 
+class="cmtt-10">par.simplex </span>field gives
+a few options that control how the simplex explores the parameter space.
+<!--l. 5878--><p class="noindent" ><span 
+class="colorbox" id="colorbox106"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Simplex</span><br /><span 
+class="cmtt-10">par.simplex.focusOnPolishing=false;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[logical]:</span><span 
+class="cmtt-10">&#x00A0;true</span><span 
+class="cmtt-10">&#x00A0;--&#x003E;</span><span 
+class="cmtt-10">&#x00A0;more</span><span 
+class="cmtt-10">&#x00A0;thorough</span><span 
+class="cmtt-10">&#x00A0;exploration.</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML108x.png" alt="     `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;false</span><span 
+class="cmtt-10">&#x00A0;--&#x003E;</span><span 
+class="cmtt-10">&#x00A0;efficient</span><span 
+class="cmtt-10">&#x00A0;polishing.</span><br /><span 
+class="cmtt-10">par.simplex.contractFactor=0.79;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[0</span><span 
+class="cmtt-10">&#x00A0;-</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Factor</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;contract</span><span 
+class="cmtt-10">&#x00A0;by</span><span 
+class="cmtt-10">&#x00A0;on</span><span 
+class="cmtt-10">&#x00A0;contraction</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML109x.png" alt="                                                                                                                                    `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;steps.</span><br /><span 
+class="cmtt-10">par.simplex.expandFactor=2;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real</span><span 
+class="cmtt-10">&#x00A0;&#x003E;</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Factor</span><span 
+class="cmtt-10">&#x00A0;to</span><span 
+class="cmtt-10">&#x00A0;expand</span><span 
+class="cmtt-10">&#x00A0;by</span><span 
+class="cmtt-10">&#x00A0;on</span><span 
+class="cmtt-10">&#x00A0;expansion</span><span 
+class="cmtt-10">&#x00A0;steps.</span><br /><span 
+class="cmtt-10">par.simplex.PKick=0.1;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real</span><span 
+class="cmtt-10">&#x00A0;&#x003E;</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;Probability</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;a</span><span 
+class="cmtt-10">&#x00A0;mutation-like</span><span 
+class="cmtt-10">&#x00A0;kick.</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML110x.png" alt="                                                                                                                                                                                                                                                                                                                      `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;Improves</span><span 
+class="cmtt-10">&#x00A0;exploration.</span></div>
+</div></span>
+<!--l. 5884--><p class="noindent" ><span 
+class="cmtt-10">par.simplex.expandFactor </span>is a number greater than 1 that controls how much a vertex expands away from the
+centroid on an expansion step:
+<table 
+class="equation"><tr><td><a 
+ id="x102-153010r6"></a>
+<center class="math-display" >
+<img 
+src="QubistHTML111x.png" alt="Xnew = Xcentroid + expandFactor*(X - Xcentroid);  single- vertex expansion
+" class="math-display" ></center></td><td class="equation-label">(9.6)</td></tr></table>
+<!--l. 5887--><p class="nopar" >
+Practically no expansion takes place when expandFactor approaches 1, and the expansion is greater as expandFactor
+increases. The default setting is <span 
+class="cmmi-10">expandFactor </span>= 2, which doubles the distance of a vertex from the
+centroid.
+<!--l. 5890--><p class="noindent" ><span 
+class="cmtt-10">par.simplex.contractFactor </span>is a number between 0 and 1 that controls the amount of contraction of a vertex on
+a contraction step: <div class="eqnarray">
+<center class="math-display" >
+<img 
+src="QubistHTML112x.png" alt="Xnew  =  Xcentroid + contractF actor* (X - Xcentroid); single - vertex contraction
+Xnew  =  Xbest + contractF actor* (X - Xbest);  multi- vertex contraction          (9.7)
+" class="math-display" ></center>
+</div>Clearly, the simplex contracts all the way to <span 
+class="cmmi-10">X</span><sub><span 
+class="cmmi-7">centroid</span></sub> or <span 
+class="cmmi-10">X</span><sub><span 
+class="cmmi-7">best</span></sub> when <span 
+class="cmmi-10">contractFactor </span>= 0, and no contraction takes
+                                                                                         
+
+                                                                                         
+place when <span 
+class="cmmi-10">contractFactor </span>= 1. I find it useful to have the contractions relatively slow compared to the expansions,
+since it seems less likely that good solutions will be missed this way. I have the default set to 0.79,
+but this value is far from certain, and it is definitely a good control parameter to explore on your
+problem.
+<!--l. 5897--><p class="noindent" ><span 
+class="cmtt-10">par.simplex.PKick </span>is the probability that the simplex will receive a mutation-like kick to its non-optimal vertices.
+This operation is not done in a standard implementation of the simplex algorithm, but I find that occasional
+random kicks can help to bump the simplex out of a local minimum and improve the global search. Since it is a
+probability, <span 
+class="cmtt-10">par.simplex.PKick </span>must be between 0 and 1. This &#8216;kick&#8217; operator should be used sparingly because it
+effectively randomizes all vertices of the simplex except for the one with the best fitness, which can be disruptive to
+the search if overdone, and significantly increases the required number of evaluations of the fitness function. I
+prefer a value of <span 
+class="cmtt-10">par.simplex.PKick=0.1</span>, which is set as the default. Some problems with many
+local minima may benefit from a higher setting, but easier searches may not require this feature at
+all.
+<!--l. 5899--><p class="noindent" ><span 
+class="cmtt-10">par.simplex.focusOnPolishing </span>tells SAMOSA which of two modes that it should use for multi-objective
+optimization:
+     <ul class="itemize1">
+     <li class="itemize">
+     Standard
+     mode
+     (<span 
+class="cmtt-10">par.simplex.focusOnPolishing=false</span>):
+     The
+     simplex
+     will
+     attempt
+     to
+     map
+     out
+     the
+     Pareto
+     front
+     of
+     your
+     problem.
+     You
+     will
+     probably
+     see
+     the
+     simplex
+     wandering
+     around
+     on
+     the
+     trade-off
+     surface,
+                                                                                         
+
+                                                                                         
+     accumulating
+     points
+     into
+     <span 
+class="cmmi-10">OptimalSolutions</span>,
+     until
+     it
+     finally
+     settles
+     down
+     to
+     some
+     point
+     on
+     the
+     surface.
+     This
+     is
+     a
+     good
+     mode
+     for
+     running
+     SAMOSA
+     as
+     a
+     standalone
+     optimizer.
+     </li>
+     <li class="itemize">
+     <a 
+ id="dx102-153012"></a>
+     <a 
+ id="dx102-153013"></a>Polish
+     mode
+     (<span 
+class="cmtt-10">par.simplex.focusOnPolishing=true</span>):
+     SAMOSA
+     will
+     &#8216;target&#8217;
+     the
+     nearest
+     point
+     that
+     it
+     &#8216;sees&#8217;
+     on
+     the
+     Pareto
+     front
+                                                                                         
+
+                                                                                         
+     and
+     zero
+     in
+     on
+     it.
+     The
+     simplex
+     will
+     not
+     wander
+     the
+     trade-off
+     surface
+     nor
+     try
+     to
+     map
+     it.
+     This
+     feature
+     makes
+     SAMOSA
+     a
+     very
+     powerful
+     polisher
+     for
+     multi-objective
+     problems
+     where
+     the
+     goal
+     is
+     to
+     improve
+     the
+     quality
+     of
+     each
+     solution
+     on
+     an
+     already
+     mapped-out
+     trade-off
+     surface.
+     <span 
+class="cmti-10">Note</span>
+     <span 
+class="cmti-10">that</span>
+                                                                                         
+
+                                                                                         
+     <span 
+class="cmti-10">polish</span>
+     <span 
+class="cmti-10">mode</span>
+     <span 
+class="cmti-10">is</span>
+     <span 
+class="cmti-10">configured</span>
+     <span 
+class="cmti-10">automatically</span>
+     <span 
+class="cmti-10">whenever</span>
+     <span 
+class="cmti-10">SAMOSA</span>
+     <span 
+class="cmti-10">is</span>
+     <span 
+class="cmti-10">started</span>
+     <span 
+class="cmti-10">as</span>
+     <span 
+class="cmti-10">a</span>
+     <span 
+class="cmti-10">polisher,</span>
+     <span 
+class="cmti-10">and</span>
+     <span 
+class="cmti-10">this</span>
+     <span 
+class="cmti-10">over-rides</span>
+     <span 
+class="cmti-10">any</span>
+     <span 
+class="cmti-10">settings</span>
+     <span 
+class="cmti-10">in</span>
+     <span 
+class="cmti-10">the</span>
+     <span 
+class="cmti-10">SAMOSA</span><span 
+class="cmti-10">_setup</span>
+     <span 
+class="cmti-10">file.</span></li></ul>
+<!--l. 5904--><p class="noindent" >I regard this ability to toggle between modes as the most innovative feature of SAMOSA. Finally, I note that the
+<span 
+class="cmmi-10">focusOnPolishing </span>setting has no effect on single-objective problems.
+<a 
+ id="dx102-153014"></a>
+<!--l. 5909--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">9.10.5   </span> <a 
+ id="x102-1540009.10.5"></a>par.stopping</h4>
+<a 
+ id="dx102-154001"></a>
+<!--l. 5913--><p class="noindent" >Section <a 
+href="QubistHTMLse69.html#x98-1450009.6.3">9.6.3<!--tex4ht:ref: sec:customStoppingSAMOSA --></a> showed how to implement a customized stopping criterion for SAMOSA. However, the <span 
+class="cmtt-10">par.stopping</span>
+section of the setup file gives the user access to some built-in options to stop a run.
+<!--l. 5926--><p class="noindent" ><span 
+class="colorbox" id="colorbox107"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Stopping</span><br /><span 
+class="cmtt-10">par.stopping.maxNMoves=1000;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer</span><span 
+class="cmtt-10">&#x00A0;&#x003E;</span><span 
+class="cmtt-10">&#x00A0;0]:</span><span 
+class="cmtt-10">&#x00A0;Maximum</span><span 
+class="cmtt-10">&#x00A0;number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;simplex</span><span 
+class="cmtt-10">&#x00A0;moves.</span><br /><span 
+class="cmtt-10">par.stopping.maxFEval=NaN;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[Integer</span><span 
+class="cmtt-10">&#x00A0;&#x003E;</span><span 
+class="cmtt-10">&#x00A0;0]:</span><span 
+class="cmtt-10">&#x00A0;Maximum</span><span 
+class="cmtt-10">&#x00A0;number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;function</span><span 
+class="cmtt-10">&#x00A0;evaluations</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <span 
+class="cmtt-10">(approximate).</span><br /><span 
+class="cmtt-10">par.stopping.XTol=[0;0];</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real</span><span 
+class="cmtt-10">&#x00A0;vector,</span><span 
+class="cmtt-10">&#x00A0;length=number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;parameters]:</span><span 
+class="cmtt-10">&#x00A0;Stop</span><span 
+class="cmtt-10">&#x00A0;if</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML113x.png" alt="                                                                                                                                                                                         `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;simplex</span><span 
+class="cmtt-10">&#x00A0;smaller</span><span 
+class="cmtt-10">&#x00A0;than</span><span 
+class="cmtt-10">&#x00A0;XTol</span><span 
+class="cmtt-10">&#x00A0;in</span><span 
+class="cmtt-10">&#x00A0;ALL</span><span 
+class="cmtt-10">&#x00A0;dimensions.</span><br /><span 
+class="cmtt-10">par.stopping.FTol=0;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[real</span><span 
+class="cmtt-10">&#x00A0;vector,</span><span 
+class="cmtt-10">&#x00A0;length=number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;objectives]:</span><span 
+class="cmtt-10">&#x00A0;Stop</span><span 
+class="cmtt-10">&#x00A0;if</span><span 
+class="cmtt-10">&#x00A0;values</span><span 
+class="cmtt-10">&#x00A0;</span><span 
+class="cmsy-10">&#x2198;</span><br />      <img 
+src="QubistHTML114x.png" alt="                                                                                                                                                                                                                                                                                                                                     `&#x2192;"  class="hookrightarrow" ><span 
+class="cmtt-10">&#x00A0;constrained</span><span 
+class="cmtt-10">&#x00A0;within</span><span 
+class="cmtt-10">&#x00A0;FTol</span><span 
+class="cmtt-10">&#x00A0;in</span><span 
+class="cmtt-10">&#x00A0;ALL</span><span 
+class="cmtt-10">&#x00A0;objectives.</span></div>
+</div></span>
+<!--l. 5932--><p class="noindent" >Without triggering any early-stop mechanism, a SAMOSA run will go for a maximum of <span 
+class="cmtt-10">par.stopping.maxNMoves</span>
+moves. The default value of 1000 moves is reasonable for many problems, but this could be set higher or lower
+depending on the difficulty of the problem. You can also stop the run after a certain number of function evaluations
+by setting <span 
+class="cmtt-10">par.stopping.maxFEval </span>to the desired number. Note that this number may not be exact; for example, if
+the final step is a multi-point contraction, then SAMOSA <span 
+class="cmti-10">must </span>evaluate all of the vertices that moved before
+shutting down. However, no new moves will be made once the number of solutions evaluated by the fitness function
+is greater than <span 
+class="cmtt-10">par.stopping.maxFEval</span>, which occurs when SAMOSA detects that (<span 
+class="cmtt-10">simplex.evalCount &#x003E;</span>
+<span 
+class="cmtt-10">par.stopping.maxFEval</span>).
+<!--l. 5934--><p class="noindent" >The stopping tolerances <span 
+class="cmtt-10">par.stopping.XTol </span>and <span 
+class="cmtt-10">par.stopping.FTol </span>are represented in the simplex structure as
+<span 
+class="cmtt-10">simplex.tol.X </span>and <span 
+class="cmtt-10">simplex.tol.F</span>, and control the built-in stopping mechanism based on tolerances in <span 
+class="cmmi-10">X </span>and <span 
+class="cmmi-10">F</span>.
+                                                                                         
+
+                                                                                         
+Equations <a 
+href="QubistHTMLse69.html#x98-144003r2">9.2<!--tex4ht:ref: eq:XTol --></a> and <a 
+href="QubistHTMLse69.html#x98-144004r3">9.3<!--tex4ht:ref: eq:FTol --></a> give the exact stopping conditions.
+<a 
+ id="dx102-154010"></a>
+<!--l. 5939--><p class="noindent" >
+<h4 class="subsectionHead"><span class="titlemark">9.10.6   </span> <a 
+ id="x102-1550009.10.6"></a>par.interface</h4>
+<a 
+ id="dx102-155001"></a>
+<!--l. 5943--><p class="noindent" >The <span 
+class="cmtt-10">par.interface </span>section of the SAMOSA setup file contains options that affect how things are displayed in the
+SAMOSA window and on the MATLAB command line. Many of these settings are identical to their counterparts in
+the Ferret setup file, so this discussion will be brief.
+<!--l. 5964--><p class="noindent" ><span 
+class="colorbox" id="colorbox108"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">%</span><span 
+class="cmtt-10">&#x00A0;Graphics</span><span 
+class="cmtt-10">&#x00A0;&amp;</span><span 
+class="cmtt-10">&#x00A0;messages</span><br /><span 
+class="cmtt-10">par.interface.verbose=1;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer:</span><span 
+class="cmtt-10">&#x00A0;-1,</span><span 
+class="cmtt-10">&#x00A0;0,</span><span 
+class="cmtt-10">&#x00A0;1,</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;2]:</span><span 
+class="cmtt-10">&#x00A0;Verbose</span><span 
+class="cmtt-10">&#x00A0;output?</span><br /><span 
+class="cmtt-10">par.interface.graphics=1;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer:</span><span 
+class="cmtt-10">&#x00A0;1</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;-1]:</span><span 
+class="cmtt-10">&#x00A0;Graphics</span><span 
+class="cmtt-10">&#x00A0;on</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;off?</span><br /><span 
+class="cmtt-10">par.interface.plotStep=1;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer</span><span 
+class="cmtt-10">&#x00A0;&#x003E;</span><span 
+class="cmtt-10">&#x00A0;0]:</span><span 
+class="cmtt-10">&#x00A0;Number</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;steps</span><span 
+class="cmtt-10">&#x00A0;between</span><span 
+class="cmtt-10">&#x00A0;plot</span><span 
+class="cmtt-10">&#x00A0;updates.</span><br /><span 
+class="cmtt-10">par.interface.myColorMap=&#8217;bone&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[string:</span><span 
+class="cmtt-10">&#x00A0;colormap</span><span 
+class="cmtt-10">&#x00A0;name]</span><span 
+class="cmtt-10">&#x00A0;User</span><span 
+class="cmtt-10">&#x00A0;choice</span><span 
+class="cmtt-10">&#x00A0;for</span><span 
+class="cmtt-10">&#x00A0;colormap.</span><br /><span 
+class="cmtt-10">par.interface.myPlot=&#8217;&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[string]:</span><span 
+class="cmtt-10">&#x00A0;Name</span><span 
+class="cmtt-10">&#x00A0;of</span><span 
+class="cmtt-10">&#x00A0;custom</span><span 
+class="cmtt-10">&#x00A0;plot</span><span 
+class="cmtt-10">&#x00A0;function.</span><br /><span 
+class="cmtt-10">par.interface.fontUnits=&#8217;points&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[string]:</span><span 
+class="cmtt-10">&#x00A0;Must</span><span 
+class="cmtt-10">&#x00A0;be</span><span 
+class="cmtt-10">&#x00A0;&#8217;points&#8217;</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;&#8217;pixels&#8217;.</span><br /><span 
+class="cmtt-10">par.interface.titleFontSize=12;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer</span><span 
+class="cmtt-10">&#x00A0;&#x003E;=</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Self-explanatory.</span><br /><span 
+class="cmtt-10">par.interface.labelFontSize=10;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer</span><span 
+class="cmtt-10">&#x00A0;&#x003E;=</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Self-explanatory.</span><br /><span 
+class="cmtt-10">par.interface.axisFontSize=8;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[integer</span><span 
+class="cmtt-10">&#x00A0;&#x003E;=</span><span 
+class="cmtt-10">&#x00A0;1]:</span><span 
+class="cmtt-10">&#x00A0;Self-explanatory.</span><br /><span 
+class="cmtt-10">par.interface.xAxis.type=&#8217;X&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[string:</span><span 
+class="cmtt-10">&#x00A0;&#8217;X&#8217;</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;&#8217;F&#8217;]:</span><span 
+class="cmtt-10">&#x00A0;Default</span><span 
+class="cmtt-10">&#x00A0;X-axis</span><span 
+class="cmtt-10">&#x00A0;type</span><br /><span 
+class="cmtt-10">par.interface.xAxis.value=1;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[1,</span><span 
+class="cmtt-10">&#x00A0;NPar]</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;[1,NObj]:</span><span 
+class="cmtt-10">&#x00A0;Default</span><span 
+class="cmtt-10">&#x00A0;X-axis</span><span 
+class="cmtt-10">&#x00A0;variable</span><br /><span 
+class="cmtt-10">par.interface.yAxis.type=&#8217;X&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[string:</span><span 
+class="cmtt-10">&#x00A0;&#8217;X&#8217;</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;&#8217;F&#8217;]:</span><span 
+class="cmtt-10">&#x00A0;Default</span><span 
+class="cmtt-10">&#x00A0;Y-axis</span><span 
+class="cmtt-10">&#x00A0;type</span><br /><span 
+class="cmtt-10">par.interface.yAxis.value=2;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[1,</span><span 
+class="cmtt-10">&#x00A0;NPar]</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;[1,NObj]:</span><span 
+class="cmtt-10">&#x00A0;Default</span><span 
+class="cmtt-10">&#x00A0;Y-axis</span><span 
+class="cmtt-10">&#x00A0;variable</span><br /><span 
+class="cmtt-10">par.interface.zAxis.type=&#8217;F&#8217;;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[string:</span><span 
+class="cmtt-10">&#x00A0;&#8217;X&#8217;</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;&#8217;F&#8217;]:</span><span 
+class="cmtt-10">&#x00A0;Default</span><span 
+class="cmtt-10">&#x00A0;Z-axis</span><span 
+class="cmtt-10">&#x00A0;type</span><br /><span 
+class="cmtt-10">par.interface.zAxis.value=1;</span><span 
+class="cmtt-10">&#x00A0;%</span><span 
+class="cmtt-10">&#x00A0;[1,</span><span 
+class="cmtt-10">&#x00A0;NPar]</span><span 
+class="cmtt-10">&#x00A0;or</span><span 
+class="cmtt-10">&#x00A0;[1,NObj]:</span><span 
+class="cmtt-10">&#x00A0;Default</span><span 
+class="cmtt-10">&#x00A0;Z-axis</span><span 
+class="cmtt-10">&#x00A0;variable</span></div>
+</div></span>
+<!--l. 5970--><p class="noindent" ><span 
+class="cmtt-10">par.interface.verbose </span>is an integer from 0 to 2 that determines how much output is sent to MATLAB&#8217;s
+command line:
+     <ul class="itemize1">
+     <li class="itemize">
+     <span 
+class="cmtt-10">par.interface.verbose</span>
+     <span 
+class="cmtt-10">&#x003C;</span>
+     <span 
+class="cmtt-10">0</span>:
+     Absolutely
+     no
+     output.
+     </li>
+     <li class="itemize">
+     <span 
+class="cmtt-10">par.interface.verbose=0</span>:
+     Almost
+     no
+     output.
+     </li>
+     <li class="itemize">
+     <span 
+class="cmtt-10">par.interface.verbose=1</span>:
+     (Default
+     setting)
+     SAMOSA
+     reports
+     each
+     step
+     on
+     the
+                                                                                         
+
+                                                                                         
+     fitness
+     value(s)
+     of
+     its
+     best
+     vertex.
+     </li>
+     <li class="itemize">
+     <span 
+class="cmtt-10">par.interface.verbose=2</span>:
+     Like
+     <span 
+class="cmtt-10">par.interface.verbose=1</span>,
+     except
+     that
+     SAMOSA
+     also
+     reports
+     on
+     the
+     <span 
+class="cmti-10">type</span>
+     of
+     the
+     last
+     successful
+     move
+     that
+     was
+     accepted.
+     You
+     will
+     see
+     &#8216;reflect&#8217;,
+     &#8217;expand&#8217;,
+     &#8217;contract1D&#8217;,
+     or
+     &#8216;contractMultiD&#8217;
+     displayed
+     after
+     every
+     successful
+     step.
+     This
+     feature
+     exists
+     mainly
+     because
+     I
+                                                                                         
+
+                                                                                         
+     think
+     it&#8217;s
+     interesting
+     to
+     see
+     what
+     types
+     of
+     moves
+     most
+     often
+     result
+     in
+     improvement.</li></ul>
+<!--l. 5978--><p class="noindent" >Each move in a simplex algorithm requires a lot fewer fitness function evaluations than a generation in genetic
+algorithm. Therefore, it does not always make sense to display every move graphically. <span 
+class="cmtt-10">par.interface.plotStep </span>is
+an integer greater than or equal to 1, which controls the number of moves between updates of the SAMOSA
+window. The interface is updated each move by default: <span 
+class="cmtt-10">par.interface.plotStep=1</span>.
+<!--l. 5980--><p class="noindent" ><span 
+class="cmtt-10">par.interface.graphics </span>is an integer parameter that controls whether graphics are enabled or suppressed.
+Plotting is done by default (<span 
+class="cmtt-10">par.interface.graphics=1</span>), but you can turn plotting off by setting this parameter to
+<span 
+class="cmsy-10">-</span>1. These values are meant to be consistent with Ferret&#8217;s <span 
+class="cmtt-10">par.interface.graphics </span>setting (see Section <a 
+href="QubistHTMLse63.html#x91-1320008.20">8.20<!--tex4ht:ref: sec:par_interface --></a>),
+which also has an intermediate &#8216;low-graphics&#8217; state <span 
+class="cmtt-10">par.interface.graphics=0</span>, but SAMOSA does not use
+<span 
+class="cmtt-10">par.interface.graphics=0</span>. If <span 
+class="cmtt-10">par.interface.graphics=-1</span>, then you can close the SAMOSA interface and your
+project will continue to run on the MATLAB command line. Note that simply closing the SAMOSA window will not
+work when <span 
+class="cmtt-10">par.interface.graphics=1 </span>because the window will be re-initialized and plotting will
+resume!
+<a 
+ id="dx102-155018"></a>
+<!--l. 5984--><p class="noindent" >The remaining fields in the SAMOSA setup file are the same as the corresponding fields in the Ferret setup file.
+Please refer to Section <a 
+href="QubistHTMLse17.html#x32-460004.7">4.7<!--tex4ht:ref: sec:setup --></a> for details.
+<a 
+ id="dx102-155019"></a>
+<a 
+ id="dx102-155020"></a>
+<a 
+ id="dx102-155021"></a>
+<a 
+ id="dx102-155022"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 5992--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse72.html" >prev</a>] [<a 
+href="QubistHTMLse72.html#tailQubistHTMLse72.html" >prev-tail</a>] [<a 
+href="QubistHTMLse73.html" >front</a>] [<a 
+href="QubistHTMLch9.html#QubistHTMLse73.html" >up</a>] </p></div>
+<!--l. 5992--><p class="noindent" ><a 
+ id="tailQubistHTMLse73.html"></a>  
+</body></html> 

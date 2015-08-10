@@ -1,0 +1,56 @@
+Linkage Learning:
+================
+
+This is simple problem of bounded deception.  The parameters of this 
+problem group naturally in sets of 3 linked parameters called building blocks.
+Each building block represents a subspace that is searched primarily by X-Type
+mutations and crossovers.  The building blocks contribute to the overall fitness
+in a quasi-linear GA-easy fashion.  Building blocks are mixed via BB-Type
+crossovers.
+
+* Also see the demo titled LinkageLearning-BadlyScaled for a more subtle test
+problem in which the building blocks range over 10 orders of magnitude in
+significance.
+
+* This demo uses the multi-linking feature, which is specified by setting
+par.link.PMultiLink > 0.  The other linkage demos use only simple links for
+comparison.
+
+It is helpful with linkage learning problems to delay convergence until after
+most of the building blocks are discovered.  This can be accomplished in
+a variety of ways.
+
+1. Decrease the selection pressure.
+
+2. Turn on niching in X.
+
+3. Use selective mutation (par.mutation.selectiveMutation < 0) to break up
+    clusters
+
+4. Apply a mating restriction (par.XOver.matingRestriction.X < 0) so that
+    matings between nearby individuals are preferred.
+
+5. Try a fuzzy fitness function (par.selection.fuzzyTournamentFrac < 1).
+
+6. A relatively high mutation rate is helpful on linkage learning problems
+    because each mutation is restricted to a subspace defined by a single
+    building block.
+
+7. * A high elitism fraction is NOT helpful on badly scaled problems like this
+    one because it puts too much selection pressure on the most significant BBs.
+    par.elitism.frac should be small or zero.  I suggest a very low value like
+    1e-10, so that there is only one elite in each population per generation.
+
+8.  * CPD should be turned off on badly scaled problems because
+    low-significance BBs will look like BBs that are unimportant to the overall
+    fitness and will be replaced by random numbers.
+
+9.  * The BB XOver operator is the key to these problems, since it contains a
+    built-in BB-specific selection operator.  If the problem might be badly
+    scaled, run in single-BB mode: par.XOverBB.multiBB=0, and take
+    several passes through BB Xover per generation: par.XOverBB.NPass=3.
+
+10. * Badly scaled problems require a very low section pressure
+    par.selection.pressure, because this parameter only influences
+    the net selection pressure on fitness values.  BB selection should normally
+    be run at maximum: par.selection.BBPressure=1.

@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>Ferret&#8217;s Polish Mode: Using Ferret as its Own Polisher</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,frames,3 --> 
+<meta name="src" content="QubistHTML.tex"> 
+<meta name="date" content="2012-02-01 01:22:00"> 
+<link rel="stylesheet" type="text/css" href="QubistHTML.css"> 
+</head><body 
+>
+<!--l. 3971--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse42.html" >prev</a>] [<a 
+href="QubistHTMLse42.html#tailQubistHTMLse42.html" >prev-tail</a>] [<a 
+href="#tailQubistHTMLse43.html">tail</a>] [<a 
+href="QubistHTMLch7.html#QubistHTMLse43.html" >up</a>] </p></div>
+<h3 class="sectionHead"><span class="titlemark">7.3   </span> <a 
+ id="x66-980007.3"></a>Ferret&#8217;s Polish Mode: Using Ferret as its Own Polisher</h3>
+<a 
+ id="dx66-98001"></a>
+<a 
+ id="dx66-98002"></a>
+<!--l. 3976--><p class="noindent" >The &#8216;Modify FerretSetup&#8217; interface also contains a big red button labelled &#8216;Final Polish&#8217;. This is an
+interesting feature that you can use near the end of the run, which turns off most of Ferret&#8217;s parameter
+exploration features and puts the code into a very aggressive mode that zeros in on the best solution or
+solutions in the parameter space. Qubist contains other optimizers that can be used to polish Ferret&#8217;s
+optimal solutions (Anvil, SAMOSA, and SemiGloSS), but I think this is quite an elegant feature that
+effectively turns Ferret into its own polisher. Specifically, the following changes are made to the strategy
+parameters:
+<!--l. 3994--><p class="noindent" ><span 
+class="colorbox" id="colorbox63"> <div class="minipage"><div class="BVerbatimInput"><span 
+class="cmtt-10">par.strategy.isAdaptive=false;</span><br /><span 
+class="cmtt-10">par.selection.PCompete=1;</span><br /><span 
+class="cmtt-10">par.selection.pressure=1;</span><br /><span 
+class="cmtt-10">par.selection.BBPressure=1;</span><br /><span 
+class="cmtt-10">par.selection.FAbsTol=0;</span><br /><span 
+class="cmtt-10">par.selection.FRelTol=0;</span><br /><span 
+class="cmtt-10">par.selection.FRankTol=0;</span><br /><span 
+class="cmtt-10">par.selection.shareFitness=0;</span><br /><span 
+class="cmtt-10">par.XOver.dispersion=0;</span><br /><span 
+class="cmtt-10">par.link.PLink=0;</span><br /><span 
+class="cmtt-10">par.link.FAbsTol=0;</span><br /><span 
+class="cmtt-10">par.link.FRelTol=0;</span><br /><span 
+class="cmtt-10">par.link.FRankTol=0;</span><br /><span 
+class="cmtt-10">par.link.PRandomizeNewBBs=0;</span></div>
+</div></span>
+<!--l. 4000--><p class="noindent" >These changes shut down Ferret&#8217;s auto-adaptation and linkage-learning system, turn off all fuzzy tolerance
+parameters (<span 
+class="cmmi-10">FAbsTol</span>, <span 
+class="cmmi-10">FRelTol</span>, and <span 
+class="cmmi-10">FRankTol</span>), set the competition probability to 100%, and turn the selection
+pressure to maximum. If you are running a single-objective parameter-space mapping data-modeling problem like
+the &#8216;Data-Modeling&#8217; demos, you will see the cluster of points mapping the one sigma <span 
+class="cmmi-10">&#x03C7;</span><sup><span 
+class="cmr-7">2</span></sup> surface rapidly
+collapse to a single point near its centre, as Ferret goes hunting for the single lowest <span 
+class="cmmi-10">&#x03C7;</span><sup><span 
+class="cmr-7">2</span></sup> in the parameter
+space.
+<a 
+ id="dx66-98017"></a>
+<a 
+ id="dx66-98018"></a>
+<!--l. 4004--><p class="noindent" >Note that the polish mode modifications given above are in the Qubist user directory and are
+therefore modifiable by users who want to customize their Polish Mode settings. The relevant file is
+[Qubist_Home]/user/Ferret/skins/[mySkin]/setup/modifyFerretSetup.m, where [mySkin] is &#8216;Mac&#8217;, &#8217;Linux&#8217;,
+&#8217;Windows&#8217; or &#8217;Minimalist&#8217;.
+<!--l. 4006--><p class="noindent" ><span 
+class="cmti-10">Despite my warnings in Section </span><a 
+href="QubistHTMLse42.html#x65-970007.2"><span 
+class="cmti-10">7.2</span><!--tex4ht:ref: sec:modPar --></a><span 
+class="cmti-10">, I regard Polish Mode to be safe. </span>Use it whenever you wish.
+<a 
+ id="dx66-98019"></a>
+                                                                                         
+
+                                                                                         
+<!--l. 4012--><div class="crosslinks"><p class="noindent">[<a 
+href="QubistHTMLse42.html" >prev</a>] [<a 
+href="QubistHTMLse42.html#tailQubistHTMLse42.html" >prev-tail</a>] [<a 
+href="QubistHTMLse43.html" >front</a>] [<a 
+href="QubistHTMLch7.html#QubistHTMLse43.html" >up</a>] </p></div>
+<!--l. 4012--><p class="noindent" ><a 
+ id="tailQubistHTMLse43.html"></a>  
+</body></html> 

@@ -1,0 +1,2 @@
+% Note: Callbacks that are *shared* by other optimizers are located inside
+% of the directory: Qubist_Source\shared\graphics\mainWindow\callbacks
