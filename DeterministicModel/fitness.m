@@ -24,5 +24,6 @@ for n=length(X):-1:1
         
         %evaluate using a least-squares
         F(1,n) = sum((realo2Data-evaluations).^2)/numel(realo2Data);
+        pause(0.001);
         
 end
