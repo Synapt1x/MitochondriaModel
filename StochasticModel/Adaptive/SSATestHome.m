@@ -63,7 +63,7 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
         quit_time = all_times(region+1);
         
         % identify all critical reactions
-        [Rjs, aj, a_0] = genRjMitoHome (X(end,:), V,nc, num_rx, active);
+        [Rjs, aj, a_0] = genRjMito (X(end,:), V,nc, num_rx, active);
         
         % epsilon value for each species
         [eis, gis] = genEisMito (0.05, V, X, num_species, num_rx);
