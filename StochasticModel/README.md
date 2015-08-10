@@ -21,4 +21,4 @@ evalCrit.m is used to define the percentage of the initial amount of a species r
 
 amountChanges.m and amountChangesDouble.m update the amount of each species present after a time change of tau prime or tau double prime, respectively. 
 
-genMeanVar.m calculates and returns an estimate for tau prime. 
+genMeanVar.m calculates and returns an estimate for tau prime, using the explicit method. ImplicitTau.m generates and returns an estimate for tau prime, using the implicit method. 
