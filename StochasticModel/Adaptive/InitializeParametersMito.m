@@ -10,7 +10,7 @@ time = 0; % initial time is 0 seconds
 
 times = [0]; % start a vector to hold all times 
 
-red_amt = 1.204 * (10^18)/6; % change back to 10^17
+red_amt = 1.204 * (10^17); % change back to 10^17
 ox_amt = 1.204 * (10^17);
 hp_amt = 1.204 * (10^17);
 hn_amt = 1.204 * (10^18);
