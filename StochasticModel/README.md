@@ -11,6 +11,8 @@ The adaptive folder contains the functions used for the adaptive tau leaping pro
 The most up to date branch is ChangeConstants1
 
 ## Functions
-The main program file is SSATestAdaptiveV2.m. genRj is the function containing a list of parameters and constants for the four mitochondrial reactions. All changes should be made to th constants list (since the parameters were optimized for the deterministic model). 
+The main program file is SSATestAdaptiveV2.m. 
 
+genRj.m is the function containing a list of parameters and constants for the four mitochondrial reactions. All changes should be made to th constants list (since the parameters were optimized for the deterministic model). 
 
+InitializeParametersMito.m allows the user to change the initial amounts of each species. This function also defines the initial time for the reaction (should be kept at 0) and the change of state vectors for each reaction, which are stored in a matrix. All of the following values are returned to the main program. 
