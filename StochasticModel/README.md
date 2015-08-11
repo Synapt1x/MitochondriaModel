@@ -31,3 +31,5 @@ Open the program SSAAdaptiveV2.m. Set a maximum time for each simulation and the
 Open InitializeParametersMito.m. Define an initial amount of each species using the variable list starting with red_amt. Identify the number of species and number of reactions using the variables num_rx and num_species. The change of state vector is stored in the variable V. Each row represents one reaction and each column represents 1 species. 
 
 Open evalCrit.m. Define a percentage required for criticality by changing the nc variable value. The percentage should be defined using decimal form (ex 0.01 is 1%). 
+
+Open genRjMito.m. Change the propensity functions (ajs) for each reaction. These are stored in the vector ajs. The parameters in the propensity functions are defined in this function and should be determined through an optimization method. There is also a list of consants (one for each aj) which the user can define. 
