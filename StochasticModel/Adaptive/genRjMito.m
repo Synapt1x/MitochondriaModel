@@ -31,7 +31,7 @@ f0= 2*6.02*(10^14)*95.3875;
 p4=0.1885;
 
 % constants list (cjs) modified from original best set
-c1=2*(10^-4); % try to change this parameter up and down 8.5 8.834 *(10^-5). Increases in c1 seem to be lowering species 1 cncentration to negative ranges 
+c1=5*(10^-4); % try to change this parameter up and down 8.5 8.834 *(10^-5). Increases in c1 seem to be lowering species 1 cncentration to negative ranges 
 c2=2.65*(10^-2); % stick with 2.65 *(10^-2)
 c3=10^-30; % stick with 10^-30. Higher values slow down the simulation 
 c4=8*(10^-8); % decrease this parameter  2*(10^-8)
@@ -46,7 +46,6 @@ ajs = ([c1*(f0)*species3/species4,...
      (c4*p4*((species4-species3)+(species4*log(species4/(species3)))))]);
 if region>=3
     ajs=abs(ajs);
-    ajs(3)=-ajs(3);
 end
 aj = ajs.*active; % remove inactive reactions 
 
