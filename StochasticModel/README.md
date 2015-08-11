@@ -26,7 +26,7 @@ genMeanVar.m calculates and returns an estimate for tau prime, using the explici
 genTauDoublePrime.m generates and returns an explicit estimate for tau double prime. 
 
 ## User Guide
-Open the program SSAAdaptiveV2.m. Set a maximum time for each simulation and the maximum number of simulations by defining the variables max_rx and num_sims. Also set times for oligo_time, fccp_time and rot_aa_time, which must be less than max_rx. These variables indicate the time at which the specified substance is added. For example if oligo_time is 10 seconds, all times less than 10 seconds wil be in the basal state. 
+Open the program SSAAdaptiveV2.m. Set a maximum time for each simulation and the maximum number of simulations by defining the variables max_rx and num_sims. Also set times for oligo_time, fccp_time and rot_aa_time, which must be less than max_rx. These variables indicate the time at which the specified substance is added. For example if oligo_time is 10 seconds, all times less than 10 seconds wil be in the basal state. For each state of the reaction the vector named active needs to be defined to identify which reactions are active in that time period. A 1 indicates that the reaction is active, and a 0 indicates that the reaction is inactive. The if statement to define these vectors begins on line 48. 
 
 Open InitializeParametersMito.m. Define an initial amount of each species using the variable list starting with red_amt. Identify the number of species and number of reactions using the variables num_rx and num_species. The change of state vector is stored in the variable V. Each row represents one reaction and each column represents 1 species. 
 
