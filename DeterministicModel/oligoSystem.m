@@ -15,10 +15,10 @@ Hp = y(4);
 
 %{
 To decouple the system, complexes I-III activity is instead
-approximated by parameters.f0.*(Hn./Hp)
+approximated by parameters.f0*(Hn/Hp)
 
 Given this, conservation occurs between NADH and NAD, Succ and
-Fum, Q and QH2. Since parameters.f0.*(Hn./Hp) approximates BOTH
+Fum, Q and QH2. Since parameters.f0*(Hn/Hp) approximates BOTH
 forward and reverse we get consumption and production of each
 component in these pairs as equivalent. Thus the other substrates
 do not change in concentration, and we have their time derivatives
@@ -35,15 +35,15 @@ is injected at t = 18.6 m, FCCP starts injection at t = 20.17 m, and
 rot/AA start injection at t = 28.13 m.
 %}
 
-dy(1) = 4*parameters.f0.*(Hn./Hp) - 4*((parameters.Vmax.*O2) ...
-    ./(parameters.Km.*(1+(parameters.K1./Cytcred))+O2))...
-    .*(Hn/Hp); %dCytcred
-dy(2) = -((parameters.Vmax.*O2)./(parameters.Km.* ...
-    (1+(parameters.K1./Cytcred))+O2)).*(Hn/Hp); %dO2
-dy(3) = -12*parameters.f0.*(Hn./Hp) - 4*((parameters.Vmax.*O2)...
-    ./(parameters.Km.*(1+(parameters.K1./Cytcred))+O2)).*(Hn/Hp);%dHn
-dy(4) = 12*parameters.f0.*(Hn./Hp) + 4*((parameters.Vmax.*O2)...
-    ./(parameters.Km.*(1+(parameters.K1./Cytcred))+O2)).*(Hn/Hp);%dHp
+dy(1) = 4*parameters.f0*(Hn/Hp) - 4*((parameters.Vmax*O2) ...
+    /(parameters.Km*(1+(parameters.K1/Cytcred))+O2))...
+    *(Hn/Hp); %dCytcred
+dy(2) = -((parameters.Vmax*O2)/(parameters.Km* ...
+    (1+(parameters.K1/Cytcred))+O2))*(Hn/Hp); %dO2
+dy(3) = -12*parameters.f0*(Hn/Hp) - 8*((parameters.Vmax*O2)...
+    /(parameters.Km*(1+(parameters.K1/Cytcred))+O2))*(Hn/Hp);%dHn
+dy(4) = 12*parameters.f0*(Hn/Hp) + 4*((parameters.Vmax*O2)...
+    /(parameters.Km*(1+(parameters.K1/Cytcred))+O2))*(Hn/Hp);%dHp
 
 dy=dy'; %correct vector orientation
 
