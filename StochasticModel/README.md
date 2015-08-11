@@ -29,3 +29,5 @@ genTauDoublePrime.m generates and returns an explicit estimate for tau double pr
 Open the program SSAAdaptiveV2.m. Set a maximum time for each simulation and the maximum number of simulations by defining the variables max_rx and num_sims. Also set times for oligo_time, fccp_time and rot_aa_time, which must be less than max_rx. These variables indicate the time at which the specified substance is added. For example if oligo_time is 10 seconds, all times less than 10 seconds wil be in the basal state. 
 
 Open InitializeParametersMito.m. Define an initial amount of each species using the variable list starting with red_amt. Identify the number of species and number of reactions using the variables num_rx and num_species. The change of state vector is stored in the variable V. Each row represents one reaction and each column represents 1 species. 
+
+Open evalCrit.m. Define a percentage required for criticality by changing the nc variable value. The percentage should be defined using decimal form (ex 0.01 is 1%). 
