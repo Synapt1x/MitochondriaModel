@@ -34,7 +34,7 @@ p4=0.1885;
 c1=7*(10^-4); % try to change this parameter up and down 8.5 8.834 *(10^-5). Increases in c1 seem to be lowering species 1 cncentration to negative ranges 
 c2=5*(10^-2); % stick with 2.65 *(10^-2)
 c3=10^-30; % stick with 10^-30. Higher values slow down the simulation 
-c4=2*(10^-7); % decrease this parameter  2*(10^-8)
+c4=4*(10^-8); % decrease this parameter  2*(10^-8)
 
 % find ajs for each reaction and store in a vector. These need to be
 % changes based on the reactions defined in initializeParameters. Each aj
