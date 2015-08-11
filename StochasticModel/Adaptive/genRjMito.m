@@ -1,4 +1,4 @@
-function [Rjs, aj, a_0] = genRjMito (X0, V, nc, numRxns, active)
+function [Rjs, aj, a_0] = genRjMito (X0, V, nc, numRxns, active, region)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % generates Ls values for each reaction in order to determine whether the
 % reaction is critical. If there are critical reactions, the function
@@ -31,7 +31,7 @@ f0= 2*6.02*(10^14)*95.3875;
 p4=0.1885;
 
 % constants list (cjs) modified from original best set
-c1=7*(10^-4); % try to change this parameter up and down 8.5 8.834 *(10^-5). Increases in c1 seem to be lowering species 1 cncentration to negative ranges 
+c1=9.5*(10^-5); % try to change this parameter up and down 8.5 8.834 *(10^-5). Increases in c1 seem to be lowering species 1 cncentration to negative ranges 
 c2=2.65*(10^-2); % stick with 2.65 *(10^-2)
 c3=10^-30; % stick with 10^-30. Higher values slow down the simulation 
 c4=8*(10^-8); % decrease this parameter  2*(10^-8)
@@ -40,10 +40,13 @@ c4=8*(10^-8); % decrease this parameter  2*(10^-8)
 % changes based on the reactions defined in initializeParameters. Each aj
 % is the partial derivative of that reaction
 
-ajs = abs([c1*(f0)*species3/species4,...
+ajs = ([c1*(f0)*species3/species4,...
      (c2*(vmax*species2)/((km*(1+(k1/species1)))+species2))*(species3/species4),...
      (c3*species4*((p1*(species4/(species3)))/((species4/(species3))+p2+(p3/(species3))))),...
      (c4*p4*((species4-species3)+(species4*log(species4/(species3)))))]);
+if region>=3
+    ajs=abs(ajs);
+end
 aj = ajs.*active; % remove inactive reactions 
 
 a_0 = sum(aj); 
