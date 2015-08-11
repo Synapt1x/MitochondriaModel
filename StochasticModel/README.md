@@ -25,6 +25,8 @@ genMeanVar.m calculates and returns an estimate for tau prime, using the explici
 
 genTauDoublePrime.m generates and returns an explicit estimate for tau double prime. 
 
+TauAndJGen.m generates a time leap and selects a reactin for each SSA Step.
+
 ## User Guide
 Open the program SSAAdaptiveV2.m. Set a maximum time for each simulation and the maximum number of simulations by defining the variables max_rx and num_sims. Also set times for oligo_time, fccp_time and rot_aa_time, which must be less than max_rx. These variables indicate the time at which the specified substance is added. For example if oligo_time is 10 seconds, all times less than 10 seconds wil be in the basal state. For each state of the reaction the vector named active needs to be defined to identify which reactions are active in that time period. A 1 indicates that the reaction is active, and a 0 indicates that the reaction is inactive. The if statement to define these vectors begins on line 48. 
 
