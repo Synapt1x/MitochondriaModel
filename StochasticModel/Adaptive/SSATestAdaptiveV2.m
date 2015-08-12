@@ -173,7 +173,7 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
                         [X0] = amountChangesDouble(X0, aj, V, tau, Rjs, num_rx);
                         %[X0] = ImplicitXX(X, V, X0, tau, num_rx);
                     else % calculations for explicit
-                        [X0] = amountChangesDouble(X0, aj, V, tau, Rjs, num_rx);
+                        [X0] = amountChangesDouble(X0, aj, V, tau, Rjs, num_rx, region);
                     end
                     time = time + tau; % find new time by adding tau to previous time
                     % if time is greater than the max time, correct it
