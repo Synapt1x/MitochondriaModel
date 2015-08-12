@@ -19,7 +19,7 @@ genMeanVar.m calculates and returns an estimate for tau prime, using the explici
 
 genTauTwo.m generates and returns an explicit estimate for tau double prime. 
 
-TauAndJGen.m generates a time leap and selects a reactin for each SSA Step.
+TauAndJGen.m generates a time leap and selects a reaction for each SSA Step.
 
 StepsMeanVarMito.m generates moving averages for plotting and returns the variances for each species amount. 
 
