@@ -23,7 +23,7 @@ tau_prime = 0;
 all_values = [];
 
 
-% define time intervals for the various substrates. Befre oligo time, thre
+% define time intervals for the various substrates. Before oligo time, there
 % is basal respiration
 oligo_time = 121.8; % oligomycin is added at oligo time
 fccp_time = 271.8; % FCCP is added at fccp time

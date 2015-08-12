@@ -23,7 +23,7 @@ for num=1:numCrit
     Vrow = V(num,:);
     indsReac = nonPros{num};
     if num==2
-        top=ajc(num)/5;
+        top=ajc(num)/2.5;
     else
         top = ajc(num);
     end
