@@ -23,7 +23,7 @@ for num=1:numCrit
     Vrow = V(num,:);
     indsReac = nonPros{num};
     if region==2 && num==2
-        top=ajc(num)/10;
+        top=ajc(num)/3;
     else
         top = ajc(num);
     end
