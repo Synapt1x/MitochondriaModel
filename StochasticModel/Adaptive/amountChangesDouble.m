@@ -1,4 +1,4 @@
-function [X0] = amountChangesDouble(X0, aj, V, tau, Rjs, numRxns)
+function [X0] = amountChangesDouble(X0, aj, V, tau, Rjs, numRxns, region)
 %{
 Calculates changes in the amounts of all species. Selects one critical
 reaction to occur once. All other critical reactions occur 0 times in time
@@ -22,8 +22,8 @@ prob = 0; % start probability at 0
 for num=1:numCrit
     Vrow = V(num,:);
     indsReac = nonPros{num};
-    if num==2
-        top=ajc(num)/2.5;
+    if region==2
+        top=ajc(num)/10;
     else
         top = ajc(num);
     end
