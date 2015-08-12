@@ -22,7 +22,7 @@ prob = 0; % start probability at 0
 for num=1:numCrit
     Vrow = V(num,:);
     indsReac = nonPros{num};
-    if region==2
+    if region==2 && num==2
         top=ajc(num)/10;
     else
         top = ajc(num);
