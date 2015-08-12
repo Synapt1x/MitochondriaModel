@@ -31,3 +31,5 @@ Open InitializeParametersMito.m. Define an initial amount of each species using 
 Open evalCrit.m. Define a percentage required for criticality by changing the nc variable value. The percentage should be defined using decimal form (ex 0.01 is 1%). The range for criticality should be between 0.5-5%. 
 
 Open genRjMito.m. Change the propensity functions (ajs) for each reaction. These are stored in the vector ajs. The parameters in the propensity functions are defined in this function and should be determined through an optimization method. The parameters should be scaled using dimensional analysis. There is also a list of constants (one for each aj), which the user can define. 
+
+To format the plots, change the list of species names in the cells titles and Ylabs. mean_xs_num should also be divided by a constant (in the range of 10^14) to reduce the scale of the y axis for plotting. The subplots in the for loop beginning n line 160 should have enough rows and columns (4 and 2 respectively) to plot each species. The organization and number of rows/columns can be changed on line 261. 
