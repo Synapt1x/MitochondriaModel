@@ -22,7 +22,12 @@ prob = 0; % start probability at 0
 for num=1:numCrit
     Vrow = V(num,:);
     indsReac = nonPros{num};
-    prob = prob + (ajc(num) / a0c); % probability to be tested is sum of all previous probabilities
+    if num==2
+        top=ajc(num)/5;
+    else
+        top = ajc(num);
+    end
+    prob = prob + (top / a0c); % probability to be tested is sum of all previous probabilities
     probs(num) = prob; % store probability for given reaction
 end
 
