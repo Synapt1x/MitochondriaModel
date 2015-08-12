@@ -2,13 +2,7 @@
 
 ## Folders and Branches
 This folder houses the stochastic model created for my masters project. The development of this model was heavily assisted
-by Ella Thomson.
-
-The explicit folder contains the functions used for the explicit tau leaping procedure.
-
-The adaptive folder contains the functions used for the adaptive tau leaping procedure (which alternates between explicit and implicit tau leaping). This folder also contains the procedures used in the biological experiments and for matlab programming. 
-
-The most up to date branch is ChangeConstants1
+by Ella Thomson. The explicit folder contains the functions used for the explicit tau leaping procedure. The adaptive folder contains the functions used for the adaptive tau leaping procedure (which alternates between explicit and implicit tau leaping). The adaptive folder also contains the procedures used in the biological experiments and for matlab programming. The most up to date branch is ChangeConstants1. Previous versions are in the master branch. 
 
 ## Functions
 The main program file is SSATestAdaptiveV2.m. 
