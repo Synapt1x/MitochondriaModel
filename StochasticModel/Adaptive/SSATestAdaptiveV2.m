@@ -170,10 +170,10 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
                     % amount each species changes if tau is tau double prime
                     % (only one critical reaction can occur)
                     if (implicit ==1) % calculations for implicit
-                        [X0] = amountChangesDouble(X0, aj, V, tau, Rjs, num_rx);
+                        [X0] = changesDouble(X0, aj, V, tau, Rjs, num_rx, region);
                         %[X0] = ImplicitXX(X, V, X0, tau, num_rx);
                     else % calculations for explicit
-                        [X0] = amountChangesDouble(X0, aj, V, tau, Rjs, num_rx, region);
+                        [X0] = changesDouble(X0, aj, V, tau, Rjs, num_rx, region);
                     end
                     time = time + tau; % find new time by adding tau to previous time
                     % if time is greater than the max time, correct it
