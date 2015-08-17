@@ -23,13 +23,13 @@ tau_prime = 0;
 all_values = [];
 
 
-% define time intervals for the various substrates. Befre oligo time, thre
+% define time intervals for the various substrates. Before oligo time, there
 % is basal respiration
 oligo_time = 121.8; % oligomycin is added at oligo time
 fccp_time = 271.8; % FCCP is added at fccp time
 rot_aa_time = 432;  % rotenone and antimycin a are addedat rot aa time
 
-all_times = [0 121.8 271.8 432 600]; 
+all_times = [0 121.8 271.8 432 600]; % vector to store all changes in reaction times
 
 for n = 1:num_sims % loop through all simulations. Plot after each sim
     
@@ -63,7 +63,7 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
         quit_time = all_times(region+1);
         
         % identify all critical reactions
-        [Rjs, aj, a_0] = genRjMito (X(end,:), V,nc, num_rx, active);
+        [Rjs, aj, a_0] = genRjMito (X(end,:), V,nc, num_rx, active, region);
         
         % epsilon value for each species
         [eis, gis] = genEisMito (0.05, V, X, num_species, num_rx);
@@ -170,10 +170,10 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
                     % amount each species changes if tau is tau double prime
                     % (only one critical reaction can occur)
                     if (implicit ==1) % calculations for implicit
-                        [X0] = amountChangesDouble(X0, aj, V, tau, Rjs, num_rx);
+                        [X0] = changesDouble(X0, aj, V, tau, Rjs, num_rx, region);
                         %[X0] = ImplicitXX(X, V, X0, tau, num_rx);
                     else % calculations for explicit
-                        [X0] = amountChangesDouble(X0, aj, V, tau, Rjs, num_rx);
+                        [X0] = changesDouble(X0, aj, V, tau, Rjs, num_rx, region);
                     end
                     time = time + tau; % find new time by adding tau to previous time
                     % if time is greater than the max time, correct it
