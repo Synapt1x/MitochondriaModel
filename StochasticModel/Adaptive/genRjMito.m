@@ -34,23 +34,29 @@ p4=0.1885;
 if region==1
     c2=2*(10^-2);
     c1=8.83*(10^-5);
+    c3=10^-30;
+    c4=10^-30;
 elseif region==2
     c2=2.64*(10^-8);
     c1 = 8.83*(10^-4);
+    c3=10^-30;
+    c4=10^-30;
 elseif region==3
-    c2=9*(10^-2);
+    c2=1*(10^-1);
     c1 = 8.83*(10^-6);
+    c3=10^-30;
+    c4=8*(10^-8);
 else
     c2=2.64*(10^-18);
     c1 = 8.83*(10^-4);
+    c3=10^-30;
+    c4=10^-8;
 end
-
-   
 % constants list (cjs) modified from original best set
 %c1=8.83*(10^-5); 
 %c2=2.64*(10^-2); 
-c3=10^-30; % stick with 10^-30. Higher values slow down the simulation 
-c4=8*(10^-8); % decrease this parameter  2*(10^-8)
+%c3=10^-30; % stick with 10^-30. Higher values slow down the simulation 
+%c4=8*(10^-8); % decrease this parameter  2*(10^-8)
 
 % find ajs for each reaction and store in a vector. These need to be
 % changes based on the reactions defined in initializeParameters. Each aj
