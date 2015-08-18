@@ -28,5 +28,5 @@ V = [4 0 -12 12 -1 1 -4 0;...
     0 0 1 -1 0 0 0 0; ...
     0 0 1 -1 0 0 0 0]* (10^12); % v values for all reactions
 
-V(1,:) = V(1,:)*(5*(10^-1));
+V(1,:) = V(1,:)*(8*(10^-1));
 num_species = 8; % the number of species involved in all reactions
