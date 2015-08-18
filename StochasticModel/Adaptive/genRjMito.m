@@ -47,8 +47,8 @@ end
 
    
 % constants list (cjs) modified from original best set
-%c1=8.83*(10^-5); % Best value is 5*(10^-4)try to change this parameter up and down 8.5 8.834 *(10^-5). Increases in c1 seem to be lowering species 1 cncentration to negative ranges. 4 *10^-6 
-%c2=2.64*(10^-2); % stick with 2.64 *(10^-2)
+%c1=8.83*(10^-5); 
+%c2=2.64*(10^-2); 
 c3=10^-30; % stick with 10^-30. Higher values slow down the simulation 
 c4=8*(10^-8); % decrease this parameter  2*(10^-8)
 
