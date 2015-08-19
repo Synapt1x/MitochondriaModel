@@ -32,7 +32,7 @@ p4=0.1885;
 
 % constant calculations depend on region
 if region==1
-    c2=2*(10^-2);
+    c2=5*(10^-2);
     c1=8.83*(10^-5);
     c3=10^-30;
     c4=10^-30;
