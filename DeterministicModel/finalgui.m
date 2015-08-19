@@ -150,16 +150,24 @@ newDh = str2double(get(hObject, 'String'));
 handles.parameters.Dh = newDh;
 guidata(hObject,handles);
 
-function radiobutton1_Callback(hObject, eventdata, handles)
+%function for allowing editing in the control parameters
+function enableCont_Callback(hObject, eventdata, handles)
+checkEnable(hObject,handles.allcontEdits);
+
+%function for allowing editing in the control parameters
+function enableExp_Callback(hObject, eventdata, handles)
+checkEnable(hObject,handles.allEdits);
+
+%function for allowing editing in the called textboxes
+function checkEnable(hObject,objectsEnable)
 if (get(hObject,'Value') == get(hObject,'Max'))
-	for ind=1:numel(handles.allcontEdits)
-	    set(handles.allcontEdit{ind},'Enable','on');
+    for ind=1:numel(objectsEnable)
+	set(objectsEnable{ind},'Enable','on');
     end
 else
-    for ind=1:numel(handles.allcontEdits)
-        set(handles.allcontEdit{ind},'Enable','inactive');
+    for ind=1:numel(objectsEnable)
+        set(objectsEnable{ind},'Enable','inactive');
     end
-end
 
 function loadparams_Callback(hObject,eventdata,handles)
 folder = fileparts(which(mfilename)); %get the current folder
