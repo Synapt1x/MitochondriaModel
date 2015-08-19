@@ -272,6 +272,9 @@ for pl = 1:num_species
     hold on
 end
 
+varargout = StochasticGUI(mean_xs_num, times_plot_num);
+
+
 %varsTitles ={'Cyt C Red Variance', 'O2 Variance', 'HN Variance', 'HP Variance', ...
    % 'NADH2 Variance', 'NAD+ Variance', 'Cyt C Ox Variance', 'H2O Variance'};
 
