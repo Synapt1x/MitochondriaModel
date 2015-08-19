@@ -1,4 +1,4 @@
-function varargout = main_gui(varargin)
+function varargout = finalgui(varargin)
 %{
 Created by: Chris Cadonic
 =======================================
@@ -47,7 +47,9 @@ function main_gui_OpeningFcn(hObject, eventdata, handles, varargin)
 handles.output = hObject;
 
 %take in the setup parameters from the 'main.m' function
-handles.parameters = varargin{1};
+if ~isempty(varargin)
+    handles.parameters = varargin{1};
+end
 
 %store all graph handles in the handles structure as an array
 [handles.graphs{1:6}] = deal(handles.Cytc_plot, ...
@@ -151,14 +153,17 @@ handles.parameters.Dh = newDh;
 guidata(hObject,handles);
 
 %% Additional buttons
-
 %function for allowing editing in the control parameters
 function enableCont_Callback(hObject, eventdata, handles)
-checkEnable(hObject,handles.allcontEdits);
+if (get(hObject,'Value')==get(hObject,'Max'))
+    set(handles.V_max_edit,'Enable','on');
+else
+    set(handles.V_max_edit,'Enable','off');
+end;
 
 %function for allowing editing in the control parameters
 function enableExp_Callback(hObject, eventdata, handles)
-checkEnable(hObject,handles.allEdits);
+set(handles.V_max_edit,'Enable','on');
 
 function loadparams_Callback(hObject,eventdata,handles)
 folder = fileparts(which(mfilename)); %get the current folder
@@ -312,7 +317,7 @@ else
     
     %optionally output the figure for the 'save' feature
     varargout{1}=newgraph;
-
+    
 end
 
 %% Change all parameter values
@@ -336,15 +341,3 @@ end
 
 %update the data in the gui
 guidata(hObject,handles);
-
-%function for allowing editing in the called textboxes
-function checkEnable(hObject,objectsEnable)
-if (get(hObject,'Value') == get(hObject,'Max'))
-    for ind=1:numel(objectsEnable)
-	set(objectsEnable{ind},'Enable','on');
-    end
-else
-    for ind=1:numel(objectsEnable)
-        set(objectsEnable{ind},'Enable','inactive');
-    end
-end
