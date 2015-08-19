@@ -347,3 +347,4 @@ else
     for ind=1:numel(objectsEnable)
         set(objectsEnable{ind},'Enable','inactive');
     end
+end
