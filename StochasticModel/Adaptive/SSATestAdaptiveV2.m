@@ -268,6 +268,8 @@ for pl = 1:num_species
     hold on
 end
 
+
+% open gui to plot oxygen, cyt c red, HP and NAD+
 varargout = StochasticGUI(mean_xs_num, times_plot_num);
 
 
