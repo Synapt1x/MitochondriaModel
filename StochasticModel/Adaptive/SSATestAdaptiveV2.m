@@ -186,15 +186,11 @@ for n = 1:num_sims % loop through all simulations. Plot after each sim
                     %X0(b) = 0;
                     X = [X; X0]; % store all X values in a matrix
                     count = time; % increment number of reactions
-                end
-                
-        end
-    
-        
+                end        
+        end  
     end
     
-    
-    
+   
     
     % all species amounts for one simulation
     XX = transpose(X);
