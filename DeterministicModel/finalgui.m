@@ -54,7 +54,12 @@ handles.parameters = varargin{1};
     handles.O2_plot,handles.OCR_plot,handles.H_N_plot,...
     handles.H_P_plot,handles.protons);
 
-%store all editing text boxes in the handles structure as an array
+%store all control editing text boxes in the handles structure as an array
+[handles.allcontEdits{1:8}] = deal(handles.V_max_cedit, handles.K_1_cedit, ...
+    handles.K_m_cedit,handles.p1_cedit,handles.p2_cedit, ...
+    handles.p3_cedit, handles.f0_cedit,handles.Dh_cedit);
+
+%store all exp editing text boxes in the handles structure as an array
 [handles.allEdits{1:8}] = deal(handles.V_max_edit, handles.K_1_edit, ...
     handles.K_m_edit,handles.p1_edit,handles.p2_edit, ...
     handles.p3_edit, handles.f0_edit,handles.Dh_edit);
@@ -144,6 +149,17 @@ newDh = str2double(get(hObject, 'String'));
 %update the model with this new value
 handles.parameters.Dh = newDh;
 guidata(hObject,handles);
+
+function radiobutton1_Callback(hObject, eventdata, handles)
+if (get(hObject,'Value') == get(hObject,'Max'))
+	for ind=1:numel(handles.allcontEdits)
+	    set(handles.allcontEdit{ind},'Enable','on');
+    end
+else
+    for ind=1:numel(handles.allcontEdits)
+        set(handles.allcontEdit{ind},'Enable','inactive');
+    end
+end
 
 function loadparams_Callback(hObject,eventdata,handles)
 folder = fileparts(which(mfilename)); %get the current folder
