@@ -76,6 +76,8 @@ setParams(hObject,handles,[handles.parameters.Vmax, ...
     handles.parameters.p3, handles.parameters.f0, ...
     handles.parameters.Dh]);
 
+set(findall(handles.controlGroup,'-property','Enable'),'Enable','off');
+
 % --- Outputs from this function are returned to the command line.
 function varargout = main_gui_OutputFcn(hObject, eventdata, handles)
 % Get default command line output from handles structure
@@ -88,83 +90,72 @@ function optimize_Callback(hObject, eventdata, handles) %optimize button
 %run Qubist for optimization
 launchQubist
 
-function V_max_edit_Callback(hObject, eventdata, handles)
-%extract the new value input by the user
-newVmax = str2double(get(hObject, 'String'));
+function V_max_cedit_Callback(hObject, eventdata, handles)
+editBox(hObject,handles,'Vmax');
 
-%update the model with this new value
-handles.parameters.Vmax = newVmax;
-guidata(hObject,handles);
+function K_1_cedit_Callback(hObject, eventdata, handles)
+editBox(hObject,handles,'K1');
+
+function K_m_cedit_Callback(hObject, eventdata, handles)
+editBox(hObject,handles,'Km');
+
+function p1_cedit_Callback(hObject, eventdata, handles)
+editBox(hObject,handles,'p1');
+
+function p2_cedit_Callback(hObject, eventdata, handles)
+editBox(hObject,handles,'p2');
+
+function p3_cedit_Callback(hObject, eventdata, handles)
+editBox(hObject,handles,'p3');
+
+function f0_cedit_Callback(hObject, eventdata, handles)
+editBox(hObject,handles,'f0');
+
+function Dh_cedit_Callback(hObject, eventdata, handles)
+editBox(hObject,handles,'Dh');
+
+function V_max_edit_Callback(hObject, eventdata, handles)
+editBox(hObject,handles,'Vmax');
 
 function K_1_edit_Callback(hObject, eventdata, handles)
-%extract the new value input by the user
-newK1 = str2double(get(hObject, 'String'));
-
-%update the model with this new value
-handles.parameters.K1 = newK1;
-guidata(hObject,handles);
+editBox(hObject,handles,'K1');
 
 function K_m_edit_Callback(hObject, eventdata, handles)
-%extract the new value input by the user
-newKm = str2double(get(hObject, 'String'));
-
-%update the model with this new value
-handles.parameters.Km = newKm;
-guidata(hObject,handles);
+editBox(hObject,handles,'Km');
 
 function p1_edit_Callback(hObject, eventdata, handles)
-%extract the new value input by the user
-newp1 = str2double(get(hObject, 'String'));
-
-%update the model with this new value
-handles.parameters.p1 = newp1;
-guidata(hObject,handles);
+editBox(hObject,handles,'p1');
 
 function p2_edit_Callback(hObject, eventdata, handles)
-%extract the new value input by the user
-newp2 = str2double(get(hObject, 'String'));
-
-%update the model with this new value
-handles.parameters.p2 = newp2;
-guidata(hObject,handles);
+editBox(hObject,handles,'p2');
 
 function p3_edit_Callback(hObject, eventdata, handles)
-%extract the new value input by the user
-newp3 = str2double(get(hObject, 'String'));
-
-%update the model with this new value
-handles.parameters.p3 = newp3;
-guidata(hObject,handles);
+editBox(hObject,handles,'p3');
 
 function f0_edit_Callback(hObject, eventdata, handles)
-%extract the new value input by the user
-newf0 = str2double(get(hObject, 'String'));
-
-%update the model with this new value
-handles.parameters.f0 = newf0;
-guidata(hObject,handles);
+editBox(hObject,handles,'f0');
 
 function Dh_edit_Callback(hObject, eventdata, handles)
-%extract the new value input by the user
-newDh = str2double(get(hObject, 'String'));
-
-%update the model with this new value
-handles.parameters.Dh = newDh;
-guidata(hObject,handles);
+editBox(hObject,handles,'Dh');
 
 %% Additional buttons
 %function for allowing editing in the control parameters
 function enableCont_Callback(hObject, eventdata, handles)
 if (get(hObject,'Value')==get(hObject,'Max'))
-    set(handles.V_max_edit,'Enable','on');
+    set(findall(handles.controlGroup,'-property','Enable'),'Enable','on');
 else
-    set(handles.V_max_edit,'Enable','off');
+    set(findall(handles.controlGroup,'-property','Enable'),'Enable','off');
 end;
 
 %function for allowing editing in the control parameters
 function enableExp_Callback(hObject, eventdata, handles)
-set(handles.V_max_edit,'Enable','on');
+if (get(hObject,'Value')==get(hObject,'Max'))
+    set(findall(handles.experimentalGroup,'-property','Enable'),'Enable','on');
+else
+    set(findall(handles.experimentalGroup,'-property','Enable'),'Enable','off');
+end;
 
+%function for loading previous solution sets
 function loadparams_Callback(hObject,eventdata,handles)
 folder = fileparts(which(mfilename)); %get the current folder
 
@@ -284,10 +275,11 @@ titles and labels to the proper text.
 %}
 for i=1:numel(handles.parameters.title)
     axes(handles.graphs{i})
-    xlabel(handles.parameters.xlab,'FontName','Calibri');
-    ylabel(handles.parameters.ylab{i},'FontName','Calibri');
+    set(handles.graphs{i},'FontSize',8);
+    xlabel(handles.parameters.xlab,'FontName','Helvetica','FontSize',8);
+    ylabel(handles.parameters.ylab{i},'FontName','Helvetica','FontSize',8);
     title(textwrap({handles.parameters.title{i}},30), ...
-        'FontWeight','bold');
+        'FontWeight','bold','FontName','Helvetica','FontSize',9);
 end
 
 %% Open Clicked Figure in New Figure
@@ -341,3 +333,17 @@ end
 
 %update the data in the gui
 guidata(hObject,handles);
+
+%% Edit text box
+function editBox(hObject,handles,paramChange)
+%extract the new value input by the user
+newVal = str2double(get(hObject, 'String'));
+
+%check for whether or not a correct input was given
+if isnan(newVal) %if not, throw error box and reset value
+    msgbox('Please input a valid number.','Not a number');
+    set(hObject,'String',getfield(handles.parameters,paramChange));
+else %if so, then update the model with new value
+    handles.parameters = setfield(handles.parameters,paramChange,newVal);
+    guidata(hObject,handles);
+end
