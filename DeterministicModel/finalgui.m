@@ -69,12 +69,15 @@ end
 %label the axes for all graphs
 graphLabel(handles);
 
-%insert the initial paramter values into the textboxes
+%insert the initial parameter values into the textboxes
 setParams(hObject,handles,[handles.parameters.Vmax, ...
     handles.parameters.K1, handles.parameters.Km, ...
     handles.parameters.p1, handles.parameters.p2, ...
     handles.parameters.p3, handles.parameters.f0, ...
     handles.parameters.Dh]);
+
+%insert the initial conditions into the textboxes
+% set(handles.initial_cytc_red,
 
 set(findall(handles.controlGroup,'-property','Enable'),'Enable','off');
 
@@ -155,7 +158,14 @@ else
     set(findall(handles.experimentalGroup,'-property','Enable'),'Enable','off');
 end;
 
-%function for loading previous solution sets
+%function for randomizing initial conditions
+function randomizeButton_Callback(hObject,eventdata,handles)
+set(handles.initial_cytcred_edit,'String',randn*40+200);
+set(handles.initial_o2_edit,'String',randn*40+200);
+set(handles.initial_hn_edit,'String',randn*40+200);
+set(handles.initial_ph_edit,'String',randn*(11/8)+7);
+
+%% Load Previous Solutions Function
 function loadparams_Callback(hObject,eventdata,handles)
 folder = fileparts(which(mfilename)); %get the current folder
 
@@ -214,7 +224,7 @@ close(newgraph);
 function open_graph_Callback(hObject, eventdata, handles)
 openGraph; %simply open the figure in a new window
 
-%% Plot Callback function
+%% Plot Graphs function
 function plot_Callback(hObject, eventdata, handles) %plot button in gui
 
 %plug in the equations into the ode solver
