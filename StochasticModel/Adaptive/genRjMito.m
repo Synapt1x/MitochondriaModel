@@ -9,7 +9,6 @@ function [Rjs, aj, a_0] = genRjMito (X0, V, nc, numRxns, active, region)
 % the minimum value of lj for rj to be considered a critical reaction. This
 % can be a whole number between 2-20. It's usually equal to 10
 
-
 species1 = abs(X0(1)); % cytcred
 species2 = abs(X0(2)); % O2
 species3 = abs(X0(3)); % HN+
@@ -42,7 +41,7 @@ elseif region==2
     c3=10^-30;
     c4=10^-30;
 elseif region==3
-    c2=5*(10^-2);
+    c2=3.5*(10^-2);
     c1 = 8.83*(10^-6);
     c3=10^-30;
     c4=8*(10^-8);
