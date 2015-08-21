@@ -35,3 +35,5 @@ Open genRjMito.m. Change the propensity functions (ajs) for each reaction. These
 To format the plots, change the list of species names in the cells titles and Ylabs. mean_xs_num should also be divided by a constant (in the range of 10^14) to reduce the scale of the y axis for plotting. The subplots in the for loop beginning on line 160 should have enough rows and columns (4 and 2 respectively) to plot each species. The organization and number of rows/columns can be changed on line 261. To format the printing for variances, change the list of species names in the cell varsTitles. If only one simulation is being run, the code for plotting variances should be commented out (lines 275-281). Additionally, the plotting of standard deviation should be commented out (lines 262-263, 266-267). 
 
 After making all necessary changes to the functions described above, run the program from SSATestAdaptiveV2.m (the main program). 
+
+Email contact: thomsoea@myumanitoba.ca
