@@ -31,4 +31,4 @@ parameters = setup; %run the setup function which creates the
 save parameters %save the model parameters in parameters.mat
 
 %create the GUI for interfacing and display
-main_gui(parameters);
+finalgui(parameters);
