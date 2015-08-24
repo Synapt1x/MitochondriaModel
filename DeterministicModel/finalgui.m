@@ -51,6 +51,10 @@ if ~isempty(varargin)
     handles.parameters = varargin{1};
 end
 
+%store all initial condition text boxes as an array
+[handles.graphs{1:4}] = deal(handles.initial_cytcred_edit, ...
+        handles.initial_o2_edit,handles.initial_hn_edit,handles.initial_ph_edit);
+
 %store all graph handles in the handles structure as an array
 [handles.graphs{1:6}] = deal(handles.Cytc_plot, ...
     handles.O2_plot,handles.OCR_plot,handles.H_N_plot,...
@@ -75,6 +79,12 @@ setParams(hObject,handles,[handles.parameters.Vmax, ...
     handles.parameters.p1, handles.parameters.p2, ...
     handles.parameters.p3, handles.parameters.f0, ...
     handles.parameters.Dh]);
+
+%set all of the initial model values into the textboxes
+set(handles.initial_cytcred_edit,'String',handles.parameters.Cytcred);
+set(handles.initial_o2_edit,'String',handles.parameters.O2);
+set(handles.initial_hn_edit,'String',handles.parameters.Hn);
+set(handles.initial_ph_edit,'String',handles.parameters.Hp);
 
 %insert the initial conditions into the textboxes
 % set(handles.initial_cytc_red,

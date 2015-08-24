@@ -1,0 +1,12 @@
+-Send email to Ben and Steph about getting set up on Github
+-Send email to Ben and Steph about Overleaf
+-Discussion -> Add the assumption about the total amount of protons
+-Update equations in manuscript -> Hn^8, rho ^4
+-E.g., Update equations on page 26
+-Include all of the F_0 forms (interesting to see what the different
+forms of F_0 have on the overall model)
+-Alter the handling of section 4
+-Steph coming back on September 19 (about two weeks ~ month)
+-Discussion -> Add the conservation of the total amount of Cytochrome c
+-Try f0 + proton conservation
+-
