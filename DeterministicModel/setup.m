@@ -32,10 +32,6 @@ parameters.O2 = parameters.realo2Data(1);
 parameters.Hn = 1000;
 parameters.Hp = 100;
 
-%parameters for defining the IV of the region of interest
-parameters.initialConditions = [parameters.Cytcred,parameters.O2, ...
-    parameters.Hn,parameters.Hp]; %Initial Vs
-
 %% Define boundary times for integration
 %define the time boundaries between conditions; First instance of segment
 %change

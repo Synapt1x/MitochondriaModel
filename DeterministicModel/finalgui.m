@@ -121,7 +121,7 @@ function initial_cytctot_edit_Callback(hObject,eventdata,handles)
 editBox(hObject,handles,'Cytctot');
 
 %get current total Cyt C
-currTot = str2num(get(hObject,'String'));
+currTot = str2double(get(hObject,'String'));
 newCytcred = 0;
 
 while ~(newCytcred)
@@ -130,7 +130,7 @@ while ~(newCytcred)
                 'Cytochrome C will be set as Cyt C oxidized. The New value ', ...
                 'of Cytochrome C Total: ',num2str(currTot),'.'], ...
                 'Set Cytochrome Cyt C reduced');
-        newCytcred = ensureRightInput(str2num(takeVal{1}),currTot);
+        newCytcred = ensureRightInput(str2double(takeVal{1}),currTot);
 end
 newCytcox = currTot - newCytcred;
 
@@ -229,14 +229,12 @@ end;
 
 %function for randomizing initial conditions
 function randomizeButton_Callback(hObject,eventdata,handles)
-set(handles.initial_cytcred_edit,'String',randn*40+200);
-set(handles.initial_cytctot_edit,'String',randn*400+1200);
-set(handles.initial_cytcox_edit,'String',str2num( ...
-        get(handles.initial_cytctot_edit,'String')) - str2num( ...
-        get(handles.initial_cytcred_edit,'String')));
-set(handles.initial_o2_edit,'String',randn*40+200);
-set(handles.initial_hn_edit,'String',randn*40+200);
-set(handles.initial_ph_edit,'String',randn*(11/8)+7);
+%generate random vector
+randomVect = randn(1,6)*50+200; % 6 initial conditions
+randomVect(1) = randomVect(2) + randomVect(3); %set total to ox + red
+
+%send these values to set Initials to change boxes and parameters
+setInitials(hObject,handles, randomVect, 'randomize');
 
 %function for resetting initial concentrations
 function initial_default_Callback(hObject,eventdata,handles)
@@ -462,8 +460,8 @@ end
 %% Update Initial Cytchrome C Total
 function updateInitialCytctot(hObject,handles)
 %get current total cyt c
-newCytcox = str2num(get(handles.initial_cytcox_edit,'String'));
-newCytcred = str2num(get(handles.initial_cytcred_edit,'String'));
+newCytcox = str2double(get(handles.initial_cytcox_edit,'String'));
+newCytcred = str2double(get(handles.initial_cytcred_edit,'String'));
 newTot = newCytcox + newCytcred;
 
 %increase cyt c tot by the amount of introduced cyt c red
