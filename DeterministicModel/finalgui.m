@@ -51,8 +51,6 @@ if ~isempty(varargin)
         handles.parameters = varargin{1};
 end
 
-setappdata(gui,'yes',2);
-
 %store the default data for the model
 handles.initialData = [handles.parameters.Cytctot, ...
         handles.parameters.Cytcox, handles.parameters.Cytcred, ...
@@ -116,8 +114,6 @@ varargout{1} = handles.output;
 
 function optimize_Callback(hObject, eventdata, handles) %optimize button
 
-y = getappdata(gui,'yes');
-disp(y);
 %run Qubist for optimization
 launchQubist
 
