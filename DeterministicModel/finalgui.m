@@ -38,10 +38,10 @@ else
 end
 % End initialization code - DO NOT EDIT
 
+
 %% GUI Creation code
 % --- Executes just before main_gui is made visible.
 function main_gui_OpeningFcn(hObject, eventdata, handles, varargin)
-%set all kinetics buttons to default value (decoupled)
 
 % Choose default command line output for main_gui
 handles.output = hObject;
@@ -50,6 +50,8 @@ handles.output = hObject;
 if ~isempty(varargin)
         handles.parameters = varargin{1};
 end
+
+setappdata(gui,'yes',2);
 
 %store the default data for the model
 handles.initialData = [handles.parameters.Cytctot, ...
@@ -114,6 +116,8 @@ varargout{1} = handles.output;
 
 function optimize_Callback(hObject, eventdata, handles) %optimize button
 
+y = getappdata(gui,'yes');
+disp(y);
 %run Qubist for optimization
 launchQubist
 
@@ -144,14 +148,8 @@ guidata(hObject,handles);
 function initial_cytcox_edit_Callback(hObject,eventdata,handles)
 editBox(hObject,handles,'Cytcox');
 
-%update the total amount of cytochrome c total
-updateInitialCytctot(hObject,handles);
-
 function initial_cytcred_edit_Callback(hObject,eventdata,handles)
 editBox(hObject,handles,'Cytcred');
-
-%update the total amount of cytochrome c total
-updateInitialCytctot(hObject,handles);
 
 function initial_o2_edit_Callback(hObject,eventdata,handles)
 editBox(hObject,handles,'O2');
@@ -454,8 +452,15 @@ if isnan(newVal) %if not, throw error box and reset value
         set(hObject,'String',getfield(handles.parameters,paramChange));
 else %if so, then update the model with new value
         handles.parameters = setfield(handles.parameters,paramChange,newVal);
-        guidata(hObject,handles);
 end
+%also check to see if cytochrome c total needs to be updated
+if strcmp(paramChange,'Cytcred')|strcmp(paramChange,'Cytcox')
+        %update the total amount of cytochrome c total
+        updateInitialCytctot(hObject,handles);
+end
+
+guidata(hObject,handles);
+
 
 %% Update Initial Cytchrome C Total
 function updateInitialCytctot(hObject,handles)
