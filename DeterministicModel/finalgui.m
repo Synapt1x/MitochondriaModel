@@ -226,6 +226,7 @@ function randomizeButton_Callback(hObject,eventdata,handles)
 %generate random vector
 randomVect = randn(1,6)*50+200; % 6 initial conditions
 randomVect(1) = randomVect(2) + randomVect(3); %set total to ox + red
+randomVect(5) = randn*200+800;
 
 %send these values to set Initials to change boxes and parameters
 setInitials(hObject,handles, randomVect, 'randomize');
