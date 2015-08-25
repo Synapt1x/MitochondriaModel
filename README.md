@@ -15,7 +15,7 @@ Next the program is displayed by passing in the *parameters* structure to **fina
 display of the GUI and the functionality of all of the GUI components.
 
 To edit the system parameters, many of these edits can be carried out directly in the GUI. For more information on
-editing within the GUI, see the section below on [*The Components of the GUI*](https://github.com/Synapt1x/MastersProject#the-components-of-the-gui). Parameter values, initial values, 
+editing within the GUI, see the section below on [*The Components of the GUI*](#the-components-of-the-gui). Parameter values, initial values, 
 and data sources are all directly modifiable in the GUI. For changing default values in any aspect of the model,
 however, they must be edited at the time of creation of the *parameters* structure, found in the setup.m function.
 
