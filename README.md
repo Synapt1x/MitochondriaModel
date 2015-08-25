@@ -14,15 +14,19 @@ starts the program by first generating all of the parameters and relevant model 
 Next the program is displayed by passing in the *parameters* structure to **finalgui.m**, which controls the 
 display of the GUI and the functionality of all of the GUI components.
 
-To edit the system parameters, many of these edits can be carried out directly in the GUI. Parameter values, 
-initial values, and data sources are all directly modifiable in the GUI. For changing default values in any aspect
-of the model, these can be edited at the time of creation of the *parameters* structure, found in the setup.m
-function.
+To edit the system parameters, many of these edits can be carried out directly in the GUI. For more information on
+editing within the GUI, see the section below on *The Components of the GUI*. Parameter values, initial values, 
+and data sources are all directly modifiable in the GUI. For changing default values in any aspect of the model,
+however, they must be edited at the time of creation of the *parameters* structure, found in the setup.m function.
 
 ### Running the Model
 
 As detailed above, the model can be run simply by navigating to the location of **main.m** and then running this 
-function. The model will be initialized and the GUI will be promptly displayed.
+function. The model will be initialized and the GUI will be promptly displayed. Before any simulation is run, the
+parameters and initial conditions are set to default values. To change these before simulation, they can be directly
+edited in the text boxes that accompany the value desired. To run a simulation of mitochondrial bioenergetics 
+function, hit the *Plot* button in the bottom section of the GUI. This will solve the model using ode45 or ode23t
+in MATLAB, and then plot the resulting quantities for all four sections of the graph.
 
 ### The Components of The GUI
 
@@ -72,9 +76,13 @@ this section.
 
 Each graph, once plotted, can then be right-clicked for additional options. These options allow for the user to either
 save a blown-up image of the plot to a PNG file, or for opening the image in a new figure window for inspection and
-editing purposes. Both options also facilitate creating large images of the graphs for presentation or publication.
+editing purposes. Both options facilitate creating large images of the graphs for presentation or publication.
 
 ![Open right-clicked graph in a new figure window](/Images/guiOpenGraphAug25.png)
+
+Opening the graph in another figure window enables editing and formatting using the figure MATLAB functionality. 
+Labeling can be controlled using the figure menus built-in to MATLAB, and the figure can be exported into any format
+after editing is finalized. Zooming in and out of the graph can also be done in this figure window.
 
 #### Save Snapshot
 
@@ -91,7 +99,7 @@ not EMACS) and **cmd+s** on MAC OS X systems.
 
 ![Check the current version of the model](/Images/helpCommandsAug25.png)
 
-In the *Help* menu, there is a *Version* button and a *Info...* button. The Version button allows the user
+In the *Help* menu, there is a *Version* button and an *Info...* button. The Version button allows the user
 to confer with the Git system to check the current tagged version of the program. This will inform the user whether
 or not there are any available updates to the model or the GUI code so that the most up-to-date version of the simulation
 model can be accessible to the user without complication. The *Info...* button will pull up this README.md document
