@@ -54,10 +54,44 @@ Next, the botttom three sections control:
 * Plotting
 	* The user can click the large *Plot* button to instruct the program to solve the model, and then display the 
 	resulting behavior of the system in the axes found to the right of the control panels.
+	
 The axes illustrate the behavior of the system one *Plot* is clicked. As shown below, once it is selected, the system
 then graphs and labels each axis to display what the model is simulating with regard to mitochondrial function.
 
-![GUI Graphed](/Images/guiGraphsAug25.png)
+![GUI with graphs](/Images/guiGraphsAug25.png)
 
 ### Additional Functions of the GUI
 
+Several additional functions were introduced into the GUI of the program, each of which will be discussed in detail in
+this section.
+
+#### Right-Clicking a Graph
+
+![Right-click graphs](/Images/guiRightClickAug25.png)
+
+Each graph, once plotted, can then be right-clicked for additional options. These options allow for the user to either
+save a blown-up image of the plot to a PNG file, or for opening the image in a new figure window for inspection and
+editing purposes. Both options also facilitate creating large images of the graphs for presentation or publication.
+
+![Open right-clicked graph in a new figure window](/Images/guiOpenGraphAug25.png)
+
+#### Save Snapshot
+
+![Save a snapshot of the GUI](/Images/guiSaveSnapshotAug25.png)
+
+In the *File* menu, there is an option for saving a snapshot of the GUI. The purpose of this is to save the current display
+of the GUI either for presentation or publication, where the graphs of each element of the system are shown along
+with the set of parameters and initial conditions that were used to acquire this behavior.
+
+The keyboard hotkey for this function is **ctrl+s** on windows and linux systems (with windows keyboard layout, 
+not EMACS) and **cmd+s** on MAC OS X systems.
+
+#### Help Commands
+
+![Check the current version of the model](/Images/helpCommandsAug25.png)
+
+In the *Help* menu, there is a *Version* button and a *Info...* button. The Version button allows the user
+to confer with the Git system to check the current tagged version of the program. This will inform the user whether
+or not there are any available updates to the model or the GUI code so that the most up-to-date version of the simulation
+model can be accessible to the user without complication. The *Info...* button will pull up this README.md document
+in the appropriate default program.
