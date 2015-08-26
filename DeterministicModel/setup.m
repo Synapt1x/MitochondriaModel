@@ -14,7 +14,7 @@ all of the model's parameters and also the data, graph labels.
 
 %% Define the Parameters of the Model
 %parameter values
-parameters.Vmax =2.12363323252006; %bounds: [0.1 1E4]
+parameters.Vmax =2.12363323252006; %bounds: [0.01 10]
 parameters.K1 =  100.1019; %bounds: [0.1 1E4]
 parameters.Km = 101.2983; %bounds: [0.1 1E4]
 parameters.p1 = 10.8150; %bounds: [1 1E4]
