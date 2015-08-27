@@ -28,7 +28,7 @@ par.general.NGen=100000;
 par.general.NPop=2;
 % ====================================
 % Parameters (X)
-par.X.Vmax.range=[1E-2,10];
+par.X.Vmax.range=[1E-2,100];
 %
 par.X.K1.range=[10,1E4];
 %
