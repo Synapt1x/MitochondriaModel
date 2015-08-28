@@ -61,10 +61,6 @@ handles.initialData = [handles.parameters.Cytctot, ...
         handles.parameters.p3, handles.parameters.f0, ...
         handles.parameters.Dh];
 
-%store all initial condition text boxes as an array
-[handles.graphs{1:4}] = deal(handles.initial_cytcred_edit, ...
-        handles.initial_o2_edit,handles.initial_hn_edit,handles.initial_ph_edit);
-
 %store all graph handles in the handles structure as an array
 [handles.graphs{1:6}] = deal(handles.Cytc_plot, ...
         handles.O2_plot,handles.OCR_plot,handles.H_N_plot,...
@@ -82,9 +78,9 @@ handles.initialData = [handles.parameters.Cytctot, ...
 
 %store all initial concentrations text boxes in the handles structure as an
 %array
-[handles.allInitials{1:6}] = deal(handles.initial_cytctot_edit, ...
+[handles.allInitials{1:5}] = deal(handles.initial_cytctot_edit, ...
         handles.initial_cytcox_edit, handles.initial_cytcred_edit, ...
-        handles.initial_o2_edit, handles.initial_hn_edit, handles.initial_ph_edit);
+        handles.initial_o2_edit, handles.initial_hn_edit);
 
 %label the axes for all graphs
 graphLabel(handles);
@@ -154,7 +150,35 @@ function initial_hn_edit_Callback(hObject,eventdata,handles)
 editBox(hObject,handles,'Hn');
 
 function initial_ph_edit_Callback(hObject,eventdata,handles)
-editBox(hObject,handles,'Hp');
+getHpconc = 0;
+oldHp = 0;
+newHp = 0;
+getVal = str2double(get(hObject,'String'));
+
+if isnan(getVal) %if not, throw error box and reset value
+        msgbox('Please input a valid number.','Not a number');
+        
+        %get the concentration value for resetting the edit box
+        getHpconc = getfield(handles.parameters,'Hp');
+        
+        oldHp = -log10(getHpconc *1E-6);
+        
+        set(hObject,'String',oldHp);
+else %if so, then update the model with new value
+        %Hp from the given pH
+        if checkpH(getVal)
+                newHp = 10^-getVal * 1E6;
+                handles.parameters = setfield(handles.parameters,'Hp',newHp);
+        else
+                %get the concentration value for resetting the edit box
+                getHpconc = getfield(handles.parameters,'Hp');
+
+                oldHp = -log10(getHpconc *1E-6);
+                set(hObject,'String',oldHp);
+        end
+end
+
+guidata(hObject,handles);
 
 function V_max_cedit_Callback(hObject, eventdata, handles)
 editBox(hObject,handles,'Vmax');
@@ -224,9 +248,10 @@ end;
 %function for randomizing initial conditions
 function randomizeButton_Callback(hObject,eventdata,handles)
 %generate random vector
-randomVect = randn(1,6)*50+200; % 6 initial conditions
+randomVect = randn(1,4)*50+200; % 6 initial conditions
 randomVect(1) = randomVect(2) + randomVect(3); %set total to ox + red
 randomVect(5) = randn*200+800;
+randomVect(6) = (10^-(randn*1.5+7))*1E6;
 
 %send these values to set Initials to change boxes and parameters
 setInitials(hObject,handles, randomVect, 'randomize');
@@ -298,7 +323,7 @@ close(newgraph);
 function open_graph_Callback(hObject, eventdata, handles)
 openGraph; %simply open the figure in a new window
 
-%% Plot Graphs function
+%% Plot Graphs Callback
 function plot_Callback(hObject, eventdata, handles) %plot button in gui
 
 %plug in the equations into the ode solver
@@ -349,6 +374,8 @@ plot(t(2:end),protRatio(2:end),'b','lineWidth',2.5);
 graphLabel(handles);
 
 guidata(hObject,handles);
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% Graph Labeling Function
 function graphLabel(handles)
@@ -427,6 +454,10 @@ for i = 1:numel(handles.allInitials)
         set(handles.allInitials{i},'String',values(i));
 end
 
+%calc pH from concentration and set the proper text box to it
+setpH=-log10(values(6)*1E-6);
+set(handles.initial_ph_edit,'String',setpH);
+
 %change all the values in the handles.parameters struc if vargin nonempty
 if ~isempty(varargin)
         [handles.parameters.Cytctot, handles.parameters.Cytcox, ...
@@ -486,4 +517,15 @@ else
         else
                 cytcred = input;
         end
+end
+
+%% Check for valid pH value
+function validity = checkpH(value)
+validity = true;
+if (value < 0) || (value > 14)
+        waitfor(msgbox('Not a valid pH.','Invalid pH'));
+        validity = false;
+elseif (value >= 11.88)
+        waitfor(msgbox('Too basic for this system. Must be pH < 11.88.','pH too high'));
+        validity = false;
 end
