@@ -481,7 +481,7 @@ else
         if input > currTot
                 waitfor(msgbox(['Please enter a number less than the ', ...
                         'total amount of Cytochrome C. That is, less than ', ...
-                        currTot,'.'], 'Cytochrome C reduced level too high'));
+                        num2str(currTot),'.'], 'Cytochrome C reduced level too high'));
                 cytcred = 0;
         else
                 cytcred = input;
