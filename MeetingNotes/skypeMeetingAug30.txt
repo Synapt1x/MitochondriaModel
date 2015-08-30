@@ -1,0 +1,13 @@
+- Priority 2: Play with JUST section 4
+- Priority 1: Use different Vmax and Km for cyt c red
+- Priority 3: Update Latex
+- Priority 4: Hn/Hp --> (Hn - Hp)/Htot --> (Hn-Hp)/Hn (Hp --> Htot - Hn)
+	- Won't be (Hn-Hp) --> Causes oxygen to grow since y(2) can be > 0 when Hp > Hn
+- Priority 5: Try initial cyt c red levels = 0.00001, Maybe add a constant or coefficient to
+reducing cyt c red in dy(1)
+- After model is working, Try Hn instead of Hn/Hp
+- Email Steph if need anything on Monday, Aug 31
+- Consider: Changing Complex IV equation if not working
+
+Steph travel: Sep 4 - 11, Maybe free on 11; following week busy, back to Winnipeg on 19
+	- Busy Sep 21, busy moving Sep 25, Oct 2 - 5, Approx after thanksgiving
