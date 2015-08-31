@@ -286,17 +286,49 @@ end
 
 %% Menu Callback functions
 function save_fig_Callback(hObject, eventdata, handles) %save the current version of fig
+%save the image and color map for the overall window
+image = getframe(gcf);
 
-
+try
+        %save the image to a file specified by the user
+        [filename,filepath]=uiputfile({[date,'-sessionImage.png']},'Choose save location');
+        imwrite(image.cdata,[filepath,filename]);
+        
+        disp(['Image was successfully saved to: ', filepath,filename]);
+catch
+        disp('Snapshot save operation aborted.');
+end
 
 function save_session_Callback(hObject,eventdata,handles) %save the workspace
-currentdata = getappdata(gcf);
-uisave('currentdata',date);
+%turn off 'use uisave' warning since uisave is in fact being used
+warning('off','MATLAB:Figure:FigureSavedToMATFile');
+
+%get the data and save it to file specified by user
+try
+        currentdata = getappdata(gcf);
+        [filename,filepath]=uigetfile({[date,'-SaveSession.mat']},'Save session file');
+        uisave('currentdata',[filepath,filename]);
+        
+        disp(['Session was successfully saved to: ', filepath,filename]);
+catch
+        disp('Saving session operation aborted.');
+end
 
 function load_session_Callback(hObject,eventdata,handles) %load a saved workspace
-[filename,filepath]=uigetfile({'*.mat'},'Select input file');
-close(gcf); %close original workspace
-load([filepath,filename]);
+try
+        [filename,filepath]=uigetfile({'*.mat'},'Load session file');
+        load([filepath,filename]);        
+
+        if (exist('currentdata'))
+                close(gcf);
+                disp('Session successfully loaded.');
+        else
+                disp('.mat chosen was not a correct session savestate. Aborting...');
+        end
+catch
+        disp('Session load operation aborted.');
+end
+
 
 function exit_prog_Callback(hObject, eventdata, handles)
 disp('Goodbye! Thank you for using my mitochondrial model!');
@@ -304,7 +336,6 @@ close;
 
 function version_Callback(hObject, eventdata, handles)
 [~,ver]=system('git describe --abbrev=0');
-[~,cmt]=system('git rev-parse HEAD');
 msgbox(['The current version of this code is ',ver(1:end-1), ...
         ' and the most recent Git commit is "',cmt(1:end-1),'".'],'Code Version');
 
