@@ -248,10 +248,10 @@ end;
 %function for randomizing initial conditions
 function randomizeButton_Callback(hObject,eventdata,handles)
 %generate random vector
-randomVect = randn(1,4)*50+200; % 6 initial conditions
-randomVect(1) = randomVect(2) + randomVect(3); %set total to ox + red
-randomVect(5) = randn*200+800;
-randomVect(6) = (10^-(randn*1.5+7))*1E6;
+randomVect = randn(1,5)*25+100; % 4 initial conditions
+randomVect(3) = randn*0.0033+0.01; % set cyt c red very very low initially
+randomVect(1) = randomVect(2) + randomVect(3); % set cyt c tot to ox + red
+randomVect(6) = (10^-(randn*1+7))*1E6; % randomize a pH
 
 %send these values to set Initials to change boxes and parameters
 setInitials(hObject,handles, randomVect, 'randomize');
@@ -281,7 +281,7 @@ if ischar(filename) %if a file is selected, load that file
         setParams(hObject,handles,myResults','changeVals');
         %additional argin signals setParams to update handles.parameters
 else
-        msgbox('No file selected.','Operation aborted.');
+        msgbox('No file selected.','Aborted.');
 end
 
 %% Menu Callback functions
@@ -291,7 +291,7 @@ image = getframe(gcf);
 
 try
         %save the image to a file specified by the user
-        [filename,filepath]=uiputfile({[date,'-sessionImage.png']},'Save image file');
+        [filename,filepath]=uiputfile({[date,'-sessionImage.png']},'Save screenshot file');
         imwrite(image.cdata,[filepath,filename]);
         
         disp(['Image was successfully saved to: ', filepath,filename]);
