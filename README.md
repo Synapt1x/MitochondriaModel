@@ -86,7 +86,7 @@ after editing is finalized. Zooming in and out of the graph can also be done in 
 
 #### Save Snapshot
 
-![Save a snapshot of the GUI](/Images/guiSaveSnapshotAug25.png)
+![Save a snapshot of the GUI](/Images/guiSaveSnapshotAug31.png)
 
 In the *File* menu, there is an option for saving a snapshot of the GUI. The purpose of this is to save the current display
 of the GUI either for presentation or publication, where the graphs of each element of the system are shown along
