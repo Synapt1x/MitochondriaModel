@@ -301,7 +301,7 @@ try
         imwrite(image.cdata,[filepath,filename]);
         
         disp(['Image was successfully saved to: ', filepath,filename]);
-catch
+catch % if an error is caught, don't throw error and instead abort save image
         disp('Snapshot save operation aborted.');
 end
 
@@ -309,32 +309,33 @@ function save_session_Callback(hObject,eventdata,handles) %save the workspace
 %turn off 'use uisave' warning since uisave is in fact being used
 warning('off','MATLAB:Figure:FigureSavedToMATFile');
 
-%get the data and save it to file specified by user
 try
+        % save the current data found in the model
         currentdata = getappdata(gcf);
-%         [filename,filepath]=uiputfile({[date,'-SaveSession.mat']},'Save session file');
         uisave('currentdata',[date,'-SaveSession.mat']);
         
         disp('Session was successfully saved.');
-catch
+catch % if an error is caught, don't throw error and instead abort save session
         disp('Session save operation aborted.');
 end
 
 function load_session_Callback(hObject,eventdata,handles) %load a saved workspace
 try
         [filename,filepath]=uigetfile({'*.mat'},'Load session file');
-        load([filepath,filename]);        
+        close(gcf);
+        load([filepath,filename]);
 
+        % check if it was a valid session file
         if (exist('currentdata'))
-                close(gcf);
                 disp('Session successfully loaded.');
-        else
-                disp('.mat chosen was not a correct session savestate. Aborting...');
+        else % if not, reload finalgui to reset the GUI
+                disp('.mat chosen was not a correct session savestate. Resetting GUI now.');
+                finalgui(handles.parameters);
         end
-catch
-        disp('Session load operation aborted.');
+catch % if an error is caught, reload finalgui to reset the GUI
+        disp('Session load operation aborted. Resetting GUI now.');
+        finalgui(handles.parameters);
 end
-
 
 function exit_prog_Callback(hObject, eventdata, handles)
 disp('Goodbye! Thank you for using my mitochondrial model!');
