@@ -95,6 +95,19 @@ with the set of parameters and initial conditions that were used to acquire this
 The keyboard hotkey for this function is **ctrl+s** on windows and linux systems (with windows keyboard layout, 
 not EMACS) and **cmd+s** on MAC OS X systems.
 
+#### Save/Load Session
+
+![Save or load sessions](/Images/guiSaveSessionAug31.png)
+
+In addition to being able to save a snapshot of the GUI as an image to be viewed or presented later, the state of the 
+model can also be saved. The save and load session commands are found in the *File* menu, with shortcuts 
+**ctrl+d** for saving a session and **ctrl+o** for opening.
+
+Saving a session allows the user to save the current values of all variables and all graphics objects in the guidata and
+handles structures, which will default to save as a .mat. Once this .mat is saved, it can later be reloaded using the load
+command giving the user the chance to re-open the state of the chosen file. Saved sessions are generally stored in the
+**Savestates** directory.
+
 #### Help Commands
 
 ![Check the current version of the model](/Images/helpCommandsAug25.png)
