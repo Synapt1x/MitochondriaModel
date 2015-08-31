@@ -90,10 +90,11 @@ after editing is finalized. Zooming in and out of the graph can also be done in 
 
 In the *File* menu, there is an option for saving a snapshot of the GUI. The purpose of this is to save the current display
 of the GUI either for presentation or publication, where the graphs of each element of the system are shown along
-with the set of parameters and initial conditions that were used to acquire this behavior.
+with the set of parameters and initial conditions that were used to acquire this behavior. Default location for saved images
+are in the **StateImages** directory.
 
-The keyboard hotkey for this function is **ctrl+s** on windows and linux systems (with windows keyboard layout, 
-not EMACS) and **cmd+s** on MAC OS X systems.
+The keyboard hotkey for this function is **ctrl+d** on windows and linux systems (with windows keyboard layout, 
+not EMACS) and **cmd+d** on MAC OS X systems.
 
 #### Save/Load Session
 
@@ -101,12 +102,12 @@ not EMACS) and **cmd+s** on MAC OS X systems.
 
 In addition to being able to save a snapshot of the GUI as an image to be viewed or presented later, the state of the 
 model can also be saved. The save and load session commands are found in the *File* menu, with shortcuts 
-**ctrl+d** for saving a session and **ctrl+o** for opening.
+**ctrl+s** for saving a session and **ctrl+o** for opening.
 
 Saving a session allows the user to save the current values of all variables and all graphics objects in the guidata and
 handles structures, which will default to save as a .mat. Once this .mat is saved, it can later be reloaded using the load
 command giving the user the chance to re-open the state of the chosen file. Saved sessions are generally stored in the
-**Savestates** directory.
+**Savestates** directory. *Make sure to only load session .mat files*.
 
 #### Help Commands
 
