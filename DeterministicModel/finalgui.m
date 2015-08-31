@@ -346,8 +346,12 @@ disp('Goodbye! Thank you for using my mitochondrial model!');
 close;
 
 function version_Callback(hObject, eventdata, handles)
-[~,ver]=system('git describe --abbrev=0');
-msgbox(['The current version of this code is ',ver(1:end-1),'.'],'Code Version');
+try
+        [~,ver]=system('git describe --abbrev=0');
+        msgbox(['The current version of this code is ',ver(1:end-1),'.'],'Code Version');
+catch
+        mshbox('To check the code version, "git" is required.','Git not found');
+end
 
 function info_Callback(hObject,eventdata, handles)
 cd ..; % go up one directory level
