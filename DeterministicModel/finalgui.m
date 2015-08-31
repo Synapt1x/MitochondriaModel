@@ -46,6 +46,9 @@ function main_gui_OpeningFcn(hObject, eventdata, handles, varargin)
 % Choose default command line output for main_gui
 handles.output = hObject;
 
+% get the location of the current directory
+handles.curdir = fileparts(which(mfilename));
+
 %take in the setup parameters from the 'main.m' function
 if ~isempty(varargin)
         handles.parameters = varargin{1};
@@ -272,22 +275,19 @@ setParams(hObject, handles, [handles.initialData(7:end)], 'setDefault');
 
 %% Load Previous Solutions Button
 function loadparams_Callback(hObject,eventdata,handles)
-folder = fileparts(which(mfilename)); %get the current folder
 
 %open dialog for user to navigate to file
-waitfor(msgbox('Please select the ''BestResults.mat'' file to load.','Load Parameter Set'));
-[filename,filepath] = uigetfile({'*-BestResults.mat';'*.*'},'Select the .mat containing the parameter set to load');
+[filename,filepath] = uigetfile(fullfile(handles.curdir,'Solutions','*-BestResults.mat'), ...
+        'Select the "BestResults.mat" containing the parameter set to load');
 
 if ischar(filename) %if a file is selected, load that file
-        cd(filepath); %change to file's directory
-        load(filename); %load the file
-        cd(folder); %change to previous directory
+        load([filepath,filename]); %load the file
         
         %change all the values of parameters to loaded parameter set
         setParams(hObject,handles,myResults','changeVals');
         %additional argin signals setParams to update handles.parameters
 else
-        msgbox('No file selected.','Aborted.');
+        disp('No file selected. Load parameters operation aborted.');
 end
 
 %% Menu Callback functions
@@ -297,7 +297,8 @@ image = getframe(gcf);
 
 try
         %save the image to a file specified by the user
-        [filename,filepath]=uiputfile({[date,'-sessionImage.png']},'Save screenshot file');
+        [filename,filepath]=uiputfile(fullfile(handles.curdir,'StateImages', ...
+                [date,'-sessionImage.png']),'Save screenshot file');
         imwrite(image.cdata,[filepath,filename]);
         
         disp(['Image was successfully saved to: ', filepath,filename]);
@@ -312,7 +313,8 @@ warning('off','MATLAB:Figure:FigureSavedToMATFile');
 try
         % save the current data found in the model
         currentdata = getappdata(gcf);
-        [filename,filepath]=uiputfile({[date,'-SaveSession.mat']},'Save session file');
+        [filename,filepath]=uiputfile(fullfile(handles.curdir,'Savestates', ...
+                [date,'-SaveSession.mat']), 'Save session file');
         uisave('currentdata',[filepath,filename]);
         
         disp(['Session was successfully saved session file to: ', filepath,filename]);
@@ -322,7 +324,8 @@ end
 
 function load_session_Callback(hObject,eventdata,handles) %load a saved workspace
 try
-        [filename,filepath]=uigetfile({'*.mat'},'Load session file');
+        [filename,filepath]=uigetfile(fullfile(handles.curdir,'Savestates','*.mat'), ...
+                'Load session file');
         close(gcf);
         load([filepath,filename]);
 
@@ -344,13 +347,12 @@ close;
 
 function version_Callback(hObject, eventdata, handles)
 [~,ver]=system('git describe --abbrev=0');
-msgbox(['The current version of this code is ',ver(1:end-1), ...
-        ' and the most recent Git commit is "',cmt(1:end-1),'".'],'Code Version');
+msgbox(['The current version of this code is ',ver(1:end-1),'.'],'Code Version');
 
 function info_Callback(hObject,eventdata, handles)
-system('cd ..'); %go back a folder to get to the main readme file
+cd ..; % go up one directory level
 open('README.md'); %open the readme file
-system('cd DeterministicModel'); %go back into Deterministic Model
+cd DeterministicModel; % Re-enter DeterministicModel directory
 
 function save_graph_Callback(hObject, eventdata, handles)
 %output the figure to be saved
@@ -376,10 +378,10 @@ openGraph; %simply open the figure in a new window
 function plot_Callback(hObject, eventdata, handles) %plot button in gui
 
 %plug in the equations into the ode solver
-[t y] = solver(handles.parameters);
+[t, y] = solver(handles.parameters);
 
 %store the values calculated for each variable
-[cytcred o2 Hn Hp] = deal(y(:,1),y(:,2),y(:,3),y(:,4));
+[cytcred, o2, Hn, Hp] = deal(y(:,1),y(:,2),y(:,3),y(:,4));
 
 %calculate the OCR values from the oxygen
 calcOCR = ((handles.parameters.Vmax.*o2)./(handles.parameters.Km.*...
