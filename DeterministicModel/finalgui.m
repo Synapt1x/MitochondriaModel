@@ -312,9 +312,10 @@ warning('off','MATLAB:Figure:FigureSavedToMATFile');
 try
         % save the current data found in the model
         currentdata = getappdata(gcf);
-        uisave('currentdata',[date,'-SaveSession.mat']);
+        [filename,filepath]=uiputfile({[date,'-SaveSession.mat']},'Save session file');
+        uisave('currentdata',[filepath,filename]);
         
-        disp('Session was successfully saved.');
+        disp(['Session was successfully saved session file to: ', filepath,filename]);
 catch % if an error is caught, don't throw error and instead abort save session
         disp('Session save operation aborted.');
 end
