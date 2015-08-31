@@ -286,7 +286,17 @@ end
 
 %% Menu Callback functions
 function save_fig_Callback(hObject, eventdata, handles) %save the current version of fig
-disp('To be implemented');
+
+
+
+function save_session_Callback(hObject,eventdata,handles) %save the workspace
+currentdata = getappdata(gcf);
+uisave('currentdata',date);
+
+function load_session_Callback(hObject,eventdata,handles) %load a saved workspace
+[filename,filepath]=uigetfile({'*.mat'},'Select input file');
+close(gcf); %close original workspace
+load([filepath,filename]);
 
 function exit_prog_Callback(hObject, eventdata, handles)
 disp('Goodbye! Thank you for using my mitochondrial model!');
