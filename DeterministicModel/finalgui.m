@@ -291,7 +291,7 @@ image = getframe(gcf);
 
 try
         %save the image to a file specified by the user
-        [filename,filepath]=uiputfile({[date,'-sessionImage.png']},'Choose save location');
+        [filename,filepath]=uiputfile({[date,'-sessionImage.png']},'Save image file');
         imwrite(image.cdata,[filepath,filename]);
         
         disp(['Image was successfully saved to: ', filepath,filename]);
@@ -306,7 +306,7 @@ warning('off','MATLAB:Figure:FigureSavedToMATFile');
 %get the data and save it to file specified by user
 try
         currentdata = getappdata(gcf);
-        [filename,filepath]=uigetfile({[date,'-SaveSession.mat']},'Save session file');
+        [filename,filepath]=uiputfile({[date,'-SaveSession.mat']},'Save session file');
         uisave('currentdata',[filepath,filename]);
         
         disp(['Session was successfully saved to: ', filepath,filename]);
