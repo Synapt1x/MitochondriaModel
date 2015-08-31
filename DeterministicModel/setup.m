@@ -20,7 +20,8 @@ parameters.Km = 101.2983; %bounds: [0.1 1E4]
 parameters.p1 = 10.8150; %bounds: [1 1E4]
 parameters.p2 = 99.3193; %bounds: [1 1E4]
 parameters.p3 =7.5784e-04; %bounds: [1E-6 1]
-parameters.f0 = 1; %bounds: [1E-2 2]
+parameters.f0Vmax = 2.12363323252006; %bounds: [0.01 10]
+parameters.f0Km = 101.2983; %bounds: [0.1 1E4]
 parameters.Dh = 0.1885; %bounds: [1E-6 1]
 
 %% Define Initial Conditions

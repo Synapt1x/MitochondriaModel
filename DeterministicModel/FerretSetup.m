@@ -30,17 +30,19 @@ par.general.NPop=2;
 % Parameters (X)
 par.X.Vmax.range=[1E-4,1E3];
 %
-par.X.K1.range=[1E-5,1E5];
+par.X.K1.range=[0.1,1E3];
 %
-par.X.Km.range=[1E-5,1E5];
+par.X.Km.range=[0.1,1E3];
 %
-par.X.p1.range=[1E-5,1E5];
+par.X.p1.range=[0.1,1E3];
 %
-par.X.p2.range=[1E-5,1E5];
+par.X.p2.range=[0.1,1E3];
 %
 par.X.p3.range=[1E-7,1E3];
 %
-par.X.f0.range=[1E-5,100];
+par.X.f0Vmax.range=[1E-4,1E3];
+%
+par.X.f0Km.range=[0.1,1E3];
 %
 par.X.Dh.range=[1E-5,100];
 %

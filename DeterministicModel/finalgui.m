@@ -58,8 +58,8 @@ handles.initialData = [handles.parameters.Cytctot, ...
         handles.parameters.Hp, handles.parameters.Vmax, ...
         handles.parameters.K1, handles.parameters.Km, ...
         handles.parameters.p1, handles.parameters.p2, ...
-        handles.parameters.p3, handles.parameters.f0, ...
-        handles.parameters.Dh];
+        handles.parameters.p3, handles.parameters.f0Vmax, ...
+        handles.parameters.f0Km, handles.parameters.Dh];
 
 %store all graph handles in the handles structure as an array
 [handles.graphs{1:6}] = deal(handles.Cytc_plot, ...
@@ -67,14 +67,14 @@ handles.initialData = [handles.parameters.Cytctot, ...
         handles.H_P_plot,handles.protons);
 
 %store all control editing text boxes in the handles structure as an array
-[handles.allcontEdits{1:8}] = deal(handles.V_max_cedit, handles.K_1_cedit, ...
-        handles.K_m_cedit,handles.p1_cedit,handles.p2_cedit, ...
-        handles.p3_cedit, handles.f0_cedit,handles.Dh_cedit);
+[handles.allcontEdits{1:9}] = deal(handles.V_max_cedit, handles.K_1_cedit, ...
+        handles.K_m_cedit,handles.p1_cedit,handles.p2_cedit, handles.p3_cedit, ...
+        handles.f0Vmax_cedit, handles.f0Km_edit, handles.Dh_cedit);
 
 %store all exp editing text boxes in the handles structure as an array
-[handles.allEdits{1:8}] = deal(handles.V_max_edit, handles.K_1_edit, ...
-        handles.K_m_edit,handles.p1_edit,handles.p2_edit, ...
-        handles.p3_edit, handles.f0_edit,handles.Dh_edit);
+[handles.allEdits{1:9}] = deal(handles.V_max_edit, handles.K_1_edit, ...
+        handles.K_m_edit,handles.p1_edit,handles.p2_edit, handles.p3_edit, ...
+        handles.f0Vmax_edit, handles.f0Km_edit, handles.Dh_edit);
 
 %store all initial concentrations text boxes in the handles structure as an
 %array
@@ -89,8 +89,8 @@ graphLabel(handles);
 setParams(hObject,handles,[handles.parameters.Vmax, ...
         handles.parameters.K1, handles.parameters.Km, ...
         handles.parameters.p1, handles.parameters.p2, ...
-        handles.parameters.p3, handles.parameters.f0, ...
-        handles.parameters.Dh]);
+        handles.parameters.p3, handles.parameters.f0Vmax, ...
+        handles.parameters.f0Km, handles.parameters.Dh]);
 
 %insert the initial concentration values into the textboxes
 setInitials(hObject, handles, [handles.parameters.Cytctot, ...
@@ -198,8 +198,11 @@ editBox(hObject,handles,'p2');
 function p3_cedit_Callback(hObject, eventdata, handles)
 editBox(hObject,handles,'p3');
 
-function f0_cedit_Callback(hObject, eventdata, handles)
-editBox(hObject,handles,'f0');
+function f0Vmax_cedit_Callback(hObject, eventdata, handles)
+editBox(hObject,handles,'f0Vmax');
+
+function f0Km_cedit_Callback(hObject, eventdata, handles)
+editBox(hObject,handles,'f0Km');
 
 function Dh_cedit_Callback(hObject, eventdata, handles)
 editBox(hObject,handles,'Dh');
@@ -222,8 +225,11 @@ editBox(hObject,handles,'p2');
 function p3_edit_Callback(hObject, eventdata, handles)
 editBox(hObject,handles,'p3');
 
-function f0_edit_Callback(hObject, eventdata, handles)
-editBox(hObject,handles,'f0');
+function f0Vmax_edit_Callback(hObject, eventdata, handles)
+editBox(hObject,handles,'f0Vmax');
+
+function f0Km_edit_Callback(hObject, eventdata, handles)
+editBox(hObject,handles,'f0Km');
 
 function Dh_edit_Callback(hObject, eventdata, handles)
 editBox(hObject,handles,'Dh');
@@ -306,12 +312,12 @@ warning('off','MATLAB:Figure:FigureSavedToMATFile');
 %get the data and save it to file specified by user
 try
         currentdata = getappdata(gcf);
-        [filename,filepath]=uiputfile({[date,'-SaveSession.mat']},'Save session file');
-        uisave('currentdata',[filepath,filename]);
+%         [filename,filepath]=uiputfile({[date,'-SaveSession.mat']},'Save session file');
+        uisave('currentdata',[date,'-SaveSession.mat']);
         
-        disp(['Session was successfully saved to: ', filepath,filename]);
+        disp('Session was successfully saved.');
 catch
-        disp('Saving session operation aborted.');
+        disp('Session save operation aborted.');
 end
 
 function load_session_Callback(hObject,eventdata,handles) %load a saved workspace
@@ -478,9 +484,9 @@ if ~isempty(varargin)
         [handles.parameters.Vmax, handles.parameters.K1, ...
                 handles.parameters.Km, handles.parameters.p1, ...
                 handles.parameters.p2, handles.parameters.p3, ...
-                handles.parameters.f0, handles.parameters.Dh] ...
-                = deal(values(1), values(2), values(3), values(4), ...
-                values(5),values(6),values(7),values(8));
+                handles.parameters.f0Vmax, handles.parameters.f0Km, ...
+                handles.parameters.Dh] = deal(values(1), values(2), values(3), ...
+                values(4), values(5),values(6),values(7),values(8), values(9));
 end
 
 %update the data in the gui
