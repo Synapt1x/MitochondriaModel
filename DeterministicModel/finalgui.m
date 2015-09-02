@@ -114,7 +114,7 @@ varargout{1} = handles.output;
 function finalgui_WindowKeyPressFcn(hObject, eventdata, handles)
 % Keypressfcn for the entire GUI
 switch eventdata.Key
-        case 'return'
+        case {'p','return'}
                 plot_Callback(hObject,eventdata,handles);
         case 'r'
                 randomizeButton_Callback(hObject,eventdata,handles);
