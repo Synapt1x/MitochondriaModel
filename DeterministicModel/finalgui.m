@@ -110,6 +110,7 @@ function varargout = main_gui_OutputFcn(hObject, eventdata, handles)
 % Get default command line output from handles structure
 varargout{1} = handles.output;
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Main Callback Functions
 
 function finalgui_WindowKeyPressFcn(hObject, eventdata, handles)
@@ -157,6 +158,9 @@ handles.parameters.Cytcox = newCytcox;
 set(handles.initial_cytcred_edit,'String',num2str(newCytcred));
 handles.parameters.Cytcred = newCytcred;
 guidata(hObject,handles);
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Edit boxes for Initial conditions and Parameters
 
 function initial_cytcox_edit_Callback(hObject,eventdata,handles)
 editBox(hObject,handles,'Cytcox');
@@ -273,6 +277,7 @@ function Dh_edit_Callback(hObject, eventdata, handles)
 handles = editBox(hObject,handles,'experimental','Dh');
 guidata(hObject,handles);
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Additional buttons
 %function for allowing editing in the control parameters
 function enableCont_Callback(hObject, eventdata, handles)
@@ -313,24 +318,7 @@ handles = setParams(handles, handles.initialData(7:end), 'control','setDefault')
 handles = setParams(handles, handles.initialData(7:end), 'experimental','setDefault');
 guidata(hObject,handles);
 
-%% Load Previous Solutions Button
-function loadparams_Callback(hObject,eventdata,handles)
-
-%open dialog for user to navigate to file
-[filename,filepath] = uigetfile(fullfile(handles.curdir,'Solutions','*-BestResults.mat'), ...
-        'Select the "BestResults.mat" containing the parameter set to load');
-
-if ischar(filename) %if a file is selected, load that file
-        load([filepath,filename]); %load the file
-        
-        %change all the values of parameters to loaded parameter set
-        handles = setParams(handles,myResults','experimental','changeVals');
-        %additional argin signals setParams to update handles.parameters
-        guidata(hObject,handles);
-else
-        disp('No file selected. Load parameters operation aborted.');
-end
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Menu Callback functions
 function save_fig_Callback(hObject, eventdata, handles) %save the current version of fig
 %save the image and color map for the overall window
@@ -415,10 +403,10 @@ end
 %close the figure to free memory
 close(newgraph);
 
-
 function open_graph_Callback(hObject, eventdata, handles)
 openGraph; %simply open the figure in a new window
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Plot Graphs Callback
 function plot_Callback(hObject, eventdata, handles) %plot button in gui
 
@@ -506,6 +494,26 @@ for i=1:numel(handles.parameters.title)
                 'FontWeight','bold','FontName','Helvetica','FontSize',9);
 end
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Load Previous Solutions Button
+function loadparams_Callback(hObject,eventdata,handles)
+
+%open dialog for user to navigate to file
+[filename,filepath] = uigetfile(fullfile(handles.curdir,'Solutions','*-BestResults.mat'), ...
+        'Select the "BestResults.mat" containing the parameter set to load');
+
+if ischar(filename) %if a file is selected, load that file
+        load([filepath,filename]); %load the file
+        
+        %change all the values of parameters to loaded parameter set
+        handles = setParams(handles,myResults','experimental','changeVals');
+        %additional argin signals setParams to update handles.parameters
+        guidata(hObject,handles);
+else
+        disp('No file selected. Load parameters operation aborted.');
+end
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Open Clicked Figure in New Figure
 function varargout = openGraph(varargin)
 %determine which object was clicked
@@ -536,6 +544,7 @@ else
         
 end
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Change all parameter values
 function handles = setParams(handles,values,type,varargin)
 %insert the parameter values passed to the function in the GUI
@@ -567,7 +576,7 @@ else
         handles.expParams = params;
 end
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Change all Initial values
 function handles = setInitials(handles,values,varargin)
 %insert the parameter values passed to the function in the GUI
@@ -589,7 +598,7 @@ if ~isempty(varargin)
                 values(1), values(2), values(3), values(4), values(5), values(6));
 end
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Edit text box
 function handles = editBox(hObject,handles,type,paramChange)
 %extract the new value input by the user
@@ -620,7 +629,7 @@ if strcmp(paramChange,'Cytcred')|strcmp(paramChange,'Cytcox')
         guidata(hObject,handles);
 end
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Update Initial Cytchrome C Total
 function handles = updateInitialCytctot(hObject,handles)
 %get current total cyt c
@@ -632,7 +641,7 @@ newTot = newCytcox + newCytcred;
 set(handles.initial_cytctot_edit,'String',newCytcox+newCytcred);
 handles.parameters.Cytctot = newTot;
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Quick function for calculating OCR from o2
 function ocr = calculateOCR(handles,cytcred,o2,Hn,Hp,type)
 
@@ -645,7 +654,7 @@ end
 
 ocr = ((params.Vmax.*o2)./(params.Km.*(1+(params.K1./cytcred))+o2)).*Hn./Hp;
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Check for input value
 function cytcred = ensureRightInput(input,currTot)
 if ~isnumeric(input)
@@ -661,6 +670,7 @@ else
         end
 end
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Check for valid pH value
 function validity = checkpH(value)
 validity = true;
