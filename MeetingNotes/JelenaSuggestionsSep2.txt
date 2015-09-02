@@ -1,0 +1,5 @@
+- Label the timepoints for injection
+- Define parameters that are measurable
+- Add help buttons for each parameter
+- Further down the line
+	- Additional experimental groups
