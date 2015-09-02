@@ -411,7 +411,7 @@ openGraph; %simply open the figure in a new window
 function plot_Callback(hObject, eventdata, handles) %plot button in gui
 
 %store variables for differntiating control and experimental parameter sets
-graphColor = {'black','r'};
+graphColor = {'r','black'};
 widths = [1.5,1.5];
 types = {'control','experimental'};
 params = {handles.ctrlParams,handles.expParams};
@@ -419,7 +419,8 @@ params = {handles.ctrlParams,handles.expParams};
 %clear all axes graphs using arrayfun to distribute cla to each axes
 arrayfun(@cla,findall(0,'type','axes'))
 
-for type=1:2
+type=2; % while only one condition; once model done, switch back to for loop %%%%%%
+% for type=2:2
         
         %plug in the equations into the ode solver
         [t,y] = solver(handles.parameters,params{type});
@@ -440,14 +441,14 @@ for type=1:2
         axes(handles.O2_plot);
         hold on
         plot(t(2:end),o2(2:end),graphColor{type},'lineWidth',widths(type));
-%         plot(t(2:end),handles.parameters.realo2Data(2:end),'g','lineWidth',widths(type));
+        plot(t(2:end),handles.parameters.realo2Data(2:end),graphColor{type-1},'lineWidth',widths(type));
         hold off
 
         %plot the OCR over time with real OCR data on top
         axes(handles.OCR_plot);
         hold on
         plot(t(2:end),calcOCR(2:end),graphColor{type},'lineWidth',widths(type));
-%         plot(t(2:end),handles.parameters.realOCR(2:end),'g','lineWidth',widths(type));
+        plot(t(2:end),handles.parameters.realOCR(2:end),graphColor{type-1},'lineWidth',widths(type));
         hold off
 
         %plot the Hn concentration over time
@@ -469,7 +470,7 @@ for type=1:2
         hold on
         plot(t(2:end),protRatio(2:end),graphColor{type},'lineWidth',widths(type));
         hold off
-end
+% end
 
 %update all the graph axes
 graphLabel(handles);
