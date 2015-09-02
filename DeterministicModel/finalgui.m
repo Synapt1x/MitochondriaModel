@@ -111,6 +111,23 @@ varargout{1} = handles.output;
 
 %% Main Callback Functions
 
+function finalgui_WindowKeyPressFcn(hObject, eventdata, handles)
+% Keypressfcn for the entire GUI
+switch eventdata.Key
+        case 'return'
+                plot_Callback(hObject,eventdata,handles);
+        case 'r'
+                randomizeButton_Callback(hObject,eventdata,handles);
+        case 'd'
+                params_default_Callback(hObject,eventdata,handles);
+        case 'e'
+                initial_default_Callback(hObject,eventdata,handles);
+        case 'o'
+                optimize_Callback(hObject, eventdata, handles);
+        case 'l'
+                loadparams_Callback(hObject, eventdata, handles);
+end
+
 function optimize_Callback(hObject, eventdata, handles) %optimize button
 
 %run Qubist for optimization
