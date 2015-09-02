@@ -13,22 +13,34 @@ all of the model's parameters and also the data, graph labels.
     parameters.realOCR] = data_formatter;
 
 %% Define the Parameters of the Model
-%parameter values
-parameters.Vmax =4.5; %bounds: [0.01 10]
-parameters.K1 =  100.1019; %bounds: [0.1 1E4]
-parameters.Km = 101.2983; %bounds: [0.1 1E4]
-parameters.p1 = 10.8150; %bounds: [1 1E4]
-parameters.p2 = 99.3193; %bounds: [1 1E4]
-parameters.p3 =7.5784e-04; %bounds: [1E-6 1]
-parameters.f0Vmax = 145; %bounds: [0.01 10]
-parameters.f0Km = 14500; %bounds: [0.1 1E4]
-parameters.Dh = 0.1885; %bounds: [1E-6 1]
+% control condition parameter values
+parameters.ctrlParams.Vmax =4.5; %bounds: [0.01 10]
+parameters.ctrlParams.K1 =  100.1019; %bounds: [0.1 1E4]
+parameters.ctrlParams.Km = 101.2983; %bounds: [0.1 1E4]
+parameters.ctrlParams.p1 = 10.8150; %bounds: [1 1E4]
+parameters.ctrlParams.p2 = 99.3193; %bounds: [1 1E4]
+parameters.ctrlParams.p3 =7.5784e-04; %bounds: [1E-6 1]
+parameters.ctrlParams.f0Vmax = 145; %bounds: [0.01 10]
+parameters.ctrlParams.f0Km = 14500; %bounds: [0.1 1E4]
+parameters.ctrlParams.Dh = 0.1885; %bounds: [1E-6 1]
+
+% experimental condition parameter values
+parameters.expParams.Vmax =4.5; %bounds: [0.01 10]
+parameters.expParams.K1 =  100.1019; %bounds: [0.1 1E4]
+parameters.expParams.Km = 101.2983; %bounds: [0.1 1E4]
+parameters.expParams.p1 = 10.8150; %bounds: [1 1E4]
+parameters.expParams.p2 = 99.3193; %bounds: [1 1E4]
+parameters.expParams.p3 =7.5784e-04; %bounds: [1E-6 1]
+parameters.expParams.f0Vmax = 145; %bounds: [0.01 10]
+parameters.expParams.f0Km = 14500; %bounds: [0.1 1E4]
+parameters.expParams.Dh = 0.1885; %bounds: [1E-6 1]
 
 %% Define Initial Conditions
 %initial conditions in nmol/mL; conversion: 1 nmol/mL = 1E-6 mol/L
 parameters.Cytcox = 100;
 parameters.Cytcred = 0.1;
 parameters.Cytctot = parameters.Cytcox+parameters.Cytcred;
+[parameters.ctrlParams.Cytctot,parameters.expParams.Cytctot] = deal(parameters.Cytctot);
 parameters.O2 = parameters.realo2Data(1);
 parameters.Hn = 100;
 

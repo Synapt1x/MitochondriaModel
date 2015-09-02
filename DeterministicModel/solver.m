@@ -1,4 +1,4 @@
-function [t,y] = solver(parameters)
+function [t,y] = solver(parameters,params)
 %{
 Created by: Chris Cadonic
 ========================================
@@ -11,13 +11,13 @@ solving the ODEs for each section using the appropriate equations.
 tic
 [t1,y1] = ode23t(@baselineSystem, parameters.baselineTimes, ...
     [parameters.Cytcred,parameters.O2,parameters.Hn, ...
-    parameters.Hp],[],parameters);
+    parameters.Hp],[],params);
 [t2,y2] = ode23t(@oligoSystem, parameters.oligoTimes, ...
-    [y1(end,1),y1(end,2),y1(end,3),y1(end,4)],[],parameters);
+    [y1(end,1),y1(end,2),y1(end,3),y1(end,4)],[],params);
 [t3,y3] = ode23t(@fccpSystem, parameters.fccpTimes, ...
-    [y2(end,1),y2(end,2),y2(end,3),y2(end,4)],[],parameters);
+    [y2(end,1),y2(end,2),y2(end,3),y2(end,4)],[],params);
 [t4,y4] = ode23t(@inhibitSystem, parameters.inhibitTimes, ...
-    [y3(end,1),y3(end,2),y3(end,3),y3(end,4)],[],parameters);
+    [y3(end,1),y3(end,2),y3(end,3),y3(end,4)],[],params);
 toc
 
 t = [t1;t2;t3;t4];
