@@ -1,8 +1,0 @@
-Minimizing a normalized weighted sum:
-======================
-
-This example minimizes the following function:
-
-F=sum(w1_i*x_i)/(w2_i*x_i)
-
-where w1 and w2 are weights assigned in the init function.

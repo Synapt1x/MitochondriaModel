@@ -1,5 +1,0 @@
-Many Minima in One Dimension:
-============================
-
-A simple example showing the minimization of a function with only one variable.
-The function has many local minima.

@@ -1,5 +1,0 @@
-Extreme Niching and Avoidance of Local Minima: Mapping a Spiral:
-===============================================================
-
-2-D version of the Spiral-High-D problem.  The lower dinesionality
-makes this problem quite easy.

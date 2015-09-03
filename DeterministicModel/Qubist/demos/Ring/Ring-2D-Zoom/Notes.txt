@@ -1,6 +1,0 @@
-Using the Zoom Feature:
-============================================================
-
-This example is the same as the Ring-2D demo, except that the
-ring is tiny compared to the range of parameters, and Ferret
-must zoom in to find and map it.
