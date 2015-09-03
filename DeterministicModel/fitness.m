@@ -2,6 +2,7 @@ function F = fitness(X,extPar) %This function evaluates the
 %fitness for the input solving agent
 
 parameters=extPar.parameters;
+params=extPar.parameters.params;
 f=fields(X);
 f(strcmpi(f,'info'))=[];
 
@@ -12,11 +13,11 @@ for n=length(X):-1:1
         end
         
         for i=1:length(f)
-                parameters.(f{i})=X(n).(f{i});
+                params.(f{i})=X(n).(f{i});
         end
         
         %call ode to solve the system of equations for this solver
-        [t, y] = solver(parameters);
+        [t, y] = solver(parameters,params);
         
         %for fitting O2
         evaluations = y(:,2); %evaluated data for o2
