@@ -2,7 +2,7 @@ function F = fitness(X,extPar) %This function evaluates the
 %fitness for the input solving agent
 
 parameters=extPar.parameters;
-params=extPar.parameters.params;
+params=extPar.parameters.expParams;
 f=fields(X);
 f(strcmpi(f,'info'))=[];
 
