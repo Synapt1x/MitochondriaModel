@@ -40,10 +40,6 @@ folder = fileparts(which(mfilename)); %get the current folder
 cd([folder '/Solutions']); %change to Solutions folder
 todayDate = date; %get the run date
 
-%save the optimal solutions to the Solutions folder
-filename = [todayDate '-OptimalSolutions'];
-save(filename, 'OptimalSolutions');
-
 %save the Best solution to the Solutions folder
 resultsname = [todayDate '-BestResults'];
 save(resultsname,'myResults','bestFit');
