@@ -163,16 +163,20 @@ guidata(hObject,handles);
 %% Edit boxes for Initial conditions and Parameters
 
 function initial_cytcox_edit_Callback(hObject,eventdata,handles)
-editBox(hObject,handles,'Cytcox');
+handles = editBox(hObject,handles,'initial','Cytcox');
+guidata(hObject,handles);
 
 function initial_cytcred_edit_Callback(hObject,eventdata,handles)
-editBox(hObject,handles,'Cytcred');
+handles = editBox(hObject,handles,'initial','Cytcred');
+guidata(hObject,handles);
 
 function initial_o2_edit_Callback(hObject,eventdata,handles)
-editBox(hObject,handles,'O2');
+handles = editBox(hObject,handles,'initial','O2');
+guidata(hObject,handles);
 
 function initial_hn_edit_Callback(hObject,eventdata,handles)
-editBox(hObject,handles,'Hn');
+handles = editBox(hObject,handles,'initial','Hn');
+guidata(hObject,handles);
 
 function initial_ph_edit_Callback(hObject,eventdata,handles)
 getHpconc = 0;
@@ -613,13 +617,21 @@ if strcmp(type,'control')
         else %if so, then update the model with new value
                 handles.ctrlParams = setfield(handles.ctrlParams,paramChange,newVal);
         end
-else
+elseif strcmp(type,'experimental')
         %check for whether or not a correct input was given
         if isnan(newVal) %if not, throw error box and reset value
                 msgbox('Please input a valid number.','Not a number');
                 set(hObject,'String',getfield(handles.expParams,paramChange));
         else %if so, then update the model with new value
                 handles.expParams = setfield(handles.expParams,paramChange,newVal);
+        end
+else
+        %check for whether or not a correct input was given
+        if isnan(newVal) %if not, throw error box and reset value
+                msgbox('Please input a valid number.','Not a number');
+                set(hObject,'String',getfield(handles.parameters,paramChange));
+        else %if so, then update the model with new value
+                handles.parameters = setfield(handles.parameters,paramChange,newVal);
         end
 end
 
