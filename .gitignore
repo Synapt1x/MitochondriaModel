@@ -1,3 +1,6 @@
 DeterministicModel/FerretData/OptimalSolutions.mat
 DeterministicModel/Qubist/
 DeterministicModel/parameters.mat
+DeterministicModel/FerretData/FerretSetup_SAVED.m
+DeterministicModel/FerretData/scratch/*
+DeterministicModel/FerretData/startTime.mat
