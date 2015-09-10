@@ -136,7 +136,7 @@ function optimize_Callback(hObject, eventdata, handles) %optimize button
 launchQubist
 
 function initial_cytctot_edit_Callback(hObject,eventdata,handles)
-editBox(hObject,handles,'Cytctot');
+editBox(hObject,handles,'initial','Cytctot');
 
 %get current total Cyt C
 currTot = str2double(get(hObject,'String'));
