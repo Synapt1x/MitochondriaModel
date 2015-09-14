@@ -1,0 +1,35 @@
+Outline for writing thesis
+
+Intro
+- Background of mitochondria function
+- Discuss why use mathematical model
+- Discuss previous literature on topic
+
+Methods
+- Biological techniques
+- Mathematical derivation
+- Sensitivty analysis of model
+- Optimization
+- Matlab
+
+Results
+- Show biological data
+- Show various output from the model
+	- Include different iterations of the model (e.g. F0 changes)
+- Show the GUI of the model
+- Show features of the model functioning
+- Sensitivity analysis
+
+Discussion
+- Discuss biological data (Why Oxy > Seahorse)
+- Discuss the model
+	- Show behavior tests
+	- Possibly discuss sensitivity analysis
+- Discuss assumptions of the model
+- Discuss the fallbacks of the model
+- Discuss utility of the model
+
+Conclusion
+- Restate why mathematical model
+- Why is this model useful
+	- What is wrong with it an how can it be improved
