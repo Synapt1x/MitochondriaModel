@@ -416,7 +416,7 @@ function plot_Callback(hObject, eventdata, handles) %plot button in gui
 
 %store variables for differntiating control and experimental parameter sets
 graphColor = {'black','r'};
-widths = [1.5,1.5];
+widths = [2,2];
 types = {'control','experimental'};
 params = {handles.ctrlParams,handles.expParams};
 
@@ -471,7 +471,38 @@ for type=1:2
         hold on
         plot(t(2:end),protRatio(2:end),graphColor{type},'lineWidth',widths(type));
         hold off
+        
 end
+
+%add vertical lines to all graphs for injection times
+for graph = 1:numel(handles.graphs)
+        axes(handles.graphs{graph});
+        vertScale = get(gca,'yLim'); % get the y resolution
+        vertRange = [vertScale(1), vertScale(end)*0.98];
+        
+        % draw oligo line
+        line([handles.parameters.oligoTimes(1), handles.parameters.oligoTimes(1)], ...
+                vertRange, 'Color','b','LineWidth',0.01);
+        text(handles.parameters.oligoTimes(1),vertRange(end)*1.005,'Oligomycin', ...
+                'FontSize',6,'HorizontalAlignment','center','Color','b');
+        
+        % draw fccp line
+        line([handles.parameters.fccpTimes(1), handles.parameters.fccpTimes(1)], ...
+                vertRange,'Color','b');
+        text(handles.parameters.fccpTimes(1),vertRange(end)*1.005,'FCCP', ...
+                'FontSize',6,'HorizontalAlignment','center','Color','b');
+
+        % draw inhibit line
+        line([handles.parameters.inhibitTimes(1), handles.parameters.inhibitTimes(1)], ...
+                vertRange, 'Color','b');
+        text(handles.parameters.inhibitTimes(1),vertRange(end)*1.005,'Rot/AA', ...
+                'FontSize',6,'HorizontalAlignment','center','Color','b');
+        
+        % while iterating over graphs, also set xLim
+        set(gca,'xLim',[t(1), t(end)]);
+
+end
+
 
 %update all the graph axes
 graphLabel(handles);
@@ -521,6 +552,7 @@ function varargout = openGraph(varargin)
 %determine which object was clicked
 whichgraph = gco;
 obj=get(gca);
+% set(whichgraph,'DefaultPlotFontSize',16);
 
 %open a new figure using the graph from the relevant axes
 h2copy = allchild(whichgraph); %extract all children from hObject
@@ -539,7 +571,11 @@ else
         %now add the correct labels to the new figure
         xlabel(obj.XLabel.String,'FontName','Calibri');
         ylabel(obj.YLabel.String,'FontName','Calibri');
-        title(obj.Title.String,'FontSize',16,'FontWeight','bold','FontName','Calibri');
+        title(obj.Title.String,'FontSize',18,'FontWeight','bold','FontName','Calibri');
+        
+        %change the children to change the reagent text sizes
+        textChildren = findobj(hParent,'FontSize',6); % get the text objects
+        set(textChildren,'FontSize',12); % increase their font size
         
         %optionally output the figure for the 'save' feature
         varargout{1}=newgraph;
