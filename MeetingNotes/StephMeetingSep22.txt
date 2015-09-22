@@ -1,0 +1,16 @@
+- Change each parameter and/or initial condition
+	- Does it blow up anywhere? What causes drastic changes
+	- Does the behavior match what the biology dictates
+		- Follow-up experimentation --> Do changes in
+		the model output accurately predict new 
+		biological data
+- Three things left to finish off:
+	- Sensitivity Analysis
+	- Qualitative Robustness
+	- Finish a copy of the thesis 
+		- Aim for end of October-ish
+		- In parallel, continue working on publication as well
+- Ask Zahra when I meet with her
+	- Regulations for examining committee
+		 - Can there be overlap between advisory committee and examining?
+	- Ask to see a former M.Sc for guidelines and structure
