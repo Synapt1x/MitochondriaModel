@@ -15,4 +15,15 @@
 
 # Next Work
 * Plot baseline behavior over time
-* 
+* Run for extensive amount of time
+* May have singularities: w = T and w = 0
+* R = C0
+* O = 0
+* w = T
+
+# Equilibrium Analysis
+* Could rescale and do change of variable
+* Can nondimensionalize?
+* Quasi-equilbrium -> all left is complex V
+* up to complex IV (C I -> C IV) is opposed by complex V at all times
+*
