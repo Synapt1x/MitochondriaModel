@@ -1,0 +1,18 @@
+# Thesis
+* Not a big deal if I don't grad Jan
+* Can submit thesis in December
+* Choose quality over rushing the thesis for finishing in October
+* Final deadline for everything = January 5 if grad February
+* Final deadline for everything = March 5 if grad May
+
+# Sensitivity Analysis
+* lhsdesign in matlab
+* lb and up = 2 order of magnitude around fit value
+* bsxfun to rescale (see matlab example on site)
+* Two sensitivity analyses?
+* Do the sensitivity analysis on the system W/O F6 (baseline)
+* Mathematical sensitivity will require every term (WITH F6)
+
+# Next Work
+* Plot baseline behavior over time
+* 
