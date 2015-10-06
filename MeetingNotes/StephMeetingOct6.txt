@@ -2,6 +2,10 @@
 
 ## Update overleaf with texstudio from desktop!
 
+## Read robustness paper from Steph
+* Need this for testing robustness and for applicability of the model
+* Need this for publishing
+
 ### Compare complex V results to Nath 2000
 
 * Read over Nath 2000 and compare parameter values (compare order)
@@ -15,9 +19,32 @@ magnitude difference between p3 and the paper's p3 is negligible
 
 ### Compare parameter results to literature
 * Compare each value and see if these values can be found elsewhere
-*
+* Add table for full comparison as well
+
+## Test Results
+* In what case will the mitochondria NOT utilize oxygen
+* Try to 'Simulate' to see if the system responds realistically
+* We need to compare different situations in the model with experimental
+conditions
+* See how everything behaves when for instance:
+** r = 0 --> run simulation
+** We can play with pH (Read over textbook for pH)
+** Very small oxygen/and lots and lots of oxygen
+* So try all possible behavior combinations
+** Say r -> 0, r -> inf
+** or O2 -> 0, r -> inf, etc.
+** See how these compare to biological expectations
+* Fit for just the baseline model, discuss the results of fitting just this
+model
 
 ### Discussion
 * Talk about the good fit, but the methods have some uncertainty with regard
 to whether or not these fits are always the best (parameter space limitation)
 * Need more work to test the robustness of the model
+
+## For Friday
+* Run the simulation with r --> 0 (say r = 10^-10)
+* Finish poster
+* Have a thesis proposal ready
+* Start simulating different conditions
+* Fit for JUST the baseline condition
