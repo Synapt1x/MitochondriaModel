@@ -1,0 +1,20 @@
+#To do
+
+### Compare complex V results to Nath 2000
+
+* Read over Nath 2000 and compare parameter values (compare order)
+* Correct p1, p2, p3 to Vmax, K1, Km
+* Discuss how rho is multiplied by ATP Synthase
+* If you plug in values for proton ratio and p3 ratio then the only real term
+in the denominator that matters is p2, since it is much larger, thus the
+magnitude difference between p3 and the paper's p3 is negligible
+* This will be a big section in the results
+
+### Compare parameter results to literature
+* Compare each value and see if these values can be found elsewhere
+*
+
+### Discussion
+* Talk about the good fit, but the methods have some uncertainty with regard
+to whether or not these fits are always the best (parameter space limitation)
+* Need more work to test the robustness of the model
