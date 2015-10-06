@@ -1,5 +1,7 @@
 #To do
 
+## Update overleaf with texstudio from desktop!
+
 ### Compare complex V results to Nath 2000
 
 * Read over Nath 2000 and compare parameter values (compare order)
@@ -9,6 +11,7 @@
 in the denominator that matters is p2, since it is much larger, thus the
 magnitude difference between p3 and the paper's p3 is negligible
 * This will be a big section in the results
+* Add table to compare all the parameter values
 
 ### Compare parameter results to literature
 * Compare each value and see if these values can be found elsewhere
