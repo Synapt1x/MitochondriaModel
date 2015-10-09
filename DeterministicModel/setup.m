@@ -38,8 +38,8 @@ parameters.expParams.Dh = parameters.ctrlParams.Dh; %bounds: [1E-6 1]
 
 %% Define Initial Conditions
 %initial conditions in nmol/mL; conversion: 1 nmol/mL = 1E-6 mol/L
-parameters.Cytcox = 0;
-parameters.Cytcred = 0;
+parameters.Cytcox = 100;
+parameters.Cytcred = 0.1;
 parameters.Cytctot = parameters.Cytcox+parameters.Cytcred;
 [parameters.ctrlParams.Cytctot,parameters.expParams.Cytctot] = deal(parameters.Cytctot);
 parameters.O2 = parameters.realo2Data(1);
