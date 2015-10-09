@@ -1,0 +1,41 @@
+# Notes for Meeting with Ben and Steph October 9, 2015
+
+
+
+## Things to do
+* Make lines thicker (maybe make one dashed)
+* Change name of F0 --> names of functions (F_0, should not be used, maybe use
+C instead of F)
+* Test only with respect to baseline
+* Change matlab to have a branch with just baseline
+* Have all the cases where:
+** Baseline
+** Baseline --> drug 1 only
+** Baseline --> drug 2 only
+** Baseline --> drug 3 only
+* Check PLoS computational biology
+* Ask Jason about how to cite genetic algorithm
+** For thesis AND publication, in both conditions
+* Tabulate lists of which poster presentations were Steph's, Jason's, etc.
+
+
+## Conditions to check
+* Add cytochrome c/ remove all cytochrome c
+* change pH
+* Add oxygen / remove all oxygen
+*
+
+## Take the baseline condition
+* Do the plots (change pH, no O2, lots of O2, no cyt c, lots of cyt c, etc.)
+* Work in progress
+
+
+## Things to do today
+* Baseline condition --> Simulate conditions and save snapshots to github
+* Poster
+** Table with parameters --> What they represent --> Units
+** Separate table with variables --> What they represent --> Units
+** Make sure I mention 'perturb the model' when presenting
+* Send Stephanie the thesis proposal
+* Work on publication
+** PloS One -- Check template
