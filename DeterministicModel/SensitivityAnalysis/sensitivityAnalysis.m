@@ -1,4 +1,4 @@
-function modelJacobi = sensitivityAnalysis()
+function [equations,lhs, output] = sensitivityAnalysis()
 %{
 Created by: Chris Cadonic
 ========================================
@@ -13,6 +13,7 @@ This will be carrying out sensitivty analysis for the baseline system.
 
 %Initialize the symbolic variables in the model; vars, params and t
 syms r o omega rho f0vmax f0K vmax K1 Km p1 p2 p3 p4 t cytcdiff;
+[equations, output] = deal({});
 
 %define cytcdiff
 cytcdiff = 100.1 - r;
@@ -33,4 +34,21 @@ funcs = [f1,f2,f3];
 params = [f0vmax,f0K,vmax,K1,Km,p1,p2,p3,t];
 
 %call jacobian to calculate the jacobian function to calc all derivs
-modelJacobi = jacobian(funcs,params);
+jacobianMatrix = jacobian(funcs,params);
+
+% create the sampling pool using latin hypercube sampling
+lhs = lhsdesign(1E4,9);
+
+for eq =1:numel(jacobianMatrix)
+      tic
+      equations{eq} = jacobianMatrix(eq); %store each equation
+      
+      lhsCell = num2cell(lhs); %convert to cell matrix
+      for i=1:size(lhs,1)
+            [f0vmax, f0K, vmax, K1, Km, p1, p2, p3, t] = deal(lhsCell{i,:});
+      
+            output{i,eq} = subs(jacobianMatrix(eq));
+      end
+      toc
+end
+
