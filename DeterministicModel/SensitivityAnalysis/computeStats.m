@@ -26,4 +26,9 @@ for column=1:size(dataMatrix,2)
             column)=NaN;
 end
 
-boxplot(dataMatrix);
+% generate boxplots for the input data
+boxes = boxplot(dataMatrix);
+
+%calculate the PRCCs for the input data
+prccs = partialcorr(dataMatrix);
+disp(['The prccs for this system are:', prccs])

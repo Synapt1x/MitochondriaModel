@@ -32,7 +32,9 @@ sensitivityOutput.equations = [];
 cytcdiff = 100.1 - r;
 
 % define parameters for run
-numsims = 500;
+numsims = 1000;
+lb = [1 1 1 10 100 1 1 1 1E4]; % lower bounds for params
+ub = [10 1 10 20 500 5 10 10 10]; % upper bound for params
 
 %Define each of the baseline equations from the mito model
 dr = 2*((f0Vmax*(cytcdiff))/(f0Km+(cytcdiff))) ...
@@ -53,7 +55,8 @@ params = [f0Vmax,f0Km,Vmax,K1,Km,p1,p2,p3,t];
 jacobianMatrix = jacobian(funcs,params);
 
 % create the sampling pool using latin hypercube sampling
-lhs = lhsdesign(numsims,numel(params));
+lhsRaw = lhsdesign(numsims,numel(params));
+lhs = bsxfun(@plus,lb,bsxfun(@times,lhsRaw,(ub-lb))); %rescale to fit within bounds
 
 disp('Generating equations using latin hypercube sampling...');
 
@@ -94,7 +97,7 @@ cd('..');
 
 % acquire params for the properties of the model
 params = setup;
-params.timePoints = linspace(0.1,1E6,1E3);
+params.timePoints = linspace(0.1,1E4,1E3);
 finalVals = zeros(numsims,4);
 
 disp('Simulating the model and keeping final values of long-time runs...');
