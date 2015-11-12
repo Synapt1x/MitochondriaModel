@@ -13,6 +13,9 @@ This will be carrying out sensitivty analysis for the baseline system.
 
 %% Create LHS sampling and Sensitivity Coefficients
 
+% clear cmd history for clarity
+clc
+
 %Initialize the symbolic variables in the model; vars, params and t
 syms r o omega rho f0Vmax f0Km Vmax K1 Km p1 p2 p3 p4 t cytcdiff;
 r = 0.1;
@@ -29,7 +32,7 @@ sensitivityOutput.equations = [];
 cytcdiff = 100.1 - r;
 
 % define parameters for run
-numsims = 1E3;
+numsims = 500;
 
 %Define each of the baseline equations from the mito model
 dr = 2*((f0Vmax*(cytcdiff))/(f0Km+(cytcdiff))) ...
@@ -91,10 +94,13 @@ cd('..');
 
 % acquire params for the properties of the model
 params = setup;
-params.timePoints = linspace(0.1,1E4,1E3);
+params.timePoints = linspace(0.1,1E6,1E3);
 finalVals = zeros(numsims,4);
 
+disp('Simulating the model and keeping final values of long-time runs...');
+
 for sim=1:numsims
+      tic
       % convert to cell array to distribute to params
       tempLhs = num2cell(lhs(sim,:));
       [params.ctrlParams.f0Vmax,params.ctrlParams.f0Km, ...
@@ -109,7 +115,8 @@ for sim=1:numsims
             [],params.ctrlParams);
       
       % store the final value of each 
-      finalVals(sim,:) = y(end,:);
+      finalVals(sim,:) = mean(y(end-100:end,:));
+      toc
 end
 
 %change back to sensitivity analysis folder
