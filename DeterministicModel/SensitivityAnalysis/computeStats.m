@@ -23,12 +23,13 @@ for column=1:size(dataMatrix,2)
       dataMatrix(dataMatrix(:,column)>meanVals(column)+2*deviationVals(column), ...
             column)=NaN;
       dataMatrix(dataMatrix(:,column)<meanVals(column)-2*deviationVals(column), ...
-            column)=NaN;
+            column)=NaN;      
 end
 
-% generate boxplots for the input data
-boxes = boxplot(dataMatrix);
+% create box plots, one for each substrate in simulation and one for each
+% equation provided for the sensitivity analysis
 
-%calculate the PRCCs for the input data
-prccs = partialcorr(dataMatrix);
-disp(['The prccs for this system are:', prccs])
+
+%calculate the PRCCs for the sensitivity coefficients
+disp('The prccs for this system are: ')
+prccs = partialcorr(dataMatrix(:,5:end));
