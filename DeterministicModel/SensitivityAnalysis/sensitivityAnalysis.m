@@ -32,7 +32,7 @@ sensitivityOutput.equations = [];
 cytcdiff = 100.1 - r;
 
 % define parameters for run
-numsims = 100;
+numsims = 10000;
 lb = [0.01, 0.1, 0.01, 0.1, 1, 0.1, 1, 1E-6, 0.1]; % lower bounds for params
 ub = [10, 1, 1E4, 10, 1E4, 1E4, 1E4, 1, 1E5]; % upper bound for params
 
@@ -50,6 +50,8 @@ drho = 6*((f0Vmax*(cytcdiff))/(f0Km+(cytcdiff))) ...
       *(omega./rho) + 2*((Vmax*o)/(Km*(1 ...
       +(K1/r))+o))*(omega/rho) - ((p1 ...
       *(rho/omega))/((rho/omega)+p2 + (p3/omega)))*rho; % drho
+
+disp('Differentiating equations and finding sensitivity coefficients...')
 
 %define arrays containing all funcs and all params
 funcs = [dr,do,domega];
