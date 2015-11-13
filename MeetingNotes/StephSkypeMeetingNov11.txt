@@ -1,0 +1,19 @@
+- November 11, 2015
+- Look through the literature for the parameter value ranges
+	-- see if there are any major differences
+- Sensitivity Analysis
+	-- I have the equations
+	-- I have the values
+	-- Simulate the system and run until it stabilizes (make sure the system converges)
+	-- Find the sensitivity coefficient values that converge
+		-- Make sure they stabilize
+		-- Run the original system and look at the equilibrium (the effect of the parameters on equilibrium)
+		-- Store the end value
+		-- Run the system for each of the value
+	-- Run the system with all values in each row (for all parameters)
+		-- Use lhsdesign to create random values
+		-- Descriptive statistics for each variable end value
+	-- Repeat with the sensitivity analysis coefficients (for all parameters)
+		-- same as with the model
+	-- For each substrate I will have 9 boxplots
+		-- for all the equations I have

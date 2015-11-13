@@ -1,0 +1,11 @@
+# Create boxplot for each species separately
+* Remove outliers
+* Change axis scale to show whole boxplots
+
+# Repeat for sensitivity coefficients
+* Boxplot for each coefficient
+* Group sensitivity coefficients by equation (e.g., oxygen all together)
+** so four figures with 9 boxplots on each
+
+# Steps
+* Run with higher sampling
