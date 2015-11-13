@@ -25,16 +25,16 @@ rho = 0.0398;
 
 %Initialize output parameters
 sensitivityOutput.equations = [];
-[equations, sensitivityOutput.outputLabels, output, ...
-      sensitivityOutput.outputVals] = deal({});
+[sensitivityOutput.outputLabels, sensitivityOutput.outputVals] ...
+      = deal({});
 
 %define cytcdiff
 cytcdiff = 100.1 - r;
 
 % define parameters for run
-numsims = 1000;
-lb = [1 1 1 10 100 1 1 1 1E4]; % lower bounds for params
-ub = [10 1 10 20 500 5 10 10 10]; % upper bound for params
+numsims = 100;
+lb = [0.01, 0.1, 0.01, 0.1, 1, 0.1, 1, 1E-6, 0.1]; % lower bounds for params
+ub = [10, 1, 1E4, 10, 1E4, 1E4, 1E4, 1, 1E5]; % upper bound for params
 
 %Define each of the baseline equations from the mito model
 dr = 2*((f0Vmax*(cytcdiff))/(f0Km+(cytcdiff))) ...
@@ -46,6 +46,10 @@ domega = -6*((f0Vmax*(cytcdiff))/(f0Km+(cytcdiff))) ...
       *(omega./rho) - 2*((Vmax*o)/(Km*(1 ...
       +(K1/r))+o))*(omega/rho) + ((p1 ...
       *(rho/omega))/((rho/omega)+p2 + (p3/omega)))*rho; %domega
+drho = 6*((f0Vmax*(cytcdiff))/(f0Km+(cytcdiff))) ...
+      *(omega./rho) + 2*((Vmax*o)/(Km*(1 ...
+      +(K1/r))+o))*(omega/rho) - ((p1 ...
+      *(rho/omega))/((rho/omega)+p2 + (p3/omega)))*rho; % drho
 
 %define arrays containing all funcs and all params
 funcs = [dr,do,domega];
@@ -53,41 +57,24 @@ params = [f0Vmax,f0Km,Vmax,K1,Km,p1,p2,p3,t];
 
 %call jacobian to calculate the jacobian function to calc all derivs
 jacobianMatrix = jacobian(funcs,params);
+equations = num2cell(jacobianMatrix);
 
 % create the sampling pool using latin hypercube sampling
 lhsRaw = lhsdesign(numsims,numel(params));
 lhs = bsxfun(@plus,lb,bsxfun(@times,lhsRaw,(ub-lb))); %rescale to fit within bounds
+lhsCell = num2cell(lhs); %convert to cell matrix
 
 disp('Generating equations using latin hypercube sampling...');
 
-% loop over and apply lhs to each equation
-for eq =1:numel(jacobianMatrix)
-      % each parameter sensitivity is stored in jacobianMatrix
-      equations{eq} = jacobianMatrix(eq); %store each equation
-      
-      lhsCell = num2cell(lhs); %convert to cell matrix
-      for i=1:numsims
-            [f0Vmax, f0Km, Vmax, K1, Km, p1, p2, p3, t] = deal(lhsCell{i,:});
-            
-            output{i,eq} = subs(jacobianMatrix(eq));
-            output{i,eq} = double(output{i,eq});
-      end
-end
-
 % create label matrix
-sensitivityOutput.outputLabels = {'dr/df0Vmax','do/df0Vmax', ...
-      'domega/df0Vmax','dr/df0Km','do/df0Km','domega/df0Km', 'dr/dVmax', ...
-      'do/dVmax','domega/dVmax', 'dr/dK1','do/dK1','domega/dK1','dr/dKm', ...
-      'do/dKm','domega/dKm', 'dr/dp1','do/dp1','domega/dp1', 'dr/dp2', ...
-      'do/dp2','domega/dp2', 'dr/dp3','do/dp3','domega/dp3', 'dr/dt', ...
-      'do/dt','domega/dt'};
+sensitivityOutput.outputLabels = {'dr/df0Vmax', 'dr/df0Km', 'dr/dVmax', 'dr/dKm', ...
+      'dr/dK1', 'dr/dp1','dr/dp2','dr/dp3','dr/dt';'do/df0Vmax', 'do/df0Km', 'do/dVmax', ...
+      'do/dKm', 'do/dK1', 'do/dp1','do/dp2','do/dp3','do/dt';'domega/df0Vmax',  ...
+      'domega/df0Km', 'domega/dVmax', 'domega/dKm', 'domega/dK1', ...
+      'domega/dp1', 'domega/dp2','domega/dp3','domega/dt'};
 
 % convert from symbolic notation and store in structure
 sensitivityOutput.equations = vpa(equations);
-sensitivityOutput.outputVals = cell2mat(output);
-
-% compute sensitivity scores
-sensitivityOutput.vals = subs(sensitivityOutput.outputVals);
 
 %% Apply LHS sampling and carry out statistics on results
 
@@ -98,12 +85,11 @@ cd('..');
 % acquire params for the properties of the model
 params = setup;
 params.timePoints = linspace(0.1,1E4,1E3);
-finalVals = zeros(numsims,4);
+sensitivityOutput.finalVals = [];
 
 disp('Simulating the model and keeping final values of long-time runs...');
 
 for sim=1:numsims
-      tic
       % convert to cell array to distribute to params
       tempLhs = num2cell(lhs(sim,:));
       [params.ctrlParams.f0Vmax,params.ctrlParams.f0Km, ...
@@ -117,13 +103,20 @@ for sim=1:numsims
             [params.Cytcred,params.O2,params.Hn, params.Hp], ...
             [],params.ctrlParams);
       
-      % store the final value of each 
-      finalVals(sim,:) = mean(y(end-100:end,:));
-      toc
+      % store the final value(s)s of each simulation
+      sensitivityOutput.finalVals(sim,1:4) = mean(y(end-round(numel(y)*0.1):end,:));
+      
+      % also use the lhs values to find the values for each
+      % sensitivity coefficient
+      [f0Vmax, f0Km, Vmax, K1, Km, p1, p2, p3, t] = deal(lhsCell{sim,:}); %set values
+
+      for eqNum=1:numel(equations) % evaluate each equation with this value set
+            sensitivityOutput.finalVals(sim,eqNum+4) = subs(equations{eqNum});
+      end      
 end
 
 %change back to sensitivity analysis folder
 cd(curdir)
 
 % call the compute stats function to analyze the results
-computeStats(finalVals);
+computeStats(sensitivityOutput.finalVals);
