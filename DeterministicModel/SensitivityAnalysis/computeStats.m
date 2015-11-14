@@ -28,7 +28,15 @@ end
 
 % create box plots, one for each substrate in simulation and one for each
 % equation provided for the sensitivity analysis
-
+for substrate=1:8
+      if substrate < 5
+            figure(substrate);
+            boxplot(dataMatrix(:,substrate));
+      else
+            figure(substrate);
+            boxplot(dataMatrix(:,9*substrate-40:9*substrate-32));
+      end
+end
 
 %calculate the PRCCs for the sensitivity coefficients
 disp('The prccs for this system are: ')

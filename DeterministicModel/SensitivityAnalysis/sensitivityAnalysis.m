@@ -54,7 +54,7 @@ drho = 6*((f0Vmax*(cytcdiff))/(f0Km+(cytcdiff))) ...
 disp('Differentiating equations and finding sensitivity coefficients...')
 
 %define arrays containing all funcs and all params
-funcs = [dr,do,domega];
+funcs = [dr,do,domega,drho];
 params = [f0Vmax,f0Km,Vmax,K1,Km,p1,p2,p3,t];
 
 %call jacobian to calculate the jacobian function to calc all derivs
