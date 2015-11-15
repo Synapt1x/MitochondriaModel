@@ -37,9 +37,3 @@ for substrate=1:8
             boxplot(dataMatrix(:,9*substrate-40:9*substrate-32));
       end
 end
-
-%calculate the PRCCs for the sensitivity coefficients
-disp('The prccs for this system are: ')
-prccs = partialcorr(dataMatrix(:,5:end));
-
-disp(prccs)
