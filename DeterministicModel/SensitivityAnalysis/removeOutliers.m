@@ -29,8 +29,12 @@ outlierVals = get(h,'YData');
 if iscolumn(boxes)
       outliers = horzcat(boxes,outlierVals);
 else
-      outliers = vertcat(boxes,outlierVals);
-      outliers = num2cell(outliers');
+      outliers = vertcat(boxes,outlierVals)';
+end
+
+% convert to cell array if it isn't already
+if ~iscell(outliers)
+      outliers = num2cell(outliers);
 end
 
 % remove outlier values from data matrix

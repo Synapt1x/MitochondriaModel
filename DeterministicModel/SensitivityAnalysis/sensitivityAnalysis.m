@@ -32,7 +32,7 @@ sensitivityOutput.equations = [];
 cytcdiff = 100.1 - r;
 
 % define parameters for run
-numsims = 10;
+numsims = 1E4;
 lb = [0.01, 0.1, 0.01, 0.1, 1, 0.1, 1, 1E-6, 0.1]; % lower bounds for params
 ub = [10, 1, 1E4, 10, 1E4, 1E4, 1E4, 1, 1E5]; % upper bound for params
 
