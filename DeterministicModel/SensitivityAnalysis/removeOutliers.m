@@ -19,6 +19,7 @@ whichBox = 0;
 
 % build an initial boxplot without displaying it
 boxplot(dataMtx);
+set(gcf,'Visible','Off');
 
 % extract outlier data
 h = findobj(gcf,'tag','Outliers');
