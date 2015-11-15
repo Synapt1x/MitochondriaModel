@@ -26,6 +26,7 @@ for substrate=1:8
             dataMatrix(:,substrate) = removeOutliers(dataMatrix(:,substrate));
             
             % re-draw boxplot
+            set(gcf,'Visible','On');
             boxplot(dataMatrix(:,substrate));
       else
             figure(substrate);
@@ -34,6 +35,7 @@ for substrate=1:8
                   removeOutliers(dataMatrix(:,9*substrate-40:9*substrate-32));
             
             % re-draw boxplot
+            set(gcf,'Visible','On');
             boxplot(dataMatrix(:,9*substrate-40:9*substrate-32));
       end
 end
