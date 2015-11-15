@@ -120,5 +120,34 @@ end
 %change back to sensitivity analysis folder
 cd(curdir)
 
-% call the compute stats function to analyze the results
-computeStats(sensitivityOutput.finalVals);
+% store value matrix in a regular matrix outside of struc
+dataMatrix = sensitivityOutput.finalVals;
+
+%% Compute statistics
+% firstly compute the mean and variance of each value
+meanVals = mean(dataMatrix,1);
+deviationVals = std(dataMatrix,0,1);
+varianceVals = deviationVals.^2;
+
+% create box plots, one for each substrate in simulation and one for each
+% equation provided for the sensitivity analysis
+for substrate=1:8
+      if substrate < 5
+            figure(substrate);
+            
+            dataMatrix(:,substrate) = removeOutliers(dataMatrix(:,substrate));
+            
+            % re-draw boxplot
+            set(gcf,'Visible','On');
+            boxplot(dataMatrix(:,substrate));
+      else
+            figure(substrate);
+            
+            dataMatrix(:,9*substrate-40:9*substrate-32) = ...
+                  removeOutliers(dataMatrix(:,9*substrate-40:9*substrate-32));
+            
+            % re-draw boxplot
+            set(gcf,'Visible','On');
+            boxplot(dataMatrix(:,9*substrate-40:9*substrate-32));
+      end
+end
