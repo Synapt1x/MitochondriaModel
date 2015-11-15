@@ -17,23 +17,23 @@ meanVals = mean(dataMatrix,1);
 deviationVals = std(dataMatrix,0,1);
 varianceVals = deviationVals.^2;
 
-% ignore outliers that are greater/less than 2 standard deviations
-% from the mean
-for column=1:size(dataMatrix,2)
-      dataMatrix(dataMatrix(:,column)>meanVals(column)+2*deviationVals(column), ...
-            column)=NaN;
-      dataMatrix(dataMatrix(:,column)<meanVals(column)-2*deviationVals(column), ...
-            column)=NaN;      
-end
-
 % create box plots, one for each substrate in simulation and one for each
 % equation provided for the sensitivity analysis
 for substrate=1:8
       if substrate < 5
             figure(substrate);
+            
+            dataMatrix(:,substrate) = removeOutliers(dataMatrix(:,substrate));
+            
+            % re-draw boxplot
             boxplot(dataMatrix(:,substrate));
       else
             figure(substrate);
+            
+            dataMatrix(:,9*substrate-40:9*substrate-32) = ...
+                  removeOutliers(dataMatrix(:,9*substrate-40:9*substrate-32));
+            
+            % re-draw boxplot
             boxplot(dataMatrix(:,9*substrate-40:9*substrate-32));
       end
 end
@@ -41,3 +41,5 @@ end
 %calculate the PRCCs for the sensitivity coefficients
 disp('The prccs for this system are: ')
 prccs = partialcorr(dataMatrix(:,5:end));
+
+disp(prccs)

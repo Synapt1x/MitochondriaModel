@@ -19,7 +19,6 @@ whichBox = 0;
 
 % build an initial boxplot without displaying it
 boxplot(dataMtx);
-set(gcf,'Visible','Off');
 
 % extract outlier data
 h = findobj(gcf,'tag','Outliers');
@@ -27,7 +26,12 @@ boxes = get(h,'XData');
 outlierVals = get(h,'YData');
 
 % find all outliers with |x|vals|
-outliers = horzcat(boxes,outlierVals);
+if iscolumn(boxes)
+      outliers = horzcat(boxes,outlierVals);
+else
+      outliers = vertcat(boxes,outlierVals);
+      outliers = num2cell(outliers');
+end
 
 % remove outlier values from data matrix
 for box = 1:size(outliers,1)

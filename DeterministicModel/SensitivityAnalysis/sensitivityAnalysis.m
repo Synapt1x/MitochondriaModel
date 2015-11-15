@@ -32,7 +32,7 @@ sensitivityOutput.equations = [];
 cytcdiff = 100.1 - r;
 
 % define parameters for run
-numsims = 10000;
+numsims = 10;
 lb = [0.01, 0.1, 0.01, 0.1, 1, 0.1, 1, 1E-6, 0.1]; % lower bounds for params
 ub = [10, 1, 1E4, 10, 1E4, 1E4, 1E4, 1, 1E5]; % upper bound for params
 
@@ -114,7 +114,7 @@ for sim=1:numsims
 
       for eqNum=1:numel(equations) % evaluate each equation with this value set
             sensitivityOutput.finalVals(sim,eqNum+4) = subs(equations{eqNum});
-      end      
+      end
 end
 
 %change back to sensitivity analysis folder
