@@ -32,7 +32,7 @@ sensitivityOutput.equations = [];
 cytcdiff = 100.1 - r;
 
 % define parameters for run
-numsims = 10;
+numsims = 5E4;
 lb = [0.01, 0.1, 0.01, 0.1, 1, 0.1, 1, 1E-6, 0.1]; % lower bounds for params
 ub = [10, 1, 1E4, 10, 1E4, 1E4, 1E4, 1, 1E5]; % upper bound for params
 
@@ -68,12 +68,20 @@ lhsCell = num2cell(lhs); %convert to cell matrix
 
 disp('Generating equations using latin hypercube sampling...');
 
-% create label matrix
+% create equation label matrix
 sensitivityOutput.outputLabels = {'dr/df0Vmax', 'dr/df0Km', 'dr/dVmax', 'dr/dKm', ...
       'dr/dK1', 'dr/dp1','dr/dp2','dr/dp3','dr/dt';'do/df0Vmax', 'do/df0Km', 'do/dVmax', ...
       'do/dKm', 'do/dK1', 'do/dp1','do/dp2','do/dp3','do/dt';'domega/df0Vmax',  ...
       'domega/df0Km', 'domega/dVmax', 'domega/dKm', 'domega/dK1', ...
       'domega/dp1', 'domega/dp2','domega/dp3','domega/dt'};
+
+% create boxplot label matrix
+labels = {'Equilibrium Value of Cytochrome C Reduced', ...
+      'Equilibrium Value of Oxygen', 'Equilibrium Value of Matrix Protons', ...
+      'Equilibrium Value of IMS Protons', 'Sensitivity Coefficient Values for dr/dt', ...
+      'Sensitivity Coefficient Values for do/dt',...
+      'Sensitivity Coefficient Values for domega/dt',...
+      'Sensitivity Coefficient Values for drho/dt'};
 
 % convert from symbolic notation and store in structure
 sensitivityOutput.equations = vpa(equations);
@@ -132,22 +140,18 @@ varianceVals = deviationVals.^2;
 % create box plots, one for each substrate in simulation and one for each
 % equation provided for the sensitivity analysis
 for substrate=1:8
-      if substrate < 5
+      if substrate < 5 % check if it's just for the simulation model
             figure(substrate);
             
-            dataMatrix(:,substrate) = removeOutliers(dataMatrix(:,substrate));
+            % create a formatted boxplot for this column
+            formatBoxplot(dataMatrix(:,substrate),labels{substrate});
             
-            % re-draw boxplot
-            set(gcf,'Visible','On');
-            boxplot(dataMatrix(:,substrate));
-      else
+      else % if 5,6,7,8 then draw a group of boxplots for an equation
             figure(substrate);
             
-            dataMatrix(:,9*substrate-40:9*substrate-32) = ...
-                  removeOutliers(dataMatrix(:,9*substrate-40:9*substrate-32));
-            
-            % re-draw boxplot
-            set(gcf,'Visible','On');
-            boxplot(dataMatrix(:,9*substrate-40:9*substrate-32));
+            % create a formatted boxplot for the given equations
+            % sensitivity coefficients
+            formatBoxplot(dataMatrix(:,9*substrate-40:9*substrate-32),...
+                  labels{substrate});
       end
 end
