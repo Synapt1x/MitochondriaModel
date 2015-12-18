@@ -32,7 +32,7 @@ sensitivityOutput.equations = [];
 cytcdiff = 100.1 - r;
 
 % define parameters for run
-numsims = 5E4;
+numsims = 1E4;
 lb = [0.01, 0.1, 0.01, 0.1, 1, 0.1, 1, 1E-6, 0.1]; % lower bounds for params
 ub = [10, 1, 1E4, 10, 1E4, 1E4, 1E4, 1, 1E5]; % upper bound for params
 
@@ -59,7 +59,16 @@ params = [f0Vmax,f0Km,Vmax,K1,Km,p1,p2,p3,t];
 
 %call jacobian to calculate the jacobian function to calc all derivs
 jacobianMatrix = jacobian(funcs,params);
-equations = num2cell(jacobianMatrix);
+
+% normalize the equations by multiplying by reciprocal ratios, e.g.
+%dr/df0Vmax is normalized by multiplying by f0Vmax/r
+normalizingFactors = [f0Vmax/r, f0Km/r, Vmax/r, Km/r, K1/r,p1/r,p2/r,p3/r,t/r; ...
+      f0Vmax/o, f0Km/o, Vmax/o, Km/o, K1/o,p1/o,p2/o,p3/o,t/o; ...
+      f0Vmax/omega, f0Km/omega, Vmax/omega, Km/omega, K1/omega,p1/omega, ...
+            p2/omega,p3/omega,t/omega; ...
+      f0Vmax/rho, f0Km/rho, Vmax/rho, Km/rho, K1/rho,p1/rho,p2/rho,p3/rho,t/rho];
+equations = num2cell(jacobianMatrix.*normalizingFactors);
+% equations = num2cell(jacobianMatrix);
 
 % create the sampling pool using latin hypercube sampling
 lhsRaw = lhsdesign(numsims,numel(params));
@@ -82,6 +91,10 @@ labels = {'Equilibrium Value of Cytochrome C Reduced', ...
       'Sensitivity Coefficient Values for do/dt',...
       'Sensitivity Coefficient Values for domega/dt',...
       'Sensitivity Coefficient Values for drho/dt'};
+
+% create file names for saving to png files
+filenames = {'cytc','oxygen','matrixprotons','imsprotons','drdt','dodt','domegadt','drhodt'};
+fullFilename = '';
 
 % convert from symbolic notation and store in structure
 sensitivityOutput.equations = vpa(equations);
@@ -144,7 +157,8 @@ for substrate=1:8
             figure(substrate);
             
             % create a formatted boxplot for this column
-            formatBoxplot(dataMatrix(:,substrate),labels{substrate});
+            formatBoxplot(dataMatrix(:,substrate),labels{substrate}, ...
+                  'Final Oxygen Concentration (nmol/mL)');
             
       else % if 5,6,7,8 then draw a group of boxplots for an equation
             figure(substrate);
@@ -152,6 +166,11 @@ for substrate=1:8
             % create a formatted boxplot for the given equations
             % sensitivity coefficients
             formatBoxplot(dataMatrix(:,9*substrate-40:9*substrate-32),...
-                  labels{substrate});
+                  labels{substrate},'Sensitivity Coefficient Value');
       end
+      fullFilename = [curdir,'/Images/',date,filenames{substrate},'-Boxplot'];
+            
+      % save the boxplot figure to a fig file and a png file
+      savefig(fullFilename);
+      print(fullFilename,'-dpng');
 end
