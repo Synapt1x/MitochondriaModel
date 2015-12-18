@@ -1,4 +1,4 @@
-function formatBoxplot(dataMtx, label)
+function formatBoxplot(dataMtx, label, ylab)
 %{
 Created by: Chris Cadonic
 ========================================
@@ -41,3 +41,6 @@ ub = maxVal + 1.6*(maxVal-firstQuart(maxBox));
 % reformat the axis for the boxplot
 axis([0.5,size(dataMtx,2)+0.5,lb,ub]);
 title(label);
+
+% label the boxplot
+ylabel(ylab);
