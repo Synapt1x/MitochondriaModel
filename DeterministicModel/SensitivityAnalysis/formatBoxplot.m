@@ -11,11 +11,6 @@ for the LHS sampling matrix input into either the model or the
 sensitivity coefficients.
 
 %}
-% Add export_fig function to path for use
-cd('..');
-addpath([pwd,'/AdditionalFuncs']);
-cd('SensitivityAnalysis');
-
 
 % initialize the variables used
 [firstQuart,thirdQuart,meanVal,median] = deal([]);
@@ -56,6 +51,3 @@ set(gcf,'color','w');
 
 % remove x axis label
 set(gca,'XTick',[]);
-
-testlabel = 'test';
-export_fig(testlabel)
