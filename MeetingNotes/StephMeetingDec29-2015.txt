@@ -1,0 +1,37 @@
+# Meeting with Steph at St. B - December 29, 2015
+## First step -- Model Complex IV
+    - Put in introduction
+## In Discussion -- Talk about this first step
+    - Can discuss next steps and what needs to be improved in model
+## Work from complex IV
+    - Complexes I - III = Input to complex IV
+    - Complex V = Need for proton movement
+## Focus on modelling to describe a mechanism
+    - Not JUST fitting data
+    - Complex IV --> Cannot function alone, thus need inputs from complexes I-III and need complex V controls proton ratio
+## Discussion
+    - Now that model is working, can then discuss how it can be used and more
+    importantly, how this can fit into mitochondrial functioning and be expanded
+## Change equations to make sure they're all running ONE TIME
+    - Complex IV
+    - Check stoichiometric coefficients
+## Modelling strategy
+    - Mitochondrial functioning
+## Figures
+    1. Seahorse and Oxygraph in one figure == parts A and B
+    2. Figure for the Electron Transport Chain
+    3. Complex IV as transfer function (Input -- complex IV -- Output)
+    4. Same figure as data + overlayed fit
+    5. High/low r
+    6. High/low oxygen
+    7. Sensitivity Analysis?
+
+## Specify non-negative in ode45 options
+    - Re-run for figures
+
+## White backgrounds for all figures
+
+## Re-Plot each boxplot separately
+
+## re-run sensitivity analysis
+    -

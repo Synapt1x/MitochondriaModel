@@ -1,0 +1,62 @@
+# Meeting With Steph Discussing Paper and Thesis
+##Trim a lot of the non-informative sentences
+	- Not adding information? Then lose it
+	- Jam example
+## Break Introduction into just three sections
+	- Mitochondria --> Why mathematical model --> Previous models
+	- Mitochondria
+		- ATP Production
+		- ETS --> Define five complexes
+			- Here put five equations
+			- Overall reaction
+		- Focus on complex IV
+			- Experimental data from complex IV (oxygen)
+			- At least calibrate model for complex IV
+			- Here talk about data and experiment
+			- Discuss the experimental design and the drugs used in experiment
+		- No need to discuss chemiosmotic as this will produce more problems
+			- "Why didn't you detail this in your model?"
+	- Modelling
+		- Why? Tool for investigating function
+		- Previous models
+	- Do introduction last
+		
+## First naming complexes
+	- Itemize
+
+## Order of Writing
+	- Methods --> Results and Discussion --> Introduction --> Abstract
+
+## Biological Methods
+	- Refer to previous papers using the same protocol
+	 
+## Section: Derivation Model --> Model
+	- First paragraph --> reduce words
+	- Always keep same order --> r, o, omega, rho
+	- Strategies for modelling
+		- Looking at complex IV --> Only data on oxygen is available
+		- Each complex is treated as enzymatic
+		- Complex IV activation
+		- Complex I - III -> input
+		- Complex IV cannot be modelled independently --> Complex V will be necessary
+			- But don't need to develop, so taken from literature
+			- Can put complex V explanation in strategies
+		- Keep complex V section
+	- First section --> Governing Equations
+		- Define parameters of model
+		- Complexes I-III output is assumed to be input for complex IV
+		- Complexes I-III is referred to as F_0
+	- Deriving Activation
+		- Need ref
+		- where S is substrate, A is activator
+		- Recall from assumptions, S is oxygen and A is cyt c reduced.
+		- Add explanation for why stoichiometric superscripts are just 1
+	- Make sure all functionals are proper (F_0(r,o,omega,rho))
+	- Give names to equations
+		- 
+	- When discussing complex V model
+		- Explain the extra rho for correcting units
+	- Add c_0 to parameter table
+	- In objective function
+		- use o(t_i) - x(t_i)
+	- Bring back rho and omega testing to methods section instead of results
