@@ -11,6 +11,11 @@ for the LHS sampling matrix input into either the model or the
 sensitivity coefficients.
 
 %}
+% Add export_fig function to path for use
+cd('..');
+addpath([pwd,'/AdditionalFuncs']);
+cd('SensitivityAnalysis');
+
 
 % initialize the variables used
 [firstQuart,thirdQuart,meanVal,median] = deal([]);
@@ -26,6 +31,7 @@ for variable=1:size(dataMtx,2)
       meanVal(variable) = mean(dataMtx(:,variable));
 end
 
+%% Create boxplot and edit figure properties
 % draw the boxplot
 boxFig = boxplot(dataMtx);
 
@@ -35,8 +41,8 @@ set(boxFig(7,:),'Visible','Off');
 % find the bounds for the boxplot axis
 [minVal,minBox] = min(firstQuart);
 [maxVal,maxBox] = max(thirdQuart);
-lb = minVal - 1.6*(thirdQuart(minBox)-minVal);
-ub = maxVal + 1.6*(maxVal-firstQuart(maxBox));
+lb = minVal - 1.1*(thirdQuart(minBox)-minVal);
+ub = maxVal + 1.1*(maxVal-firstQuart(maxBox));
 
 % reformat the axis for the boxplot
 axis([0.5,size(dataMtx,2)+0.5,lb,ub]);
@@ -44,3 +50,12 @@ title(label);
 
 % label the boxplot
 ylabel(ylab);
+
+% set the background to white
+set(gcf,'color','w');
+
+% remove x axis label
+set(gca,'XTick',[]);
+
+testlabel = 'test';
+export_fig(testlabel)
