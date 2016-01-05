@@ -42,10 +42,10 @@ ub = maxVal + 1.25*(maxVal-firstQuart(maxBox));
 if ~(lb==ub) % if it's a zero value then no need to format
       % reformat the axis for the boxplot
       axis([0.5,size(dataMtx,2)+0.5,lb,ub]);
-      title(label);
 end
 
 % label the boxplot
+title(label);
 ylabel(ylab);
 
 % set the background to white
