@@ -36,8 +36,8 @@ set(boxFig(7,:),'Visible','Off');
 % find the bounds for the boxplot axis
 [minVal,minBox] = min(firstQuart);
 [maxVal,maxBox] = max(thirdQuart);
-lb = minVal - 1.25*(thirdQuart(minBox)-minVal);
-ub = maxVal + 1.25*(maxVal-firstQuart(maxBox));
+lb = minVal - 1.4*(thirdQuart(minBox)-minVal);
+ub = maxVal + 1.4*(maxVal-firstQuart(maxBox));
 
 if ~(lb==ub) % if it's a zero value then no need to format
       % reformat the axis for the boxplot
