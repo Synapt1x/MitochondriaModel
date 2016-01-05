@@ -70,6 +70,11 @@ parameters.numpoints = [numel(parameters.baselineTimes),numel(...
     parameters.oligoTimes),numel(parameters.fccpTimes), ...
     numel(parameters.inhibitTimes)];
 
+%% Load Additional Functions
+% add the additionalFuncs folder to path if it isn't already there
+curdir = fileparts(which(mfilename));
+addpath([curdir,'/AdditionalFuncs/']);
+
 %% Define the labels and titles for GUI Graphs
 %titles and labels for the output graphs
 [parameters.title{1:6}] = deal(['Reduced cytochrome c concentration over'...

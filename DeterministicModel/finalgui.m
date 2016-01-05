@@ -339,6 +339,24 @@ catch % if an error is caught, don't throw error and instead abort save image
         disp('Snapshot save operation aborted.');
 end
 
+function save_graphs_Callback(hObject, eventdata, handles) %save just the figures
+% save the image and color map for the overall window
+image = getframe(gcf);
+
+% crop just the graphs and store that as the image 
+image = imcrop(image.cdata,[584.5,83.5,802.5,645]);
+
+try
+        %save the image to a file specified by the user
+        [filename,filepath]=uiputfile(fullfile(handles.curdir,'StateImages', ...
+                [date,'-sessionImage.png']),'Save image of graphs to file');
+        imwrite(image,[filepath,filename]);
+        
+        disp(['Image was successfully saved to: ', filepath,filename]);
+catch % if an error is caught, don't throw error and instead abort save image
+        disp('Saving image of graphs aborted.');
+end
+
 function save_session_Callback(hObject,eventdata,handles) %save the workspace
 %turn off 'use uisave' warning since uisave is in fact being used
 warning('off','MATLAB:Figure:FigureSavedToMATFile');
@@ -400,9 +418,10 @@ newgraph = openGraph('save');
 
 %save figure into fig file pointed out by the user
 if ischar(figname) %check if user selected an output name
-        saveas(newgraph,[figpath,figname],'png');
+      set(newgraph,'color','w');
+      export_fig(newgraph,[figpath,figname]);
 else %if not, then abort saving and provide message
-        msgbox('No output file name provided.','Operation aborted.');
+      msgbox('No output file name provided.','Operation aborted.');
 end
 %close the figure to free memory
 close(newgraph);
@@ -569,9 +588,9 @@ else
         copyobj(h2copy,hParent) %copy the original graph to the new fig
         
         %now add the correct labels to the new figure
-        xlabel(obj.XLabel.String,'FontName','Calibri');
-        ylabel(obj.YLabel.String,'FontName','Calibri');
-        title(obj.Title.String,'FontSize',18,'FontWeight','bold','FontName','Calibri');
+        xlabel(obj.XLabel.String,'FontName','Calibri','FontSize',16);
+        ylabel(obj.YLabel.String,'FontName','Calibri','FontSize',16);
+        title(obj.Title.String,'FontSize',22,'FontWeight','bold','FontName','Calibri');
         
         %change the children to change the reagent text sizes
         textChildren = findobj(hParent,'FontSize',6); % get the text objects
