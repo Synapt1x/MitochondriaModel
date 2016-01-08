@@ -28,23 +28,34 @@ par.general.NGen=100000;
 par.general.NPop=2;
 % ====================================
 % Parameters (X)
-par.X.Vmax.range=[1,100];
+
+parameters.ctrlParams.Vmax =88.5452; %bounds: [0.01 10]
+parameters.ctrlParams.K1 =  402.997; %bounds: [0.1 1E4]
+parameters.ctrlParams.Km = 245.918; %bounds: [0.1 1E4]
+parameters.ctrlParams.p1 = 33.5047; %bounds: [1 1E4]
+parameters.ctrlParams.p2 = 314.8; %bounds: [1 1E4]
+parameters.ctrlParams.p3 =6.14627E-3; %bounds: [1E-6 1]
+parameters.ctrlParams.f0Vmax = 283.556; %bounds: [0.01 10]
+parameters.ctrlParams.f0Km = 39696.5; %bounds: [0.1 1E4]
+parameters.ctrlParams.Dh = 50; %bounds: [1E-6 1]
+
+par.X.Vmax.range=[20,120];
 %
-par.X.K1.range=[50,500];
+par.X.K1.range=[5,1000];
 %
-par.X.Km.range=[50,500];
+par.X.Km.range=[100,8000];
 %
-par.X.p1.range=[5,50];
+par.X.p1.range=[10,100];
 %
-par.X.p2.range=[50,500];
+par.X.p2.range=[100,1200];
 %
-par.X.p3.range=[1E-4,1E-2];
+par.X.p3.range=[100,8000];
 %
-par.X.f0Vmax.range=[10,500];
+par.X.f0Vmax.range=[10,120];
 %
-par.X.f0Km.range=[1E4,1E5];
+par.X.f0Km.range=[1000,50000];
 %
-par.X.Dh.range=[1E-1,50];
+par.X.Dh.range=[1,100];
 %
 % ====================================
 % Parallel Computing
@@ -102,7 +113,7 @@ par.zoom.safety=0.5;
 % ====================================
 % Analysis
 par.analysis.analyzeWhenDone=true;
-par.analysis.maxItNoProgress=20;
+par.analysis.maxItNoProgress=200;
 par.analysis.postProces='analyzeResults';
 % ====================================
 % Local Optimization

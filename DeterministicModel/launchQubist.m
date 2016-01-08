@@ -32,7 +32,7 @@ global GraphicsScale_ FontScale_
 %
 % * This is the default home for Qubist.  QubistHome_ should be over-written
 % * by the name of the actual Qubist home directory.
-QubistHome_=[getDefaultQubistHome,'/Qubist/'];
+QubistHome_='/home/synapt1x/Qubist';
 
 % -----------------------------------------
 % ---- QUBIST LAUNCH OPTIONS BEGIN HERE ---
@@ -65,7 +65,7 @@ QubistSkin_='Unity'; % Best choice for most computers and MATLAB versions.
 % * -------------------------
 % * You can modify the following scaling factors to increase or decrease the
 % * sizes of all MATLAB graphics, and the font sizes in the main Qubist interfaces.
-% * Default values are GraphicsScale_=1 and FontScale_=1 for normal scaling. 
+% * Default values are GraphicsScale_=1 and FontScale_=1 for normal scaling.
 GraphicsScale_=1;
 FontScale_=1;
 %
@@ -85,7 +85,7 @@ if ispref('Qubist', 'matlabLaunchCommand'), rmpref('Qubist', 'matlabLaunchComman
 % * the random number generator.  Accepted values are as follows:
 randomSeed_=NaN; % Use a DIFFERENT random seed each time.
 % randomSeed_='same'; % Use SAME random seed each time = 5489.
-% * randomSeed_=<INTEGER>; % Use random seed = <INTEGER>, 
+% * randomSeed_=<INTEGER>; % Use random seed = <INTEGER>,
 % * where <INTEGER> is replaced by an actual integer.  For example:
 % randomSeed_=1234;
 % -----------------------------------------
@@ -94,81 +94,80 @@ randomSeed_=NaN; % Use a DIFFERENT random seed each time.
 % -----------------------------------------
 
 try
-    % Determine Qubist code directory.
-    sourceDir=fullfile(QubistHome_, 'Qubist_Source');
-    pcodeDir=fullfile(QubistHome_, 'Qubist_Code');
-    if exist(sourceDir, 'dir')
-        % Source code is available.
-        codeDir=sourceDir;
-    elseif exist(pcodeDir, 'dir')
-        % PCode is available (Usually the case).
-        codeDir=pcodeDir;
-    else
-        % Can't find Qubist program files.
-        error('Qubist program files not found.')
-    end
-    
-    % Add basic paths.
-    path(pathdef);
-    addpath(QubistHome_);
-    addpath(genpath(fullfile(QubistHome_, 'launchers')));
-    addpath(genpath(fullfile(codeDir, 'tools', 'installation')));
-    
-    % Check that the p-files work, if checkPFiles.p exists.  This will generate an
-    % error if the p-file version is incorrect.
-    if exist('checkPFiles', 'file')
-        try
-            checkPFiles;
-        catch %#ok
-            error('Qubist p-files are not readable.  Contact nQube for assistance.');
-        end
-    else
-        error(['QUBIST PATH IS INCORRECT.  Check that the QubistHome_ ',...
-            'variable in your launcher points to the Qubist home directory.']);
-    end
-    
-    % Add shared paths.
-    addpath(genpath(fullfile(codeDir, 'shared', 'utility')));
-    
-    % Clear the entire GUIData system.
-    rmGUIDataRoot('all');
-    
-    % THIS LINE SETS THE CURRENT ALGORITHM.
-    currentComponent_='No_Component_Selected';
-
-    % Check that that Qubist path is OK.
-    checkQubistPath;
-
-    % Are we using QubistFreeTools?
-    if isempty(which('startFerretProject'))
-        setGUIDataRoot('QubistFreeTools', true);
-    else
-        setGUIDataRoot('QubistFreeTools', false);
-    end
-    
-    % Parallelization info.
-    setGUIDataRoot('parallel', false);
-    launchDir=fileparts(which(mfilename));
-    setGUIDataRoot('launchDir', launchDir);
-    
-    try %#ok
-        % Load the project info.
-        setGUIData('UserProjects', Qubist_UserProjects);
-    end
-    
-    % Initialize the random number generator.
-    initializeRNG;
-    
-    % Prepare to launch.
-    setQubistMode('Launch');
-    
-    % --- Start Qubist ---
-    startQubist;
-    
+      % Determine Qubist code directory.
+      sourceDir=fullfile(QubistHome_, 'Qubist_Source');
+      pcodeDir=fullfile(QubistHome_, 'Qubist_Code');
+      if exist(sourceDir, 'dir')
+            % Source code is available.
+            codeDir=sourceDir;
+      elseif exist(pcodeDir, 'dir')
+            % PCode is available (Usually the case).
+            codeDir=pcodeDir;
+      else
+            % Can't find Qubist program files.
+            error('Qubist program files not found.')
+      end
+      
+      % Add basic paths.
+      path(pathdef);
+      addpath(QubistHome_);
+      addpath(genpath(fullfile(QubistHome_, 'launchers')));
+      addpath(genpath(fullfile(codeDir, 'tools', 'installation')));
+      
+      % Check that the p-files work, if checkPFiles.p exists.  This will generate an
+      % error if the p-file version is incorrect.
+      if exist('checkPFiles', 'file')
+            try
+                  checkPFiles;
+            catch %#ok
+                  error('Qubist p-files are not readable.  Contact nQube for assistance.');
+            end
+      else
+            error(['QUBIST PATH IS INCORRECT.  Check that the QubistHome_ ',...
+                  'variable in your launcher points to the Qubist home directory.']);
+      end
+      
+      % Add shared paths.
+      addpath(genpath(fullfile(codeDir, 'shared', 'utility')));
+      
+      % Clear the entire GUIData system.
+      rmGUIDataRoot('all');
+      
+      % THIS LINE SETS THE CURRENT ALGORITHM.
+      currentComponent_='No_Component_Selected';
+      
+      % Check that that Qubist path is OK.
+      checkQubistPath;
+      % Are we using QubistFreeTools?
+      if isempty(which('startFerretProject'))
+            setGUIDataRoot('QubistFreeTools', true);
+      else
+            setGUIDataRoot('QubistFreeTools', false);
+      end
+      
+      % Parallelization info.
+      setGUIDataRoot('parallel', false);
+      launchDir=fileparts(which(mfilename));
+      setGUIDataRoot('launchDir', launchDir);
+      
+      try %#ok
+            % Load the project info.
+            setGUIData('UserProjects', Qubist_UserProjects);
+      end
+      
+      % Initialize the random number generator.
+      initializeRNG;
+      
+      % Prepare to launch.
+      setQubistMode('Launch');
+      
+      % --- Start Qubist ---
+      startQubist;
+      
 catch %#ok
-    errordlg({'Qubist did not launch.', '',...
-        ['Last error: ', lasterr]}, 'Qubist Launch Error'); %#ok
-    rethrow(lasterror); %#ok
+      errordlg({'Qubist did not launch.', '',...
+            ['Last error: ', lasterr]}, 'Qubist Launch Error'); %#ok
+      rethrow(lasterror); %#ok
 end
 
 % =========================================================================
@@ -180,7 +179,7 @@ function QubistHome_=getDefaultQubistHome
 QubistHome_=fileparts(which(mfilename));
 [QubistPath, Qubist]=fileparts(QubistHome_);
 if ~strfind(Qubist, 'Qubist')
-    QubistHome_='';
+      QubistHome_='';
 end
 
 % =========================================================================
