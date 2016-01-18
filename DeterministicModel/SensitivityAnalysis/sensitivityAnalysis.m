@@ -2,13 +2,10 @@ function sensitivityAnalysis()
 %{
 Created by: Chris Cadonic
 ========================================
-This function houses code for using symbolic variables to represent
-functions in my deterministic model. This function will be essential
-to conducting sensitivity analysis for my masters project by finding
-the Jacobian of the set of equations in my model. This will be done
-using the symbolic functions for each equation in my model as
-carried out below.
-This will be carrying out sensitivty analysis for the baseline system.
+This function carries out a relative sensitivty analysis for the entire system
+using the method outlined in Beard (2005).
+
+In this file, MT = minus ten percent, and PT = plus ten percent
 %}
 
 %% Create LHS sampling and Sensitivity Coefficients
@@ -16,186 +13,48 @@ This will be carrying out sensitivty analysis for the baseline system.
 % clear cmd history for clarity
 clc
 
-% Add export_fig function to path for boxplot figures
 cd('..');
 addpath([pwd,'/AdditionalFuncs']);
-cd('SensitivityAnalysis');
 
-%Initialize the symbolic variables in the model; vars, params and t
-syms r o omega rho f0Vmax f0Km Vmax K1 Km p1 p2 p3 p4 t cytcdiff;
-r = 0.1;
-o = 171.0549;
-omega = 100;
-rho = 0.0398;
+parameters = setup; %run the setup function which creates the
+%structure storing all variables necessary
+%for evaluating the model (found in 'setup.m')
 
-%Initialize output parameters
-sensitivityOutput.equations = [];
-[sensitivityOutput.outputLabels, sensitivityOutput.outputVals] ...
-      = deal({});
+% store the values of the parameters in a vector
+[paramSet,paramMT,paramPT] = deal(parameters.ctrlParams);
+paramVals = [paramSet.f0Vmax, paramSet.Vmax, paramSet.f0Km, paramSet.K1, ...
+      paramSet.Vmax, paramSet.Km, paramSet.p1, paramSet.p2, paramSet.p3, ...
+      paramSet.Dh];
 
-%define cytcdiff
-cytcdiff = 100.1 - r;
+% calculate +- 10 %
+MTVals= paramVals*0.9;
+PTVals = paramVals*1.1;
 
-% define parameters for run
-numsims = 1E4;
-lb = [0.01, 0.1, 0.01, 0.1, 1, 0.1, 1, 1E-6, 0.1]; % lower bounds for params
-ub = [10, 1, 1E4, 10, 1E4, 1E4, 1E4, 1, 1E5]; % upper bound for params
+% store the minus 10 % parameter values
+[paramMT.f0Vmax, paramMT.Vmax, paramMT.f0Km, paramMT.K1, ...
+      paramMT.Vmax, paramMT.Km, paramMT.p1, paramMT.p2, paramMT.p3, ...
+      paramMT.Dh] = deal(MTVals(1),MTVals(2), MTVals(3), MTVals(4), MTVals(5), ...
+      MTVals(6), MTVals(7), MTVals(8), MTVals(9), MTVals(10));
 
-%Define each of the baseline equations from the mito model
-dr = 2*((f0Vmax*(cytcdiff))/(f0Km+(cytcdiff))) ...
-      *(omega./rho) - 2*((Vmax*o)/(Km*(1 ...
-      +(K1/r))+o))*(omega/rho); %dr
-do = -0.5*((Vmax*o)/(Km*(1+(K1/r))+o)) ...
-      *(omega/rho); %do
-domega = -6*((f0Vmax*(cytcdiff))/(f0Km+(cytcdiff))) ...
-      *(omega./rho) - 2*((Vmax*o)/(Km*(1 ...
-      +(K1/r))+o))*(omega/rho) + ((p1 ...
-      *(rho/omega))/((rho/omega)+p2 + (p3/omega)))*rho; %domega
-drho = 6*((f0Vmax*(cytcdiff))/(f0Km+(cytcdiff))) ...
-      *(omega./rho) + 2*((Vmax*o)/(Km*(1 ...
-      +(K1/r))+o))*(omega/rho) - ((p1 ...
-      *(rho/omega))/((rho/omega)+p2 + (p3/omega)))*rho; % drho
+% store the plus 10 % parameters values
+[paramPT.f0Vmax, paramPT.Vmax, paramPT.f0Km, paramPT.K1, ...
+      paramPT.Vmax, paramPT.Km, paramPT.p1, paramPT.p2, paramPT.p3, ...
+      paramPT.Dh] = deal(PTVals(1),PTVals(2), PTVals(3), PTVals(4), PTVals(5), ...
+      PTVals(6), PTVals(7), PTVals(8), PTVals(9), PTVals(10));
 
-disp('Differentiating equations and finding sensitivity coefficients...')
+% call solver to calculate the output of the model for each alteration
+[~, MTsolutionVals] = solver(parameters, paramMT);
+[~, solutionVals] = solver(parameters, paramSet);
+[~, PTsolutionVals] = solver(parameters,paramPT);
 
-%define arrays containing all funcs and all params
-funcs = [dr,do,domega,drho];
-params = [f0Vmax,f0Km,Vmax,K1,Km,p1,p2,p3,t];
+% acquire real data from the parameters structure
+realData = parameters.realo2Data;
 
-%call jacobian to calculate the jacobian function to calc all derivs
-jacobianMatrix = jacobian(funcs,params);
+% Evaluate E*, and E* of plus and minus 10
+E_minusTen = sum((realData - MTsolutionVals(:,2)).^2)/numel(realData);
+E_optimal = sum((realData - solutionVals(:,2)).^2)/numel(realData);
+E_plusTen = sum((realData - PTsolutionVals(:,2)).^2)/numel(realData);
 
-% normalize the equations by multiplying by reciprocal ratios, e.g.
-%dr/df0Vmax is normalized by multiplying by f0Vmax/r
-normalizingFactors = [f0Vmax/r, f0Km/r, Vmax/r, Km/r, K1/r,p1/r,p2/r,p3/r,t/r; ...
-      f0Vmax/o, f0Km/o, Vmax/o, Km/o, K1/o,p1/o,p2/o,p3/o,t/o; ...
-      f0Vmax/omega, f0Km/omega, Vmax/omega, Km/omega, K1/omega,p1/omega, ...
-            p2/omega,p3/omega,t/omega; ...
-      f0Vmax/rho, f0Km/rho, Vmax/rho, Km/rho, K1/rho,p1/rho,p2/rho,p3/rho,t/rho];
-equations = num2cell(jacobianMatrix.*normalizingFactors);
-% equations = num2cell(jacobianMatrix);
 
-% create the sampling pool using latin hypercube sampling
-lhsRaw = lhsdesign(numsims,numel(params));
-lhs = bsxfun(@plus,lb,bsxfun(@times,lhsRaw,(ub-lb))); %rescale to fit within bounds
-lhsCell = num2cell(lhs); %convert to cell matrix
 
-disp('Generating equations using latin hypercube sampling...');
 
-% create equation label matrix
-sensitivityOutput.outputLabels = {'dr/df0Vmax', 'dr/df0Km', 'dr/dVmax', 'dr/dKm', ...
-      'dr/dK1', 'dr/dp1','dr/dp2','dr/dp3','dr/dt';'do/df0Vmax', 'do/df0Km', 'do/dVmax', ...
-      'do/dKm', 'do/dK1', 'do/dp1','do/dp2','do/dp3','do/dt';'domega/df0Vmax',  ...
-      'domega/df0Km', 'domega/dVmax', 'domega/dKm', 'domega/dK1', ...
-      'domega/dp1', 'domega/dp2','domega/dp3','domega/dt'};
-
-% create boxplot label matrix
-labels = {'Equilibrium Value of Cytochrome C Reduced', ...
-      'Equilibrium Value of Oxygen', 'Equilibrium Value of Matrix Protons', ...
-      'Equilibrium Value of IMS Protons', 'Sensitivity Coefficient Value for dr/dt', ...
-      'Sensitivity Coefficient Value for dr/dt', 'Sensitivity Coefficient Value for dr/dt',...
-      'Sensitivity Coefficient Value for dr/dt', 'Sensitivity Coefficient Value for dr/dt',...
-      'Sensitivity Coefficient Value for dr/dt', 'Sensitivity Coefficient Value for dr/dt',...
-      'Sensitivity Coefficient Value for dr/dt', 'Sensitivity Coefficient Value for dr/dt',...
-      'Sensitivity Coefficient Value for do/dt', 'Sensitivity Coefficient Value for do/dt',...
-      'Sensitivity Coefficient Value for do/dt', 'Sensitivity Coefficient Value for do/dt',...
-      'Sensitivity Coefficient Value for do/dt', 'Sensitivity Coefficient Value for do/dt',...
-      'Sensitivity Coefficient Value for do/dt', 'Sensitivity Coefficient Value for do/dt',...
-      'Sensitivity Coefficient Value for do/dt', 'Sensitivity Coefficient Value for domega/dt',...
-      'Sensitivity Coefficient Value for domega/dt', 'Sensitivity Coefficient Value for domega/dt',...
-      'Sensitivity Coefficient Value for domega/dt', 'Sensitivity Coefficient Value for domega/dt',...
-      'Sensitivity Coefficient Value for domega/dt', 'Sensitivity Coefficient Value for domega/dt',...
-      'Sensitivity Coefficient Value for domega/dt', 'Sensitivity Coefficient Value for domega/dt',...
-      'Sensitivity Coefficient Value for drho/dt', 'Sensitivity Coefficient Value for drho/dt',...
-      'Sensitivity Coefficient Value for drho/dt', 'Sensitivity Coefficient Value for drho/dt',...
-      'Sensitivity Coefficient Value for drho/dt', 'Sensitivity Coefficient Value for drho/dt',...
-      'Sensitivity Coefficient Value for drho/dt', 'Sensitivity Coefficient Value for drho/dt',...
-      'Sensitivity Coefficient Value for drho/dt'};
-modelLabels = {'Final Cytochrome c Reduced Concentration (nmol/mL)', ...
-      'Final Oxygen Concentration (nmol/mL)', 'Final Matrix Proton Concentration (nmol/mL)', ...
-      'Final IMS Proton Concentration (nmol/mL)'};
-sensitivityLabels = repmat({'Sensitivity Coefficient Value'},1,36);
-ylab = [modelLabels,sensitivityLabels];
-
-% create file names for saving to png files
-filenames = {'cytc','oxygen','matrixprotons','imsprotons',...
-      'drdf0Vmax', 'drdf0Km', 'drdVmax', 'drdKm', ...
-      'drdK1', 'drdp1','drdp2','drdp3','drdt','dodf0Vmax', 'dodf0Km', 'dodVmax', ...
-      'dodKm', 'dodK1', 'dodp1','dodp2','dodp3','dodt','domegadf0Vmax',  ...
-      'domegadf0Km', 'domegadVmax', 'domegadKm', 'domegadK1', ...
-      'domegadp1', 'domegadp2','domegadp3','domegadt','drhodf0Vmax',  ...
-      'drhodf0Km', 'drhodVmax', 'drhodKm', 'drhodK1', ...
-      'drhodp1', 'drhodp2','drhodp3','drhodt'};
-fullFilename = '';
-
-% convert from symbolic notation and store in structure
-sensitivityOutput.equations = vpa(equations);
-
-%% Apply LHS sampling and carry out statistics on results
-
-% move up one folder to the main model
-curdir = fileparts(which(mfilename));
-cd('..');
-
-% acquire params for the properties of the model
-params = setup;
-params.timePoints = linspace(0.1,1E4,1E3);
-sensitivityOutput.finalVals = [];
-
-disp('Simulating the model and keeping final values of long-time runs...');
-
-for sim=1:numsims
-      % convert to cell array to distribute to params
-      tempLhs = num2cell(lhs(sim,:));
-      [params.ctrlParams.f0Vmax,params.ctrlParams.f0Km, ...
-            params.ctrlParams.Vmax,params.ctrlParams.K1, ...
-            params.ctrlParams.Km,params.ctrlParams.p1, ...
-            params.ctrlParams.p2,params.ctrlParams.p3, ...
-            params.ctrlParams.t] = tempLhs{:};
-      
-      % simulate the system using ode23t
-      [~,y] = ode23t(@baselineSystem, params.timePoints, ...
-            [params.Cytcred,params.O2,params.Hn, params.Hp], ...
-            [],params.ctrlParams);
-      
-      % store the final value(s)s of each simulation
-      sensitivityOutput.finalVals(sim,1:4) = mean(y(end-round(numel(y)*0.1):end,:));
-      
-      % also use the lhs values to find the values for each
-      % sensitivity coefficient
-      [f0Vmax, f0Km, Vmax, K1, Km, p1, p2, p3, t] = deal(lhsCell{sim,:}); %set values
-
-      for eqNum=1:numel(equations) % evaluate each equation with this value set
-            sensitivityOutput.finalVals(sim,eqNum+4) = subs(equations{eqNum});
-      end
-end
-
-%change back to sensitivity analysis folder
-cd(curdir)
-
-% store value matrix in a regular matrix outside of struc
-dataMatrix = sensitivityOutput.finalVals;
-
-%% Compute statistics
-% firstly compute the mean and variance of each value
-meanVals = mean(dataMatrix,1);
-deviationVals = std(dataMatrix,0,1);
-varianceVals = deviationVals.^2;
-
-% create box plots, one for each substrate in simulation and one for each
-% equation provided for the sensitivity analysis
-for boxplotnum=1:40
-      figure(boxplotnum);
-
-      % next turn off figures from popping up
-      set(gcf,'Visible','Off');
-
-      % create a formatted boxplot for this column
-      formatBoxplot(dataMatrix(:,boxplotnum),labels{boxplotnum}, ...
-            ylab{boxplotnum});
-
-      fullFilename = [curdir,'/Images/',date,filenames{boxplotnum},'-Boxplot'];
-
-      % save the boxplot figure to a fig file and a png file
-      export_fig(fullFilename);
-end
