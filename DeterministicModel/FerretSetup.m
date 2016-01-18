@@ -28,34 +28,23 @@ par.general.NGen=100000;
 par.general.NPop=2;
 % ====================================
 % Parameters (X)
-
-parameters.ctrlParams.Vmax =88.5452; %bounds: [0.01 10]
-parameters.ctrlParams.K1 =  402.997; %bounds: [0.1 1E4]
-parameters.ctrlParams.Km = 245.918; %bounds: [0.1 1E4]
-parameters.ctrlParams.p1 = 33.5047; %bounds: [1 1E4]
-parameters.ctrlParams.p2 = 314.8; %bounds: [1 1E4]
-parameters.ctrlParams.p3 =6.14627E-3; %bounds: [1E-6 1]
-parameters.ctrlParams.f0Vmax = 283.556; %bounds: [0.01 10]
-parameters.ctrlParams.f0Km = 39696.5; %bounds: [0.1 1E4]
-parameters.ctrlParams.Dh = 50; %bounds: [1E-6 1]
-
-par.X.Vmax.range=[20,120];
+par.X.Vmax.range=[90,115];
 %
-par.X.K1.range=[5,1000];
+par.X.K1.range=[0.001,100];
 %
-par.X.Km.range=[100,8000];
+par.X.Km.range=[4800,5400];
 %
-par.X.p1.range=[10,100];
+par.X.p1.range=[60,120];
 %
-par.X.p2.range=[100,1200];
+par.X.p2.range=[600,1000];
 %
-par.X.p3.range=[100,8000];
+par.X.p3.range=[4000,8000];
 %
-par.X.f0Vmax.range=[10,120];
+par.X.f0Vmax.range=[60,120];
 %
 par.X.f0Km.range=[1000,50000];
 %
-par.X.Dh.range=[1,100];
+par.X.Dh.range=[10,110];
 %
 % ====================================
 % Parallel Computing
