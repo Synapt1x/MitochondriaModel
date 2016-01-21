@@ -742,7 +742,4 @@ validity = true;
 if (value < 0) || (value > 14)
         waitfor(msgbox('Not a valid pH.','Invalid pH'));
         validity = false;
-elseif (value >= 11.88)
-        waitfor(msgbox('Too basic for this system. Must be pH < 11.88.','pH too high'));
-        validity = false;
 end
