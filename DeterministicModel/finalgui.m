@@ -435,7 +435,6 @@ function plot_Callback(hObject, eventdata, handles) %plot button in gui
 
 %store variables for differntiating control and experimental parameter sets
 graphColor = {'black','r'};
-widths = [2,2];
 types = {'control','experimental'};
 params = {handles.ctrlParams,handles.expParams};
 
@@ -456,31 +455,31 @@ for type=1:2
         %plot the Cyt c concentration over time
         axes(handles.Cytc_plot);
         hold on
-        plot(t(2:end),cytcred(2:end),graphColor{type},'lineWidth',widths(type));
+        plot(t(2:end),cytcred(2:end),graphColor{type},'lineWidth',2);
         hold off
         
         %plot the O2 concentration over time with real O2 data on top
         axes(handles.O2_plot);
         hold on
-        plot(t(2:end),o2(2:end),graphColor{type},'lineWidth',widths(type));
+        plot(t(2:end),o2(2:end),graphColor{type},'lineWidth',2);
         hold off
 
         %plot the OCR over time with real OCR data on top
         axes(handles.OCR_plot);
         hold on
-        plot(t(2:end),calcOCR(2:end),graphColor{type},'lineWidth',widths(type));
+        plot(t(2:end),calcOCR(2:end),graphColor{type},'lineWidth',2);
         hold off
 
         %plot the Hn concentration over time
         axes(handles.H_N_plot);
         hold on
-        plot(t(2:end),Hn(2:end),graphColor{type},'lineWidth',widths(type));
+        plot(t(2:end),Hn(2:end),graphColor{type},'lineWidth',2);
         hold off
         
         %plot the Hp concentration over time
         axes(handles.H_P_plot);
         hold on
-        plot(t(2:end),Hp(2:end),graphColor{type},'lineWidth',widths(type));
+        plot(t(2:end),Hp(2:end),graphColor{type},'lineWidth',2);
         hold off
         
         protRatio = (Hn./Hp); %calc total amount of protons
@@ -488,7 +487,7 @@ for type=1:2
         %plot the Hp rate of appearance over time
         axes(handles.protons);
         hold on
-        plot(t(2:end),protRatio(2:end),graphColor{type},'lineWidth',widths(type));
+        plot(t(2:end),protRatio(2:end),graphColor{type},'lineWidth',2);
         hold off
         
 end
