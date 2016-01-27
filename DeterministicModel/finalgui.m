@@ -348,7 +348,7 @@ function save_graphs_Callback(hObject, eventdata, handles)
 image = getframe(gcf);
 
 % crop just the graphs and store that as the image
-image = imcrop(image.cdata,[584.5,83.5,802.5,645]);
+image = imcrop(image.cdata,[570,83.5,820,665]);
 
 try
       %save the image to a file specified by the user
