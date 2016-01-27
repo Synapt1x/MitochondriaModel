@@ -67,9 +67,9 @@ handles.initialData = [handles.parameters.Cytctot, ...
       handles.ctrlParams.Dh];
 
 %store all graph handles in the handles structure as an array
-[handles.graphs{1:6}] = deal(handles.Cytc_plot, ...
+[handles.graphs{1:5}] = deal(handles.Cytc_plot, ...
       handles.O2_plot,handles.OCR_plot,handles.H_N_plot,...
-      handles.H_P_plot,handles.protons);
+      handles.H_P_plot);
 
 %store all control editing text boxes in the handles structure as an array
 [handles.allcontEdits{1:9}] = deal(handles.V_max_cedit, handles.K_1_cedit, ...
@@ -486,14 +486,6 @@ for type=1:2
       axes(handles.H_P_plot);
       hold on
       plot(t(2:end),Hp(2:end),graphColor{type},'lineWidth',2);
-      hold off
-      
-      protRatio = (Hn./Hp); %calc total amount of protons
-      
-      %plot the Hp rate of appearance over time
-      axes(handles.protons);
-      hold on
-      plot(t(2:end),protRatio(2:end),graphColor{type},'lineWidth',2);
       hold off
       
 end
