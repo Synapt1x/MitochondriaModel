@@ -5,7 +5,14 @@ Created by: Chris Cadonic
 This function carries out a relative sensitivty analysis for the entire system
 using the method outlined in Beard (2005).
 
-In this file, MT = minus ten percent, and PT = plus ten percent
+E_star stores the error values when the model parameter values
+are set to the estimated values achieved through calibration.
+
+minusEvals and plusEvals then adjust each parameter to determine
+how a 10% increase or 10% decrease in parameter value will
+affect the error values. The maximum deviation from ideal
+error provides a measure of how sensitive the model is to that
+parameter.
 %}
 
 %% Setup for Sensitivity Analysis
@@ -14,7 +21,7 @@ In this file, MT = minus ten percent, and PT = plus ten percent
 clc
 
 % intialize storage vectors
-[E_stars,sensitivityVals] = deal([]);
+[E_star, minusEvals,plusEvals,sensitivityVals] = deal([]);
 
 parameters = setup; %run the setup function which creates the
 %structure storing all variables necessary
@@ -39,30 +46,26 @@ E_star = sensitivitySolver(parameters,paramSet);
 
 % evaluate E* of plus and minus 10 for each parameter
 for param=1:numel(parameterIDs)
-      parameterSet = paramSet;      
+      parameterSet = paramSet;
       
-      % Change vmax to be evaluated at minus 10%
+      % Change parameter to be evaluated at minus 10%
       parameterSet.(parameterIDs{param}) = paramMT(param);
-      [~,minusEval] = solver(parameters,parameterSet);
+      minusEvals(param,1:5) = sensitivitySolver(parameters,parameterSet);
       
-      % Change vmax to be evaluated at plus 10%
+      % Change parameter to be evaluated at plus 10%
       parameterSet.(parameterIDs{param}) = paramPT(param);
-      [~,plusEval] = solver(parameters,parameterSet);
+      plusEvals(param,1:5) = sensitivitySolver(parameters,parameterSet);
       
-      % evaluate E*'s
-      E_minus = sum((realData - minusEval(:,2)).^2)/numel(realData);
-      E_plus = sum((realData - plusEval(:,2)).^2)/numel(realData);
-      
-      %store into sensitivity matrix
-      E_stars(param,1) = E_minus;
-      E_stars(param,2) = E_plus;
-      
-      sensitivityVals(param) = max(abs(E_stars(param,1)-E_star)/(0.1*E_star), ...
-            abs(E_stars(param,2)-E_star)/(0.1*E_star));
+      % store all the sensitivity vals in a matrix
+      for cond=1:5
+            sensitivityVals(param, cond) = max(abs(minusEvals(cond) ...
+                  -E_star(cond))/(0.1*E_star(cond)),abs(plusEvals(cond) ...
+                  -E_star(cond))/(0.1*E_star(cond)));
+      end
       
       % calculate and display the sensitivity values
-      disp(['Sensitivity for parameter ', parameterIDs{param}, ' is: ', ...
-            num2str(sensitivityVals(param))]);
+      disp(['Sensitivity values for parameter ', parameterIDs{param}, ' are: ', ...
+            num2str(sensitivityVals(param,:))]);
 end
 
 % save results to a .mat and .txt file for viewing the sensitivity values
