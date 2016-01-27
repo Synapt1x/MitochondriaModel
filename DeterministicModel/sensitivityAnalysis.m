@@ -20,8 +20,11 @@ parameter.
 % clear cmd history for clarity
 clc
 
+% get the current directory
+curdir = fileparts(which(mfilename));
+
 % intialize storage vectors
-[E_star, minusEvals,plusEvals,sensitivityVals] = deal([]);
+[minusEvals,plusEvals,sensitivityVals] = deal([]);
 
 parameters = setup; %run the setup function which creates the
 %structure storing all variables necessary
@@ -37,7 +40,7 @@ paramMT = structfun(@(x)x*0.9,paramSet);
 paramPT = structfun(@(x)x*1.1,paramSet);
 
 % names of each parameters as they are stored
-parameterIDs = {'f0Vmax','f0Km','Vmax','Km','K1','p1','p2','p3','Dh'};
+parameterIDs = {'Vmax','K1','Km','p1','p2','p3','f0Vmax','f0Km','Dh'};
 
 %% Evaluate E* and E*+/- 10%
 
@@ -58,8 +61,8 @@ for param=1:numel(parameterIDs)
       
       % store all the sensitivity vals in a matrix
       for cond=1:5
-            sensitivityVals(param, cond) = max(abs(minusEvals(cond) ...
-                  -E_star(cond))/(0.1*E_star(cond)),abs(plusEvals(cond) ...
+            sensitivityVals(param, cond) = max(abs(minusEvals(param,cond) ...
+                  -E_star(cond))/(0.1*E_star(cond)),abs(plusEvals(param,cond) ...
                   -E_star(cond))/(0.1*E_star(cond)));
       end
       
@@ -69,7 +72,7 @@ for param=1:numel(parameterIDs)
 end
 
 % save results to a .mat and .txt file for viewing the sensitivity values
-cd([folder '/SensitivityResults']); %change to Solutions folder
+cd([curdir, '/SensitivityResults']); %change to Solutions folder
 todayDate = date; %get the run date
 
 % save the Best solution to the Solutions folder
