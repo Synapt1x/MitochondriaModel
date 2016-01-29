@@ -457,6 +457,7 @@ for type=1:2
       
       %calculate the OCR values from the oxygen
       calcOCR = calculateOCR(handles,cytcred,o2,Hn,Hp,types{type});
+      calcOCR = calcOCR * 1000;
       
       %plot the Cyt c concentration over time
       axes(handles.Cytc_plot);
