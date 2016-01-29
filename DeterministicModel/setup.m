@@ -46,7 +46,7 @@ parameters.O2 = parameters.realo2Data(1);
 parameters.Hn = 100;
 
 %assuming a pH of 7.4 we get 3.981E-8 mol/L or:
-parameters.Hp = 0.03981;
+parameters.Hp = 39.8107;
 
 %% Define boundary times for integration
 %define the time boundaries between conditions; First instance of segment
