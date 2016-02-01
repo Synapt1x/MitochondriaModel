@@ -45,7 +45,10 @@ parameterIDs = {'Vmax','K1','Km','p1','p2','p3','f0Vmax','f0Km','Dh'};
 %% Evaluate E* and E*+/- 10%
 
 % evalute E*, consistent across all parameter changes
-E_star = sensitivitySolver(parameters,paramSet);
+[E_star,evaluations] = sensitivitySolver(parameters,paramSet,'Estar');
+parameters.initialsOligo = evaluations{1}(60,:);
+parameters.initialsFccp = evaluations{1}(135,:);
+parameters.initialsInhibit = evaluations{1}(215,:);
 
 % evaluate E* of plus and minus 10 for each parameter
 for param=1:numel(parameterIDs)
