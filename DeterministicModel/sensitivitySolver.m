@@ -1,4 +1,4 @@
-function errors = sensitivitySolver(parameters,params)
+function [errors,solutionEval] = sensitivitySolver(parameters,params,varargin)
 %{
 Created by: Chris Cadonic
 ========================================
@@ -17,6 +17,15 @@ errors = [];
 %Set the options for running ode45
 options = odeset('NonNegative',[1,2,3,4]);
 
+%format real data for 5 separate solutions
+realData{1} = parameters.realo2Data;
+realData{2} = realData{1}(1:parameters.oligoTime-1);
+realData{3} = realData{1}(parameters.oligoTime: ...
+      parameters.fccpTime-1);
+realData{4} = realData{1}(parameters.fccpTime: ...
+      parameters.inhibitTime-1);
+realData{5} = realData{1}(parameters.inhibitTime:end);
+
 %Solve by using ode for each section and passing along the final
 %values as initial values for the next section
 tic
@@ -33,28 +42,23 @@ tic
 %store the first, solution for the entire model
 solutionEval{1} = [y1;y2;y3;y4];
 
+%if varargin in nonempty, then this is calculating Estar
+if ~isempty(varargin)
+      parameters.initialsOligo = y1(end,:);
+      parameters.initialsFccp = y2(end,:);
+      parameters.initialsInhibit = y3(end,:);
+end
+
 %repeat solving the system for each section separately
 [~,solutionEval{2}] = ode45(@baselineSystem, parameters.baselineTimes, ...
     [parameters.Cytcred,parameters.O2,parameters.Hn, ...
     parameters.Hp],options,params);
 [~,solutionEval{3}] = ode45(@oligoSystem, parameters.oligoTimes, ...
-    [solutionEval{2}(end,1),solutionEval{2}(end,2),solutionEval{2}(end,3), ...
-    solutionEval{2}(end,4)],options,params);
+    parameters.initialsOligo,options,params);
 [~,solutionEval{4}] = ode45(@fccpSystem, parameters.fccpTimes, ...
-    [solutionEval{3}(end,1),solutionEval{3}(end,2),solutionEval{3}(end,3), ...
-    solutionEval{3}(end,4)],options,params);
+    parameters.initialsFccp,options,params);
 [~,solutionEval{5}] = ode45(@inhibitSystem, parameters.inhibitTimes, ...
-    [solutionEval{4}(end,1),solutionEval{4}(end,2),solutionEval{4}(end,3), ...
-    solutionEval{4}(end,4)],options,params);
-
-%format real data for 5 separate solutions
-realData{1} = parameters.realo2Data;
-realData{2} = realData{1}(1:parameters.oligoTime-1);
-realData{3} = realData{1}(parameters.oligoTime: ...
-      parameters.fccpTime-1);
-realData{4} = realData{1}(parameters.fccpTime: ...
-      parameters.inhibitTime-1);
-realData{5} = realData{1}(parameters.inhibitTime:end);
+    parameters.initialsInhibit,options,params);
 
 % loop over and calculate the error for each condition
 for condition = 1:numel(solutionEval) 
