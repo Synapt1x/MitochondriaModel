@@ -190,7 +190,7 @@ if isnan(getVal) %if not, throw error box and reset value
       %get the concentration value for resetting the edit box
       getHpconc = getfield(handles.parameters,'Hp');
       
-      oldHp = -log10(getHpconc *1E-9);
+      oldHp = -log10(getHpconc *1E-6);
       
       set(hObject,'String',oldHp);
 else %if so, then update the model with new value
@@ -645,7 +645,7 @@ for i = 1:numel(handles.allInitials)
 end
 
 %calc pH from concentration and set the proper text box to it
-setpH=-log10(values(6)*1E-9);
+setpH=-log10(values(6)*1E-6);
 set(handles.initial_ph_edit,'String',setpH);
 
 %change all the values in the handles.parameters struc if vargin nonempty
