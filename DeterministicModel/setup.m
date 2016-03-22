@@ -39,7 +39,7 @@ parameters.expParams.Dh = parameters.ctrlParams.Dh; %bounds: [1E-6 1]
 
 %% Define Initial Conditions
 %initial conditions in nmol/mL; conversion: 1 nmol/mL = 1E-6 mol/L
-parameters.Cytcox = 100;
+parameters.Cytcox = 0.0398107;
 parameters.Cytcred = 0.1;
 parameters.Cytctot = parameters.Cytcox+parameters.Cytcred;
 [parameters.ctrlParams.Cytctot,parameters.expParams.Cytctot] = deal(parameters.Cytctot);
@@ -47,7 +47,7 @@ parameters.O2 = parameters.realo2Data(1);
 parameters.Hn = 100;
 
 %assuming a pH of 7.4 we get 3.981E-8 mol/L or:
-parameters.Hp = 39.8107;
+parameters.Hp = 0.0398107;
 
 %% Define boundary times for integration
 %define the time boundaries between conditions; First instance of segment
