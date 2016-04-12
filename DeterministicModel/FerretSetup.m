@@ -28,23 +28,23 @@ par.general.NGen=100000;
 par.general.NPop=2;
 % ====================================
 % Parameters (X)
-par.X.Vmax.range=[90,115];
+par.X.Vmax.range=[1,100];
 %
-par.X.K1.range=[0.001,100];
+par.X.K1.range=[50,500];
 %
-par.X.Km.range=[4800,5400];
+par.X.Km.range=[50,500];
 %
-par.X.p1.range=[60,120];
+par.X.p1.range=[5,50];
 %
-par.X.p2.range=[600,1000];
+par.X.p2.range=[50,500];
 %
-par.X.p3.range=[4000,8000];
+par.X.p3.range=[1E-4,1E-2];
 %
-par.X.f0Vmax.range=[60,120];
+par.X.f0Vmax.range=[10,500];
 %
-par.X.f0Km.range=[1000,50000];
+par.X.f0Km.range=[1E4,1E5];
 %
-par.X.Dh.range=[10,110];
+par.X.Dh.range=[1E-1,50];
 %
 % ====================================
 % Parallel Computing
@@ -102,7 +102,7 @@ par.zoom.safety=0.5;
 % ====================================
 % Analysis
 par.analysis.analyzeWhenDone=true;
-par.analysis.maxItNoProgress=200;
+par.analysis.maxItNoProgress=20;
 par.analysis.postProces='analyzeResults';
 % ====================================
 % Local Optimization

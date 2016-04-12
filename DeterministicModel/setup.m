@@ -11,18 +11,19 @@ all of the model's parameters and also the data, graph labels.
 %import the real data
 [parameters.timePoints,parameters.realo2Data, ...
     parameters.realOCR] = data_formatter;
+parameters.realOCR = parameters.realOCR * 1000; %correct units to pmol/ml s
 
 %% Define the Parameters of the Model
 % control condition parameter values
-parameters.ctrlParams.Vmax =88.5452; %bounds: [0.01 10]
-parameters.ctrlParams.K1 =  402.997; %bounds: [0.1 1E4]
-parameters.ctrlParams.Km = 245.918; %bounds: [0.1 1E4]
-parameters.ctrlParams.p1 = 33.5047; %bounds: [1 1E4]
-parameters.ctrlParams.p2 = 314.8; %bounds: [1 1E4]
-parameters.ctrlParams.p3 =6.14627E-3; %bounds: [1E-6 1]
-parameters.ctrlParams.f0Vmax = 283.556; %bounds: [0.01 10]
-parameters.ctrlParams.f0Km = 39696.5; %bounds: [0.1 1E4]
-parameters.ctrlParams.Dh = 50; %bounds: [1E-6 1]
+parameters.ctrlParams.Vmax =108.341994455382; %bounds: [0.01 10]
+parameters.ctrlParams.K1 =  12.5255224171547; %bounds: [0.1 1E4]
+parameters.ctrlParams.Km = 4801.32913410929; %bounds: [0.1 1E4]
+parameters.ctrlParams.p1 = 1010000.831504916252; %bounds: [1 1E4]
+parameters.ctrlParams.p2 = 611.524018740580; %bounds: [1 1E4]
+parameters.ctrlParams.p3 =7521.37411099897; %bounds: [1E-6 1]
+parameters.ctrlParams.f0Vmax = 103.961719751620; %bounds: [0.01 10]
+parameters.ctrlParams.f0Km = 14704.2403743490; %bounds: [0.1 1E4]
+parameters.ctrlParams.Dh = 13.237075749221; %bounds: [1E-6 1]
 
 % experimental condition parameter values
 % Initially set to be equivalent to the control parameter set
@@ -43,10 +44,10 @@ parameters.Cytcred = 0.1;
 parameters.Cytctot = parameters.Cytcox+parameters.Cytcred;
 [parameters.ctrlParams.Cytctot,parameters.expParams.Cytctot] = deal(parameters.Cytctot);
 parameters.O2 = parameters.realo2Data(1);
-parameters.Hn = 100;
+parameters.Hn = 0.1;
 
 %assuming a pH of 7.4 we get 3.981E-8 mol/L or:
-parameters.Hp = 0.03981;
+parameters.Hp = 0.0398107;
 
 %% Define boundary times for integration
 %define the time boundaries between conditions; First instance of segment
@@ -70,15 +71,19 @@ parameters.numpoints = [numel(parameters.baselineTimes),numel(...
     parameters.oligoTimes),numel(parameters.fccpTimes), ...
     numel(parameters.inhibitTimes)];
 
+%% Load Additional Functions
+% add the additionalFuncs folder to path if it isn't already there
+curdir = fileparts(which(mfilename));
+addpath([curdir,'/AdditionalFuncs/']);
+
 %% Define the labels and titles for GUI Graphs
 %titles and labels for the output graphs
-[parameters.title{1:6}] = deal(['Reduced cytochrome c concentration over'...
-    ' time'],'Oxygen concentration over time', ...
-    'Oxygen consumption rate over time', ...
-    'Matrix proton concentration over time',...
-    'Intermembrane space proton concentration over time',...
-    'Proton ratio comparing Matrix and Intermembrane space');
-[parameters.ylab{1:6}] = deal('Cyt c_{red} (nmol/mL)', ...
-    'O_2 (nmol/mL)','OCR (nmol/mL*sec)','H_N (nmol/mL)',['delta '...
-    'H_N (nmol/mL*sec)'],'H_{ratio} (nmol/mL)');
+[parameters.title{1:5}] = deal(['Cyt c Reduced Concentration Over'...
+    ' Time'],'Oxygen Concentration Over Time', ...
+    'OCR Over Time', ...
+    'Matrix Proton Concentration Over Time',...
+    'IMS Proton Concentration Over Time');
+[parameters.ylab{1:5}] = deal('Cyt c_{red} (nmol/mL)', ...
+    'O_2 (nmol/mL)','OCR (pmol/(mL*sec))','H_N (nmol/mL)', ...
+    'H_P (nmol/mL)');
 parameters.xlab = 'Time (sec)';
