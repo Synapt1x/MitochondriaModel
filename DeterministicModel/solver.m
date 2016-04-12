@@ -14,13 +14,13 @@ options = odeset('NonNegative',[1,2,3,4]);
 tic
 [t1,y1] = ode23t(@baselineSystem, parameters.baselineTimes, ...
     [parameters.Cytcred,parameters.O2,parameters.Hn, ...
-    parameters.Hp],options,params)
+    parameters.Hp],options,params);
 [t2,y2] = ode23t(@oligoSystem, parameters.oligoTimes, ...
-    [y1(end,1),y1(end,2),y1(end,3),y1(end,4)],options,params)
+    [y1(end,1),y1(end,2),y1(end,3),y1(end,4)],options,params);
 [t3,y3] = ode23t(@fccpSystem, parameters.fccpTimes, ...
-    [y2(end,1),y2(end,2),y2(end,3),y2(end,4)],options,params)
+    [y2(end,1),y2(end,2),y2(end,3),y2(end,4)],options,params);
 [t4,y4] = ode23t(@inhibitSystem, parameters.inhibitTimes, ...
-    [y3(end,1),y3(end,2),y3(end,3),y3(end,4)],options,params)
+    [y3(end,1),y3(end,2),y3(end,3),y3(end,4)],options,params);
 toc
 
 t = [t1;t2;t3;t4];
