@@ -26,9 +26,9 @@ parameters.ctrlParams.f0Km = 14704.2403743490; %bounds: [0.1 1E4]
 parameters.ctrlParams.Dh = 13.237075749221; %bounds: [1E-6 1]
 parameters.ctrlParams.cytcred = 0.1; %bounds: [1E-6 1]
 parameters.ctrlParams.cytcox = 100; %bounds: [1E-6 1]
-%parameters.ctrlParams.oxygen = parameters.realo2Data(1); %bounds: [1E-6 1]
+parameters.ctrlParams.oxygen = parameters.realo2Data(1); %bounds: [1E-6 1]
 parameters.ctrlParams.omega = 100; %bounds: [1E-6 1]
-%parameters.ctrlParams.rho = 0.0398107; %bounds: [1E-6 1]
+parameters.ctrlParams.rho = 0.0398107; %bounds: [1E-6 1]
 
 % experimental condition parameter values
 % Initially set to be equivalent to the control parameter set
@@ -43,9 +43,9 @@ parameters.expParams.f0Km = parameters.ctrlParams.f0Km; %bounds: [0.1 1E4]
 parameters.expParams.Dh = parameters.ctrlParams.Dh; %bounds: [1E-6 1]
 parameters.expParams.cytcred = parameters.ctrlParams.cytcred; %bounds: [1E-6 1]
 parameters.expParams.cytcox = parameters.ctrlParams.cytcox; %bounds: [1E-6 1]
-%parameters.expParams.oxygen = parameters.ctrlParams.oxygen; %bounds: [1E-6 1]
+parameters.expParams.oxygen = parameters.ctrlParams.oxygen; %bounds: [1E-6 1]
 parameters.expParams.omega = parameters.ctrlParams.omega; %bounds: [1E-6 1]
-%parameters.expParams.rho = parameters.ctrlParams.rho; %bounds: [1E-6 1]
+parameters.expParams.rho = parameters.ctrlParams.rho; %bounds: [1E-6 1]
 
 
 %% Define Initial Conditions

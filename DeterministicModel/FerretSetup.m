@@ -28,21 +28,21 @@ par.general.NGen=100000;
 par.general.NPop=2;
 % ====================================
 % Parameters (X)
-par.X.Vmax.range=[1,100];
+par.X.Vmax.range=[1,500];
 %
-par.X.K1.range=[50,500];
+par.X.K1.range=[5,500];
 %
-par.X.Km.range=[50,500];
+par.X.Km.range=[5,1000];
 %
-par.X.p1.range=[5,50];
+par.X.p1.range=[1000,1E8];
 %
-par.X.p2.range=[50,500];
+par.X.p2.range=[50,5000];
 %
-par.X.p3.range=[1E-4,1E-2];
+par.X.p3.range=[1E2,1E6];
 %
-par.X.f0Vmax.range=[10,500];
+par.X.f0Vmax.range=[50,1000];
 %
-par.X.f0Km.range=[1E4,1E5];
+par.X.f0Km.range=[1E3,1E5];
 %
 par.X.Dh.range=[1E-1,50];
 %
