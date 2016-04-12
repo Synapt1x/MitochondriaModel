@@ -46,6 +46,16 @@ par.X.f0Km.range=[1E4,1E5];
 %
 par.X.Dh.range=[1E-1,50];
 %
+par.X.cytcred.range=[1E-2,1E2];
+%
+par.X.cytcox.range=[1E-2,1E2];
+%
+%par.X.oxygen.range=[1E-2,1E4];
+%
+par.X.omega.range=[1E-3,1E3];
+%
+%par.X.rho.range=[1E-3,1E3];
+%
 % ====================================
 % Parallel Computing
 par.parallel.NWorkers=0; % Number of worker nodes to launch initially.
