@@ -18,7 +18,7 @@ parameters.realOCR = parameters.realOCR * 1000; %correct units to pmol/ml s
 parameters.ctrlParams.Vmax =108.341994455382; %bounds: [0.01 10]
 parameters.ctrlParams.K1 =  12.5255224171547; %bounds: [0.1 1E4]
 parameters.ctrlParams.Km = 4801.32913410929; %bounds: [0.1 1E4]
-parameters.ctrlParams.p1 = 101.831504916252; %bounds: [1 1E4]
+parameters.ctrlParams.p1 = 1010000.831504916252; %bounds: [1 1E4]
 parameters.ctrlParams.p2 = 611.524018740580; %bounds: [1 1E4]
 parameters.ctrlParams.p3 =7521.37411099897; %bounds: [1E-6 1]
 parameters.ctrlParams.f0Vmax = 103.961719751620; %bounds: [0.01 10]
@@ -44,7 +44,7 @@ parameters.Cytcred = 0.1;
 parameters.Cytctot = parameters.Cytcox+parameters.Cytcred;
 [parameters.ctrlParams.Cytctot,parameters.expParams.Cytctot] = deal(parameters.Cytctot);
 parameters.O2 = parameters.realo2Data(1);
-parameters.Hn = 100;
+parameters.Hn = 0.1;
 
 %assuming a pH of 7.4 we get 3.981E-8 mol/L or:
 parameters.Hp = 0.0398107;
