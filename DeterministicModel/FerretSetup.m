@@ -44,11 +44,11 @@ par.X.f0Vmax.range=[1,1E4];
 %
 par.X.f0Km.range=[1E2,1E5];
 %
-par.X.Dh.range=[1E-1,50];
+par.X.Dh.range=[1E-1,1E5];
 %
-par.X.cytcred.range=[1E-2,1E2];
+par.X.cytcred.range=[1E-2,1E3];
 %
-par.X.cytcox.range=[1E-2,1E2];
+par.X.cytcox.range=[1E-2,1E3];
 %
 %par.X.oxygen.range=[1E-2,1E4];
 %
