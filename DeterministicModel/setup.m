@@ -27,7 +27,7 @@ parameters.ctrlParams.Dh = 13.237075749221; %bounds: [1E-6 1]
 parameters.ctrlParams.cytcred = 0.1; %bounds: [1E-6 1]
 parameters.ctrlParams.cytcox = 100; %bounds: [1E-6 1]
 parameters.ctrlParams.oxygen = parameters.realo2Data(1); %bounds: [1E-6 1]
-parameters.ctrlParams.omega = 100; %bounds: [1E-6 1]
+parameters.ctrlParams.omega = 0.1; %bounds: [1E-6 1]
 parameters.ctrlParams.rho = 0.0398107; %bounds: [1E-6 1]
 
 % experimental condition parameter values
