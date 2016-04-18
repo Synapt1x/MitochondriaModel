@@ -16,6 +16,14 @@ for n=length(X):-1:1
                 params.(f{i})=X(n).(f{i});
         end
         
+        parameters.Cytcred = params.cytcred;
+        parameters.Cytcox = params.cytcox;
+        parameters.Cytctot = parameters.Cytcred + parameters.Cytcox;
+        parameters.Hn = params.omega;
+        parameters.Hp = params.rho;
+        parameters.O2 = params.oxygen;
+        params.Cytctot = params.cytcred + params.cytcox;
+        
         warning off
         %call ode to solve the system of equations for this solver
         [t, y] = solver(parameters,params);

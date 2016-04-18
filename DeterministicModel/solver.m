@@ -6,6 +6,15 @@ This function solves the full situation for my model by step-wise
 solving the ODEs for each section using the appropriate equations.
 %}
 
+%update all parameter values
+parameters.Cytcred = params.cytcred;
+parameters.Cytcox = params.cytcox;
+parameters.Cytctot = parameters.Cytcred + parameters.Cytcox;
+parameters.Hn = params.omega;
+parameters.Hp = params.rho;
+parameters.O2 = params.oxygen;
+params.Cytctot = params.cytcred + params.cytcox;
+
 %Set the options for running ode15s
 options = odeset('NonNegative',[1,2,3,4]);
 

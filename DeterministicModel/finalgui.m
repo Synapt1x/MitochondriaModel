@@ -425,6 +425,14 @@ arrayfun(@cla,findall(0,'type','axes'))
 
 type=2; % while only one condition; once model done, switch back to for loop %%%%%%
 % for type=2:2
+
+        newCytcox = str2double(get(handles.initial_cytcox_edit,'String'));
+        newCytcred = str2double(get(handles.initial_cytcred_edit,'String'));
+        newTot = newCytcox + newCytcred;
+        
+        params{type}.cytcox = newCytcox;
+        params{type}.cytcred = newCytcred;
+        params{type}.Cytctot = newTot;
         
         %plug in the equations into the ode solver
         [t,y] = solver(handles.parameters,params{type});
