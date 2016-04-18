@@ -20,7 +20,6 @@ options = odeset('NonNegative',[1,2,3,4]);
 
 %Solve by using ode for each section and passing along the final
 %values as initial values for the next section
-tic
 [t1,y1] = ode15s(@baselineSystem, parameters.baselineTimes, ...
     [params.cytcred,params.oxygen,params.omega,params.rho],options,params);
 [t2,y2] = ode15s(@oligoSystem, parameters.oligoTimes, ...
@@ -29,7 +28,6 @@ tic
     [y2(end,1),y2(end,2),y2(end,3),y2(end,4)],options,params);
 [t4,y4] = ode15s(@inhibitSystem, parameters.inhibitTimes, ...
     [y3(end,1),y3(end,2),y3(end,3),y3(end,4)],options,params);
-toc
 
 t = [t1;t2;t3;t4];
 y = [y1;y2;y3;y4];
