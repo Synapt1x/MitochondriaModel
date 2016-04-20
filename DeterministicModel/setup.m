@@ -15,7 +15,7 @@ parameters.realOCR = parameters.realOCR * 1000; %correct units to pmol/ml s
 
 %% Define the Parameters of the Model
 % control condition parameter values
-parameters.ctrlParams.Vmax =108.341994455382; %bounds: [0.01 10]
+parameters.ctrlParams.Vmax = ; %bounds: [0.01 10]
 parameters.ctrlParams.K1 =  12.5255224171547; %bounds: [0.1 1E4]
 parameters.ctrlParams.Km = 4801.32913410929; %bounds: [0.1 1E4]
 parameters.ctrlParams.p1 = 1010000.831504916252; %bounds: [1 1E4]
