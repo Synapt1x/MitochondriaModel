@@ -15,15 +15,15 @@ parameters.realOCR = parameters.realOCR * 1000; %correct units to pmol/ml s
 
 %% Define the Parameters of the Model
 % control condition parameter values
-parameters.ctrlParams.Vmax = ; %bounds: [0.01 10]
-parameters.ctrlParams.K1 =  12.5255224171547; %bounds: [0.1 1E4]
-parameters.ctrlParams.Km = 4801.32913410929; %bounds: [0.1 1E4]
-parameters.ctrlParams.p1 = 1010000.831504916252; %bounds: [1 1E4]
-parameters.ctrlParams.p2 = 611.524018740580; %bounds: [1 1E4]
-parameters.ctrlParams.p3 =7521.37411099897; %bounds: [1E-6 1]
-parameters.ctrlParams.f0Vmax = 103.961719751620; %bounds: [0.01 10]
-parameters.ctrlParams.f0Km = 14704.2403743490; %bounds: [0.1 1E4]
-parameters.ctrlParams.Dh = 13.237075749221; %bounds: [1E-6 1]
+parameters.ctrlParams.Vmax = 4.53769245317617; %bounds: [0.01 10]
+parameters.ctrlParams.K1 =  962.048936627311; %bounds: [0.1 1E4]
+parameters.ctrlParams.Km = 0.0100000000000000; %bounds: [0.1 1E4]
+parameters.ctrlParams.p1 = 790.553992809604; %bounds: [1 1E4]
+parameters.ctrlParams.p2 = 4106.74689448138; %bounds: [1 1E4]
+parameters.ctrlParams.p3 = 365.313741746400; %bounds: [1E-6 1]
+parameters.ctrlParams.f0Vmax = 9765.062009554620; %bounds: [0.01 10]
+parameters.ctrlParams.f0Km = 3684.13257415268; %bounds: [0.1 1E4]
+parameters.ctrlParams.Dh = 0.275081357343110; %bounds: [1E-6 1]
 
 % experimental condition parameter values
 % Initially set to be equivalent to the control parameter set
@@ -39,8 +39,8 @@ parameters.expParams.Dh = parameters.ctrlParams.Dh; %bounds: [1E-6 1]
 
 %% Define Initial Conditions
 %initial conditions in nmol/mL; conversion: 1 nmol/mL = 1E-6 mol/L
-parameters.Cytcox = 100;
-parameters.Cytcred = 0.1;
+parameters.Cytcox = 11.2903286104636;
+parameters.Cytcred = 0.0598573960697574;
 parameters.Cytctot = parameters.Cytcox+parameters.Cytcred;
 [parameters.ctrlParams.Cytctot,parameters.expParams.Cytctot] = deal(parameters.Cytctot);
 parameters.O2 = parameters.realo2Data(1);
