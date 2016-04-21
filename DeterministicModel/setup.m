@@ -10,7 +10,7 @@ all of the model's parameters and also the data, graph labels.
 %% Data Import
 %import the real data
 [parameters.timePoints,parameters.realo2Data, ...
-    parameters.realOCR] = data_formatter;
+    parameters.realOCR,parameters.errors] = data_formatter;
 parameters.realOCR = parameters.realOCR * 1000; %correct units to pmol/ml s
 
 %% Define the Parameters of the Model

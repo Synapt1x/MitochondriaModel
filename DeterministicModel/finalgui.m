@@ -186,12 +186,12 @@ getVal = str2double(get(hObject,'String'));
 
 if isnan(getVal) %if not, throw error box and reset value
         msgbox('Please input a valid number.','Not a number');
-        
+
         %get the concentration value for resetting the edit box
         getHpconc = getfield(handles.parameters,'Hp');
-        
+
         oldHp = -log10(getHpconc *1E-6);
-        
+
         set(hObject,'String',oldHp);
 else %if so, then update the model with new value
         %Hp from the given pH
@@ -333,7 +333,7 @@ try
         [filename,filepath]=uiputfile(fullfile(handles.curdir,'StateImages', ...
                 [date,'-sessionImage.png']),'Save screenshot file');
         imwrite(image.cdata,[filepath,filename]);
-        
+
         disp(['Image was successfully saved to: ', filepath,filename]);
 catch % if an error is caught, don't throw error and instead abort save image
         disp('Snapshot save operation aborted.');
@@ -349,7 +349,7 @@ try
         [filename,filepath]=uiputfile(fullfile(handles.curdir,'Savestates', ...
                 [date,'-SaveSession.mat']), 'Save session file');
         uisave('currentdata',[filepath,filename]);
-        
+
         disp(['Session was successfully saved session file to: ', filepath,filename]);
 catch % if an error is caught, don't throw error and instead abort save session
         disp('Session save operation aborted.');
@@ -429,11 +429,11 @@ type=2; % while only one condition; once model done, switch back to for loop %%%
         newCytcox = str2double(get(handles.initial_cytcox_edit,'String'));
         newCytcred = str2double(get(handles.initial_cytcred_edit,'String'));
         newTot = newCytcox + newCytcred;
-        
+
         params{type}.cytcox = newCytcox;
         params{type}.cytcred = newCytcred;
         params{type}.Cytctot = newTot;
-        
+
         %plug in the equations into the ode solver
         [t,y] = solver(handles.parameters,params{type});
 
@@ -448,19 +448,27 @@ type=2; % while only one condition; once model done, switch back to for loop %%%
         hold on
         plot(t(2:end),cytcred(2:end),graphColor{type},'lineWidth',widths(type));
         hold off
-        
+
         %plot the O2 concentration over time with real O2 data on top
         axes(handles.O2_plot);
         hold on
         plot(t(2:end),o2(2:end),graphColor{type},'lineWidth',widths(type));
-        plot(t(2:end),handles.parameters.realo2Data(2:end),graphColor{type-1},'lineWidth',widths(type));
+        %select only every n-th error, otherwise set to NaN
+        errors = handles.parameters.errors;
+        errors(find(mod(1:length(handles.parameters.realo2Data), ...
+            40 ) > 0 ) ) = NaN;
+        errors(2) = handles.parameters.errors(2); % keep the first error
+        errors(end) = handles.parameters.errors(end); % keep the last error
+        errorbar(t(2:end),handles.parameters.realo2Data(2:end), ...
+            errors(2:end), graphColor{type-1},'lineWidth',widths(type));
         hold off
 
         %plot the OCR over time with real OCR data on top
         axes(handles.OCR_plot);
         hold on
         plot(t(2:end),calcOCR(2:end),graphColor{type},'lineWidth',widths(type));
-        plot(t(2:end),handles.parameters.realOCR(2:end),graphColor{type-1},'lineWidth',widths(type));
+        plot(t(2:end),handles.parameters.realOCR(2:end),graphColor{type-1},...
+            'lineWidth',widths(type));
         hold off
 
         %plot the Hn concentration over time
@@ -468,13 +476,13 @@ type=2; % while only one condition; once model done, switch back to for loop %%%
         hold on
         plot(t(2:end),Hn(2:end),graphColor{type},'lineWidth',widths(type));
         hold off
-        
+
         %plot the Hp concentration over time
         axes(handles.H_P_plot);
         hold on
         plot(t(2:end),Hp(2:end),graphColor{type},'lineWidth',widths(type));
         hold off
-        
+
         protRatio = (Hn./Hp); %calc total amount of protons
 
         %plot the Hp rate of appearance over time
@@ -489,13 +497,13 @@ for graph = 1:numel(handles.graphs)
         axes(handles.graphs{graph});
         vertScale = get(gca,'yLim'); % get the y resolution
         vertRange = [vertScale(1), vertScale(end)*0.98];
-        
+
         % draw oligo line
         line([handles.parameters.oligoTimes(1), handles.parameters.oligoTimes(1)], ...
                 vertRange, 'Color','b','LineWidth',0.01);
         text(handles.parameters.oligoTimes(1),vertRange(end)*1.005,'Oligomycin', ...
                 'FontSize',6,'HorizontalAlignment','center','Color','b');
-        
+
         % draw fccp line
         line([handles.parameters.fccpTimes(1), handles.parameters.fccpTimes(1)], ...
                 vertRange,'Color','b');
@@ -507,7 +515,7 @@ for graph = 1:numel(handles.graphs)
                 vertRange, 'Color','b');
         text(handles.parameters.inhibitTimes(1),vertRange(end)*1.005,'Rot/AA', ...
                 'FontSize',6,'HorizontalAlignment','center','Color','b');
-        
+
         % while iterating over graphs, also set xLim
         set(gca,'xLim',[t(1), t(end)]);
 
@@ -546,7 +554,7 @@ function loadparams_Callback(hObject,eventdata,handles)
 
 if ischar(filename) %if a file is selected, load that file
         load([filepath,filename]); %load the file
-        
+
         %change all the values of parameters to loaded parameter set
         handles = setParams(handles,myResults','experimental','changeVals');
         %additional argin signals setParams to update handles.parameters
@@ -576,21 +584,21 @@ else
         end
         hParent = axes; %create handle for axes child
         copyobj(h2copy,hParent) %copy the original graph to the new fig
-        
+
         %now add the correct labels to the new figure
         xlabel(obj.XLabel.String,'FontName','Calibri','FontSize',14);
         ylabel(obj.YLabel.String,'FontName','Calibri','FontSize',14);
         title(obj.Title.String,'FontSize',24,'FontWeight','bold','FontName','Calibri');
-        
+
         %change the children to change the reagent text sizes
         textChildren = findobj(hParent,'FontSize',6); % get the text objects
         set(textChildren,'FontSize',12); % increase their font size
-        
-        legend('Experimental Data', 'Model Output');
-        
+
+        legend('Model Output', 'Experimental Data', 'FontSize', 14);
+
         %optionally output the figure for the 'save' feature
         varargout{1}=newgraph;
-        
+
 end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
