@@ -27,8 +27,8 @@ parameters.ctrlParams.Dh = 0.275081357343110; %bounds: [1E-6 1]
 parameters.ctrlParams.cytcred = 0.0598573960697574; %bounds: [1E-6 1]
 parameters.ctrlParams.cytcox = 11.2903286104636; %bounds: [1E-6 1]
 parameters.ctrlParams.oxygen = parameters.realo2Data(1); %bounds: [1E-6 1]
-parameters.ctrlParams.omega = 0.1; %bounds: [1E-6 1]
-parameters.ctrlParams.rho = 0.0398107; %bounds: [1E-6 1]
+parameters.ctrlParams.omega = 0.015849; %bounds: [1E-6 1] pH = 7.8
+parameters.ctrlParams.rho = 0.0398107; %bounds: [1E-6 1] pH = 7.4
 
 % experimental condition parameter values
 % Initially set to be equivalent to the control parameter set
