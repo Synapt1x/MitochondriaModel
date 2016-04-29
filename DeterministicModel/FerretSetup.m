@@ -32,7 +32,7 @@ par.X.Vmax.range=[0.01,5E3];
 %
 par.X.K1.range=[0.01,1E3];
 %
-par.X.Km.range=[0.01,1E4];
+par.X.Km.range=[0.001,1E2];
 %
 par.X.p1.range=[1E2,1E8];
 %
@@ -46,9 +46,9 @@ par.X.f0Km.range=[1,1E5];
 %
 par.X.Dh.range=[1E-1,1E5];
 %
-par.X.cytcred.range=[1E-2,1E3];
+par.X.cytcred.range=[1E-2,5E2];
 %
-par.X.cytcox.range=[1E-2,1E3];
+par.X.cytcox.range=[1E-2,5E2];
 %
 %par.X.oxygen.range=[1E-2,1E4];
 %
