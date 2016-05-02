@@ -594,7 +594,7 @@ else
         textChildren = findobj(hParent,'FontSize',6); % get the text objects
         set(textChildren,'FontSize',12); % increase their font size
 
-        legend('Model Output', 'Experimental Data', 'FontSize', 14);
+        legend('Model Output', 'Experimental Data');
 
         %optionally output the figure for the 'save' feature
         varargout{1}=newgraph;
