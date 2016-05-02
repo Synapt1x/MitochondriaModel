@@ -46,7 +46,10 @@ parameters.expParams.cytcox = parameters.ctrlParams.cytcox; %bounds: [1E-6 1]
 parameters.expParams.oxygen = parameters.ctrlParams.oxygen; %bounds: [1E-6 1]
 parameters.expParams.omega = parameters.ctrlParams.omega; %bounds: [1E-6 1]
 parameters.expParams.rho = parameters.ctrlParams.rho; %bounds: [1E-6 1]
+<<<<<<< HEAD
 
+=======
+>>>>>>> eb38c8db18202ff5b3baae637033d9c6d6b7e10a
 
 %% Define Initial Conditions
 %initial conditions in nmol/mL; conversion: 1 nmol/mL = 1E-6 mol/L
