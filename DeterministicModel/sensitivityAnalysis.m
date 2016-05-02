@@ -96,7 +96,3 @@ resultsname = [todayDate '-SensitivityCoefficients'];
 save(resultsname,'sensitivityVals');
 
 disp(['Saving results to: ', resultsname]);
-
-function parameters = checkCyt(parameters)
-
-
