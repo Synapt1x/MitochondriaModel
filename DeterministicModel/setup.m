@@ -15,17 +15,17 @@ parameters.realOCR = parameters.realOCR * 1000; %correct units to pmol/ml s
 
 %% Define the Parameters of the Model
 % control condition parameter values
-parameters.ctrlParams.Vmax = 0.7236; %bounds: [0.01 10]
-parameters.ctrlParams.K1 = 371.3477; %bounds: [0.1 1E4]
-parameters.ctrlParams.Km = 0.1702; %bounds: [0.1 1E4]
-parameters.ctrlParams.p1 = 4.3210e+04; %bounds: [1 1E4]
-parameters.ctrlParams.p2 = 9892.91055606630; %bounds: [1 1E4]
-parameters.ctrlParams.p3 = 11023.2532197843; %bounds: [1E-6 1]
-parameters.ctrlParams.f0Vmax = 8203.97368918172; %bounds: [0.01 10]
-parameters.ctrlParams.f0Km = 68.6530030580620; %bounds: [0.1 1E4]
-parameters.ctrlParams.Dh = 100000; %bounds: [1E-6 1]
-parameters.ctrlParams.cytcred = 0.0108561361972506; %bounds: [1E-6 1]
-parameters.ctrlParams.cytcox = 6.54389812995348; %bounds: [1E-6 1]
+parameters.ctrlParams.Vmax = 0.7225; %bounds: [0.01 10]
+parameters.ctrlParams.K1 = 365.0185; %bounds: [0.1 1E4]
+parameters.ctrlParams.Km = 0.1627; %bounds: [0.1 1E4]
+parameters.ctrlParams.p1 = 43166.2487041382; %bounds: [1 1E4]
+parameters.ctrlParams.p2 = 9342.59161533985; %bounds: [1 1E4]
+parameters.ctrlParams.p3 = 11387.5724922773; %bounds: [1E-6 1]
+parameters.ctrlParams.f0Vmax = 9812.42645440625; %bounds: [0.01 10]
+parameters.ctrlParams.f0Km = 12.2505629561911; %bounds: [0.1 1E4]
+parameters.ctrlParams.Dh = 5116.07002586063; %bounds: [1E-6 1]
+parameters.ctrlParams.cytcred = 0.0499624001853914; %bounds: [1E-6 1]
+parameters.ctrlParams.cytcox = 6.37656163806675; %bounds: [1E-6 1]
 parameters.ctrlParams.oxygen = parameters.realo2Data(1); %bounds: [1E-6 1]
 parameters.ctrlParams.omega = 0.015849; %bounds: [1E-6 1] pH = 7.8
 parameters.ctrlParams.rho = 0.0398107; %bounds: [1E-6 1] pH = 7.4
