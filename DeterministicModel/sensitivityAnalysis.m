@@ -31,16 +31,18 @@ parameters = setup; %run the setup function which creates the
 %for evaluating the model (found in 'setup.m')
 
 % store the values of the parameters in a vector
-[paramSet,paramMT,paramPT] = deal(parameters.ctrlParams);
+paramSet = parameters.ctrlParams;
 paramVals = [paramSet.f0Vmax, paramSet.f0Km, paramSet.Vmax, paramSet.Km, ...
-      paramSet.K1, paramSet.p1, paramSet.p2, paramSet.p3, paramSet.Dh];
+      paramSet.K1, paramSet.p1, paramSet.p2, paramSet.p3, paramSet.Dh, ...
+      paramSet.cytcred];
 
 % store +/- 10% values in new structures
 paramMT = structfun(@(x)x*0.9,paramSet);
 paramPT = structfun(@(x)x*1.1,paramSet);
 
 % names of each parameters as they are stored
-parameterIDs = {'Vmax','K1','Km','p1','p2','p3','f0Vmax','f0Km','Dh'};
+parameterIDs = {'Vmax','K1','Km','p1','p2','p3','f0Vmax','f0Km','Dh', ...
+    'cytcred'};
 
 %% Evaluate E* and E*+/- 10%
 
@@ -56,10 +58,20 @@ for param=1:numel(parameterIDs)
       
       % Change parameter to be evaluated at minus 10%
       parameterSet.(parameterIDs{param}) = paramMT(param);
+      if param==10
+          parameters.Cytcred = paramMT(param);
+          parameterSet.Cytctot = parameterSet.cytcred + parameterSet.cytcox;
+          parameters.Cytctot = parameterSet.Cytctot;
+      end
       minusEvals(param,1:5) = sensitivitySolver(parameters,parameterSet);
       
       % Change parameter to be evaluated at plus 10%
       parameterSet.(parameterIDs{param}) = paramPT(param);
+      if param==10
+          parameters.Cytcred = paramPT(param);
+          parameterSet.Cytctot = parameterSet.cytcred + parameterSet.cytcox;
+          parameters.Cytctot = parameterSet.Cytctot;
+      end
       plusEvals(param,1:5) = sensitivitySolver(parameters,parameterSet);
       
       % store all the sensitivity vals in a matrix
@@ -74,6 +86,7 @@ for param=1:numel(parameterIDs)
             num2str(sensitivityVals(param,:))]);
 end
 
+
 % save results to a .mat and .txt file for viewing the sensitivity values
 cd([curdir, '/SensitivityResults']); %change to Solutions folder
 todayDate = date; %get the run date
@@ -83,3 +96,7 @@ resultsname = [todayDate '-SensitivityCoefficients'];
 save(resultsname,'sensitivityVals');
 
 disp(['Saving results to: ', resultsname]);
+
+function parameters = checkCyt(parameters)
+
+
