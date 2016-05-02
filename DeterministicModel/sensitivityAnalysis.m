@@ -72,7 +72,11 @@ for param=1:numel(parameterIDs)
           parameterSet.Cytctot = parameterSet.cytcred + parameterSet.cytcox;
           parameters.Cytctot = parameterSet.Cytctot;
       end
-      plusEvals(param,1:5) = sensitivitySolver(parameters,parameterSet);
+      if param==9
+          plusEvals(param,1:5) = minusEvals(param,1:5);
+      else
+          plusEvals(param,1:5) = sensitivitySolver(parameters,parameterSet);
+      end
       
       % store all the sensitivity vals in a matrix
       for cond=1:5
