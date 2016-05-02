@@ -24,6 +24,9 @@ options = odeset('NonNegative',[1,2,3,4]);
     [params.cytcred,params.oxygen,params.omega,params.rho],options,params);
 [t2,y2] = ode15s(@oligoSystem, parameters.oligoTimes, ...
     [y1(end,1),y1(end,2),y1(end,3),y1(end,4)],options,params);
+if (y2(end,3)==0)||(y2(end,3)<1.9972e-07)
+    y2(end,3)=1.9972e-07;
+end
 [t3,y3] = ode15s(@fccpSystem, parameters.fccpTimes, ...
     [y2(end,1),y2(end,2),y2(end,3),y2(end,4)],options,params);
 [t4,y4] = ode15s(@inhibitSystem, parameters.inhibitTimes, ...
