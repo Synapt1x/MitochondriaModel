@@ -15,15 +15,20 @@ parameters.realOCR = parameters.realOCR * 1000; %correct units to pmol/ml s
 
 %% Define the Parameters of the Model
 % control condition parameter values
-parameters.ctrlParams.Vmax = 4.53769245317617; %bounds: [0.01 10]
-parameters.ctrlParams.K1 =  962.048936627311; %bounds: [0.1 1E4]
-parameters.ctrlParams.Km = 0.0100000000000000; %bounds: [0.1 1E4]
-parameters.ctrlParams.p1 = 790.553992809604; %bounds: [1 1E4]
-parameters.ctrlParams.p2 = 4106.74689448138; %bounds: [1 1E4]
-parameters.ctrlParams.p3 = 365.313741746400; %bounds: [1E-6 1]
-parameters.ctrlParams.f0Vmax = 9765.062009554620; %bounds: [0.01 10]
-parameters.ctrlParams.f0Km = 3684.13257415268; %bounds: [0.1 1E4]
-parameters.ctrlParams.Dh = 0.275081357343110; %bounds: [1E-6 1]
+parameters.ctrlParams.Vmax = 0.7236; %bounds: [0.01 10]
+parameters.ctrlParams.K1 = 371.3477; %bounds: [0.1 1E4]
+parameters.ctrlParams.Km = 0.1702; %bounds: [0.1 1E4]
+parameters.ctrlParams.p1 = 4.3210e+04; %bounds: [1 1E4]
+parameters.ctrlParams.p2 = 9892.91055606630; %bounds: [1 1E4]
+parameters.ctrlParams.p3 = 11023.2532197843; %bounds: [1E-6 1]
+parameters.ctrlParams.f0Vmax = 8203.97368918172; %bounds: [0.01 10]
+parameters.ctrlParams.f0Km = 68.6530030580620; %bounds: [0.1 1E4]
+parameters.ctrlParams.Dh = 100000; %bounds: [1E-6 1]
+parameters.ctrlParams.cytcred = 0.0108561361972506; %bounds: [1E-6 1]
+parameters.ctrlParams.cytcox = 6.54389812995348; %bounds: [1E-6 1]
+parameters.ctrlParams.oxygen = parameters.realo2Data(1); %bounds: [1E-6 1]
+parameters.ctrlParams.omega = 0.015849; %bounds: [1E-6 1] pH = 7.8
+parameters.ctrlParams.rho = 0.0398107; %bounds: [1E-6 1] pH = 7.4
 
 % experimental condition parameter values
 % Initially set to be equivalent to the control parameter set
@@ -36,18 +41,24 @@ parameters.expParams.p3 =parameters.ctrlParams.p3; %bounds: [1E-6 1]
 parameters.expParams.f0Vmax = parameters.ctrlParams.f0Vmax; %bounds: [0.01 10]
 parameters.expParams.f0Km = parameters.ctrlParams.f0Km; %bounds: [0.1 1E4]
 parameters.expParams.Dh = parameters.ctrlParams.Dh; %bounds: [1E-6 1]
+parameters.expParams.cytcred = parameters.ctrlParams.cytcred; %bounds: [1E-6 1]
+parameters.expParams.cytcox = parameters.ctrlParams.cytcox; %bounds: [1E-6 1]
+parameters.expParams.oxygen = parameters.ctrlParams.oxygen; %bounds: [1E-6 1]
+parameters.expParams.omega = parameters.ctrlParams.omega; %bounds: [1E-6 1]
+parameters.expParams.rho = parameters.ctrlParams.rho; %bounds: [1E-6 1]
+
 
 %% Define Initial Conditions
 %initial conditions in nmol/mL; conversion: 1 nmol/mL = 1E-6 mol/L
-parameters.Cytcox = 11.2903286104636;
-parameters.Cytcred = 0.0598573960697574;
+parameters.Cytcox = parameters.ctrlParams.cytcox;
+parameters.Cytcred = parameters.ctrlParams.cytcred;
 parameters.Cytctot = parameters.Cytcox+parameters.Cytcred;
 [parameters.ctrlParams.Cytctot,parameters.expParams.Cytctot] = deal(parameters.Cytctot);
-parameters.O2 = parameters.realo2Data(1);
-parameters.Hn = 0.1;
+parameters.O2 = parameters.ctrlParams.oxygen;
+parameters.Hn = parameters.ctrlParams.omega;
 
 %assuming a pH of 7.4 we get 3.981E-8 mol/L or:
-parameters.Hp = 0.0398107;
+parameters.Hp = parameters.ctrlParams.rho;
 
 %% Define boundary times for integration
 %define the time boundaries between conditions; First instance of segment
