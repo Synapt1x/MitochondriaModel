@@ -48,5 +48,3 @@ save(resultsname,'myResults','bestFit');
 disp(['Saving output files to ' folder '/Solutions.']);
 
 cd(folder); %change back to original folder
-
-

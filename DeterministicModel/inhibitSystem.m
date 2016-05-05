@@ -15,10 +15,12 @@ Hp = y(4);
 
 %{
 To decouple the system, complexes I-III activity is instead
-approximated by ((parameters.Vmax.*(cytcdiff))./(parameters.Km+(cytcdiff))).*(Hn./Hp)*(Hn/Hp)
+approximated by ((parameters.Vmax.*(cytcdiff))./ ...
+(parameters.Km+(cytcdiff))).*(Hn./Hp)*(Hn/Hp)
 
 Given this, conservation occurs between NADH and NAD, Succ and
-Fum, Q and QH2. Since ((parameters.Vmax.*(cytcdiff))./(parameters.Km+(cytcdiff))).*(Hn./Hp)*(Hn/Hp) approximates BOTH forward
+Fum, Q and QH2. Since ((parameters.Vmax.*(cytcdiff))./ ...
+(parameters.Km+(cytcdiff))).*(Hn./Hp)*(Hn/Hp) approximates BOTH forward
 and reverse we get consumption and production of each
 component in these pairs as equivalent. Thus the other substrates
 do not change in concentration, and we have their time derivatives
