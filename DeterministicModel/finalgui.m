@@ -454,12 +454,12 @@ type=2; % while only one condition; once model done, switch back to for loop %%%
         hold on
         plot(t(2:end),o2(2:end),graphColor{type},'lineWidth',widths(type));
         %select only every n-th error, otherwise set to NaN
-        errors = handles.parameters.errors;
-        errors(find(mod(1:length(handles.parameters.realo2Data), ...
-            40 ) > 0 ) ) = NaN;
+        errors = handles.parameters.errors(1:numel(o2));
+        errors(find(mod(1:length(handles.parameters.realo2Data(1:numel(o2))), ...
+            10 ) > 0 ) ) = NaN;
         errors(2) = handles.parameters.errors(2); % keep the first error
-        errors(end) = handles.parameters.errors(end); % keep the last error
-        errorbar(t(2:end),handles.parameters.realo2Data(2:end), ...
+        errors(end) = handles.parameters.errors(numel(o2)); % keep the last error
+        errorbar(t(2:end),handles.parameters.realo2Data(2:numel(o2)), ...
             errors(2:end), graphColor{type-1},'lineWidth',widths(type));
         hold off
 
@@ -467,8 +467,8 @@ type=2; % while only one condition; once model done, switch back to for loop %%%
         axes(handles.OCR_plot);
         hold on
         plot(t(2:end),calcOCR(2:end),graphColor{type},'lineWidth',widths(type));
-        plot(t(2:end),handles.parameters.realOCR(2:end),graphColor{type-1},...
-            'lineWidth',widths(type));
+        %plot(t(2:end),handles.parameters.realOCR(2:end),graphColor{type-1},...
+        %    'lineWidth',widths(type));
         hold off
 
         %plot the Hn concentration over time
@@ -491,7 +491,7 @@ type=2; % while only one condition; once model done, switch back to for loop %%%
         plot(t(2:end),protRatio(2:end),graphColor{type},'lineWidth',widths(type));
         hold off
 % end
-
+%{
 %add vertical lines to all graphs for injection times
 for graph = 1:numel(handles.graphs)
         axes(handles.graphs{graph});
@@ -520,7 +520,7 @@ for graph = 1:numel(handles.graphs)
         set(gca,'xLim',[t(1), t(end)]);
 
 end
-
+%}
 %update all the graph axes
 graphLabel(handles);
 

@@ -1,4 +1,4 @@
-function [t,y] = solver(parameters,params)
+function [t1,y1] = solver(parameters,params)
 %{
 Created by: Chris Cadonic
 ========================================
@@ -22,6 +22,7 @@ options = odeset('NonNegative',[1,2,3,4]);
 %values as initial values for the next section
 [t1,y1] = ode15s(@baselineSystem, parameters.baselineTimes, ...
     [params.cytcred,params.oxygen,params.omega,params.rho],options,params);
+%{
 [t2,y2] = ode15s(@oligoSystem, parameters.oligoTimes, ...
     [y1(end,1),y1(end,2),y1(end,3),y1(end,4)],options,params);
 if (y2(end,3)==0)||(y2(end,3)<1.9972e-07)
@@ -34,3 +35,4 @@ end
 
 t = [t1;t2;t3;t4];
 y = [y1;y2;y3;y4];
+%}
