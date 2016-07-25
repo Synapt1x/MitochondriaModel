@@ -31,7 +31,7 @@ for n=length(X):-1:1
         
         %for fitting O2
         evaluations = y(:,2); %evaluated data for o2
-        realo2Data = parameters.realo2Data(1:numel(evaluations)); %use actual o2 data
+        realo2Data = parameters.realo2Data(1:parameters.oligoTime-1); %use actual o2 data
         
         try
             %evaluate using a least-squares
@@ -40,5 +40,5 @@ for n=length(X):-1:1
         catch
             F(1,n) = 1E6;
         end
-        
+
 end
