@@ -34,7 +34,7 @@ parameters = setup; %run the setup function which creates the
 paramSet = parameters.ctrlParams;
 paramVals = [paramSet.f0Vmax, paramSet.f0Km, paramSet.Vmax, paramSet.Km, ...
       paramSet.K1, paramSet.p1, paramSet.p2, paramSet.p3, paramSet.Dh, ...
-      paramSet.cytcred];
+      paramSet.cytcred, paramSet.cytcox, paramSet.Cytctot];
 
 % store +/- 10% values in new structures
 paramMT = structfun(@(x)x*0.9,paramSet);
@@ -50,6 +50,9 @@ parameterIDs = {'Vmax','K1','Km','p1','p2','p3','f0Vmax','f0Km','Dh', ...
 [E_star,evaluations] = sensitivitySolver(parameters,paramSet,'Estar');
 parameters.initialsOligo = evaluations{1}(60,:);
 parameters.initialsFccp = evaluations{1}(135,:);
+if (parameters.initialsFccp(3)==0)||(parameters.initialsFccp(3)<1.9972e-07)
+    parameters.initialsFccp(3)=1.9972e-07;
+end
 parameters.initialsInhibit = evaluations{1}(215,:);
 
 % evaluate E* of plus and minus 10 for each parameter
