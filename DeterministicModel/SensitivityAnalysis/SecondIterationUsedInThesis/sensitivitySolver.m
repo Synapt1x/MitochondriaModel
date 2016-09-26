@@ -1,4 +1,4 @@
-function [error,solutionEval] = sensitivitySolver(parameters,params,varargin)
+function [errors,solutionEval] = sensitivitySolver(parameters,params,varargin)
 %{
 Created by: Chris Cadonic
 ========================================
@@ -12,13 +12,19 @@ calculated.
 %}
 
 %initialize variables
-error = 0;
-solutionEval = [];
+errors = [];
 
 %Set the options for running ode15s
 options = odeset('NonNegative',[1,2,3,4]);
 
-realData = parameters.realo2Data;
+%format real data for 5 separate solutions
+realData{1} = parameters.realo2Data;
+realData{2} = realData{1}(1:parameters.oligoTime-1);
+realData{3} = realData{1}(parameters.oligoTime: ...
+      parameters.fccpTime-1);
+realData{4} = realData{1}(parameters.fccpTime: ...
+      parameters.inhibitTime-1);
+realData{5} = realData{1}(parameters.inhibitTime:end);
 
 %Solve by using ode for each section and passing along the final
 %values as initial values for the next section
@@ -37,17 +43,30 @@ end
     [y3(end,1),y3(end,2),y3(end,3),y3(end,4)],options,params);
 
 %store the first, solution for the entire model
-solutionEval = [y1;y2;y3;y4];
+solutionEval{1} = [y1;y2;y3;y4];
 
 %if varargin in nonempty, then this is calculating Estar
 if ~isempty(varargin)
-    parameters.initialsOligo = y1(end,:);
-    parameters.initialsFccp = y2(end,:);
-    parameters.initialsInhibit = y3(end,:);
+      parameters.initialsOligo = y1(end,:);
+      parameters.initialsFccp = y2(end,:);
+      parameters.initialsInhibit = y3(end,:);
 end
 
+%repeat solving the system for each section separately
+[~,solutionEval{2}] = ode15s(@baselineSystem, parameters.baselineTimes, ...
+    [parameters.Cytcred,parameters.O2,parameters.Hn, ...
+    parameters.Hp],options,params);
+[~,solutionEval{3}] = ode15s(@oligoSystem, parameters.oligoTimes, ...
+    parameters.initialsOligo,options,params);
+[~,solutionEval{4}] = ode15s(@fccpSystem, parameters.fccpTimes, ...
+    parameters.initialsFccp,options,params);
+[~,solutionEval{5}] = ode15s(@inhibitSystem, parameters.inhibitTimes, ...
+    parameters.initialsInhibit,options,params);
+
 % loop over and calculate the error for each condition
-% calculate error for the entire model
-error = sum((realData-solutionEval(:,2)).^2) ...
-    /numel(realData);
+for condition = 1:numel(solutionEval) 
+      % calculate error for the entire model
+      errors(condition) = sum((realData{condition}-solutionEval{condition}(:,2)).^2) ...
+            /numel(realData{condition});      
+end
 toc

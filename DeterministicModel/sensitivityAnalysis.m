@@ -29,12 +29,14 @@ curdir = fileparts(which(mfilename));
 parameters = setup; %run the setup function which creates the
 %structure storing all variables necessary
 %for evaluating the model (found in 'setup.m')
+origParameters = parameters;
 
 % store the values of the parameters in a vector
 paramSet = parameters.ctrlParams;
 paramVals = [paramSet.f0Vmax, paramSet.f0Km, paramSet.Vmax, paramSet.Km, ...
-      paramSet.K1, paramSet.p1, paramSet.p2, paramSet.p3, paramSet.Dh, ...
-      paramSet.cytcred, paramSet.cytcox, paramSet.Cytctot];
+    paramSet.K1, paramSet.p1, paramSet.p2, paramSet.p3, paramSet.Dh, ...
+    paramSet.cytcred, paramSet.cytcox, paramSet.Cytctot];
+origCytProp = paramSet.cytcred/paramSet.Cytctot;
 
 % store +/- 10% values in new structures
 paramMT = structfun(@(x)x*0.9,paramSet);
@@ -42,55 +44,125 @@ paramPT = structfun(@(x)x*1.1,paramSet);
 
 % names of each parameters as they are stored
 parameterIDs = {'Vmax','K1','Km','p1','p2','p3','f0Vmax','f0Km','Dh', ...
-    'cytcred'};
+    'cytcred','cytcox','none','none','none','Cytctot'};
 
 %% Evaluate E* and E*+/- 10%
 
 % evalute E*, consistent across all parameter changes
 [E_star,evaluations] = sensitivitySolver(parameters,paramSet,'Estar');
-parameters.initialsOligo = evaluations{1}(60,:);
-parameters.initialsFccp = evaluations{1}(135,:);
-if (parameters.initialsFccp(3)==0)||(parameters.initialsFccp(3)<1.9972e-07)
-    parameters.initialsFccp(3)=1.9972e-07;
-end
-parameters.initialsInhibit = evaluations{1}(215,:);
 
 % evaluate E* of plus and minus 10 for each parameter
 for param=1:numel(parameterIDs)
-      parameterSet = paramSet;
-      
-      % Change parameter to be evaluated at minus 10%
-      parameterSet.(parameterIDs{param}) = paramMT(param);
-      if param==10
-          parameters.Cytcred = paramMT(param);
-          parameterSet.Cytctot = parameterSet.cytcred + parameterSet.cytcox;
-          parameters.Cytctot = parameterSet.Cytctot;
-      end
-      minusEvals(param,1:5) = sensitivitySolver(parameters,parameterSet);
-      
-      % Change parameter to be evaluated at plus 10%
-      parameterSet.(parameterIDs{param}) = paramPT(param);
-      if param==10
-          parameters.Cytcred = paramPT(param);
-          parameterSet.Cytctot = parameterSet.cytcred + parameterSet.cytcox;
-          parameters.Cytctot = parameterSet.Cytctot;
-      end
-      if param==9
-          plusEvals(param,1:5) = minusEvals(param,1:5);
-      else
-          plusEvals(param,1:5) = sensitivitySolver(parameters,parameterSet);
-      end
-      
-      % store all the sensitivity vals in a matrix
-      for cond=1:5
-            sensitivityVals(param, cond) = max(abs(minusEvals(param,cond) ...
-                  -E_star(cond))/(0.1*E_star(cond)),abs(plusEvals(param,cond) ...
-                  -E_star(cond))/(0.1*E_star(cond)));
-      end
-      
-      % calculate and display the sensitivity values
-      disp(['Sensitivity values for parameter ', parameterIDs{param}, ' are: ', ...
-            num2str(sensitivityVals(param,:))]);
+    if (param==12)||(param==13)||(param==14)
+        continue
+    else
+        parameterSet = paramSet;
+        parameters = origParameters;
+
+        % Change parameter to be evaluated at minus 10%
+        parameterSet.(parameterIDs{param}) = paramMT(param);
+        if param==10
+            parameters.Cytcred = paramMT(param);
+            parameters.Cytctot = parameters.Cytcred + parameters.Cytcox;
+
+            parameterSet.cytcox = parameters.Cytcox;
+            parameterSet.Cytctot = parameters.Cytctot;
+        end
+        if param==11
+            parameters.Cytcox = paramMT(param);
+            parameters.Cytctot = parameters.Cytcred + parameters.Cytcox;
+
+            parameterSet.cytcred = parameters.Cytcred;
+            parameterSet.Cytctot = parameters.Cytctot;
+        end
+        if param==12
+            parameters.Cytctot = paramMT(param);
+            parameters.Cytcred = parameters.Cytctot*origCytProp;
+            parameters.Cytcox = parameters.Cytctot*(1-origCytProp);
+
+            parameterSet.cytcred = parameters.Cytcred;
+            parameterSet.cytcox = parameters.Cytcox;
+            parameterSet.Cytctot = parameters.Cytctot;
+        end
+        %{
+            %%%%%Proportions
+        if param==10
+
+            parameters.Cytcred = paramMT(param);
+            parameters.Cytctot = parameters.Cytcred/origCytProp;
+            parameters.Cytcox = parameters.Cytctot - parameters.Cytcred;
+            parameterSet.cytcred = parameters.Cytcred;
+            parameterSet.cytcox = parameters.Cytcox;
+            parameterSet.Cytctot = parameters.Cytctot;
+        end
+        if param==11
+            parameters.Cytcox = paramMT(param);
+            parameters.Cytctot = parameters.Cytcox/(1-origCytProp);
+            parameters.Cytcred = parameters.Cytctot - parameters.Cytcox;
+            parameterSet.cytcred = parameters.Cytcred;
+            parameterSet.cytcox = parameters.Cytcox;
+            parameterSet.Cytctot = parameters.Cytctot;
+        end
+        %}
+        minusEvals(param) = sensitivitySolver(parameters,parameterSet);
+
+        % Change parameter to be evaluated at plus 10%
+        parameterSet.(parameterIDs{param}) = paramPT(param);
+        if param==10
+            parameters.Cytcred = paramPT(param);
+            parameters.Cytctot = parameters.Cytcred + parameters.Cytcox;
+
+            parameterSet.cytcox = parameters.Cytcox;
+            parameterSet.Cytctot = parameters.Cytctot;
+        end
+        if param==11
+            parameters.Cytcox = paramPT(param);
+            parameters.Cytctot = parameters.Cytcred + parameters.Cytcox;
+
+            parameterSet.cytcred = parameters.Cytcred;
+            parameterSet.Cytctot = parameters.Cytctot;
+        end
+        if param==12
+            parameters.Cytctot = paramPT(param);
+            parameters.Cytcred = parameters.Cytctot*origCytProp;
+            parameters.Cytcox = parameters.Cytctot*(1-origCytProp);
+
+            parameterSet.cytcred = parameters.Cytcred;
+            parameterSet.cytcox = parameters.Cytcox;
+            parameterSet.Cytctot = parameters.Cytctot;
+        end
+        %{
+        %%%%%%Proportions
+        if param==10
+            parameters.Cytcred = paramPT(param);
+            parameters.Cytctot = parameters.Cytcred/origCytProp;
+            parameters.Cytcox = parameters.Cytctot - parameters.Cytcred;
+            parameterSet.cytcred = parameters.Cytcred;
+            parameterSet.cytcox = parameters.Cytcox;
+            parameterSet.Cytctot = parameters.Cytctot;
+        end
+        if param==11
+            parameters.Cytcox = paramPT(param);
+            parameters.Cytctot = parameters.Cytcox/(1-origCytProp);
+            parameters.Cytcred = parameters.Cytctot - parameters.Cytcox;
+            parameterSet.cytcred = parameters.Cytcred;
+            parameterSet.cytcox = parameters.Cytcox;
+            parameterSet.Cytctot = parameters.Cytctot;
+        end
+        %}
+        if param==9
+            plusEvals(param) = minusEvals(param);
+        else
+            plusEvals(param) = sensitivitySolver(parameters,parameterSet);
+        end
+
+        sensitivityVals(param) = max(abs(minusEvals(param) ...
+            -E_star)/(0.1*E_star),abs(plusEvals(param)-E_star)/(0.1*E_star));
+
+        % calculate and display the sensitivity values
+        disp(['Sensitivity values for parameter ', parameterIDs{param}, ' are: ', ...
+            num2str(sensitivityVals(param))]);
+    end
 end
 
 
