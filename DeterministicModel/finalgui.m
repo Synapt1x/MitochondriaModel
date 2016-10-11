@@ -440,7 +440,7 @@ openGraph; %simply open the figure in a new window
 function plot_Callback(hObject, eventdata, handles) %plot button in gui
 
 %store variables for differntiating control and experimental parameter sets
-graphColor = {'black','r--'};
+graphColor = {'black','r'};
 types = {'control','experimental'};
 params = {handles.ctrlParams,handles.expParams};
 
