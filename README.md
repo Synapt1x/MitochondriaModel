@@ -30,7 +30,7 @@ in MATLAB, and then plot the resulting quantities for all four sections of the g
 
 ### The Components of The GUI
 
-![GUI Image](/Images/guiImageSep2.png)
+![GUI Image](/Images/guiImage-empty.png)
 
 In this figure, the GUI layout is shown, including axes and all input areas. 
 With respect to input areas, the top three sections control:
@@ -71,7 +71,7 @@ Next, the botttom three sections control:
 The axes illustrate the behavior of the system one *Plot* is clicked. As shown below, once it is selected, the system
 then graphs and labels each axis to display what the model is simulating with regard to mitochondrial function.
 
-![GUI with graphs](/Images/guiGraphsSep2.png)
+![GUI with graphs](/Images/guiImage.png)
 
 ### Additional Functions of the GUI
 
@@ -80,7 +80,7 @@ this section.
 
 #### Right-Clicking a Graph
 
-![Right-click graphs](/Images/guiRightClickSep2.png)
+![Right-click graphs](/Images/guiRightClick.png)
 
 Each graph, once plotted, can then be right-clicked for additional options. These options allow for the user to either
 save a blown-up image of the plot to a PNG file, or for opening the image in a new figure window for inspection and
@@ -94,7 +94,7 @@ after editing is finalized. Zooming in and out of the graph can also be done in 
 
 #### Save Snapshot
 
-![Save a snapshot of the GUI](/Images/guiSaveSnapshotSep2.png)
+![Save a snapshot of the GUI](/Images/guiSaveSnapshot.png)
 
 In the *File* menu, there is an option for saving a snapshot of the GUI. The purpose of this is to save the current display
 of the GUI either for presentation or publication, where the graphs of each element of the system are shown along
@@ -106,7 +106,7 @@ not EMACS) and **cmd+d** on MAC OS X systems.
 
 #### Save/Load Session
 
-![Save or load sessions](/Images/guiSaveSessionSep2.png)
+![Save or load sessions](/Images/guiSaveLoad.png)
 
 In addition to being able to save a snapshot of the GUI as an image to be viewed or presented later, the state of the 
 model can also be saved. The save and load session commands are found in the *File* menu, with shortcuts 
@@ -119,7 +119,7 @@ command giving the user the chance to re-open the state of the chosen file. Save
 
 #### Help Commands
 
-![Check the current version of the model](/Images/guiHelpCommandsSep2.png)
+![Check the current version of the model](/Images/guiHelp.png)
 
 In the *Help* menu, there is a *Version* button and an *Info...* button. The Version button allows the user
 to confer with the Git system to check the current tagged version of the program. This will inform the user whether
