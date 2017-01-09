@@ -32,7 +32,7 @@ global GraphicsScale_ FontScale_
 %
 % * This is the default home for Qubist.  QubistHome_ should be over-written
 % * by the name of the actual Qubist home directory.
-QubistHome_='/home/synapt1x/Projects/MastersProject/DeterministicModel/Qubist/';
+QubistHome_='/home/synapt1x/MastersProject/DeterministicModel/Qubist/';
 
 % -----------------------------------------
 % ---- QUBIST LAUNCH OPTIONS BEGIN HERE ---
