@@ -64,23 +64,29 @@ parameters.Hp = parameters.ctrlParams.rho;
 %define the time boundaries between conditions; First instance of segment
 %change
 parameters.oligoTime = min(find(parameters.timePoints>=121.8));
-parameters.fccpTime = min(find(parameters.timePoints>=271.8));
+parameters.ctrlParams.fccp_25 = min(find(parameters.timePoints>=271.8));
+parameters.ctrlParams.fccp_50 = min(find(parameters.timePoints>=300));
+parameters.ctrlParams.fccp_75 = min(find(parameters.timePoints>=340));
+parameters.ctrlParams.fccp_100 = min(find(parameters.timePoints>=390));
+parameters.expParams.fccp_25 = parameters.ctrlParams.fccp_25;
+parameters.expParams.fccp_50 = parameters.ctrlParams.fccp_50;
+parameters.expParams.fccp_75 = parameters.ctrlParams.fccp_75;
+parameters.expParams.fccp_100 = parameters.ctrlParams.fccp_100;
 parameters.inhibitTime = min(find(parameters.timePoints>=432));
 
 %define the arrays holding the time points for each section
 parameters.baselineTimes = parameters.timePoints( ...
     1:parameters.oligoTime-1);
 parameters.oligoTimes = parameters.timePoints( ...
-    parameters.oligoTime:parameters.fccpTime-1);
-parameters.fccpTimes = parameters.timePoints( ...
-    parameters.fccpTime:parameters.inhibitTime-1);
+    parameters.oligoTime:parameters.inhibitTime-1);
+%parameters.fccpTimes = parameters.timePoints( ...
+%    parameters.ctrlParams.fccp_25:parameters.inhibitTime-1);
 parameters.inhibitTimes = parameters.timePoints( ...
     parameters.inhibitTime:end);
 
 %number of points in each section
 parameters.numpoints = [numel(parameters.baselineTimes),numel(...
-    parameters.oligoTimes),numel(parameters.fccpTimes), ...
-    numel(parameters.inhibitTimes)];
+    parameters.oligoTimes), numel(parameters.inhibitTimes)];
 
 %% Define the labels and titles for GUI Graphs
 %titles and labels for the output graphs
