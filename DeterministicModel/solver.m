@@ -29,8 +29,6 @@ if (y2(end,3)==0)||(y2(end,3)<1.9972e-07)
 end
 [t3,y3] = ode15s(@fccpSystem, parameters.inhibitTimes, ...
     [y2(end,1),y2(end,2),y2(end,3),y2(end,4)],options,params);
-%[t4,y4] = ode15s(@inhibitSystem, parameters.inhibitTimes, ...
-%    [y3(end,1),y3(end,2),y3(end,3),y3(end,4)],options,params);
 
 t = [t1;t2;t3];
 y = [y1;y2;y3];

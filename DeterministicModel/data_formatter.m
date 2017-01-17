@@ -16,15 +16,16 @@ matrix, with corresponding labels.
 path_folder = fileparts(which(mfilename));
 
 %file names holding the oxygraph o2 data and Seahorse ocr data
-filename = fullfile(path_folder, '/Data/oxygraphData.xlsx');
+filename = fullfile(path_folder, '/Data/3xoxygraphData.xlsx');
 
 %% Extract Oxygraph Data
 
 %extract all times and all oxygen concentration readings
-allData = xlsread(filename,'Sheet1','M520:O829');
+allData = xlsread(filename,'Sheet1','M342:O705');
 allData(1,:)=[]; %delete t=0 time point
 
 %store the times, o2 and ocr data separately
-[allTimes,realo2] = deal(allData(:,1),allData(:,2));
+[realo2(:,1), realo2(:,2), allTimes] = deal(allData(:,1), allData(:,2), allData(:,3));
 
-realOCR = -gradient(realo2);
+realOCR(:,1) = -gradient(realo2(:,1));
+realOCR(:,2) = -gradient(realo2(:,2));

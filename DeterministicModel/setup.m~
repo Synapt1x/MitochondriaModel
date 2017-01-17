@@ -63,22 +63,24 @@ parameters.Hp = parameters.ctrlParams.rho;
 %% Define boundary times for integration
 %define the time boundaries between conditions; First instance of segment
 %change
-parameters.oligoTime = min(find(parameters.timePoints>=98));
-parameters.ctrlParams.fccp_25 = min(find(parameters.timePoints>=220));
-parameters.ctrlParams.fccp_50 = min(find(parameters.timePoints>=314));
-parameters.ctrlParams.fccp_75 = min(find(parameters.timePoints>=426));
-parameters.ctrlParams.fccp_100 = min(find(parameters.timePoints>=520));
+parameters.oligoTime = min(find(parameters.timePoints>=));
+parameters.ctrlParams.fccp_25 = min(find(parameters.timePoints>=271.8));
+parameters.ctrlParams.fccp_50 = min(find(parameters.timePoints>=300));
+parameters.ctrlParams.fccp_75 = min(find(parameters.timePoints>=340));
+parameters.ctrlParams.fccp_100 = min(find(parameters.timePoints>=390));
 parameters.expParams.fccp_25 = parameters.ctrlParams.fccp_25;
 parameters.expParams.fccp_50 = parameters.ctrlParams.fccp_50;
 parameters.expParams.fccp_75 = parameters.ctrlParams.fccp_75;
 parameters.expParams.fccp_100 = parameters.ctrlParams.fccp_100;
-parameters.inhibitTime = min(find(parameters.timePoints>=608));
+parameters.inhibitTime = min(find(parameters.timePoints>=432));
 
 %define the arrays holding the time points for each section
 parameters.baselineTimes = parameters.timePoints( ...
     1:parameters.oligoTime-1);
 parameters.oligoTimes = parameters.timePoints( ...
     parameters.oligoTime:parameters.inhibitTime-1);
+%parameters.fccpTimes = parameters.timePoints( ...
+%    parameters.ctrlParams.fccp_25:parameters.inhibitTime-1);
 parameters.inhibitTimes = parameters.timePoints( ...
     parameters.inhibitTime:end);
 
