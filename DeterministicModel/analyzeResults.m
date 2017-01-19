@@ -15,8 +15,11 @@ global best, which will be stored in the variable result.
 %% Initialize vars
 
 %initialize storage variables
-myResults = inf; 
-bestFit = OptimalSolutions.F(:,1).*inf; 
+bestFit = OptimalSolutions.F(:,1).*inf;
+bestSet = struct();
+F = Inf(1, size(OptimalSolutions.X,2));
+
+parameters = setup;
 
 %% Loop over OptimalSolutions to find Best
 
@@ -25,13 +28,12 @@ for n=1:size(OptimalSolutions.X, 2) % Number of columns = number of solutions.
     
     %first use bsxfun to check 'greater than' for all elements of bestFit
     %vs. OptimalSolutions.F
-    checkSize = bsxfun(@gt,bestFit,OptimalSolutions.F(:,n));
+    F(n)=get_F(OptimalSolutions.X_struct(n), parameters);
     
-    if all(checkSize) %if current best is greater than optimal then replace bestFit
-                              %all is used to check to see if all F-values are less than best
-        myResults=OptimalSolutions.X(:,n);
-        bestFit=OptimalSolutions.F(:,n);
-    end
+    if F(n) < bestFit + 1E-9
+        bestFit = F(n);
+        bestSet = OptimalSolutions.X_struct(n);
+    end        
 end
 
 %% Save files to Solutions folder
@@ -42,7 +44,7 @@ todayDate = date; %get the run date
 
 %save the Best solution to the Solutions folder
 resultsname = [todayDate '-BestResults'];
-save(resultsname,'myResults','bestFit');
+save(resultsname,'bestSet','bestFit');
 
 %display a message indicating the files will be saved
 disp(['Saving output files to ' folder '/Solutions.']);
