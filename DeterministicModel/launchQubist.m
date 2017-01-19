@@ -32,7 +32,11 @@ global GraphicsScale_ FontScale_
 %
 % * This is the default home for Qubist.  QubistHome_ should be over-written
 % * by the name of the actual Qubist home directory.
-QubistHome_='~/Qubist';
+if ispc
+    QubistHome_='C:\Users\synapt1x\Documents\Qubist';
+elseif isunix
+    QubistHome_='~/Qubist';
+end
 
 % -----------------------------------------
 % ---- QUBIST LAUNCH OPTIONS BEGIN HERE ---
