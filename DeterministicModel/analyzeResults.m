@@ -5,7 +5,6 @@ Created by: Chris Cadonic
 As per code generation suggestions in the Qubist manual, this function
 can be called by Ferret after analysis to 'automatically post-process'
 results. 
-
 In this function, OptimalSolutions is loaded and then it will be saved to
 the 'Solutions' folder in the format "Date-OptimalSolutions.mat".
 This structure will then be analyzed in the code below to look for the

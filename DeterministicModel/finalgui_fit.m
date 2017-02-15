@@ -351,6 +351,9 @@ function save_graphs_Callback(hObject, eventdata, handles)
 % save the image and color map for the overall window
 image = getframe(gcf);
 
+%top_left = ginput(1);
+%bot_right = ginput(1);
+
 % crop just the graphs and store that as the image
 image = imcrop(image.cdata,[565,79,817,685]);
 
@@ -564,8 +567,14 @@ function loadparams_Callback(hObject,eventdata,handles)
 if ischar(filename) %if a file is selected, load that file
     load([filepath,filename]); %load the file
     
+    values = [];
+    
+    for j=1:1:length(fieldnames(bestSet))-1
+        values(j) = bestSet.(handles.parameters.paramNames{j});
+    end
+    
     %change all the values of parameters to loaded parameter set
-    handles = setParams(handles,myResults','experimental','changeVals');
+    handles = setParams(handles,values','control','changeVals');
     %additional argin signals setParams to update handles.parameters
     guidata(hObject,handles);
 else
@@ -624,16 +633,18 @@ else
     params = handles.expParams;
 end
 
-%loop over and change all the displayed values for the parameters
-for i = 1:numel(boxes)
-    set(boxes{i},'String',values(i));
-end
-
 %change all the values in the correct params struc if vargin nonempty
 if ~isempty(varargin)
+    boxes = [boxes {handles.initial_cytcox_edit handles.initial_cytcred_edit}];
     [params.Vmax, params.K1, params.Km, params.p1, params.p2, params.p3, ...
-        params.f0Vmax, params.f0Km, params.Dh] = deal(values(1), values(2), ...
-        values(3), values(4), values(5),values(6),values(7),values(8), values(9));
+        params.f0Vmax, params.f0Km, params.Dh, params.cytcox, params.cytcred] ...
+        = deal(values(1), values(2), values(3), values(4), values(5), ...
+        values(6),values(7),values(8), values(9), values(10), values(11));
+end
+
+%loop over and change all the displayed values for the parameters
+for i = 1:numel(boxes)
+    boxes{i}.String = values(i);
 end
 
 if strcmp(type,'control')
