@@ -32,9 +32,7 @@ Both cytochrome c reduced and omega have been reduced to order
 1 due to the constraint that cyt c delivers electrons one at a time
 
 Also, to incorporate all sections of the data, time points will dictate
-the set of equations used for the model. From the data file: oligo
-is injected at t = 18.6 m, FCCP starts injection at t = 20.17 m, and
-rot/AA start injection at t = 28.13 m.
+the set of equations used for the model. 
 %}
 cytcdiff = params.Cytctot - Cytcred;
 

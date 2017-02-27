@@ -9,7 +9,8 @@ all of the model's parameters and also the data, graph labels.
 
 %% Data Import
 %import the real data
-parameters.data = data_formatter;
+[parameters.timePoints,parameters.realo2Data, ...
+    parameters.realOCR] = data_formatter;
 
 %% Define the Parameters of the Model
 % control condition parameter values
@@ -24,7 +25,7 @@ parameters.ctrlParams.f0Km = 12.2505629561911; %bounds: [0.1 1E4]
 parameters.ctrlParams.Dh = 5116.07002586063; %bounds: [1E-6 1]
 parameters.ctrlParams.cytcred = 0.0499624001853914; %bounds: [1E-6 1]
 parameters.ctrlParams.cytcox = 6.37656163806675; %bounds: [1E-6 1]
-parameters.ctrlParams.oxygen = parameters.data.CtrlO2; %bounds: [1E-6 1]
+parameters.ctrlParams.oxygen = parameters.realo2Data(1); %bounds: [1E-6 1]
 parameters.ctrlParams.omega = 0.015849; %bounds: [1E-2 50] pH = 7.8
 parameters.ctrlParams.rho = 0.0398107; %bounds: [1E-2 50] pH = 7.4
 
@@ -59,6 +60,44 @@ parameters.Hn = parameters.ctrlParams.omega;
 
 %assuming a pH of 7.4 we get 3.981E-8 mol/L or:
 parameters.Hp = parameters.ctrlParams.rho;
+
+%% Define boundary times for integration
+%define the time boundaries between conditions; First instance of segment
+%change
+[parameters.oligo_t, parameters.ctrlParams.oligo_t, ...
+    parameters.expParams.oligo_t] = deal(98);
+[parameters.fccp_25_t, parameters.ctrlParams.fccp_25_t, ...
+    parameters.expParams.fccp_25_t] = deal(220);
+[parameters.fccp_50_t, parameters.ctrlParams.fccp_50_t, ...
+    parameters.expParams.fccp_50_t] = deal(314);
+[parameters.fccp_75_t, parameters.ctrlParams.fccp_75_t, ...
+    parameters.expParams.fccp_75_t] = deal(426);
+[parameters.fccp_100_t, parameters.ctrlParams.fccp_100_t, ...
+    parameters.expParams.fccp_100_t] = deal(520);
+[parameters.inhibit_t, parameters.ctrlParams.inhibit_t, ...
+    parameters.expParams.inhibit_t] = deal(608);
+
+parameters.ctrlParams.fccp_25 = min(find(parameters.timePoints>=parameters.fccp_25_t));
+parameters.ctrlParams.fccp_50 = min(find(parameters.timePoints>=parameters.fccp_50_t));
+parameters.ctrlParams.fccp_75 = min(find(parameters.timePoints>=parameters.fccp_75_t));
+parameters.ctrlParams.fccp_100 = min(find(parameters.timePoints>=parameters.fccp_100_t));
+parameters.expParams.fccp_25 = parameters.ctrlParams.fccp_25;
+parameters.expParams.fccp_50 = parameters.ctrlParams.fccp_50;
+parameters.expParams.fccp_75 = parameters.ctrlParams.fccp_75;
+parameters.expParams.fccp_100 = parameters.ctrlParams.fccp_100;
+
+parameters.oligoTime = min(find(parameters.timePoints>=parameters.oligo_t));
+parameters.inhibitTime = min(find(parameters.timePoints>=608));
+parameters.ctrlParams.oligoTime = parameters.oligoTime;
+parameters.ctrlParams.inhibitTime = parameters.inhibitTime;
+
+%define the arrays holding the time points for each section
+parameters.baselineTimes = parameters.timePoints( ...
+    1:parameters.oligoTime-1);
+parameters.oligoTimes = parameters.timePoints( ...
+    parameters.oligoTime:parameters.inhibitTime-1);
+parameters.inhibitTimes = parameters.timePoints( ...
+    parameters.inhibitTime:end);
 
 %number of points in each section
 parameters.numpoints = [numel(parameters.baselineTimes),numel(...

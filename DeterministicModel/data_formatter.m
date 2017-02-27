@@ -1,4 +1,4 @@
-function [allTimes,realo2,realOCR] = data_formatter
+function data = data_formatter
 %{
 Created by: Chris Cadonic
 ========================================
@@ -12,6 +12,9 @@ matrix, with corresponding labels.
 
 %% Read the files for O2 and OCR
 
+%initialize empty struc for housing all data
+data = struct();
+
 %store the folder in which the model is stored
 path_folder = fileparts(which(mfilename));
 
@@ -21,31 +24,52 @@ filename = fullfile(path_folder, '/Data/3xoxygraphData.xlsx');
 %% Extract Oxygraph Data
 
 %extract all times and all oxygen concentration readings
-allData = xlsread(filename,'Sheet1','M342:O705');
-allData(1,:)=[]; %delete t=0 time point
+[~,fieldNames] = xlsread(filename, 'Sheet1', 'M1:R1');
+[allData, timePoints] = xlsread(filename,'Sheet1','M2:R705');
 
-[realo2(:,1), realo2(:,2), allTimes] = deal(allData(:,1), allData(:,2), allData(:,3));
+injection_fields = {'t_0_i', 'oligo_i', 'f_25_i', 'f_50_i', 'f_75_i', ...
+    'f_100_i', 'inhibit_i'};
+injection_times = {'t_0', 'oligo_t', 'f_25_t', 'f_50_t', 'f_75_t', ...
+    'f_100_t', 'inhibit_t'};
+search_phrases = {'Start Time','oligomycin','F_25','F_50','F_75', ...
+    'F_100','Inhibit'};
 
-% old gradient method for determining OCR
-realOCR = zeros(size(realo2));
+%determine initial time point
+data.(injection_fields{1}) = find(~cellfun('isempty', ...
+    strfind(timePoints,search_phrases{1})));
 
-for i=1:1:2
-    for j=1:1:numel(realo2(:,i))-1
-        realOCR(j, i) = (realo2(j+1,i)-realo2(j,i))/(allTimes(j+1)-allTimes(j));
-    end
+%insert all data into the data structure
+for i=1:numel(fieldNames)-1
+    data.(fieldNames{i}) = allData(data.t_0_i:end,i);
 end
-realOCR(end,1) = realOCR(end-1,1);
-realOCR(end,2) = realOCR(end-1,2);
 
-realOCR = realOCR * -1000;
+%determine all of the time points for injection
+for timepoint=2:numel(search_phrases)
+    data.(injection_fields{timepoint}) = find(~cellfun('isempty', ...
+        strfind(timePoints, search_phrases{timepoint}))) - data.t_0_i;
+    data.(injection_times{timepoint}) =  ...
+        data.Time(data.(injection_fields{timepoint}));
+end
 
-%%% For using OCR from Oxygraph %%%
-%{
-%extract all times and all oxygen concentration readings
-allData = xlsread(filename,'Sheet1','M342:Q705');
-allData(1,:)=[]; %delete t=0 time point
+%store an array of times for each experimental condition
+timepoints_fields = {'baseline_times', 'oligo_fccp_times', 'inhibit_times'};
+times = [0, data.oligo_i, data.inhibit_i, numel(data.Time)];
+for i=1:numel(times)-1
+    t_i = times(i);
+    t_end = times(i+1);
+    data.(timepoints_fields{i}) = data.Time(t_i + 1:t_end);
+end
 
-%store the times, o2 and ocr data separately
-[realo2(:,1), realo2(:,2), allTimes, realOCR(:,1), realOCR(:,2)] = ...
-    deal(allData(:,1), allData(:,2), allData(:,3), allData(:,4), allData(:,5));
-%}
+%% Calculate OCR based on O2 data from loaded Oxygraph data
+o2_handles = {'CtrlO2', 'AlzO2'};
+ocr_handles = {'CtrlOCR', 'AlzOCR'};
+
+%calculate OCR for each ctrl and Alz condition separately
+for type=1:2
+    ocr_calc = [0];
+    for j=1:1:numel(data.(o2_handles{type}))-1
+        ocr_calc(j+1) = (data.(o2_handles{type})(j+1)-data.(o2_handles{type})(j)) ...
+            / (data.Time(j+1) - data.Time(j));
+    end
+    data.(ocr_handles{type}) = ocr_calc' * -1000;
+end
