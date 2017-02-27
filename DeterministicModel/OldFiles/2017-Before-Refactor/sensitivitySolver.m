@@ -1,0 +1,53 @@
+function [error,solutionEval] = sensitivitySolver(parameters,params,varargin)
+%{
+Created by: Chris Cadonic
+========================================
+This function solves the full situation for my model by step-wise
+solving the ODEs for each section using the appropriate equations.
+
+Additionally, this function also solves for each condition in my model,
+and is specifically made for the sensitivity analysis. Thus, the output
+of this function is not the raw values, but instead the error values
+calculated.
+%}
+
+%initialize variables
+error = 0;
+solutionEval = [];
+
+%Set the options for running ode15s
+options = odeset('NonNegative',[1,2,3,4]);
+
+realData = parameters.realo2Data;
+
+%Solve by using ode for each section and passing along the final
+%values as initial values for the next section
+tic
+[~,y1] = ode15s(@baselineSystem, parameters.baselineTimes, ...
+    [parameters.Cytcred,parameters.O2,parameters.Hn, ...
+    parameters.Hp],options,params);
+[~,y2] = ode15s(@oligoSystem, parameters.oligoTimes, ...
+    [y1(end,1),y1(end,2),y1(end,3),y1(end,4)],options,params);
+if (y2(end,3)==0)||(y2(end,3)<1.9972e-07)
+    y2(end,3)=1.9972e-07;
+end
+[~,y3] = ode15s(@fccpSystem, parameters.fccpTimes, ...
+    [y2(end,1),y2(end,2),y2(end,3),y2(end,4)],options,params);
+[~,y4] = ode15s(@inhibitSystem, parameters.inhibitTimes, ...
+    [y3(end,1),y3(end,2),y3(end,3),y3(end,4)],options,params);
+
+%store the first, solution for the entire model
+solutionEval = [y1;y2;y3;y4];
+
+%if varargin in nonempty, then this is calculating Estar
+if ~isempty(varargin)
+    parameters.initialsOligo = y1(end,:);
+    parameters.initialsFccp = y2(end,:);
+    parameters.initialsInhibit = y3(end,:);
+end
+
+% loop over and calculate the error for each condition
+% calculate error for the entire model
+error = sum((realData-solutionEval(:,2)).^2) ...
+    /numel(realData);
+toc
