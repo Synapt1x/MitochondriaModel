@@ -51,58 +51,51 @@ handles.curdir = fileparts(which(mfilename));
 %take in the setup parameters from the 'main.m' function
 if ~isempty(varargin)
     handles.parameters = varargin{1};
-    handles.data_fitting = varargin{2};
 end
 
 handles.ctrlParams = varargin{1}.ctrlParams;
 handles.expParams = varargin{1}.expParams;
 
 %store the default data for the model
-% handles.initialData = [handles.parameters.Cytctot, ...
-%     handles.parameters.Cytcox, handles.parameters.Cytcred, ...
-%     handles.parameters.O2, handles.parameters.Hn, ...
-%     handles.parameters.Hp, handles.ctrlParams.Vmax, handles.ctrlParams.K1, ...
-%     handles.ctrlParams.Km, handles.ctrlParams.p1, handles.ctrlParams.p2, ...
-%     handles.ctrlParams.p3, handles.ctrlParams.f0Vmax, handles.ctrlParams.f0Km, ...
-%     handles.ctrlParams.Dh];
+for param=1:numel(handles.parameters.paramNames)
+    handles.initialData.(handles.parameters.paramNames{param}) = ...
+        handles.ctrlParams.(handles.parameters.paramNames{param});
+end
 
 %store all graph handles in the handles structure as an array
-% [handles.graphs{1:5}] = deal(handles.Cytc_plot, ...
-%     handles.O2_plot,handles.OCR_plot,handles.H_N_plot,...
-%     handles.H_P_plot);
-% 
+[handles.graphs{1:2}] = deal(handles.O2_plot,handles.OCR_plot);
+
+%label the axes for all graphs
+graphLabel(handles);
+
 % %store all control editing text boxes in the handles structure as an array
 % [handles.allcontEdits{1:9}] = deal(handles.V_max_cedit, handles.K_1_cedit, ...
-%     handles.K_m_cedit,handles.p1_cedit,handles.p2_cedit, handles.p3_cedit, ...
-%     handles.f0Vmax_cedit, handles.f0Km_cedit, handles.Dh_cedit);
-% 
-% %store all exp editing text boxes in the handles structure as an array
-% [handles.allEdits{1:9}] = deal(handles.V_max_edit, handles.K_1_edit, ...
-%     handles.K_m_edit,handles.p1_edit,handles.p2_edit, handles.p3_edit, ...
-%     handles.f0Vmax_edit, handles.f0Km_edit, handles.Dh_edit);
-% 
+%     handles.K_m_cedit,handles.fV_Vmax_cedit,handles.fV_K_cedit, handles.fV_Km_cedit, ...
+%     handles.f0_Vmax_cedit, handles.f0_Km_cedit, handles.Dh_cedit);
+%
+%store all exp editing text boxes in the handles structure as an array
+[handles.allEdits{1:9}] = deal(handles.fIV_Vmax_edit, handles.fIV_K_edit, ...
+    handles.fIV_Km_edit,handles.fV_Vmax_edit,handles.fV_K_edit, handles.fV_Km_edit, ...
+    handles.f0_Vmax_edit, handles.f0_Km_edit, handles.Dh_edit);
+%
 % %store all initial concentrations text boxes in the handles structure as an
 % %array
 % [handles.allInitials{1:5}] = deal(handles.initial_cytctot_edit, ...
 %     handles.initial_cytcox_edit, handles.initial_cytcred_edit, ...
 %     handles.initial_o2_edit, handles.initial_hn_edit);
-% 
-% %label the axes for all graphs
-% graphLabel(handles);
-% 
+
+
+%
 % %insert the initial parameter values into the control and experimental textboxes
-% setParams(handles,handles.initialData(7:end),'control');
-% setParams(handles,handles.initialData(7:end),'experimental');
-% 
+% setParams(handles,handles.initialData,'control');
+% setParams(handles,handles.initialData,'experimental');
+%
 % %insert the initial concentration values into the textboxes
-% handles = setInitials(handles, [handles.parameters.Cytctot, ...
-%     handles.parameters.Cytcox, handles.parameters.Cytcred, ...
+% handles = setInitials(handles, [handles.parameters.cytctot, ...
+%     handles.parameters.cytcox, handles.parameters.cytcred, ...
 %     handles.parameters.O2, handles.parameters.Hn, ...
 %     handles.parameters.Hp]);
-% 
-% %insert the initial conditions into the textboxes
-% set(findall(handles.controlGroup,'-property','Enable'),'Enable','off');
-% 
+
 guidata(hObject,handles);
 
 % --- Outputs from this function are returned to the command line.
@@ -283,22 +276,6 @@ guidata(hObject,handles);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Additional buttons
-%function for allowing editing in the control parameters
-function enableCont_Callback(hObject, eventdata, handles)
-if (get(hObject,'Value')==get(hObject,'Max'))
-    set(findall(handles.controlGroup,'-property','Enable'),'Enable','on');
-else
-    set(findall(handles.controlGroup,'-property','Enable'),'Enable','off');
-end;
-
-%function for allowing editing in the control parameters
-function enableExp_Callback(hObject, eventdata, handles)
-if (get(hObject,'Value')==get(hObject,'Max'))
-    set(findall(handles.experimentalGroup,'-property','Enable'),'Enable','on');
-else
-    set(findall(handles.experimentalGroup,'-property','Enable'),'Enable','off');
-end;
-
 %function for randomizing initial conditions
 function randomizeButton_Callback(hObject,eventdata,handles)
 %generate random vector
@@ -447,7 +424,7 @@ params = handles.ctrlParams;
 
 %clear all axes graphs using arrayfun to distribute cla to each axes
 arrayfun(@cla,findall(0,'type','axes'))
-   
+
 %plug in the equations into the ode solver
 [t,y] = solver(handles.parameters,params);
 
@@ -457,12 +434,6 @@ arrayfun(@cla,findall(0,'type','axes'))
 %calculate the OCR values from the oxygen
 calcOCR = calculateOCR(handles,cytcred,o2,Hn,Hp,'control');
 calcOCR = calcOCR * -1000;
-
-%plot the Cyt c concentration over time
-axes(handles.Cytc_plot);
-hold on
-plot(t(2:end),cytcred(2:end),'black','lineWidth',2);
-hold off
 
 %plot the O2 concentration over time with real O2 data on top
 axes(handles.O2_plot);
@@ -478,18 +449,6 @@ plot(t(2:end),handles.parameters.realOCR(2:end,handles.data_fitting),'red', 'lin
 plot(t(2:end),calcOCR(2:end),'black','lineWidth',2);
 hold off
 
-%plot the Hn concentration over time
-axes(handles.H_N_plot);
-hold on
-plot(t(2:end),Hn(2:end),'black','lineWidth',2);
-hold off
-
-%plot the Hp concentration over time
-axes(handles.H_P_plot);
-hold on
-plot(t(2:end),Hp(2:end),'black','lineWidth',2);
-hold off
-
 %add vertical lines to all graphs for injection times
 for graph = 1:numel(handles.graphs)
     axes(handles.graphs{graph});
@@ -502,7 +461,7 @@ for graph = 1:numel(handles.graphs)
     text(handles.parameters.oligoTimes(1),vertRange(end)*1.005,'Oligomycin', ...
         'FontSize',6,'HorizontalAlignment','center','Color','b');
     
-    % draw fccp lines    
+    % draw fccp lines
     line([handles.parameters.fccp_25_t, handles.parameters.fccp_25_t], vertRange,'Color','b');
     text(handles.parameters.fccp_25_t,vertRange(end)*1.005,'FCCP_{125}', ...
         'FontSize',6,'HorizontalAlignment','center','Color','b');
@@ -527,7 +486,6 @@ for graph = 1:numel(handles.graphs)
     
 end
 
-
 %update all the graph axes
 graphLabel(handles);
 
@@ -542,12 +500,12 @@ since updating the axes elements resets the axis properties such as title,
 this function is called each time a figure is plotted so as to reset the
 titles and labels to the proper text.
 %}
-for i=1:numel(handles.parameters.title)
+for i=1:numel(handles.graphs)
     axes(handles.graphs{i})
     set(handles.graphs{i},'FontSize',8);
     xlabel(handles.parameters.xlab,'FontName','Helvetica','FontSize',8);
-    ylabel(handles.parameters.ylab{i},'FontName','Helvetica','FontSize',8);
-    title(textwrap({handles.parameters.title{i}},30), ...
+    ylabel(handles.parameters.ylab{i+1},'FontName','Helvetica','FontSize',8);
+    title(textwrap({handles.parameters.title{i+1}},30), ...
         'FontWeight','bold','FontName','Helvetica','FontSize',9);
 end
 
@@ -632,8 +590,8 @@ end
 %change all the values in the correct params struc if vargin nonempty
 if ~isempty(varargin)
     boxes = [boxes {handles.initial_cytcox_edit handles.initial_cytcred_edit}];
-    [params.Vmax, params.K1, params.Km, params.p1, params.p2, params.p3, ...
-        params.f0Vmax, params.f0Km, params.Dh, params.cytcox, params.cytcred] ...
+    [params.fIV_Vmax, params.fIV_K, params.fIV_Km, params.fV_Vmax, params.fV_K, params.fV_Km, ...
+        params.f0_Vmax, params.f0_Km, params.Dh, params.cytcox, params.cytcred] ...
         = deal(values(1), values(2), values(3), values(4), values(5), ...
         values(6),values(7),values(8), values(9), values(10), values(11));
 end
@@ -733,7 +691,7 @@ else
     params = handles.expParams;
 end
 
-ocr = (-1/2).*((params.Vmax.*o2)./(params.Km.*(1+(params.K1./cytcred))+o2)).*Hn./Hp;
+ocr = (-1/2).*((params.fIV_Vmax.*o2)./(params.fIV_Km.*(1+(params.fIV_K./cytcred))+o2)).*Hn./Hp;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Check for input value

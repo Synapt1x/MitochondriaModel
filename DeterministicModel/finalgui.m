@@ -129,8 +129,8 @@ end
 
 function optimize_Callback(hObject, eventdata, handles) %optimize button
 
-%run Qubist for optimization
-launchQubist
+%open the optimization window
+finalgui_fit(handles.parameters);
 
 function initial_cytctot_edit_Callback(hObject,eventdata,handles)
 editBox(hObject,handles,'initial','Cytctot');

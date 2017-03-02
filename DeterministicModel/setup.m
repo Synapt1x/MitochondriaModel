@@ -24,6 +24,9 @@ parameters.ctrlParams.f0_Km = 12.2505629561911; %bounds: [0.1 1E4]
 parameters.ctrlParams.Dh = 5116.07002586063; %bounds: [1E-6 1]
 parameters.ctrlParams.cytcred = 0.0499624001853914; %bounds: [1E-6 1]
 parameters.ctrlParams.cytcox = 6.37656163806675; %bounds: [1E-6 1]
+
+parameters.paramNames = fields(parameters.ctrlParams);
+
 parameters.ctrlParams.oxygen = parameters.data.CtrlO2(1); %bounds: [1E-6 1]
 parameters.ctrlParams.omega = 0.015849; %bounds: [1E-2 50] pH = 7.8
 parameters.ctrlParams.rho = 0.0398107; %assuming a pH of 7.4 we get 3.981E-8 mol/L
@@ -45,9 +48,6 @@ parameters.expParams.oxygen = parameters.ctrlParams.oxygen; %bounds: [1E-6 1]
 parameters.expParams.omega = parameters.ctrlParams.omega; %bounds: [1E-6 1]
 parameters.expParams.rho = parameters.ctrlParams.rho; %bounds: [1E-6 1]
 
-parameters.paramNames = {'fIV_Vmax', 'fIV_K', 'fIV_Km', 'fV_Vmax', 'fV_K', ...
-    'fV_Km', 'f0_Vmax', 'f0_Km', 'Dh', 'cytcred', 'cytcox'};
-
 %% Define Initial Conditions
 %initial conditions in nmol/mL; conversion: 1 nmol/mL = 1E-6 mol/L
 parameters.cytcox = parameters.ctrlParams.cytcox;
@@ -56,8 +56,17 @@ parameters.cytctot = parameters.cytcox+parameters.cytcred;
 [parameters.ctrlParams.cytctot,parameters.expParams.cytctot] = deal(parameters.cytctot);
 parameters.O2 = parameters.ctrlParams.oxygen;
 parameters.Hn = parameters.ctrlParams.omega;
-
 parameters.Hp = parameters.ctrlParams.rho;
+
+%% Add time points to ctrl and exp param sets
+[parameters.ctrlParams.fccp_25_t, parameters.expParams.fccp_25_t] = ...
+    deal(parameters.data.fccp_25_t);
+[parameters.ctrlParams.fccp_50_t, parameters.expParams.fccp_50_t] = ...
+    deal(parameters.data.fccp_50_t);
+[parameters.ctrlParams.fccp_75_t, parameters.expParams.fccp_75_t] = ...
+    deal(parameters.data.fccp_75_t);
+[parameters.ctrlParams.fccp_100_t, parameters.expParams.fccp_100_t] = ...
+    deal(parameters.data.fccp_100_t);
 
 %% Define the labels and titles for GUI Graphs
 %titles and labels for the output graphs
