@@ -14,4 +14,4 @@
 function extPar=init
 
 [extPar.oxygen,extPar.ocr,extPar.times]=data_formatter;
-extPar.parameters=setup;
+[extPar.parameters, extPar.data]=setup;

@@ -3,12 +3,13 @@ function F = fitness(X,extPar) %This function evaluates the
 
 %% Fitness setup
 parameters=extPar.parameters;
+data=extPar.data;
 params=extPar.parameters.expParams;
 f=fields(X);
 f(strcmpi(f,'info'))=[];
 
 %% Determines if objective will be fitting ctrl data or 3xTg data
-data_fitting = 1; % Set to 1 for ctrl data, set to 2 for 3xTg data
+data_types = {'CtrlO2', 'AlzO2'};
 
 %% Main fitness loop
 for n=length(X):-1:1
@@ -37,7 +38,7 @@ for n=length(X):-1:1
         
         %for fitting O2
         evaluations = y(:,2); %evaluated data for o2
-        realo2Data = parameters.realo2Data(:,data_fitting); %use actual o2 data
+        realo2Data = data.(data_types{parameters.data_fitting}); %exp o2 data
         
         try
             %evaluate using a least-squares

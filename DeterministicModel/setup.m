@@ -10,6 +10,7 @@ all of the model's parameters and also the data, graph labels.
 %% Data Import
 %import the real data
 data = data_formatter;
+parameters.data_fitting = 1; % default fit is for fitting control data
 
 %% Define the Parameters of the Model
 % control condition parameter values
