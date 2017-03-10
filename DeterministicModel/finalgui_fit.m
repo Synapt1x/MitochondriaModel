@@ -48,13 +48,25 @@ handles.output = hObject;
 % get the location of the current directory
 handles.curdir = fileparts(which(mfilename));
 
-%take in the setup parameters from the 'main.m' function
+%take in the setup parameters from the 'finalgui.m' function
 if ~isempty(varargin)
     handles.parameters = varargin{1};
+    
+    which_fit = {'Fitting: Control Data', 'Fitting: Experimental Data'};
+    
+    set(handles.fitting_data_text, 'String', ...
+        which_fit{handles.parameters.data_fitting});
+    
+    handles.ctrlParams = varargin{1}.ctrlParams;
+    handles.expParams = varargin{1}.expParams;
+    
+    % get all the data into the handles structure
+    handles.data = varargin{2};
+    
+    %cell array for whether fitting ctrl or Alz data
+    handles.data.data_types = {'CtrlO2', 'AlzO2', 'CtrlOCR', 'AlzOCR'};
+    
 end
-
-handles.ctrlParams = varargin{1}.ctrlParams;
-handles.expParams = varargin{1}.expParams;
 
 %store the default data for the model
 for param=1:numel(handles.parameters.paramNames)
@@ -426,7 +438,7 @@ params = handles.ctrlParams;
 arrayfun(@cla,findall(0,'type','axes'))
 
 %plug in the equations into the ode solver
-[t,y] = solver(handles.parameters,params);
+[t,y] = solver(handles.parameters,params, handles.data);
 
 %store the values calculated for each variable
 [cytcred, o2, Hn, Hp] = deal(y(:,1),y(:,2),y(:,3),y(:,4));
@@ -438,14 +450,18 @@ calcOCR = calcOCR * -1000;
 %plot the O2 concentration over time with real O2 data on top
 axes(handles.O2_plot);
 hold on
-plot(t(2:end),handles.parameters.realo2Data(2:end,handles.data_fitting),'red', 'lineWidth',2);
+plot(t(2:end),handles.data.(handles.data.data_types{...
+    handles.parameters.data_fitting})(2:end),'red', ...
+    'lineWidth',2);
 plot(t(2:end),o2(2:end),'black','lineWidth',2);
 hold off
 
 %plot the OCR over time with real OCR data on top
 axes(handles.OCR_plot);
 hold on
-plot(t(2:end),handles.parameters.realOCR(2:end,handles.data_fitting),'red', 'lineWidth',2);
+plot(t(2:end),handles.data.(handles.data.data_types{...
+    handles.parameters.data_fitting+2})(2:end),'red', ...
+    'lineWidth',2);
 plot(t(2:end),calcOCR(2:end),'black','lineWidth',2);
 hold off
 

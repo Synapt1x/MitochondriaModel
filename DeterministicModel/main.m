@@ -24,11 +24,11 @@ setup conditions in 'setup.m', optimization run by using
 importing of data handled by 'data_formatter.m'.
 %}
 
-parameters = setup; %run the setup function which creates the
+[parameters, data] = setup; %run the setup function which creates the
 %structure storing all variables necessary
 %for the model (found in 'setup.m')
 
 save parameters %save the model parameters in parameters.mat
 
 %create the GUI for interfacing and display
-finalgui(parameters);
+finalgui(parameters, data);

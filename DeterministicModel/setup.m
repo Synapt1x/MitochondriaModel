@@ -1,4 +1,4 @@
-function parameters = setup
+function [parameters, data] = setup
 %{
 Created by: Chris Cadonic
 ========================================
@@ -9,7 +9,7 @@ all of the model's parameters and also the data, graph labels.
 
 %% Data Import
 %import the real data
-parameters.data = data_formatter;
+data = data_formatter;
 
 %% Define the Parameters of the Model
 % control condition parameter values
@@ -27,7 +27,7 @@ parameters.ctrlParams.cytcox = 6.37656163806675; %bounds: [1E-6 1]
 
 parameters.paramNames = fields(parameters.ctrlParams);
 
-parameters.ctrlParams.oxygen = parameters.data.CtrlO2(1); %bounds: [1E-6 1]
+parameters.ctrlParams.oxygen = data.CtrlO2(1); %bounds: [1E-6 1]
 parameters.ctrlParams.omega = 0.015849; %bounds: [1E-2 50] pH = 7.8
 parameters.ctrlParams.rho = 0.0398107; %assuming a pH of 7.4 we get 3.981E-8 mol/L
 
@@ -60,13 +60,13 @@ parameters.Hp = parameters.ctrlParams.rho;
 
 %% Add time points to ctrl and exp param sets
 [parameters.ctrlParams.fccp_25_t, parameters.expParams.fccp_25_t] = ...
-    deal(parameters.data.fccp_25_t);
+    deal(data.fccp_25_t);
 [parameters.ctrlParams.fccp_50_t, parameters.expParams.fccp_50_t] = ...
-    deal(parameters.data.fccp_50_t);
+    deal(data.fccp_50_t);
 [parameters.ctrlParams.fccp_75_t, parameters.expParams.fccp_75_t] = ...
-    deal(parameters.data.fccp_75_t);
+    deal(data.fccp_75_t);
 [parameters.ctrlParams.fccp_100_t, parameters.expParams.fccp_100_t] = ...
-    deal(parameters.data.fccp_100_t);
+    deal(data.fccp_100_t);
 
 %% Define the labels and titles for GUI Graphs
 %titles and labels for the output graphs

@@ -52,10 +52,14 @@ handles.curdir = fileparts(which(mfilename));
 %take in the setup parameters from the 'main.m' function
 if ~isempty(varargin)
     handles.parameters = varargin{1};
+    handles.parameters.data_fitting = 1; %default fit for control data
+    
+    handles.ctrlParams = varargin{1}.ctrlParams;
+    handles.expParams = varargin{1}.expParams;
+    
+    % get all the data into the handles structure
+    handles.data = varargin{2};
 end
-
-handles.ctrlParams = varargin{1}.ctrlParams;
-handles.expParams = varargin{1}.expParams;
 
 %store the default data for the model
 for param=1:numel(handles.parameters.paramNames)
@@ -129,8 +133,23 @@ end
 
 function optimize_Callback(hObject, eventdata, handles) %optimize button
 
-%open the optimization window
-finalgui_fit(handles.parameters);
+%determine which data set will be fit in this call
+which_fit = questdlg('Which data set will you be fitting?', ...
+    'Select data type for fitting', 'Control', 'Alzheimers', 'Cancel', 'Cancel');
+switch which_fit
+    case 'Control'
+        handles.parameters.data_fitting = 1;
+        %open the optimization window
+        finalgui_fit(handles.parameters, handles.data);
+    case 'Alzheimers'
+        handles.parameters.data_fitting = 2;
+        %open the optimization window
+        finalgui_fit(handles.parameters, handles.data);
+    case 'Cancel'
+        handles.parameters.data_fitting = 1;
+        waitfor(msgbox('Optimization cancelled.', 'Cancelled.'));
+end
+
 
 function initial_cytctot_edit_Callback(hObject,eventdata,handles)
 editBox(hObject,handles,'initial','Cytctot');
@@ -447,7 +466,7 @@ arrayfun(@cla,findall(0,'type','axes'))
 for type=1:2
     
     %plug in the equations into the ode solver
-    [t,y] = solver(handles.parameters,params{type});
+    [t,y] = solver(handles.parameters,params{type}, handles.data);
     
     %store the values calculated for each variable
     [cytcred, o2, Hn, Hp] = deal(y(:,1),y(:,2),y(:,3),y(:,4));
