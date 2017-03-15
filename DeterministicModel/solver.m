@@ -1,4 +1,4 @@
-function [t,y] = solver(parameters,params, data)
+function [t,y] = solver(parameters, params, data, varargin)
 %{
 Created by: Chris Cadonic
 ========================================
@@ -14,6 +14,20 @@ parameters.Hn = params.omega;
 parameters.Hp = params.rho;
 parameters.O2 = params.oxygen;
 params.cytctot = params.cytcred + params.cytcox;
+
+%% Left out until strategy for dealing with different systems is determined
+% %determine if solving a particular sub-system of the model
+% if numel(varargin) > 0
+%     model_num = varargin{1};
+%     
+%     baselineSys = @parameters.system{model_num, 1};
+%     oligoSys = @parameters.system{model_num, 2};
+%     inhibitSys = @parameters.system{model_num, 3};
+% else
+%     baselineSys = @baselineSystem;
+%     oligoSys = @oligoSystem;
+%     inhibitSys = @inhibitSystem;
+% end    
 
 %Set the options for running ode15s
 options = odeset('NonNegative',[1,2,3,4]);
