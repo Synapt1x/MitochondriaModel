@@ -12,6 +12,10 @@ all of the model's parameters and also the data, graph labels.
 data = data_formatter;
 parameters.data_fitting = 1; % default fit is for fitting control data
 
+%get the current working directory
+parameters.curdir = fileparts(which(mfilename));
+addpath(parameters.curdir, filesep, 'ModelSystems');
+
 %% Define the Parameters of the Model
 % control condition parameter values
 parameters.ctrlParams.fIV_Vmax = 0.7225; %bounds: [0.01 10]
@@ -46,10 +50,15 @@ parameters.expParams.f0_Km = parameters.ctrlParams.f0_Km; %bounds: [0.1 1E4]
 parameters.expParams.Dh = parameters.ctrlParams.Dh; %bounds: [1E-6 1]
 parameters.expParams.cytcred = parameters.ctrlParams.cytcred; %bounds: [1E-6 1]
 parameters.expParams.cytcox = parameters.ctrlParams.cytcox; %bounds: [1E-6 1]
+parameters.expParams.alpha = parameters.ctrlParams.alpha; %bounds: [1E-3 1E6]
+
 parameters.expParams.oxygen = parameters.ctrlParams.oxygen; %bounds: [1E-6 1]
 parameters.expParams.omega = parameters.ctrlParams.omega; %bounds: [1E-6 1]
 parameters.expParams.rho = parameters.ctrlParams.rho; %bounds: [1E-6 1]
-parameters.expParams.alpha = parameters.ctrlParams.alpha;
+
+%define the initial condition fields
+parameters.conditionNames = {'cytctot', 'cytcox', 'cytcred', 'oxygen', ...
+    'omega', 'rho'};
 
 %% Define Initial Conditions
 %initial conditions in nmol/mL; conversion: 1 nmol/mL = 1E-6 mol/L
@@ -70,6 +79,14 @@ parameters.Hp = parameters.ctrlParams.rho;
     deal(data.fccp_75_t);
 [parameters.ctrlParams.fccp_100_t, parameters.expParams.fccp_100_t] = ...
     deal(data.fccp_100_t);
+
+%% Add all of the different subsystems of the model
+parameters.system = {};
+for subsys = 1:8
+    parameters.system{subsys} = {str2func(['baselineSystem',int2str(subsys)]), ...
+        str2func(['oligoSystem',int2str(subsys)]), ...
+        str2func(['inhibitSystem',int2str(subsys)])};
+end
 
 %% Define the labels and titles for GUI Graphs
 %titles and labels for the output graphs

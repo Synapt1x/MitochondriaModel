@@ -1,4 +1,5 @@
-function [hObject, handles] = plot_func(hObject, handles) %plot button in gui
+function [hObject, handles] = plot_func(hObject, handles)
+%Function handling the callback for plotting the output of the model
 
 %store variables for differntiating control and experimental parameter sets
 graphColor = {'black','r'};

@@ -45,9 +45,6 @@ function main_gui_OpeningFcn(hObject, eventdata, handles, varargin)
 % Choose default command line output for main_gui
 handles.output = hObject;
 
-% get the location of the current directory
-handles.curdir = fileparts(which(mfilename));
-
 %take in the setup parameters from the 'finalgui.m' function
 if ~isempty(varargin)
     handles.parameters = varargin{1};
@@ -68,9 +65,12 @@ if ~isempty(varargin)
     
 end
 
+%add callback funcs dir to path
+addpath([handles.parameters.curdir, filesep, 'CallbackFuncs']);
+
 %store the default data for the model
 for param=1:numel(handles.parameters.paramNames)
-    handles.initialData.(handles.parameters.paramNames{param}) = ...
+    handles.initialParams.(handles.parameters.paramNames{param}) = ...
         handles.ctrlParams.(handles.parameters.paramNames{param});
 end
 
@@ -78,7 +78,7 @@ end
 [handles.graphs{1:2}] = deal(handles.O2_plot,handles.OCR_plot);
 
 %label the axes for all graphs
-graphLabel(handles);
+graph_label(handles);
 
 % %store all control editing text boxes in the handles structure as an array
 % [handles.allcontEdits{1:9}] = deal(handles.V_max_cedit, handles.K_1_cedit, ...
@@ -99,11 +99,11 @@ graphLabel(handles);
 
 %
 % %insert the initial parameter values into the control and experimental textboxes
-% setParams(handles,handles.initialData,'control');
-% setParams(handles,handles.initialData,'experimental');
+% set_params_func(handles,handles.initialData,'control');
+% set_params_func(handles,handles.initialData,'experimental');
 %
 % %insert the initial concentration values into the textboxes
-% handles = setInitials(handles, [handles.parameters.cytctot, ...
+% handles = set_initials_func(handles, [handles.parameters.cytctot, ...
 %     handles.parameters.cytcox, handles.parameters.cytcred, ...
 %     handles.parameters.O2, handles.parameters.Hn, ...
 %     handles.parameters.Hp]);
@@ -141,7 +141,7 @@ function optimize_Callback(hObject, eventdata, handles) %optimize button
 launchQubist
 
 function initial_cytctot_edit_Callback(hObject,eventdata,handles)
-editBox(hObject,handles,'initial','Cytctot');
+edit_box(hObject,handles,'initial','Cytctot');
 
 %get current total Cyt C
 currTot = str2double(get(hObject,'String'));
@@ -168,122 +168,95 @@ guidata(hObject,handles);
 %% Edit boxes for Initial conditions and Parameters
 
 function initial_cytcox_edit_Callback(hObject,eventdata,handles)
-handles = editBox(hObject,handles,'initial','Cytcox');
+[hObject, handles] = edit_box(hObject,handles,'initial','Cytcox');
 guidata(hObject,handles);
 
 function initial_cytcred_edit_Callback(hObject,eventdata,handles)
-handles = editBox(hObject,handles,'initial','Cytcred');
+[hObject, handles] = edit_box(hObject,handles,'initial','Cytcred');
 guidata(hObject,handles);
 
 function initial_o2_edit_Callback(hObject,eventdata,handles)
-handles = editBox(hObject,handles,'initial','O2');
+[hObject, handles] = edit_box(hObject,handles,'initial','O2');
 guidata(hObject,handles);
 
 function initial_hn_edit_Callback(hObject,eventdata,handles)
-handles = editBox(hObject,handles,'initial','Hn');
+[hObject, handles] = edit_box(hObject,handles,'initial','Hn');
 guidata(hObject,handles);
 
 function initial_ph_edit_Callback(hObject,eventdata,handles)
-getHpconc = 0;
-oldHp = 0;
-newHp = 0;
-getVal = str2double(get(hObject,'String'));
-
-if isnan(getVal) %if not, throw error box and reset value
-    msgbox('Please input a valid number.','Not a number');
-    
-    %get the concentration value for resetting the edit box
-    getHpconc = getfield(handles.parameters,'Hp');
-    
-    oldHp = -log10(getHpconc *1E-6);
-    
-    set(hObject,'String',oldHp);
-else %if so, then update the model with new value
-    %Hp from the given pH
-    if checkpH(getVal)
-        newHp = (10^-getVal) * 1E9;
-        handles.parameters = setfield(handles.parameters,'Hp',newHp);
-    else
-        %get the concentration value for resetting the edit box
-        getHpconc = getfield(handles.parameters,'Hp');
-        
-        oldHp = -log10(getHpconc *1E-9);
-        set(hObject,'String',oldHp);
-    end
-end
-
-guidata(hObject,handles);
+[hObject, handles] = change_pH(hObject, handles);
+guidata(hObject, handles);
 
 function V_max_cedit_Callback(hObject, eventdata, handles)
-handles = editBox(hObject,handles,'control','Vmax');
+handles = edit_box(hObject,handles,'control','Vmax');
 guidata(hObject,handles);
 
 function K_1_cedit_Callback(hObject, eventdata, handles)
-handles = editBox(hObject,handles,'control','K1');
+handles = edit_box(hObject,handles,'control','K1');
 guidata(hObject,handles);
 
 function K_m_cedit_Callback(hObject, eventdata, handles)
-handles = editBox(hObject,handles,'control','Km');
+handles = edit_box(hObject,handles,'control','Km');
 guidata(hObject,handles);
 
 function p1_cedit_Callback(hObject, eventdata, handles)
-handles = editBox(hObject,handles,'control','p1');
+handles = edit_box(hObject,handles,'control','p1');
 guidata(hObject,handles);
 
 function p2_cedit_Callback(hObject, eventdata, handles)
-handles = editBox(hObject,handles,'control','p2');
+handles = edit_box(hObject,handles,'control','p2');
 guidata(hObject,handles);
 
 function p3_cedit_Callback(hObject, eventdata, handles)
-handles = editBox(hObject,handles,'control','p3');
+handles = edit_box(hObject,handles,'control','p3');
 guidata(hObject,handles);
 
 function f0Vmax_cedit_Callback(hObject, eventdata, handles)
-handles = editBox(hObject,handles,'control','f0Vmax');
+handles = edit_box(hObject,handles,'control','f0Vmax');
 guidata(hObject,handles);
 
 function f0Km_cedit_Callback(hObject, eventdata, handles)
-handles = editBox(hObject,handles,'control','f0Km');
+handles = edit_box(hObject,handles,'control','f0Km');
 guidata(hObject,handles);
 
 function Dh_cedit_Callback(hObject, eventdata, handles)
-handles = editBox(hObject,handles,'control','Dh');
+handles = edit_box(hObject,handles,'control','Dh');
 guidata(hObject,handles);
 
 function V_max_edit_Callback(hObject, eventdata, handles)
-handles = editBox(hObject,handles,'experimental','Vmax');
+handles = edit_box(hObject,handles,'experimental','Vmax');
 guidata(hObject,handles);
 
 function K_1_edit_Callback(hObject, eventdata, handles)
-handles = editBox(hObject,handles,'experimental','K1');
+handles = edit_box(hObject,handles,'experimental','K1');
 guidata(hObject,handles);
 
 function K_m_edit_Callback(hObject, eventdata, handles)
-handles = editBox(hObject,handles,'experimental','Km');
+handles = edit_box(hObject,handles,'experimental','Km');
 guidata(hObject,handles);
 
 function p1_edit_Callback(hObject, eventdata, handles)
-handles = editBox(hObject,handles,'experimental','p1');
+handles = edit_box(hObject,handles,'experimental','p1');
 guidata(hObject,handles);
 
 function p2_edit_Callback(hObject, eventdata, handles)
-handles = editBox(hObject,handles,'experimental','p2');
+handles = edit_box(hObject,handles,'experimental','p2');
 guidata(hObject,handles);
 
 function p3_edit_Callback(hObject, eventdata, handles)
-handles = editBox(hObject,handles,'experimental','p3');
+handles = edit_box(hObject,handles,'experimental','p3');
 guidata(hObject,handles);
 
 function f0Vmax_edit_Callback(hObject, eventdata, handles)
-handles = editBox(hObject,handles,'experimental','f0Vmax');
+handles = edit_box(hObject,handles,'experimental','f0Vmax');
 guidata(hObject,handles);
 
 function f0Km_edit_Callback(hObject, eventdata, handles)
-handles = editBox(hObject,handles,'experimental','f0Km');
+handles = edit_box(hObject,handles,'experimental','f0Km');
 guidata(hObject,handles);
 
 function Dh_edit_Callback(hObject, eventdata, handles)
-handles = editBox(hObject,handles,'experimental','Dh');
+handles = edit_box(hObject,handles,'experimental','Dh');
 guidata(hObject,handles);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -297,19 +270,19 @@ randomVect(1) = randomVect(2) + randomVect(3); % set cyt c tot to ox + red
 randomVect(6) = (10^-(randn*1+7))*1E6; % randomize a pH
 
 %send these values to set Initials to change boxes and parameters
-handles = setInitials(handles, randomVect, 'randomize');
+handles = set_initials_func(handles, randomVect, 'randomize');
 guidata(hObject,handles);
 
 %function for resetting initial concentrations
 function initial_default_Callback(hObject,eventdata,handles)
-handles = setInitials(handles, handles.initialData(1:6), 'setDefault');
+handles = set_initials_func(handles, handles.initialData(1:6), 'setDefault');
 guidata(hObject,handles);
 
 %function for resetting initial parameters
 function params_default_Callback(hObject, eventdata, handles)
-handles = setParams(handles, handles.initialData(7:end), ...
+handles = set_params_func(handles, handles.initialParams(7:end), ...
     'control','setDefault');
-handles = setParams(handles, handles.initialData(7:end),  ...
+handles = set_params_func(handles, handles.initialParams(7:end),  ...
     'experimental','setDefault');
 guidata(hObject,handles);
 
@@ -322,8 +295,8 @@ image = getframe(gcf);
 
 try
     %save the image to a file specified by the user
-    [filename,filepath]=uiputfile(fullfile(handles.curdir,'StateImages', ...
-        [date,'-FitFigureImage.png']),'Save screenshot file');
+    [filename,filepath]=uiputfile(fullfile(handles.parameters.curdir,'StateImages', ...
+        [date,'-sessionImage.png']),'Save screenshot file');
     imwrite(image.cdata,[filepath,filename]);
     
     disp(['Image was successfully saved to: ', filepath,filename]);
@@ -344,7 +317,7 @@ image = imcrop(image.cdata,[565,79,817,685]);
 
 try
     %save the image to a file specified by the user
-    [filename,filepath]=uiputfile(fullfile(handles.curdir,'StateImages', ...
+    [filename,filepath]=uiputfile(fullfile(handles.parameters.curdir,'StateImages', ...
         [date,'-FitsessionImage.png']),'Save image of graphs to file');
     imwrite(image,[filepath,filename]);
     
@@ -361,7 +334,7 @@ warning('off','MATLAB:Figure:FigureSavedToMATFile');
 try
     % save the current data found in the model
     currentdata = getappdata(gcf);
-    [filename,filepath]=uiputfile(fullfile(handles.curdir,'Savestates', ...
+    [filename,filepath]=uiputfile(fullfile(handles.parameters.curdir,'Savestates', ...
         [date,'-FitSaveSession.mat']), 'Save session file');
     uisave('currentdata',[filepath,filename]);
     
@@ -373,7 +346,7 @@ end
 %load a saved workspace
 function load_session_Callback(hObject,eventdata,handles)
 try
-    [filename,filepath]=uigetfile(fullfile(handles.curdir,'Savestates','*.mat'), ...
+    [filename,filepath]=uigetfile(fullfile(handles.parameters.curdir,'Savestates','*.mat'), ...
         'Load session file');
     close(gcf);
     load([filepath,filename]);
@@ -409,7 +382,7 @@ cd DeterministicModel; % Re-enter DeterministicModel directory
 
 function save_graph_Callback(hObject, eventdata, handles)
 %output the figure to be saved
-newgraph = openGraph('save');
+newgraph = open_graph('save');
 
 %acquire the desired name for the figure
 [figname,figpath]=uiputfile('.png','Please save the figure file.');
@@ -425,112 +398,25 @@ end
 close(newgraph);
 
 function open_graph_Callback(hObject, eventdata, handles)
-openGraph; %simply open the figure in a new window
+open_graph; %simply open the figure in a new window
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Plot Graphs Callback
 function plot_Callback(hObject, eventdata, handles) %plot button in gui
 
-%store variables for differntiating control and experimental parameter sets
-params = handles.ctrlParams;
-
-%clear all axes graphs using arrayfun to distribute cla to each axes
-arrayfun(@cla,findall(0,'type','axes'))
-
-%plug in the equations into the ode solver
-[t,y] = solver(handles.parameters,params, handles.data);
-
-%store the values calculated for each variable
-[cytcred, o2, Hn, Hp] = deal(y(:,1),y(:,2),y(:,3),y(:,4));
-
-%calculate the OCR values from the oxygen
-calcOCR = calculateOCR(handles,cytcred,o2,Hn,Hp,'control');
-calcOCR = calcOCR * -1000;
-
-%plot the O2 concentration over time with real O2 data on top
-axes(handles.O2_plot);
-hold on
-plot(t(2:end),handles.data.(handles.data.data_types{...
-    handles.parameters.data_fitting})(2:end),'red', ...
-    'lineWidth',2);
-plot(t(2:end),o2(2:end),'black','lineWidth',2);
-hold off
-
-%plot the OCR over time with real OCR data on top
-axes(handles.OCR_plot);
-hold on
-plot(t(2:end),handles.data.(handles.data.data_types{...
-    handles.parameters.data_fitting+2})(2:end),'red', ...
-    'lineWidth',2);
-plot(t(2:end),calcOCR(2:end),'black','lineWidth',2);
-hold off
-
-%add vertical lines to all graphs for injection times
-for graph = 1:numel(handles.graphs)
-    axes(handles.graphs{graph});
-    vertScale = get(gca,'yLim'); % get the y resolution
-    vertRange = [vertScale(1), vertScale(end)*0.98];
-    
-    % draw oligo line
-    line([handles.parameters.oligoTimes(1), handles.parameters.oligoTimes(1)], ...
-        vertRange, 'Color','b','LineWidth',0.01);
-    text(handles.parameters.oligoTimes(1),vertRange(end)*1.005,'Oligomycin', ...
-        'FontSize',6,'HorizontalAlignment','center','Color','b');
-    
-    % draw fccp lines
-    line([handles.parameters.fccp_25_t, handles.parameters.fccp_25_t], vertRange,'Color','b');
-    text(handles.parameters.fccp_25_t,vertRange(end)*1.005,'FCCP_{125}', ...
-        'FontSize',6,'HorizontalAlignment','center','Color','b');
-    line([handles.parameters.fccp_50_t, handles.parameters.fccp_50_t],vertRange,'Color','b');
-    text(handles.parameters.fccp_50_t,vertRange(end)*1.005,'FCCP_{250}', ...
-        'FontSize',6,'HorizontalAlignment','center','Color','b');
-    line([handles.parameters.fccp_75_t, handles.parameters.fccp_75_t], vertRange,'Color','b');
-    text(handles.parameters.fccp_75_t,vertRange(end)*1.005,'FCCP_{375}', ...
-        'FontSize',6,'HorizontalAlignment','center','Color','b');
-    line([handles.parameters.fccp_100_t, handles.parameters.fccp_100_t], vertRange,'Color','b');
-    text(handles.parameters.fccp_100_t,vertRange(end)*1.005,'FCCP_{500}', ...
-        'FontSize',6,'HorizontalAlignment','center','Color','b');
-    
-    % draw inhibit line
-    line([handles.parameters.inhibitTimes(1), handles.parameters.inhibitTimes(1)], ...
-        vertRange, 'Color','b');
-    text(handles.parameters.inhibitTimes(1),vertRange(end)*1.005,'Rot/AA', ...
-        'FontSize',6,'HorizontalAlignment','center','Color','b');
-    
-    % while iterating over graphs, also set xLim
-    set(gca,'xLim',[t(1), t(end)]);
-    
-end
+[hObject, handles] = plot_fit_func(hObject, handles); %call the plot fit function
 
 %update all the graph axes
-graphLabel(handles);
+graph_label(handles);
 
 guidata(hObject,handles);
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%% Graph Labeling Function
-function graphLabel(handles)
-%{
-since updating the axes elements resets the axis properties such as title,
-this function is called each time a figure is plotted so as to reset the
-titles and labels to the proper text.
-%}
-for i=1:numel(handles.graphs)
-    axes(handles.graphs{i})
-    set(handles.graphs{i},'FontSize',8);
-    xlabel(handles.parameters.xlab,'FontName','Helvetica','FontSize',8);
-    ylabel(handles.parameters.ylab{i+1},'FontName','Helvetica','FontSize',8);
-    title(textwrap({handles.parameters.title{i+1}},30), ...
-        'FontWeight','bold','FontName','Helvetica','FontSize',9);
-end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Load Previous Solutions Button
 function loadparams_Callback(hObject,eventdata,handles)
 
 %open dialog for user to navigate to file
-[filename,filepath] = uigetfile(fullfile(handles.curdir, ...
+[filename,filepath] = uigetfile(fullfile(handles.parameters.curdir, ...
     'Solutions','*-BestResults.mat'),['Select the "BestResults.mat"', ...
     'containing the parameter set to load']);
 
@@ -544,192 +430,9 @@ if ischar(filename) %if a file is selected, load that file
     end
     
     %change all the values of parameters to loaded parameter set
-    handles = setParams(handles,values','control','changeVals');
-    %additional argin signals setParams to update handles.parameters
+    handles = set_params_func(handles,values','control','changeVals');
+    %additional argin signals set_params_func to update handles.parameters
     guidata(hObject,handles);
 else
     disp('No file selected. Load parameters operation aborted.');
-end
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Open Clicked Figure in New Figure
-function varargout = openGraph(varargin)
-%determine which object was clicked
-whichgraph = gco;
-obj=get(gca);
-% set(whichgraph,'DefaultPlotFontSize',16);
-
-%open a new figure using the graph from the relevant axes
-h2copy = allchild(whichgraph); %extract all children from hObject
-if isempty(h2copy) %check to see if the graph exists yet
-    msgbox(['This function has not been plotted yet. Please use the ', ...
-        'plot button below to graph the function before opening it.'],'No Plot');
-else
-    if ~isempty(varargin)
-        % create the figure
-        newgraph = figure('Visible','Off','units','normalized','outerposition',[0 0 1 1]);
-    else
-        % create the figure
-        newgraph = figure('units','normalized','outerposition',[0 0 1 1]); %create the figure
-    end
-    hParent = axes; %create handle for axes child
-    copyobj(h2copy,hParent) %copy the original graph to the new fig
-    
-    %now add the correct labels to the new figure
-    xlabel(obj.XLabel.String,'FontName','Calibri','FontSize',16);
-    ylabel(obj.YLabel.String,'FontName','Calibri','FontSize',16);
-    title(obj.Title.String,'FontSize',22,'FontWeight','bold','FontName','Calibri');
-    
-    %change the children to change the reagent text sizes
-    textChildren = findobj(hParent,'FontSize',6); % get the text objects
-    set(textChildren,'FontSize',12); % increase their font size
-    
-    %optionally output the figure for the 'save' feature
-    varargout{1}=newgraph;
-    
-end
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Change all parameter values
-function handles = setParams(handles,values,type,varargin)
-%insert the parameter values passed to the function in the GUI
-
-%check for whether it is control or experimental parameters
-if strcmp(type,'control')
-    boxes = handles.allcontEdits;
-    params = handles.ctrlParams;
-else
-    boxes = handles.allEdits;
-    params = handles.expParams;
-end
-
-%change all the values in the correct params struc if vargin nonempty
-if ~isempty(varargin)
-    boxes = [boxes {handles.initial_cytcox_edit handles.initial_cytcred_edit}];
-    [params.fIV_Vmax, params.fIV_K, params.fIV_Km, params.fV_Vmax, params.fV_K, params.fV_Km, ...
-        params.f0_Vmax, params.f0_Km, params.Dh, params.cytcox, params.cytcred] ...
-        = deal(values(1), values(2), values(3), values(4), values(5), ...
-        values(6),values(7),values(8), values(9), values(10), values(11));
-end
-
-%loop over and change all the displayed values for the parameters
-for i = 1:numel(boxes)
-    boxes{i}.String = values(i);
-end
-
-if strcmp(type,'control')
-    handles.ctrlParams = params;
-else
-    handles.expParams = params;
-end
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Change all Initial values
-function handles = setInitials(handles,values,varargin)
-%insert the parameter values passed to the function in the GUI
-
-%loop over and change all the displayed values for the parameters
-for i = 1:numel(handles.allInitials)
-    set(handles.allInitials{i},'String',values(i));
-end
-
-%calc pH from concentration and set the proper text box to it
-setpH=-log10(values(6)*1E-6);
-set(handles.initial_ph_edit,'String',setpH);
-
-%change all the values in the handles.parameters struc if vargin nonempty
-if ~isempty(varargin)
-    [handles.parameters.Cytctot, handles.parameters.Cytcox, ...
-        handles.parameters.Cytcred, handles.parameters.O2, ...
-        handles.parameters.Hn, handles.parameters.Hp] = deal( ...
-        values(1), values(2), values(3), values(4), values(5), values(6));
-end
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Edit text box
-function handles = editBox(hObject,handles,type,paramChange)
-%extract the new value input by the user
-newVal = str2double(get(hObject, 'String'));
-
-if strcmp(type,'control')
-    %check for whether or not a correct input was given
-    if isnan(newVal) %if not, throw error box and reset value
-        msgbox('Please input a valid number.','Not a number');
-        set(hObject,'String',getfield(handles.ctrlParams,paramChange));
-    else %if so, then update the model with new value
-        handles.ctrlParams = setfield(handles.ctrlParams,paramChange,newVal);
-    end
-elseif strcmp(type,'experimental')
-    %check for whether or not a correct input was given
-    if isnan(newVal) %if not, throw error box and reset value
-        msgbox('Please input a valid number.','Not a number');
-        set(hObject,'String',getfield(handles.expParams,paramChange));
-    else %if so, then update the model with new value
-        handles.expParams = setfield(handles.expParams,paramChange,newVal);
-    end
-else
-    %check for whether or not a correct input was given
-    if isnan(newVal) %if not, throw error box and reset value
-        msgbox('Please input a valid number.','Not a number');
-        set(hObject,'String',getfield(handles.parameters,paramChange));
-    else %if so, then update the model with new value
-        handles.parameters = setfield(handles.parameters,paramChange,newVal);
-    end
-end
-
-%also check to see if cytochrome c total needs to be updated
-if strcmp(paramChange,'Cytcred')|strcmp(paramChange,'Cytcox')
-    %update the total amount of cytochrome c total
-    handles = updateInitialCytctot(hObject,handles);
-    guidata(hObject,handles);
-end
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Update Initial Cytchrome C Total
-function handles = updateInitialCytctot(hObject,handles)
-%get current total cyt c
-newCytcox = str2double(get(handles.initial_cytcox_edit,'String'));
-newCytcred = str2double(get(handles.initial_cytcred_edit,'String'));
-newTot = newCytcox + newCytcred;
-
-%increase cyt c tot by the amount of introduced cyt c red
-set(handles.initial_cytctot_edit,'String',newCytcox+newCytcred);
-handles.parameters.Cytctot = newTot;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Quick function for calculating OCR from o2
-function ocr = calculateOCR(handles,cytcred,o2,Hn,Hp,type)
-
-% check whether this calculation is for control or experimental parameters
-if strcmp(type,'control')
-    params = handles.ctrlParams;
-else
-    params = handles.expParams;
-end
-
-ocr = (-1/2).*((params.fIV_Vmax.*o2)./(params.fIV_Km.*(1+(params.fIV_K./cytcred))+o2)).*Hn./Hp;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Check for input value
-function cytcred = ensureRightInput(input,currTot)
-if ~isnumeric(input)
-    msgbox('Not a valid number. Please enter a number.','Not a number');
-else
-    if input > currTot
-        waitfor(msgbox(['Please enter a number less than the ', ...
-            'total amount of Cytochrome C. That is, less than ', ...
-            num2str(currTot),'.'], 'Cytochrome C reduced level too high'));
-        cytcred = 0;
-    else
-        cytcred = input;
-    end
-end
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Check for valid pH value
-function validity = checkpH(value)
-validity = true;
-if (value < 0) || (value > 14)
-    waitfor(msgbox('Not a valid pH.','Invalid pH'));
-    validity = false;
 end
