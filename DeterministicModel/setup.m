@@ -25,6 +25,7 @@ parameters.ctrlParams.f0_Km = 12.2505629561911; %bounds: [0.1 1E4]
 parameters.ctrlParams.Dh = 5116.07002586063; %bounds: [1E-6 1]
 parameters.ctrlParams.cytcred = 0.0499624001853914; %bounds: [1E-6 1]
 parameters.ctrlParams.cytcox = 6.37656163806675; %bounds: [1E-6 1]
+parameters.ctrlParams.alpha = 0.5; %bounds: [1E-3 1E6]
 
 parameters.paramNames = fields(parameters.ctrlParams);
 
@@ -48,6 +49,7 @@ parameters.expParams.cytcox = parameters.ctrlParams.cytcox; %bounds: [1E-6 1]
 parameters.expParams.oxygen = parameters.ctrlParams.oxygen; %bounds: [1E-6 1]
 parameters.expParams.omega = parameters.ctrlParams.omega; %bounds: [1E-6 1]
 parameters.expParams.rho = parameters.ctrlParams.rho; %bounds: [1E-6 1]
+parameters.expParams.alpha = parameters.ctrlParams.alpha;
 
 %% Define Initial Conditions
 %initial conditions in nmol/mL; conversion: 1 nmol/mL = 1E-6 mol/L
