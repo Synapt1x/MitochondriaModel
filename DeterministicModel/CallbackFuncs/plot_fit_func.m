@@ -9,7 +9,7 @@ params = handles.ctrlParams;
 arrayfun(@cla,findall(0,'type','axes'))
 
 %plug in the equations into the ode solver
-[t,y] = solver(handles.parameters,params, handles.data);
+[t,y] = solver(handles.parameters, params, handles.data);
 
 %store the values calculated for each variable
 [cytcred, o2, Hn, Hp] = deal(y(:,1),y(:,2),y(:,3),y(:,4));

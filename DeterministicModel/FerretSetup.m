@@ -50,6 +50,8 @@ par.X.cytcred.range=[1E-2,1E3];
 %
 par.X.cytcox.range=[1E-2,1E3];
 %
+par.X.alpha.range=[1E-2,1E2];
+%
 % ====================================
 % Parallel Computing
 par.parallel.NWorkers=0; % Number of worker nodes to launch initially.

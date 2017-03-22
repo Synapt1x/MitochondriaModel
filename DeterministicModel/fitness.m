@@ -23,17 +23,17 @@ for n=length(X):-1:1
         end
         
         %update all the parameteres necessary
-        parameters.Cytcred = params.cytcred;
-        parameters.Cytcox = params.cytcox;
-        parameters.Cytctot = parameters.Cytcred + parameters.Cytcox;
+        parameters.cytcred = params.cytcred;
+        parameters.cytcox = params.cytcox;
+        parameters.cytctot = parameters.cytcred + parameters.cytcox;
         parameters.Hn = params.omega;
         parameters.Hp = params.rho;
         parameters.O2 = params.oxygen;
-        params.Cytctot = params.cytcred + params.cytcox;
+        params.cytctot = params.cytcred + params.cytcox;
         
         warning off
         %call ode to solve the system of equations for this solver
-        [t, y] = solver(parameters,params);
+        [t, y] = solver(parameters, params, data);
         warning on
         
         %for fitting O2
