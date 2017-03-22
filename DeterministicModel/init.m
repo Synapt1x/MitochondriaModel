@@ -14,3 +14,23 @@
 function extPar=init
 
 [extPar.parameters, extPar.data]=setup;
+
+% setup which data will be fit by passing in temporary file; if there is
+% no temporary file, ask user which data will be fit
+try
+    load('temp-data_fitting.mat');
+    extPar.parameters.data_fitting = data_fit{1};
+catch
+    %determine which data set will be fit in this call
+    which_fit = questdlg('Which data set will you be fitting?', ...
+        'Select data type for fitting', 'Control', 'Alzheimers', 'Cancel', 'Cancel');
+    switch which_fit
+        case 'Control'
+            extPar.parameters.data_fitting = 1;            
+        case 'Alzheimers'
+            extPar.parameters.data_fitting = 2;
+        case 'Cancel'
+            extPar.parameters.data_fitting = 1;
+            waitfor(msgbox('Default fit for control will be used.', 'Default'));
+    end
+end

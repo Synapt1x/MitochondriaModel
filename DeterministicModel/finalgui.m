@@ -143,14 +143,25 @@ which_fit = questdlg('Which data set will you be fitting?', ...
 switch which_fit
     case 'Control'
         handles.parameters.data_fitting = 1;
+        data_fit = {handles.parameters.data_fitting};
+        save('temp-data_fitting.mat', 'data_fit')
+
         %open the optimization window
         finalgui_fit(handles.parameters, handles.data);
+        
     case 'Alzheimers'
         handles.parameters.data_fitting = 2;
+        data_fit = {handles.parameters.data_fitting};
+        save('temp-data_fitting.mat', 'data_fit')
+        
         %open the optimization window
         finalgui_fit(handles.parameters, handles.data);
+        
     case 'Cancel'
         handles.parameters.data_fitting = 1;
+        data_fit = {handles.parameters.data_fitting};
+        save('temp-data_fitting.mat', 'data_fit')
+        
         waitfor(msgbox('Optimization cancelled.', 'Cancelled.'));
 end
 

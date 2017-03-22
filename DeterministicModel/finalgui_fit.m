@@ -436,3 +436,8 @@ if ischar(filename) %if a file is selected, load that file
 else
     disp('No file selected. Load parameters operation aborted.');
 end
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Close optimization window callback
+function DeleteFcn_Callback(hObject, eventdata, handles)
+delete('temp-data_fitting.mat');
