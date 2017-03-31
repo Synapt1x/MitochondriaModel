@@ -37,18 +37,17 @@ is injected at t = 18.6 m, FCCP starts injection at t = 20.17 m, and
 rot/AA start injection at t = 28.13 m.
 %}
 
-dy(1) = -2*((params.fIV_Vmax*O2) ...
-    /(params.fIV_Km*(1+(params.fIV_K/cytcred))+O2))...
-    *(Hn./Hp); %dcytcred
-dy(2) = -0.5*((params.fIV_Vmax*O2) ...
-    /(params.fIV_Km*(1+(params.fIV_K/cytcred))+O2))...
-    *(Hn./Hp); %dO2
-dy(3) =  -4*((params.fIV_Vmax*O2)/(params.fIV_Km*(1 ...
-    +(params.fIV_K/cytcred))+O2))*(Hn./Hp) + params.Dh ...
-    * ((Hp - Hn) + Hp * log(Hp/Hn)); %dHn
-dy(4) =  2*((params.fIV_Vmax*O2)/(params.fIV_Km*(1 ...
-    +(params.fIV_K/cytcred))+O2))*(Hn./Hp) - params.Dh ...
-    * ((Hp - Hn) + Hp * log(Hp/Hn)); %dHn
+%% Evaluate each mito-complex function
+f_4 = ((params.fIV_Vmax*O2)/(params.fIV_Km*(1 ...
+        +(params.fIV_K/cytcred))+O2))*(Hn./Hp); % complex IV
+f_6 = params.Dh * ((Hp - Hn) + Hp * log(Hp/Hn)); % FCCP
+
+%% Solve equation system
+
+dy(1) = -2 * f_4; %dcytcred
+dy(2) = -0.5 * f_4; %dO2
+dy(3) =  -4 * f_4 + f_6; %dHn
+dy(4) =  2 * f_4 - f_6; %dHn
 
 dy=dy'; %correct vector orientation
 

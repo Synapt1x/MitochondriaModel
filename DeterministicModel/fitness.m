@@ -47,5 +47,5 @@ for n=length(X):-1:1
         catch
             F(1,n) = 1E6;
         end
-        
+        disp(F(1,n));        
 end
