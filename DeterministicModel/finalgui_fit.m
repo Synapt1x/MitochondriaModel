@@ -78,7 +78,7 @@ end
 [handles.graphs{1:2}] = deal(handles.O2_plot,handles.OCR_plot);
 
 %label the axes for all graphs
-graph_label(handles);
+graph_label(handles, 'fitting');
 
 % %store all control editing text boxes in the handles structure as an array
 % [handles.allcontEdits{1:9}] = deal(handles.V_max_cedit, handles.K_1_cedit, ...
@@ -407,7 +407,7 @@ function plot_Callback(hObject, eventdata, handles) %plot button in gui
 [hObject, handles] = plot_fit_func(hObject, handles); %call the plot fit function
 
 %update all the graph axes
-graph_label(handles);
+graph_label(handles, 'fitting');
 
 guidata(hObject,handles);
 

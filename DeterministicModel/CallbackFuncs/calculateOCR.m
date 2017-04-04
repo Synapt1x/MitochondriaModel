@@ -8,5 +8,7 @@ else
     params = handles.expParams;
 end
 
+warning off
 ocr = -0.5 * ((params.fIV_Vmax*O2)./(params.fIV_Km*(1 ...
         +(params.fIV_K/cytcred))'+O2)).*(Hn./Hp);
+warning on
