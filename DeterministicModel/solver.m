@@ -34,22 +34,31 @@ options = odeset('NonNegative',[1,2,3,4]);
 
 %Solve by using ode for each section and passing along the final
 %values as initial values for the next section
+
+t_fallback = [data.baseline_times; data.oligo_fccp_times; data.inhibit_times];
+num_times = numel(t_fallback);
+
 try
-    [t1,y1] = ode15s(@baselineSystem, data.baseline_times, ...
-        [params.cytcred,params.oxygen,params.omega,params.rho],[],params);
-    [t2,y2] = ode15s(@oligoSystem, data.oligo_fccp_times, ...
-        [y1(end,1),y1(end,2),y1(end,3),y1(end,4)],[],params);
+    warning off
+    [t1,y1] = ode45(@baselineSystem, data.baseline_times, ...
+        [params.cytcred,params.oxygen,params.omega,params.rho],options,params);
+    [t2,y2] = ode45(@oligoSystem, data.oligo_fccp_times, ...
+        [y1(end,1),y1(end,2),y1(end,3),y1(end,4)],options,params);
     if (y2(end,3)==0)||(y2(end,3)<1.9972e-07)
         y2(end,3)=1.9972e-07;
     end
-    [t3,y3] = ode15s(@inhibitSystem, data.inhibit_times, ...
-        [y2(end,1),y2(end,2),y2(end,3),y2(end,4)],[],params);
+    [t3,y3] = ode45(@inhibitSystem, data.inhibit_times, ...
+        [y2(end,1),y2(end,2),y2(end,3),y2(end,4)],options,params);
     
     t = [t1;t2;t3];
     y = [y1;y2;y3];
+    
+    if numel(y(:,2)) ~= num_times
+        error('Error in ode solver.');
+    end
+    warning on
 catch
-    t = [data.baseline_times; data.oligo_fccp_times; data.inhibit_times];
-    num_times = numel(t);
+    t = t_fallback;
     y = zeros(num_times, 4);
     y(:,3:4) = ones(num_times, 2);
 end

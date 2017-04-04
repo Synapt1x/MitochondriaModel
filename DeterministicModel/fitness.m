@@ -31,10 +31,8 @@ for n=length(X):-1:1
         parameters.O2 = params.oxygen;
         params.cytctot = params.cytcred + params.cytcox;
         
-        warning off
         %call ode to solve the system of equations for this solver
         [~, y] = solver(parameters, params, data);
-        warning on
         
         %for fitting O2
         try
