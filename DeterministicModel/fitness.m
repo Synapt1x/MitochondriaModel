@@ -33,19 +33,15 @@ for n=length(X):-1:1
         
         warning off
         %call ode to solve the system of equations for this solver
-        [t, y] = solver(parameters, params, data);
+        [~, y] = solver(parameters, params, data);
         warning on
         
         %for fitting O2
         evaluations = y(:,2); %evaluated data for o2
         realo2Data = data.(data_types{parameters.data_fitting}); %exp o2 data
         
-        try
-            %evaluate using a least-squares
-            F(1,n) = sum((realo2Data-evaluations).^2)/numel(realo2Data);
-            pause(0.001);
-        catch
-            F(1,n) = 1E6;
-        end
+        F(1,n) = sum((realo2Data-evaluations).^2)/numel(realo2Data);
+        pause(0.001);
+        
         disp(F(1,n));        
 end

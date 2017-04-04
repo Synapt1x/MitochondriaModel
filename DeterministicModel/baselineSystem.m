@@ -13,6 +13,11 @@ O2 = y(2);
 Hn = y(3);
 Hp = y(4);
 
+%check if any concentrations are negative; if so, then throw an error
+if any([cytcred, O2, Hn, Hp] < 0 + 1E-9)
+    error('Negative concentrations');
+end
+
 %{
 To decouple the system, complexes I-III activity is instead
 approximated by ((parameters.Vmax.*(cytcdiff))./ ...
