@@ -80,33 +80,26 @@ end
 %label the axes for all graphs
 graph_label(handles, 'fitting');
 
-% %store all control editing text boxes in the handles structure as an array
-% [handles.allcontEdits{1:9}] = deal(handles.V_max_cedit, handles.K_1_cedit, ...
-%     handles.K_m_cedit,handles.fV_Vmax_cedit,handles.fV_K_cedit, handles.fV_Km_cedit, ...
-%     handles.f0_Vmax_cedit, handles.f0_Km_cedit, handles.Dh_cedit);
-%
 %store all exp editing text boxes in the handles structure as an array
 [handles.allEdits{1:9}] = deal(handles.fIV_Vmax_edit, handles.fIV_K_edit, ...
     handles.fIV_Km_edit,handles.fV_Vmax_edit,handles.fV_K_edit, handles.fV_Km_edit, ...
     handles.f0_Vmax_edit, handles.f0_Km_edit, handles.Dh_edit);
-%
-% %store all initial concentrations text boxes in the handles structure as an
-% %array
-% [handles.allInitials{1:5}] = deal(handles.initial_cytctot_edit, ...
-%     handles.initial_cytcox_edit, handles.initial_cytcred_edit, ...
-%     handles.initial_o2_edit, handles.initial_hn_edit);
+
+%store all initial concentrations text boxes in the handles structure as an
+%array
+[handles.allInitials{1:5}] = deal(handles.initial_cytctot_edit, ...
+    handles.initial_cytcox_edit, handles.initial_cytcred_edit, ...
+    handles.initial_o2_edit, handles.initial_hn_edit);
 
 
-%
-% %insert the initial parameter values into the control and experimental textboxes
-% set_params_func(handles,handles.initialData,'control');
-% set_params_func(handles,handles.initialData,'experimental');
-%
-% %insert the initial concentration values into the textboxes
-% handles = set_initials_func(handles, [handles.parameters.cytctot, ...
-%     handles.parameters.cytcox, handles.parameters.cytcred, ...
-%     handles.parameters.O2, handles.parameters.Hn, ...
-%     handles.parameters.Hp]);
+%insert the initial parameter values into the control and experimental textboxes
+set_params_func(handles,handles.initialParams,'experimental');
+
+%insert the initial concentration values into the textboxes
+handles = set_initials_func(handles, [handles.parameters.cytctot, ...
+    handles.parameters.cytcox, handles.parameters.cytcred, ...
+    handles.parameters.O2, handles.parameters.Hn, ...
+    handles.parameters.Hp]);
 
 guidata(hObject,handles);
 
@@ -186,42 +179,6 @@ guidata(hObject,handles);
 function initial_ph_edit_Callback(hObject,eventdata,handles)
 [hObject, handles] = change_pH(hObject, handles);
 guidata(hObject, handles);
-
-function V_max_cedit_Callback(hObject, eventdata, handles)
-handles = edit_box(hObject,handles,'control','Vmax');
-guidata(hObject,handles);
-
-function K_1_cedit_Callback(hObject, eventdata, handles)
-handles = edit_box(hObject,handles,'control','K1');
-guidata(hObject,handles);
-
-function K_m_cedit_Callback(hObject, eventdata, handles)
-handles = edit_box(hObject,handles,'control','Km');
-guidata(hObject,handles);
-
-function p1_cedit_Callback(hObject, eventdata, handles)
-handles = edit_box(hObject,handles,'control','p1');
-guidata(hObject,handles);
-
-function p2_cedit_Callback(hObject, eventdata, handles)
-handles = edit_box(hObject,handles,'control','p2');
-guidata(hObject,handles);
-
-function p3_cedit_Callback(hObject, eventdata, handles)
-handles = edit_box(hObject,handles,'control','p3');
-guidata(hObject,handles);
-
-function f0Vmax_cedit_Callback(hObject, eventdata, handles)
-handles = edit_box(hObject,handles,'control','f0Vmax');
-guidata(hObject,handles);
-
-function f0Km_cedit_Callback(hObject, eventdata, handles)
-handles = edit_box(hObject,handles,'control','f0Km');
-guidata(hObject,handles);
-
-function Dh_cedit_Callback(hObject, eventdata, handles)
-handles = edit_box(hObject,handles,'control','Dh');
-guidata(hObject,handles);
 
 function V_max_edit_Callback(hObject, eventdata, handles)
 handles = edit_box(hObject,handles,'experimental','Vmax');
