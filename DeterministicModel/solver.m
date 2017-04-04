@@ -30,7 +30,7 @@ params.cytctot = params.cytcred + params.cytcox;
 % end    
 
 %Set the options for running ode15s
-%options = odeset('NonNegative',[1,2,3,4]);
+options = odeset('NonNegative',[1,2,3,4]);
 
 %Solve by using ode for each section and passing along the final
 %values as initial values for the next section

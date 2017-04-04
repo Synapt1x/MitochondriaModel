@@ -31,14 +31,19 @@ for n=length(X):-1:1
         parameters.O2 = params.oxygen;
         params.cytctot = params.cytcred + params.cytcox;
         
+        warning off
         %call ode to solve the system of equations for this solver
         [~, y] = solver(parameters, params, data);
+        warning on
         
         %for fitting O2
-        evaluations = y(:,2); %evaluated data for o2
-        realo2Data = data.(data_types{parameters.data_fitting}); %exp o2 data
+        try
+            evaluations = y(:,2); %evaluated data for o2
+            realo2Data = data.(data_types{parameters.data_fitting}); %exp o2 data
         
-        F(1,n) = sum((realo2Data-evaluations).^2)/numel(realo2Data);
+            F(1,n) = sum((realo2Data-evaluations).^2)/numel(realo2Data);
+        catch
+            F(1,n) = data.max_error;
+        end
         pause(0.001);
-        
 end

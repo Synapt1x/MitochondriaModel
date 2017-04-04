@@ -73,3 +73,7 @@ for type=1:2
     end
     data.(ocr_handles{type}) = ocr_calc' * -1000;
 end
+
+%calculate the max possible error
+data.max_error = [(sum(data.CtrlO2.^2))/numel(data.CtrlO2), ...
+    (sum(data.AlzO2.^2))/numel(data.AlzO2)];
