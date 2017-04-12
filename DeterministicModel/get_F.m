@@ -1,4 +1,4 @@
-function fitness = get_F(solution_params, parameters)
+function fitness = get_F(solution_params, parameters, data)
 %{
 Created by: Chris Cadonic
 ========================================
@@ -12,7 +12,8 @@ provided by 'OptimalSolutions'.
 fields=fieldnames(solution_params);
 fields(end)=[];
 
-data_fitting=1; %%%%% 1 for ctrl data 2 for 3xTg data
+%% Determines if objective will be fitting ctrl data or 3xTg data
+data_types = {'CtrlO2', 'AlzO2'};
 
 % Update all the values in the ctrlParams parameter set in 'parameters'
 for i=1:1:numel(fields)    
@@ -32,16 +33,16 @@ parameters.ctrlParams.Cytctot = parameters.ctrlParams.cytcred ...
 
 warning off
 %call ode to solve the system of equations for this solver
-[t, y] = solver(parameters,parameters.ctrlParams);
+[~, y] = solver(parameters, parameters.ctrlParams, data);
 warning on
-
+        
 %for fitting O2
-evaluations = y(:,2); %evaluated data for o2
-realo2Data = parameters.realo2Data(:,data_fitting); %use actual o2 data
-
 try
+    evaluations = y(:,2); %evaluated data for o2
+    realo2Data = data.(data_types{parameters.data_fitting}); %exp o2 data
+    
     %evaluate using a least-squares
     fitness = sum((realo2Data-evaluations).^2)/numel(realo2Data);
 catch
-    fitness = inf;
+    fitness = data.max_error;
 end

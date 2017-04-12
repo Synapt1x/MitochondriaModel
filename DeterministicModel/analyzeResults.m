@@ -18,7 +18,7 @@ bestFit = OptimalSolutions.F(:,1).*inf;
 bestSet = struct();
 F = Inf(1, size(OptimalSolutions.X,2));
 
-parameters = setup;
+[parameters, data] = setup;
 
 %% Loop over OptimalSolutions to find Best
 
@@ -27,7 +27,7 @@ for n=1:size(OptimalSolutions.X, 2) % Number of columns = number of solutions.
     
     %first use bsxfun to check 'greater than' for all elements of bestFit
     %vs. OptimalSolutions.F
-    F(n)=get_F(OptimalSolutions.X_struct(n), parameters);
+    F(n)=get_F(OptimalSolutions.X_struct(n), parameters, data);
     
     if F(n) < bestFit + 1E-9
         bestFit = F(n);
