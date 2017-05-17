@@ -1,4 +1,5 @@
 function [hObject, handles] = change_pH(hObject, handles)
+% This function controls setting and changing the pH in the GUI
 
 getHpconc = 0;
 oldHp = 0;

@@ -12,7 +12,8 @@ arrayfun(@cla,findall(0,'type','axes'))
 for type=1:2
     
     %plug in the equations into the ode solver
-    [t,y] = solver(handles.parameters,params{type}, handles.data);
+    [t,y] = solver(handles.parameters,params{type}, handles.data, ...
+        handles.selected_model.Tag, handles.models);
     
     %store the values calculated for each variable
     [cytcred, o2, Hn, Hp] = deal(y(:,1),y(:,2),y(:,3),y(:,4));
@@ -53,43 +54,45 @@ for type=1:2
     
 end
 
-%add vertical lines to all graphs for injection times
-for graph = 1:numel(handles.graphs)
-    axes(handles.graphs{graph});
-    vertScale = get(gca,'yLim'); % get the y resolution
-    vertRange = [vertScale(1), vertScale(end)*0.98];
-    
-    % draw oligo line
-    line([handles.data.oligo_t, handles.data.oligo_t], ...
-        vertRange, 'Color','b','LineWidth',0.01);
-    text(handles.data.oligo_t,vertRange(end)*1.005,'Oligomycin', ...
-        'FontSize',6,'HorizontalAlignment','center','Color','b');
-    
-    % draw fccp lines   
-    line([handles.data.fccp_25_t, handles.data.fccp_25_t], ...
-        vertRange,'Color','b');
-    text(handles.data.fccp_25_t,vertRange(end)*1.005,'FCCP_{125}', ...
-        'FontSize',6,'HorizontalAlignment','center','Color','b');
-    line([handles.data.fccp_50_t, handles.data.fccp_50_t], ...
-        vertRange,'Color','b');
-    text(handles.data.fccp_50_t,vertRange(end)*1.005,'FCCP_{250}', ...
-        'FontSize',6,'HorizontalAlignment','center','Color','b');
-    line([handles.data.fccp_75_t, handles.data.fccp_75_t], ...
-        vertRange,'Color','b');
-    text(handles.data.fccp_75_t,vertRange(end)*1.005,'FCCP_{375}', ...
-        'FontSize',6,'HorizontalAlignment','center','Color','b');
-    line([handles.data.fccp_100_t, handles.data.fccp_100_t], ...
-        vertRange,'Color','b');
-    text(handles.data.fccp_100_t,vertRange(end)*1.005,'FCCP_{500}', ...
-        'FontSize',6,'HorizontalAlignment','center','Color','b');
-    
-    % draw inhibit line
-    line([handles.data.inhibit_t, handles.data.inhibit_t], ...
-        vertRange, 'Color','b');
-    text(handles.data.inhibit_t,vertRange(end)*1.005,'Rot/AA', ...
-        'FontSize',6,'HorizontalAlignment','center','Color','b');
-    
-    % while iterating over graphs, also set xLim
-    set(gca,'xLim',[t(1), t(end)]);
-    
+if strcmp(handles.selected_model.String, 'CC Full Model')
+    %add vertical lines to all graphs for injection times
+    for graph = 1:numel(handles.graphs)
+        axes(handles.graphs{graph});
+        vertScale = get(gca,'yLim'); % get the y resolution
+        vertRange = [vertScale(1), vertScale(end)*0.98];
+
+        % draw oligo line
+        line([handles.data.oligo_t, handles.data.oligo_t], ...
+            vertRange, 'Color','b','LineWidth',0.01);
+        text(handles.data.oligo_t,vertRange(end)*1.005,'Oligomycin', ...
+            'FontSize',6,'HorizontalAlignment','center','Color','b');
+
+        % draw fccp lines   
+        line([handles.data.fccp_25_t, handles.data.fccp_25_t], ...
+            vertRange,'Color','b');
+        text(handles.data.fccp_25_t,vertRange(end)*1.005,'FCCP_{125}', ...
+            'FontSize',6,'HorizontalAlignment','center','Color','b');
+        line([handles.data.fccp_50_t, handles.data.fccp_50_t], ...
+            vertRange,'Color','b');
+        text(handles.data.fccp_50_t,vertRange(end)*1.005,'FCCP_{250}', ...
+            'FontSize',6,'HorizontalAlignment','center','Color','b');
+        line([handles.data.fccp_75_t, handles.data.fccp_75_t], ...
+            vertRange,'Color','b');
+        text(handles.data.fccp_75_t,vertRange(end)*1.005,'FCCP_{375}', ...
+            'FontSize',6,'HorizontalAlignment','center','Color','b');
+        line([handles.data.fccp_100_t, handles.data.fccp_100_t], ...
+            vertRange,'Color','b');
+        text(handles.data.fccp_100_t,vertRange(end)*1.005,'FCCP_{500}', ...
+            'FontSize',6,'HorizontalAlignment','center','Color','b');
+
+        % draw inhibit line
+        line([handles.data.inhibit_t, handles.data.inhibit_t], ...
+            vertRange, 'Color','b');
+        text(handles.data.inhibit_t,vertRange(end)*1.005,'Rot/AA', ...
+            'FontSize',6,'HorizontalAlignment','center','Color','b');
+
+        % while iterating over graphs, also set xLim
+        set(gca,'xLim',[t(1), t(end)]);
+
+    end
 end

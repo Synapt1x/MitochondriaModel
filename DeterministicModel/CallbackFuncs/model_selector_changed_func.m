@@ -14,8 +14,10 @@ next_model = select_model(hObject, eventdata, handles);
 make_switch = questdlg(['Would you lke to change the model to ', ...
     next_model.String, '?'], 'Change Model.', 'Yes', 'Cancel', 'Yes');
 if strcmp(make_switch, 'Cancel')
-    prev_model.Value = 1;
+    
     next_model.Value = 0;
+    prev_model.Value = 1;
+    
     return
 end
 
@@ -28,6 +30,17 @@ drawnow() % refresh the gui
 
 %% change the model selected
 
+% update handles to reflect the model change
 handles.selected_model = next_model;
+handles.model_equations = handles.models.(handles.selected_model.Tag);
 
-handles.model_equations = 
+% reset initial concentrations and parameter values
+% parameters
+handles = set_params_func(handles, handles.initialParams(:), ...
+    'control','setDefault');
+handles = set_params_func(handles, handles.initialParams(:),  ...
+    'experimental','setDefault');
+% initial concentrations
+handles = set_initials_func(handles, handles.initialData(:), 'setDefault');
+
+guidata(hObject,handles);

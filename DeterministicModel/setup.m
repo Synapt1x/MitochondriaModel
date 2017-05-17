@@ -102,4 +102,6 @@ parameters.xlab = 'Time (sec)';
 
 
 %% Define the function handles for the current model system
-cc_full_model_equations = {baselineSystem};
+models.cc_full_model = {@baselineSystem, @oligoSystem, ...
+    @inhibitSystem};
+models.cc_baseline_model = {@baselineSystem};
