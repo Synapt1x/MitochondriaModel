@@ -1,4 +1,4 @@
-function [parameters, data] = setup
+function [parameters, data, models] = setup
 %{
 Created by: Chris Cadonic
 ========================================
@@ -99,3 +99,7 @@ end
     'O_2 (nmol/mL)','OCR (pmol/(mL*sec))','H_N (nmol/mL)', ...
     'H_P (nmol/mL)');
 parameters.xlab = 'Time (sec)';
+
+
+%% Define the function handles for the current model system
+cc_full_model_equations = {baselineSystem};

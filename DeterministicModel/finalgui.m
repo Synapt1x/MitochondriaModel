@@ -56,7 +56,13 @@ if ~isempty(varargin)
     
     % get all the data into the handles structure
     handles.data = varargin{2};
+    
+    % store all the model equation system handles in a structure
+    handles.models = varargin{3};
 end
+
+%set the default model to be the custom CC full model
+handles.selected_model = select_model(hObject, eventdata, handles);
 
 %add callback funcs dir to path
 addpath([handles.parameters.curdir, filesep, 'CallbackFuncs']);
@@ -136,6 +142,11 @@ switch eventdata.Key
     case 'l'
         loadparams_Callback(hObject, eventdata, handles);
 end
+
+function model_selector_selection_changed(hObject, eventdata, handles)
+    [hObject, eventdata, handles] = model_selector_changed_func(hObject, ...
+        eventdata, handles);
+    
 
 function optimize_Callback(hObject, eventdata, handles) %optimize button
 
