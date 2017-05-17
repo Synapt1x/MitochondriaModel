@@ -81,9 +81,10 @@ end
 graph_label(handles, 'fitting');
 
 %store all exp editing text boxes in the handles structure as an array
-[handles.allEdits{1:9}] = deal(handles.fIV_Vmax_edit, handles.fIV_K_edit, ...
-    handles.fIV_Km_edit,handles.fV_Vmax_edit,handles.fV_K_edit, handles.fV_Km_edit, ...
-    handles.f0_Vmax_edit, handles.f0_Km_edit, handles.Dh_edit);
+[handles.allEdits{1:10}] = deal(handles.fIV_Vmax_edit, handles.fIV_K_edit, ...
+    handles.fIV_Km_edit,handles.fV_Vmax_edit,handles.fV_K_edit, ...
+    handles.fV_Km_edit, handles.f0_Vmax_edit, handles.f0_Km_edit, ...
+    handles.Dh_edit, handles.alpha_edit);
 
 %store all initial concentrations text boxes in the handles structure as an
 %array
@@ -214,6 +215,10 @@ guidata(hObject,handles);
 
 function Dh_edit_Callback(hObject, eventdata, handles)
 handles = edit_box(hObject,handles,'experimental','Dh');
+guidata(hObject,handles);
+
+function alpha_edit_Callback(hObject, eventdata, handles)
+[hObject, handles] = edit_box(hObject,handles,'experimental','alpha');
 guidata(hObject,handles);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -387,7 +392,7 @@ if ischar(filename) %if a file is selected, load that file
     end
     
     %change all the values of parameters to loaded parameter set
-    handles = set_params_func(handles,values','control','changeVals');
+    handles = set_params_func(handles,values','exp','changeVals');
     %additional argin signals set_params_func to update handles.parameters
     guidata(hObject,handles);
 else

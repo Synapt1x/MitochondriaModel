@@ -68,8 +68,8 @@ ocr_handles = {'CtrlOCR', 'AlzOCR'};
 for type=1:2
     ocr_calc = [0];
     for j=1:1:numel(data.(o2_handles{type}))-1
-        ocr_calc(j+1) = (data.(o2_handles{type})(j+1)-data.(o2_handles{type})(j)) ...
-            / (data.Time(j+1) - data.Time(j));
+        ocr_calc(j+1) = (data.(o2_handles{type})(j+1) ...
+            - data.(o2_handles{type})(j)) / (data.Time(j+1) - data.Time(j));
     end
     data.(ocr_handles{type}) = ocr_calc' * -1000;
 end

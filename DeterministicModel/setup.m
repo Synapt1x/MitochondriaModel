@@ -27,9 +27,9 @@ parameters.ctrlParams.fV_Km = 11387.5724922773; %bounds: [1E-6 1]
 parameters.ctrlParams.f0_Vmax = 9812.42645440625; %bounds: [0.01 10]
 parameters.ctrlParams.f0_Km = 12.2505629561911; %bounds: [0.1 1E4]
 parameters.ctrlParams.Dh = 5116.07002586063; %bounds: [1E-6 1]
+parameters.ctrlParams.alpha = 0.5; %bounds: [1E-3 1E6]
 parameters.ctrlParams.cytcred = 0.0499624001853914; %bounds: [1E-6 1]
 parameters.ctrlParams.cytcox = 6.37656163806675; %bounds: [1E-6 1]
-parameters.ctrlParams.alpha = 0.5; %bounds: [1E-3 1E6]
 
 parameters.paramNames = fields(parameters.ctrlParams);
 
