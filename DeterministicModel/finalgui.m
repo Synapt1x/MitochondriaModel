@@ -163,7 +163,7 @@ switch which_fit
         save('temp-data_fitting.mat', 'data_fit')
 
         %open the optimization window
-        finalgui_fit(handles.parameters, handles.data);
+        finalgui_fit(handles.parameters, handles.data, handles.models);
         
     case 'Alzheimers'
         handles.parameters.data_fitting = 2;

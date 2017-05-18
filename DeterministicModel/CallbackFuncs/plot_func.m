@@ -8,6 +8,7 @@ params = {handles.ctrlParams,handles.expParams};
 
 %clear all axes graphs using arrayfun to distribute cla to each axes
 arrayfun(@cla,findall(0,'type','axes'))
+drawnow()
 
 for type=1:2
     

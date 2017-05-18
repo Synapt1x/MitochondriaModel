@@ -63,15 +63,26 @@ if ~isempty(varargin)
     %cell array for whether fitting ctrl or Alz data
     handles.data.data_types = {'CtrlO2', 'AlzO2', 'CtrlOCR', 'AlzOCR'};
     
+    % store all the model equation system handles in a structure
+    handles.models = varargin{3};
 end
+
+%set the default model to be the custom CC full model
+handles.selected_model = select_model(hObject, eventdata, handles);
+handles.model_equations = handles.models.(handles.selected_model.Tag);
 
 %add callback funcs dir to path
 addpath([handles.parameters.curdir, filesep, 'CallbackFuncs']);
 
 %store the default data for the model
+%store the default data for the model
 for param=1:numel(handles.parameters.paramNames)
     handles.initialParams.(handles.parameters.paramNames{param}) = ...
         handles.ctrlParams.(handles.parameters.paramNames{param});
+end
+for initial_cond=1:numel(handles.parameters.conditionNames)
+    handles.initialData(initial_cond) = ...
+        handles.ctrlParams.(handles.parameters.conditionNames{initial_cond});
 end
 
 %store all graph handles in the handles structure as an array
@@ -128,6 +139,12 @@ switch eventdata.Key
     case 'l'
         loadparams_Callback(hObject, eventdata, handles);
 end
+
+function model_selector_selection_changed(hObject, eventdata, handles)
+    [hObject, eventdata, handles] = model_selector_changed_func(hObject, ...
+        eventdata, handles);
+    
+    guidata(hObject,handles);
 
 function optimize_Callback(hObject, eventdata, handles) %optimize button
 

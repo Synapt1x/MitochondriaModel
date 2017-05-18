@@ -21,12 +21,9 @@ if strcmp(make_switch, 'Cancel')
     return
 end
 
-for graph_num = 1:length(handles.graphs)
-    axes(handles.graphs{graph_num})
-    cla reset
-end
-
-drawnow() % refresh the gui
+% clear all graphs and refresh the gui
+arrayfun(@cla,findall(0,'type','axes'))
+drawnow()
 
 %% change the model selected
 
@@ -36,8 +33,10 @@ handles.model_equations = handles.models.(handles.selected_model.Tag);
 
 % reset initial concentrations and parameter values
 % parameters
-handles = set_params_func(handles, handles.initialParams(:), ...
-    'control','setDefault');
+if isfield(handles, 'main_window')
+    handles = set_params_func(handles, handles.initialParams(:), ...
+        'control','setDefault');
+end
 handles = set_params_func(handles, handles.initialParams(:),  ...
     'experimental','setDefault');
 % initial concentrations
