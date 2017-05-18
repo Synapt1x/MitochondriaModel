@@ -61,12 +61,12 @@ if ~isempty(varargin)
     handles.models = varargin{3};
 end
 
+%add callback funcs dir to path
+addpath([handles.parameters.curdir, filesep, 'CallbackFuncs']);
+
 %set the default model to be the custom CC full model
 handles.selected_model = select_model(hObject, eventdata, handles);
 handles.model_equations = handles.models.(handles.selected_model.Tag);
-
-%add callback funcs dir to path
-addpath([handles.parameters.curdir, filesep, 'CallbackFuncs']);
 
 %store the default data for the model
 for param=1:numel(handles.parameters.paramNames)

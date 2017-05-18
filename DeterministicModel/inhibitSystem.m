@@ -1,4 +1,4 @@
-function dy = inhibitSystem(t,y,params)
+function dydt = inhibitSystem(t,y,params)
 %{
 Created by: Chris Cadonic
 ========================================
@@ -12,11 +12,6 @@ cytcred = y(1);
 O2 = y(2);
 Hn = y(3);
 Hp = y(4);
-
-%check if any concentrations are negative; if so, then throw an error
-if any([cytcred, O2, Hn, Hp] < 0 + 1E-9)
-    error('Negative concentrations');
-end
 
 %{
 To decouple the system, complexes I-III activity is instead
@@ -49,11 +44,11 @@ f_6 = params.Dh * ((Hp - Hn) + Hp * log(Hp/Hn)); % FCCP
 
 %% Solve equation system
 
-dy(1) = -2 * f_4; %dcytcred
-dy(2) = -0.5 * f_4; %dO2
-dy(3) =  -4 * f_4 + f_6; %dHn
-dy(4) =  2 * f_4 - f_6; %dHn
+dydt(1) = -2 * f_4; %dcytcred
+dydt(2) = -0.5 * f_4; %dO2
+dydt(3) =  -4 * f_4 + f_6; %dHn
+dydt(4) =  2 * f_4 - f_6; %dHn
 
-dy=dy'; %correct vector orientation
+dydt=dydt'; %correct vector orientation
 
 end

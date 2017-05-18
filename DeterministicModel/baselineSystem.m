@@ -1,4 +1,4 @@
-function dy = baselineSystem(t,y,params)
+function dydt = baselineSystem(t,y,params)
 %{
 Created by: Chris Cadonic
 ========================================
@@ -12,11 +12,6 @@ cytcred = y(1);
 O2 = y(2);
 Hn = y(3);
 Hp = y(4);
-
-%check if any concentrations are negative; if so, then throw an error
-if any([cytcred, O2, Hn, Hp] < 0 + 1E-9)
-    error('Negative concentrations');
-end
 
 %{
 To decouple the system, complexes I-III activity is instead
@@ -51,11 +46,11 @@ f_5 = ((params.fV_Vmax.*Hp) ...
 
 %% Solve equation system
 
-dy(1) = 2 * f_0 - 2 * f_4; %dCytcred
-dy(2) = -0.5 * f_4; %dO2
-dy(3) = -6 * f_0 - 4 * f_4 + f_5; %dHn
-dy(4) = 8 * f_0 + 2 * f_4 - f_5; %dHp
+dydt(1) = 2 * f_0 - 2 * f_4; %dCytcred
+dydt(2) = -0.5 * f_4; %dO2
+dydt(3) = -6 * f_0 - 4 * f_4 + f_5; %dHn
+dydt(4) = 8 * f_0 + 2 * f_4 - f_5; %dHp
 
-dy=dy'; %correct vector orientation
+dydt=dydt'; %correct vector orientation
 
 end

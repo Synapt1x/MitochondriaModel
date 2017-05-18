@@ -16,6 +16,9 @@ parameters.data_fitting = 1; % default fit is for fitting control data
 parameters.curdir = fileparts(which(mfilename));
 addpath(parameters.curdir, filesep, 'ModelSystems');
 
+% conversion factor for converting [C] to pressure
+convert_to_P = 10E-9 * 293 * 62.364;
+
 %% Define the Parameters of the Model
 % control condition parameter values
 parameters.ctrlParams.fIV_Vmax = 0.7225; %bounds: [0.01 10]
@@ -33,7 +36,7 @@ parameters.ctrlParams.cytcox = 6.37656163806675; %bounds: [1E-6 1]
 
 parameters.paramNames = fields(parameters.ctrlParams);
 
-parameters.ctrlParams.oxygen = data.CtrlO2(1); %bounds: [1E-6 1]
+parameters.ctrlParams.oxygen = data.CtrlO2(1) * convert_to_P; %bounds: [1E-6 1]
 parameters.ctrlParams.omega = 0.015849; %bounds: [1E-2 50] pH = 7.8
 parameters.ctrlParams.rho = 0.0398107; %assuming a pH of 7.4 we get 3.981E-8 mol/L
 
