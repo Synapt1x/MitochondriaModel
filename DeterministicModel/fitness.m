@@ -45,6 +45,5 @@ for n=length(X):-1:1
         catch
             F(1,n) = data.max_error(parameters.data_fitting) * 1000;
         end
-        disp(F(1,n))
         pause(0.001);
 end
