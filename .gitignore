@@ -1,5 +1,6 @@
 DeterministicModel/Qubist/*
-DeterministicModel/FerretData/*
+DeterministicModel/FerretData/History/*
+DeterministicModel/FerretData/*ar.mat
 DeterministicModel/AdditionalFuncs/*
 Qubist/*
 DeterministicModel/Data/*
