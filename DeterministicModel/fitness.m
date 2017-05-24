@@ -41,9 +41,9 @@ for n=length(X):-1:1
             evaluations = y(:,2); %evaluated data for o2
             realo2Data = data.(data_types{parameters.data_fitting}); %exp o2 data
         
-            F(1,n) = sum((realo2Data-evaluations).^2)/numel(realo2Data);
+            F(1,n) = sum((realo2Data-evaluations).^2)/numel(realo2Data) * 1000;
         catch
-            F(1,n) = data.max_error;
+            F(1,n) = data.max_error(parameters.data_fitting) * 1000;
         end
         disp(F(1,n))
         pause(0.001);
