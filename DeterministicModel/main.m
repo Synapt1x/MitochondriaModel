@@ -24,7 +24,7 @@ setup conditions in 'setup.m', optimization run by using
 importing of data handled by 'data_formatter.m'.
 %}
 
-[parameters, data, models] = setup; %run the setup function which creates the
+[parameters, data, models] = setup('pressure'); %run the setup function which creates the
 %structure storing all variables necessary
 %for the model (found in 'setup.m')
 

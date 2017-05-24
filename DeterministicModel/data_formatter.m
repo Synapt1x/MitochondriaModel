@@ -1,4 +1,4 @@
-function data = data_formatter
+function data = data_formatter(varargin)
 %{
 Created by: Chris Cadonic
 ========================================
@@ -20,6 +20,13 @@ path_folder = fileparts(which(mfilename));
 
 %file names holding the oxygraph o2 data and Seahorse ocr data
 filename = fullfile(path_folder, '/Data/3xoxygraphData.xlsx');
+
+% conversion factor for converting [C] to pressure
+if ~isempty(varargin)
+    convert_to_P = 10E-9 * 293 * 62.364;
+else
+    convert_to_P = 1;
+end
 
 %% Extract Oxygraph Data
 
@@ -63,6 +70,10 @@ end
 %% Calculate OCR based on O2 data from loaded Oxygraph data
 o2_handles = {'CtrlO2', 'AlzO2'};
 ocr_handles = {'CtrlOCR', 'AlzOCR'};
+
+% process O2 data to convert to pressure if needed
+data.CtrlO2 = data.CtrlO2 * convert_to_P;
+data.AlzO2 = data.AlzO2 * convert_to_P;
 
 %calculate OCR for each ctrl and Alz condition separately
 for type=1:2
