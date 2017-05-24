@@ -14,7 +14,7 @@ if ~isempty(varargin)
     [data, converter] = data_formatter('pressure');
 else
     % if not converting [C] to pressure
-    data = data_formatter;
+    [data, converter] = data_formatter;
 end
 
 parameters.data_fitting = 1; % default fit is for fitting control data
