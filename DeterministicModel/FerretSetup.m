@@ -50,7 +50,7 @@ par.X.cytcred.range=[1E-3,1E4];
 %
 par.X.cytcox.range=[1E-3,1E4];
 %
-par.X.alpha.range=[1E-9,1E2];
+par.X.alpha.range=[1E-9,1];
 %
 % ====================================
 % Parallel Computing
