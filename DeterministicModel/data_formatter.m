@@ -1,4 +1,4 @@
-function data = data_formatter(varargin)
+function [data, convert_to_P] = data_formatter(varargin)
 %{
 Created by: Chris Cadonic
 ========================================

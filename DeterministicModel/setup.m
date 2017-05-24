@@ -11,7 +11,7 @@ all of the model's parameters and also the data, graph labels.
 %import the real data
 if ~isempty(varargin)
     % indicate to data_formatter that [C] will be converted to pressure
-    data = data_formatter('pressure');
+    [data, converter] = data_formatter('pressure');
 else
     % if not converting [C] to pressure
     data = data_formatter;
@@ -36,14 +36,14 @@ parameters.ctrlParams.f0_Vmax = 9812.42645440625; %bounds: [0.01 10]
 parameters.ctrlParams.f0_Km = 12.2505629561911; %bounds: [0.1 1E4]
 parameters.ctrlParams.Dh = 5116.07002586063; %bounds: [1E-6 1]
 parameters.ctrlParams.alpha = 0.5; %bounds: [1E-3 1E6]
-parameters.ctrlParams.cytcred = 0.0499624001853914; %bounds: [1E-6 1]
-parameters.ctrlParams.cytcox = 6.37656163806675; %bounds: [1E-6 1]
+parameters.ctrlParams.cytcred = 0.0499624001853914 * converter; %bounds: [1E-6 1]
+parameters.ctrlParams.cytcox = 6.37656163806675 * converter; %bounds: [1E-6 1]
 
 parameters.paramNames = fields(parameters.ctrlParams);
 
 parameters.ctrlParams.oxygen = data.CtrlO2(1); %bounds: [1E-6 1]
-parameters.ctrlParams.omega = 0.015849; %bounds: [1E-2 50] pH = 7.8
-parameters.ctrlParams.rho = 0.0398107; %assuming a pH of 7.4 we get 3.981E-8 mol/L
+parameters.ctrlParams.omega = 0.015849 * converter; %bounds: [1E-2 50] pH = 7.8
+parameters.ctrlParams.rho = 0.0398107 * converter; %assuming a pH of 7.4 we get 3.981E-8 mol/L
 
 % experimental condition parameter values
 % Initially set to be equivalent to the control parameter set
