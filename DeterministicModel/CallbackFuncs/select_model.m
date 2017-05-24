@@ -3,7 +3,8 @@ function hObject = select_model(hObject, eventdata, handles)
 % in the button group model_selector
 
 % create a cell array for all the different model buttons
-models = {handles.cc_full_model, handles.cc_baseline_model};
+models = {handles.cc_full_model, handles.cc_baseline_model, ...
+    handles.cc_mp_model};
 
 % determine which model is selected
 for model_num = 1:length(models)

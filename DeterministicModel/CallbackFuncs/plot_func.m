@@ -55,7 +55,7 @@ for type=1:2
     
 end
 
-if strcmp(handles.selected_model.String, 'CC Full Model')
+if ~strcmp(handles.selected_model.String, 'CC Baseline Model')
     %add vertical lines to all graphs for injection times
     for graph = 1:numel(handles.graphs)
         axes(handles.graphs{graph});

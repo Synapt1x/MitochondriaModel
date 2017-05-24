@@ -63,6 +63,7 @@ end
 
 %add callback funcs dir to path
 addpath([handles.parameters.curdir, filesep, 'CallbackFuncs']);
+addpath(genpath([handles.parameters.curdir, filesep, 'ModelEquations']));
 
 %set the default model to be the custom CC full model
 handles.selected_model = select_model(hObject, eventdata, handles);

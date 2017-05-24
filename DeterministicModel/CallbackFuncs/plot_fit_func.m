@@ -38,7 +38,7 @@ plot(t(2:end),handles.data.(handles.data.data_types{...
 plot(t(2:end),calcOCR(2:end),'r--','lineWidth',2);
 hold off
 
-if strcmp(handles.selected_model.String, 'CC Full Model')
+if ~strcmp(handles.selected_model.String, 'CC Baseline Model')
     %add vertical lines to all graphs for injection times
     for graph = 1:numel(handles.graphs)
         axes(handles.graphs{graph});
