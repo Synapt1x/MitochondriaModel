@@ -218,3 +218,8 @@ projects{1}.path=fileparts(which(mfilename));
 projects{1}.name='Mito Model';
 projects{1}.init='init';
 projects{1}.setup='FerretSetup';
+
+projects{2}.path=fileparts(which(mfilename));
+projects{2}.name='Mito Model MP';
+projects{2}.init='init_MP';
+projects{2}.setup='FerretSetup_MP';

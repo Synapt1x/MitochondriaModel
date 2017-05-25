@@ -11,10 +11,10 @@ all of the model's parameters and also the data, graph labels.
 %import the real data
 if ~isempty(varargin)
     % indicate to data_formatter that [C] will be converted to pressure
-    [data, converter] = data_formatter('pressure');
+    [data, parameters.converter] = data_formatter('pressure');
 else
     % if not converting [C] to pressure
-    [data, converter] = data_formatter;
+    [data, parameters.converter] = data_formatter;
 end
 
 parameters.data_fitting = 1; % default fit is for fitting control data
@@ -22,7 +22,6 @@ parameters.data_fitting = 1; % default fit is for fitting control data
 %get the current working directory
 parameters.curdir = fileparts(which(mfilename));
 addpath(parameters.curdir, filesep, 'ModelSystems');
-
 
 %% Define the Parameters of the Model
 % control condition parameter values
@@ -35,15 +34,22 @@ parameters.ctrlParams.fV_Km = 11387.5724922773; %bounds: [1E-6 1]
 parameters.ctrlParams.f0_Vmax = 9812.42645440625; %bounds: [0.01 10]
 parameters.ctrlParams.f0_Km = 12.2505629561911; %bounds: [0.1 1E4]
 parameters.ctrlParams.Dh = 5116.07002586063; %bounds: [1E-6 1]
-parameters.ctrlParams.alpha = 0.5; %bounds: [1E-3 1E6]
-parameters.ctrlParams.cytcred = 0.0499624001853914 * converter; %bounds: [1E-6 1]
-parameters.ctrlParams.cytcox = 6.37656163806675 * converter; %bounds: [1E-6 1]
+parameters.ctrlParams.alpha = 0.5; %bounds: [1E-9 1]
+parameters.ctrlParams.cytcred = 0.0499624001853914 ...
+    * parameters.converter; %bounds: [1E-6 1]
+parameters.ctrlParams.cytcox = 6.37656163806675 ...
+    * parameters.converter; %bounds: [1E-6 1]
+parameters.ctrlParams.p_fccp = 1; % bounds: [1E-4 1E4]
 
 parameters.paramNames = fields(parameters.ctrlParams);
 
 parameters.ctrlParams.oxygen = data.CtrlO2(1); %bounds: [1E-6 1]
-parameters.ctrlParams.omega = 0.015849 * converter; %bounds: [1E-2 50] pH = 7.8
-parameters.ctrlParams.rho = 0.0398107 * converter; %assuming a pH of 7.4 we get 3.981E-8 mol/L
+parameters.ctrlParams.omega = 0.015849 ...
+    * parameters.converter; %bounds: [1E-2 50] pH = 7.8
+parameters.ctrlParams.rho = 0.0398107 ...
+    * parameters.converter; %assuming a pH of 7.4 we get 3.981E-8 mol/L
+parameters.ctrlParams.psi = -log(parameters.ctrlParams.omega / ...
+                                parameters.ctrlParams.rho); %MP approximation
 
 % experimental condition parameter values
 % Initially set to be equivalent to the control parameter set
@@ -59,10 +65,12 @@ parameters.expParams.Dh = parameters.ctrlParams.Dh; %bounds: [1E-6 1]
 parameters.expParams.cytcred = parameters.ctrlParams.cytcred; %bounds: [1E-6 1]
 parameters.expParams.cytcox = parameters.ctrlParams.cytcox; %bounds: [1E-6 1]
 parameters.expParams.alpha = parameters.ctrlParams.alpha; %bounds: [1E-3 1E6]
+parameters.expParams.p_fccp = parameters.ctrlParams.p_fccp;
 
 parameters.expParams.oxygen = parameters.ctrlParams.oxygen; %bounds: [1E-6 1]
 parameters.expParams.omega = parameters.ctrlParams.omega; %bounds: [1E-6 1]
-parameters.expParams.rho = parameters.ctrlParams.rho; %bounds: [1E-6 1]
+parameters.expParams.rho = parameters.ctrlParams.rho; % pH=7.4
+parameters.expParams.psi = parameters.ctrlParams.psi; %MP approximation
 
 %define the initial condition fields
 parameters.conditionNames = {'cytctot', 'cytcox', 'cytcred', 'oxygen', ...
@@ -78,6 +86,7 @@ parameters.cytctot = parameters.cytcox+parameters.cytcred;
 parameters.O2 = parameters.ctrlParams.oxygen;
 parameters.Hn = parameters.ctrlParams.omega;
 parameters.Hp = parameters.ctrlParams.rho;
+parameters.psi = parameters.ctrlParams.psi;
 
 %% Add time points to ctrl and exp param sets
 [parameters.ctrlParams.fccp_25_t, parameters.expParams.fccp_25_t] = ...
@@ -100,12 +109,14 @@ end
 
 %% Define the labels and titles for GUI Graphs
 %titles and labels for the output graphs
-[parameters.title{1:5}] = deal('Oxygen Concentration Over Time', ...
+[parameters.title{1:7}] = deal('Oxygen Concentration Over Time', ...
     'OCR Over Time', ['Cyt c Reduced Concentration Over'...
     ' Time'], 'Matrix Proton Concentration Over Time',...
-    'IMS Proton Concentration Over Time');
-[parameters.ylab{1:5}] = deal('O_2 (nmol/mL)','OCR (pmol/(mL*sec))', ...
-    'Cyt c_{red} (nmol/mL)', 'H_N (nmol/mL)', 'H_P (nmol/mL)');
+    'IMS Proton Concentration Over Time', ['Cyt c Reduced Concentration Over'...
+    ' Time'], 'Membrane Potential \Delta\Psi Over Time');
+[parameters.ylab{1:7}] = deal('O_2 (nmol/mL)','OCR (pmol/(mL*sec))', ...
+    'Cyt c_{red} (nmol/mL)', 'H_N (nmol/mL)', 'H_P (nmol/mL)', ...
+    'Cyt c_{red} (nmol/mL)', '\Delta\Psi (V)');
 parameters.xlab = 'Time (sec)';
 
 

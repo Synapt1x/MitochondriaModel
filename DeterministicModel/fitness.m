@@ -10,6 +10,13 @@ params=extPar.parameters.expParams;
 f=fields(X);
 f(strcmpi(f,'info'))=[];
 
+%scaling for fitting concentration or pressure
+if parameters.converter == 1
+    scale = 1;
+else
+    scale = 1E7;
+end
+
 %% Determines if objective will be fitting ctrl data or 3xTg data
 data_types = {'CtrlO2', 'AlzO2'};
 
@@ -41,9 +48,9 @@ for n=length(X):-1:1
             evaluations = y(:,2); %evaluated data for o2
             realo2Data = data.(data_types{parameters.data_fitting}); %exp o2 data
         
-            F(1,n) = sum((realo2Data-evaluations).^2)/numel(realo2Data) * 1000;
+            F(1,n) = sum((realo2Data-evaluations).^2)/numel(realo2Data) * scale;
         catch
-            F(1,n) = data.max_error(parameters.data_fitting) * 1000;
+            F(1,n) = data.max_error(parameters.data_fitting) * scale;
         end
         pause(0.001);
 end

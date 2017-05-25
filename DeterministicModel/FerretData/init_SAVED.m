@@ -15,6 +15,9 @@ function extPar=init
 
 [extPar.parameters, extPar.data, extPar.models]=setup('pressure');
 
+% add model equations to path
+addpath(genpath([extPar.parameters.curdir, filesep, 'ModelEquations']));
+
 % setup which data will be fit by passing in temporary file; if there is
 % no temporary file, ask user which data will be fit
 try

@@ -61,7 +61,7 @@ if ~isempty(varargin)
     handles.models = varargin{3};
 end
 
-%add callback funcs dir to path
+%add callback and model funcs dir to path
 addpath([handles.parameters.curdir, filesep, 'CallbackFuncs']);
 addpath(genpath([handles.parameters.curdir, filesep, 'ModelEquations']));
 
@@ -80,9 +80,9 @@ for initial_cond=1:numel(handles.parameters.conditionNames)
 end
 
 %store all graph handles in the handles structure as an array
-[handles.graphs{1:5}] = deal(handles.O2_plot, ...
+[handles.graphs{1:7}] = deal(handles.O2_plot, ...
     handles.OCR_plot,handles.Cytc_plot,handles.H_N_plot,...
-    handles.H_P_plot);
+    handles.H_P_plot, handles.Cytc_plot_mp, handles.psi_plot_mp);
 
 %store all control editing text boxes in the handles structure as an array
 [handles.allcontEdits{1:10}] = deal(handles.V_max_cedit, handles.K_1_cedit, ...

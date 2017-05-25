@@ -21,6 +21,14 @@ if strcmp(make_switch, 'Cancel')
     return
 end
 
+if strcmp(next_model.String, 'CC MP Model')
+    handles.minor_plots_full_panel.Visible = 'Off';
+    handles.minor_plots_mp_panel.Visible = 'on';
+else
+    handles.minor_plots_full_panel.Visible = 'on';
+    handles.minor_plots_mp_panel.Visible = 'Off';
+end
+
 % clear all graphs and refresh the gui
 arrayfun(@cla,findall(0,'type','axes'))
 drawnow()

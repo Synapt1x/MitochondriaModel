@@ -1,17 +1,20 @@
-function dydt = baselineSystem(t,y,params)
+function dydt = baselineSystem_MP(t,y,params)
 %{
 Created by: Chris Cadonic
 ========================================
 This function maintains all the baseline derivatives
-relevant to my masters project.
+relevant to the mitochondrial model.
+
+This set of equations is pertinent to the operation of
+the membrane potential (MP) mitochondrial model
+developed by myself.
 
 %}
 
 %input all our variables into the state variable y
 cytcred = y(1);
 O2 = y(2);
-Hn = y(3);
-Hp = y(4);
+psi = y(3);
 
 %{
 To decouple the system, complexes I-III activity is instead
@@ -35,21 +38,22 @@ Also, to incorporate all sections of the data, time points will dictate
 the set of equations used for the model. 
 %}
 cytcdiff = params.cytctot - cytcred;
+scale = exp((-psi * 96485.33289)/(293 * 8.314459848));
 
 %% Evaluate each mito-complex function
-f_0 = ((params.f0_Vmax*(cytcdiff))/(params.f0_Km+(cytcdiff))) ...
-        *(Hn./Hp); % complexes I-III
-f_4 = ((params.fIV_Vmax*O2)/(params.fIV_Km*(1 ...
-        +(params.fIV_K/cytcred))+O2))*(Hn./Hp); % complex IV
-f_5 = ((params.fV_Vmax.*Hp) ...
-        /(Hp+params.fV_K.*Hn+params.fV_Km)).*Hp; % ATP Synthase or complex V
+% complexes I-III
+f_0 = ((params.f0_Vmax*(cytcdiff))/(params.f0_Km+(cytcdiff))) * scale;
+% complex IV
+f_4 = ((params.fIV_Vmax*O2)/(params.fIV_Km*(1+(params.fIV_K/cytcred))+O2)) ...
+    * scale; 
+f_5 = (params.fV_Vmax.*psi) ...
+        /(psi+params.fV_K./psi+params.fV_Km); % ATP Synthase or complex V
 
 %% Solve equation system
 
 dydt(1) = 2 * f_0 - 2 * f_4; %dCytcred
 dydt(2) = -0.5 * f_4; %dO2
-dydt(3) = -6 * f_0 - 4 * f_4 + f_5; %dHn
-dydt(4) = 8 * f_0 + 2 * f_4 - f_5; %dHp
+dydt(3) = 2 * f_0 - 2 * f_4 + f_5; %dpsi
 
 dydt=dydt'; %correct vector orientation
 

@@ -1,17 +1,20 @@
-function dydt = inhibitSystem(t,y,params)
+function dydt = inhibitSystem_MP(t,y,params)
 %{
 Created by: Chris Cadonic
 ========================================
 This function maintains all the inhibited system derivatives
-relevant to my masters project.
+relevant to the mitochondrial model.
+
+This set of equations is pertinent to the operation of
+the membrane potential (MP) mitochondrial model
+developed by myself.
 
 %}
 
 %input all our variables into the state variable y
 cytcred = y(1);
 O2 = y(2);
-Hn = y(3);
-Hp = y(4);
+psi = y(3);
 
 %{
 To decouple the system, complexes I-III activity is instead
@@ -36,18 +39,18 @@ the set of equations used for the model. From the data file: oligo
 is injected at t = 18.6 m, FCCP starts injection at t = 20.17 m, and
 rot/AA start injection at t = 28.13 m.
 %}
+scale = exp((-psi * 96485.33289)/(293 * 8.314459848));
 
 %% Evaluate each mito-complex function
 f_4 = ((params.fIV_Vmax*O2)/(params.fIV_Km*(1 ...
-        +(params.fIV_K/cytcred))+O2))*(Hn./Hp); % complex IV
-f_6 = params.Dh * ((Hp - Hn) + Hp * log(Hp/Hn)); % FCCP
+        +(params.fIV_K/cytcred))+O2))*scale; % complex IV
+f_6 = params.p_fccp * psi; % FCCP
 
 %% Solve equation system
 
 dydt(1) = -2 * f_4; %dcytcred
 dydt(2) = -0.5 * f_4; %dO2
-dydt(3) =  -4 * f_4 + f_6; %dHn
-dydt(4) =  2 * f_4 - f_6; %dHn
+dydt(3) =  -2 * f_4 + f_6; %dHn
 
 dydt=dydt'; %correct vector orientation
 

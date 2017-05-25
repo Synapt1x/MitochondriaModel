@@ -17,9 +17,11 @@ parameters.O2 = params.oxygen;
 params.cytctot = params.cytcred + params.cytcox;
 
 initial_params = [params.cytcred, params.oxygen, params.omega, params.rho];
+initial_params_mp = [params.cytcred, params.oxygen, params.psi];
 
 %Set the options for running ode15s
 options = odeset('NonNegative',[1,2,3,4]);
+options_mp = odeset('NonNegative', [1, 2, 3]);
 
 %Setup a fallback set of times in cases of unsolvable parameter sets
 t_fallback = [data.baseline_times; data.oligo_fccp_times; data.inhibit_times];
@@ -66,11 +68,11 @@ try
             %values as initial values for the next section using the MP
             %equations
             [t1,y1] = ode15s(model_equations{1}, data.baseline_times, ...
-                initial_params_mp,options,params);
+                initial_params_mp,options_mp,params);
             [t2,y2] = ode15s(model_equations{2}, data.oligo_fccp_times, ...
-                [y1(end,1),y1(end,2),y1(end,3)],options,params);
+                [y1(end,1),y1(end,2),y1(end,3)],options_mp,params);
             [t3,y3] = ode15s(model_equations{3}, data.inhibit_times, ...
-                [y2(end,1),y2(end,2),y2(end,3)],options,params);
+                [y2(end,1),y2(end,2),y2(end,3)],options_mp,params);
 
             t = [t1;t2;t3];
             y = [y1;y2;y3];

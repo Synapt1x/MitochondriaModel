@@ -11,14 +11,23 @@ drawnow()
 
 %plug in the equations into the ode solver
 [t,y] = solver(handles.parameters,params, handles.data, ...
-        handles.selected_model.Tag, handles.models);
-    
-%store the values calculated for each variable
-[cytcred, o2, Hn, Hp] = deal(y(:,1),y(:,2),y(:,3),y(:,4));
+    handles.selected_model.Tag, handles.models);
 
-%calculate the OCR values from the oxygen
-calcOCR = calculateOCR(handles,cytcred,o2,Hn,Hp,'control');
-calcOCR = calcOCR * -1000;
+if strcmp(handles.selected_model.String, 'CC MP Model')
+    %store the values calculated for each variable
+    [cytcred, o2, psi] = deal(y(:,1),y(:,2),y(:,3));
+    
+    %calculate the OCR values from the oxygen
+    calcOCR = calculateOCR(handles,'control',cytcred,o2, psi);
+    calcOCR = calcOCR * -1000;
+else
+    %store the values calculated for each variable
+    [cytcred, o2, Hn, Hp] = deal(y(:,1),y(:,2),y(:,3),y(:,4));
+    
+    %calculate the OCR values from the oxygen
+    calcOCR = calculateOCR(handles,'control',cytcred,o2,Hn,Hp);
+    calcOCR = calcOCR * -1000;
+end
 
 %plot the O2 concentration over time with real O2 data on top
 axes(handles.O2_plot);
@@ -44,14 +53,14 @@ if ~strcmp(handles.selected_model.String, 'CC Baseline Model')
         axes(handles.graphs{graph});
         vertScale = get(gca,'yLim'); % get the y resolution
         vertRange = [vertScale(1), vertScale(end)*0.98];
-
+        
         % draw oligo line
         line([handles.data.oligo_t, handles.data.oligo_t], ...
             vertRange, 'Color','b','LineWidth',0.01);
         text(handles.data.oligo_t,vertRange(end)*1.005,'Oligomycin', ...
             'FontSize',6,'HorizontalAlignment','center','Color','b');
-
-        % draw fccp lines   
+        
+        % draw fccp lines
         line([handles.data.fccp_25_t, handles.data.fccp_25_t], ...
             vertRange,'Color','b');
         text(handles.data.fccp_25_t,vertRange(end)*1.005,'FCCP_{125}', ...
@@ -68,15 +77,15 @@ if ~strcmp(handles.selected_model.String, 'CC Baseline Model')
             vertRange,'Color','b');
         text(handles.data.fccp_100_t,vertRange(end)*1.005,'FCCP_{500}', ...
             'FontSize',6,'HorizontalAlignment','center','Color','b');
-
+        
         % draw inhibit line
         line([handles.data.inhibit_t, handles.data.inhibit_t], ...
             vertRange, 'Color','b');
         text(handles.data.inhibit_t,vertRange(end)*1.005,'Rot/AA', ...
             'FontSize',6,'HorizontalAlignment','center','Color','b');
-
+        
         % while iterating over graphs, also set xLim
         set(gca,'xLim',[t(1), t(end)]);
-
+        
     end
 end
