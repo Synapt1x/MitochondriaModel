@@ -11,9 +11,9 @@
 % design.innovate.optimize @ www.nQube.ca
 % ============================================================================
 
-function extPar=init_MP
+function extPar=init
 
-[extPar.parameters, extPar.data, extPar.models]=setup();
+[extPar.parameters, extPar.data, extPar.models]=setup('pressure');
 
 % add model equations to path
 addpath(genpath([extPar.parameters.curdir, filesep, 'ModelEquations']));
@@ -39,4 +39,17 @@ catch
     end
 end
 
-extPar.selected_model = 'cc_mp_model';
+% setup which model will be fit by asking user
+which_model = questdlg('Which model will you be fitting?', ...
+    'Select model for fitting', 'CC Full Model', 'CC Baseline Model', ...
+    'Cancel', 'Cancel');
+switch which_model
+    case 'CC Full Model'
+        extPar.selected_model = 'cc_full_model';
+    case 'CC Baseline Model'
+        extPar.selected_model = 'cc_baseline_model';
+    case 'Cancel'
+        extPar.select_model = 'cc_full_model';
+        waitfor(msgbox('Default fit for cc full model will be used', ...
+            'Default'));
+end
