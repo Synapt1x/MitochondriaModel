@@ -50,7 +50,7 @@ par.X.cytcred.range=[1E-3,1E4];
 %
 par.X.cytcox.range=[1E-3,1E4];
 %
-par.X.alpha.range=[1E-9,1];
+par.X.alpha.range=[0,1];
 %
 par.X.p_fccp.range=[1E-4,1E4];
 %
