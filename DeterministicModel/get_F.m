@@ -1,4 +1,4 @@
-function fitness = get_F(solution_params, parameters, data)
+function fitness = get_F(solution_params, parameters, data, models)
 %{
 Created by: Chris Cadonic
 ========================================
@@ -33,7 +33,9 @@ parameters.ctrlParams.Cytctot = parameters.ctrlParams.cytcred ...
 
 warning off
 %call ode to solve the system of equations for this solver
-[~, y] = solver(parameters, parameters.ctrlParams, data);
+        %[~, y] = solver(parameters, params, data, selected_model, models);
+[~, y] = solver(parameters, parameters.ctrlParams, data, 'cc_full_model', ...
+    models);
 warning on
         
 %for fitting O2
