@@ -13,7 +13,7 @@
 
 function extPar=init
 
-[extPar.parameters, extPar.data, extPar.models]=setup('pressure');
+[extPar.parameters, extPar.data, extPar.models]=setup();
 
 % add model equations to path
 addpath(genpath([extPar.parameters.curdir, filesep, 'ModelEquations']));

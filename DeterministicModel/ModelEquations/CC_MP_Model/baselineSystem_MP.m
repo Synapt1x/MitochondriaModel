@@ -16,9 +16,9 @@ cytcred = y(1);
 O2 = y(2);
 psi = y(3);
 
-if any([cytcred < 0, O2 < 0])
-    error('Negative concentration.')
-end
+% if any([cytcred < 0, O2 < 0])
+%     error('Negative concentration.')
+% end
 
 %{
 To decouple the system, complexes I-III activity is instead
