@@ -30,10 +30,13 @@ num_times = numel(t_fallback);
 %Extract the appropriate model equation systems
 model_equations = models.(model_type);
 
+% start timer
+tic;
+
 %Determine the appropriate solving methods for the given model
 try
     warning off
-    tic;
+    
     switch model_type
         case 'cc_full_model'
             %Solve by using ode for each section and passing along the final
@@ -82,12 +85,11 @@ try
                 error('Error in ode solver.');
             end
     end
-    end_time = toc;
-    disp(['solver took ', num2str(end_time), ' seconds.']);
     warning on
 catch
     t = t_fallback;
     y = zeros(num_times, 4);
     y(:,3:4) = ones(num_times, 2);
-    end
 end
+
+toc;
