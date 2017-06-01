@@ -155,7 +155,7 @@ function initial_cytctot_edit_Callback(hObject,eventdata,handles)
 edit_box(hObject,handles,'initial','Cytctot');
 
 %get current total Cyt C
-currTot = str2double(get(hObject,'String'));
+currTot = hObject.String;
 newCytcred = 0;
 
 while ~(newCytcred)
@@ -164,26 +164,28 @@ while ~(newCytcred)
         'Cytochrome C will be set as Cyt C oxidized. The New value ', ...
         'of Cytochrome C Total: ',num2str(currTot),'.'], ...
         'Set Cytochrome Cyt C reduced');
-    newCytcred = ensureRightInput(str2double(takeVal{1}),currTot);
+    newCytcred = check_input(str2double(takeVal{1}),currTot);
 end
-newCytcox = currTot - newCytcred;
+newCytcox = str2double(currTot) - newCytcred;
 
 %update the values in boxes and parameters structure
-set(handles.initial_cytcox_edit,'String',num2str(newCytcox));
-handles.parameters.Cytcox = newCytcox;
-set(handles.initial_cytcred_edit,'String',num2str(newCytcred));
-handles.parameters.Cytcred = newCytcred;
+handles.initial_cytcox_edit.String = num2str(newCytcox);
+handles.parameters.cytcox = newCytcox;
+handles.initial_cytcred_edit.String = num2str(newCytcred);
+handles.parameters.cytcred = newCytcred;
+handles.parameters.cytctot = str2double(currTot);
+
 guidata(hObject,handles);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Edit boxes for Initial conditions and Parameters
 
 function initial_cytcox_edit_Callback(hObject,eventdata,handles)
-[hObject, handles] = edit_box(hObject,handles,'initial','Cytcox');
+[hObject, handles] = edit_box(hObject,handles,'initial','cytcox');
 guidata(hObject,handles);
 
 function initial_cytcred_edit_Callback(hObject,eventdata,handles)
-[hObject, handles] = edit_box(hObject,handles,'initial','Cytcred');
+[hObject, handles] = edit_box(hObject,handles,'initial','cytcred');
 guidata(hObject,handles);
 
 function initial_o2_edit_Callback(hObject,eventdata,handles)
@@ -199,39 +201,39 @@ function initial_ph_edit_Callback(hObject,eventdata,handles)
 guidata(hObject, handles);
 
 function V_max_edit_Callback(hObject, eventdata, handles)
-handles = edit_box(hObject,handles,'experimental','Vmax');
+[hObject, handles] = edit_box(hObject,handles,'experimental','fIV_Vmax');
 guidata(hObject,handles);
 
 function K_1_edit_Callback(hObject, eventdata, handles)
-handles = edit_box(hObject,handles,'experimental','K1');
+[hObject, handles] = edit_box(hObject,handles,'experimental','fIV_K');
 guidata(hObject,handles);
 
 function K_m_edit_Callback(hObject, eventdata, handles)
-handles = edit_box(hObject,handles,'experimental','Km');
+[hObject, handles] = edit_box(hObject,handles,'experimental','fIV_Km');
 guidata(hObject,handles);
 
 function p1_edit_Callback(hObject, eventdata, handles)
-handles = edit_box(hObject,handles,'experimental','p1');
+[hObject, handles] = edit_box(hObject,handles,'experimental','fV_Vmax');
 guidata(hObject,handles);
 
 function p2_edit_Callback(hObject, eventdata, handles)
-handles = edit_box(hObject,handles,'experimental','p2');
+[hObject, handles] = edit_box(hObject,handles,'experimental','fV_K');
 guidata(hObject,handles);
 
 function p3_edit_Callback(hObject, eventdata, handles)
-handles = edit_box(hObject,handles,'experimental','p3');
+[hObject, handles] = edit_box(hObject,handles,'experimental','fV_Km');
 guidata(hObject,handles);
 
 function f0Vmax_edit_Callback(hObject, eventdata, handles)
-handles = edit_box(hObject,handles,'experimental','f0Vmax');
+[hObject, handles] = edit_box(hObject,handles,'experimental','f0_Vmax');
 guidata(hObject,handles);
 
 function f0Km_edit_Callback(hObject, eventdata, handles)
-handles = edit_box(hObject,handles,'experimental','f0Km');
+[hObject, handles] = edit_box(hObject,handles,'experimental','f0_Km');
 guidata(hObject,handles);
 
 function Dh_edit_Callback(hObject, eventdata, handles)
-handles = edit_box(hObject,handles,'experimental','Dh');
+[hObject, handles] = edit_box(hObject,handles,'experimental','Dh');
 guidata(hObject,handles);
 
 function alpha_edit_Callback(hObject, eventdata, handles)

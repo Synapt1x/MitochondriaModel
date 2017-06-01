@@ -7,30 +7,32 @@ if strcmp(type,'control')
     %check for whether or not a correct input was given
     if isnan(newVal) %if not, throw error box and reset value
         msgbox('Please input a valid number.','Not a number');
-        set(hObject,'String',getfield(handles.ctrlParams,paramChange));
+        hObject.String = handles.ctrlParams.(paramChange);
     else %if so, then update the model with new value
-        handles.ctrlParams = setfield(handles.ctrlParams,paramChange,newVal);
+        handles.ctrlParams.(paramChange) = newVal;
     end
 elseif strcmp(type,'experimental')
     %check for whether or not a correct input was given
     if isnan(newVal) %if not, throw error box and reset value
         msgbox('Please input a valid number.','Not a number');
-        set(hObject,'String',getfield(handles.expParams,paramChange));
+        hObject.String = handles.expParams.(paramChange);
     else %if so, then update the model with new value
-        handles.expParams = setfield(handles.expParams,paramChange,newVal);
+        handles.expParams.(paramChange) = newVal;
     end
 else
     %check for whether or not a correct input was given
     if isnan(newVal) %if not, throw error box and reset value
         msgbox('Please input a valid number.','Not a number');
-        set(hObject,'String',getfield(handles.parameters,paramChange));
+        hObject.String = handles.parameters.(paramChange);
     else %if so, then update the model with new value
-        handles.parameters = setfield(handles.parameters,paramChange,newVal);
+        handles.ctrlParams.(paramChange) = newVal;
+        handles.expParams.(paramChange) = newVal;
+        handles.parameters.(paramChange) = newVal;
     end
 end
 
 %also check to see if cytochrome c total needs to be updated
-if strcmp(paramChange,'Cytcred') || strcmp(paramChange,'Cytcox')
+if strcmp(paramChange,'cytcred') || strcmp(paramChange,'cytcox')
     %update the total amount of cytochrome c total
     %get current total cyt c
     newCytcox = str2double(get(handles.initial_cytcox_edit,'String'));
@@ -38,9 +40,11 @@ if strcmp(paramChange,'Cytcred') || strcmp(paramChange,'Cytcox')
     newTot = newCytcox + newCytcred;
     
     %increase cyt c tot by the amount of introduced cyt c red
-    set(handles.initial_cytctot_edit,'String',newCytcox+newCytcred);
-    handles.parameters.Cytctot = newTot;
-    
-    %update data
-    guidata(hObject,handles);
+    handles.initial_cytctot_edit.String = newCytcox + newCytcred;
+    handles.ctrlParams.cytctot = newTot;
+    handles.expParams.cytctot = newTot;
+    handles.parameters.cytctot = newTot;
 end
+
+%update data
+guidata(hObject,handles);

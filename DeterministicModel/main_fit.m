@@ -24,7 +24,7 @@ setup conditions in 'setup.m', optimization run by using
 importing of data handled by 'data_formatter.m'.
 %}
 
-parameters = setup; %run the setup function which creates the
+[parameters, data, models] = setup; %run the setup function which creates the
 %structure storing all variables necessary
 %for the model (found in 'setup.m')
 
@@ -33,5 +33,30 @@ save parameters %save the model parameters in parameters.mat
 %create the GUI for interfacing and display
 %finalgui(parameters);
 
-% Since we are fitting data
-finalgui_fit(parameters, 1); % 1 for ctrl Data, 2 for exp Data
+%determine which data set will be fit in this call
+which_fit = questdlg('Which data set will you be fitting?', ...
+    'Select data type for fitting', 'Control', 'Alzheimers', 'Cancel', 'Cancel');
+switch which_fit
+    case 'Control'
+        data_fitting = 1;
+        data_fit = {data_fitting};
+        save('temp-data_fitting.mat', 'data_fit')
+
+        %open the optimization window
+        finalgui_fit(parameters, data, models);
+        
+    case 'Alzheimers'
+        data_fitting = 2;
+        data_fit = {data_fitting};
+        save('temp-data_fitting.mat', 'data_fit')
+        
+        %open the optimization window
+        finalgui_fit(parameters, data, models);
+        
+    case 'Cancel'
+        hdata_fitting = 1;
+        data_fit = {data_fitting};
+        save('temp-data_fitting.mat', 'data_fit')
+        
+        waitfor(msgbox('Optimization cancelled.', 'Cancelled.'));
+end

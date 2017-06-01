@@ -2,8 +2,8 @@ function [hObject, handles] = plot_fit_func(hObject, handles)
 %Function handling the callback for plotting the fitting of the model in
 %comparison to experimental data
 
-%store variables for differntiating control and experimental parameter sets
-params = handles.parameters.ctrlParams;
+%store variables for input parameter set
+params = handles.expParams;
 
 %clear all axes graphs using arrayfun to distribute cla to each axes
 arrayfun(@cla,findall(0,'type','axes'))
