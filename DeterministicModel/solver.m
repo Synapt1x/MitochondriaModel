@@ -33,7 +33,7 @@ model_equations = models.(model_type);
 %Determine the appropriate solving methods for the given model
 try
     warning off
-    tic
+    tic;
     switch model_type
         case 'cc_full_model'
             %Solve by using ode for each section and passing along the final
@@ -82,7 +82,8 @@ try
                 error('Error in ode solver.');
             end
     end
-    toc
+    end_time = toc;
+    disp(['solver took ', num2str(end_time), ' seconds.']);
     warning on
 catch
     t = t_fallback;
