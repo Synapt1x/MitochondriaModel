@@ -56,13 +56,13 @@ f_6 = params.p_fccp * psi; % FCCP
 
 % steps for gradual FCCP injection
 step_1 = 0.25 * heaviside(t - params.fccp_25_t) * ...
-    exp(-params.alpha*(t - params.fccp_25_t));
+    exp(-params.p_alpha*(t - params.fccp_25_t));
 step_2 = 0.25 * heaviside(t - params.fccp_50_t) * ...
-    exp(-params.alpha*(t - params.fccp_50_t));
+    exp(-params.p_alpha*(t - params.fccp_50_t));
 step_3 = 0.25 * heaviside(t - params.fccp_75_t) * ...
-    exp(-params.alpha*(t - params.fccp_75_t));
+    exp(-params.p_alpha*(t - params.fccp_75_t));
 step_4 = 0.25 * heaviside(t - params.fccp_100_t) * ...
-    exp(-params.alpha*(t - params.fccp_100_t));
+    exp(-params.p_alpha*(t - params.fccp_100_t));
 
 
 %% Solve equation system
