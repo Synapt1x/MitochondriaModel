@@ -22,13 +22,13 @@ end
 
 %% Calculate the fitness of this solution compared to data
 %update all the parameteres necessary
-parameters.Cytcred = parameters.ctrlParams.cytcred;
-parameters.Cytcox = parameters.ctrlParams.cytcox;
-parameters.Cytctot = parameters.Cytcred + parameters.Cytcox;
+parameters.cytcred = parameters.ctrlParams.cytcred;
+parameters.cytcox = parameters.ctrlParams.cytcox;
+parameters.cytctot = parameters.cytcred + parameters.cytcox;
 parameters.Hn = parameters.ctrlParams.omega;
 parameters.Hp = parameters.ctrlParams.rho;
 parameters.O2 = parameters.ctrlParams.oxygen;
-parameters.ctrlParams.Cytctot = parameters.ctrlParams.cytcred ...
+parameters.ctrlParams.cytctot = parameters.ctrlParams.cytcred ...
     + parameters.ctrlParams.cytcox;
 
 warning off
