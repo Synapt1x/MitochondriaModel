@@ -39,7 +39,6 @@ parameters.ctrlParams.cytcred = 0.0499624001853914 ...
     * parameters.converter; %bounds: [1E-6 1]
 parameters.ctrlParams.cytcox = 6.37656163806675 ...
     * parameters.converter; %bounds: [1E-6 1]
-parameters.ctrlParams.p_fccp = 1; % bounds: [1E-4 1E4]
 
 parameters.paramNames = fields(parameters.ctrlParams);
 
@@ -65,7 +64,6 @@ parameters.expParams.Dh = parameters.ctrlParams.Dh; %bounds: [1E-6 1]
 parameters.expParams.cytcred = parameters.ctrlParams.cytcred; %bounds: [1E-6 1]
 parameters.expParams.cytcox = parameters.ctrlParams.cytcox; %bounds: [1E-6 1]
 parameters.expParams.alpha = parameters.ctrlParams.alpha; %bounds: [1E-3 1E6]
-parameters.expParams.p_fccp = parameters.ctrlParams.p_fccp;
 
 parameters.expParams.oxygen = parameters.ctrlParams.oxygen; %bounds: [1E-6 1]
 parameters.expParams.omega = parameters.ctrlParams.omega; %bounds: [1E-6 1]

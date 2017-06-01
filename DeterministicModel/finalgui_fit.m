@@ -412,6 +412,12 @@ if ischar(filename) %if a file is selected, load that file
     
     %change all the values of parameters to loaded parameter set
     handles = set_params_func(handles,values','exp','changeVals');
+    
+    %update initial values
+    handles = set_initials_func(handles, [handles.expParams.cytctot, ...
+    handles.expParams.cytcox, handles.expParams.cytcred, ...
+    handles.parameters.O2, handles.parameters.Hn, ...
+    handles.parameters.Hp]);
     %additional argin signals set_params_func to update handles.parameters
     guidata(hObject,handles);
 else

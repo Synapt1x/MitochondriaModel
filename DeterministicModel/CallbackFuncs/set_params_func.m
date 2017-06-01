@@ -21,15 +21,17 @@ end
 
 %loop over and change all the displayed values for the parameters
 for i = 1:numel(boxes)
-    set(boxes{i},'String',values(i));
+    boxes{i}.String = values(i);
 end
 
 %change all the values in the correct params struc if vargin nonempty
 if ~isempty(varargin)
-    [params.Vmax, params.K1, params.Km, params.p1, params.p2, params.p3, ...
-        params.f0Vmax, params.f0Km, params.Dh, params.alpha] = deal(values(1), ...
+    [params.fIV_Vmax, params.fIV_K, params.fIV_Km, params.fV_Vmax, ...
+        params.fV_K, params.fV_Km, params.f0_Vmax, params.f0_Km, params.Dh, ...
+        params.alpha, params.cytcred, params.cytcox] = deal(values(1), ...
         values(2), values(3), values(4), values(5), values(6), values(7), ...
-        values(8), values(9), values(10));
+        values(8), values(9), values(10), values(11), values(12));
+    params.cytctot = params.cytcox + params.cytcred;
 end
 
 if strcmp(type,'control')
