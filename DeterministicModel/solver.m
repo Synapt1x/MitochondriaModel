@@ -51,7 +51,7 @@ try
             t = [t1;t2;t3];
             y = [y1;y2;y3];
 
-            if numel(y(:,2)) ~= num_times
+            if (numel(y(:,2)) ~= num_times) || (~isreal(y))
                 error('Error in ode solver.');
             end
         case 'cc_baseline_model'
