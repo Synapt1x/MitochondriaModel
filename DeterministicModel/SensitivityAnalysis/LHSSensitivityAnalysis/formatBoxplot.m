@@ -1,4 +1,4 @@
-function formatBoxplot(dataMtx, label, ylab)
+function formatBoxplot(dataMtx, label, ylab, boxplot_title)
 %{
 Created by: Chris Cadonic
 ========================================
@@ -33,23 +33,36 @@ boxFig = boxplot(dataMtx);
 % remove outliers from displaying
 set(boxFig(7,:),'Visible','Off');
 
-% find the bounds for the boxplot axis
-[minVal,minBox] = min(firstQuart);
-[maxVal,maxBox] = max(thirdQuart);
-lb = minVal - 1.4*(thirdQuart(minBox)-minVal);
-ub = maxVal + 1.4*(maxVal-firstQuart(maxBox));
-
-if ~(lb==ub) % if it's a zero value then no need to format
-      % reformat the axis for the boxplot
-      axis([0.5,size(dataMtx,2)+0.5,lb,ub]);
-end
-
-% label the boxplot
-title(label);
-ylabel(ylab);
-
 % set the background to white
 set(gcf,'color','w');
 
-% remove x axis label
-set(gca,'XTick',[]);
+% Add axis labels
+set(gca,'XTickLabel',label{:});
+set(gca, 'XTickLabelRotation', -45);
+ylabel(ylab);
+
+% Add a title
+title(boxplot_title);
+
+% 
+% % find the bounds for the boxplot axis
+% [minVal,minBox] = min(firstQuart);
+% [maxVal,maxBox] = max(thirdQuart);
+% lb = minVal - 1.4*(thirdQuart(minBox)-minVal);
+% ub = maxVal + 1.4*(maxVal-firstQuart(maxBox));
+% 
+% if ~(lb==ub) % if it's a zero value then no need to format
+%       % reformat the axis for the boxplot
+%       axis([0.5,size(dataMtx,2)+0.5,lb,ub]);
+% end
+% 
+% % label the boxplot
+% title(label);
+% ylabel(ylab);
+% xlabel(label);
+% 
+% % set the background to white
+% set(gcf,'color','w');
+% 
+% % remove x axis label
+% set(gca,'XTick',[]);
