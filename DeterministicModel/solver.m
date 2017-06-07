@@ -19,7 +19,7 @@ params.cytctot = params.cytcred + params.cytcox;
 initial_params = [params.cytcred, params.oxygen, params.omega, params.rho];
 initial_params_mp = [params.cytcred, params.oxygen, params.psi];
 
-%Set the options for running ode23tb
+%Set the options for running ode15s
 options = odeset('NonNegative',[1,2,3,4]);
 options_mp = odeset('NonNegative', [1, 2, 3]);
 
@@ -42,14 +42,14 @@ try
             %Solve by using ode for each section and passing along the final
             %values as initial values for the next section using the proton
             %balance equations
-            [t1,y1] = ode23tb(model_equations{1}, data.baseline_times, ...
+            [t1,y1] = ode15s(model_equations{1}, data.baseline_times, ...
                 initial_params,options,params);
-            [t2,y2] = ode23tb(model_equations{2}, data.oligo_fccp_times, ...
+            [t2,y2] = ode15s(model_equations{2}, data.oligo_fccp_times, ...
                 [y1(end,1),y1(end,2),y1(end,3),y1(end,4)],options,params);
             if (y2(end,3)==0)||(y2(end,3)<1.9972e-07)
                 y2(end,3)=1.9972e-07;
             end
-            [t3,y3] = ode23tb(model_equations{3}, data.inhibit_times, ...
+            [t3,y3] = ode15s(model_equations{3}, data.inhibit_times, ...
                 [y2(end,1),y2(end,2),y2(end,3),y2(end,4)],options,params);
 
             t = [t1;t2;t3];
@@ -61,7 +61,7 @@ try
         case 'cc_baseline_model'
             %Solve by using ode for the entire timeframe for just the baseline
             %system
-            [t,y] = ode23tb(model_equations{1}, t_fallback, initial_params,options,...
+            [t,y] = ode15s(model_equations{1}, t_fallback, initial_params,options,...
                 params);
 
             if numel(y) ~= num_times
@@ -71,11 +71,11 @@ try
             %Solve by using ode for each section and passing along the final
             %values as initial values for the next section using the MP
             %equations
-            [t1,y1] = ode23tb(model_equations{1}, data.baseline_times, ...
+            [t1,y1] = ode15s(model_equations{1}, data.baseline_times, ...
                 initial_params_mp,options_mp,params);
-            [t2,y2] = ode23tb(model_equations{2}, data.oligo_fccp_times, ...
+            [t2,y2] = ode15s(model_equations{2}, data.oligo_fccp_times, ...
                 [y1(end,1),y1(end,2),y1(end,3)],options_mp,params);
-            [t3,y3] = ode23tb(model_equations{3}, data.inhibit_times, ...
+            [t3,y3] = ode15s(model_equations{3}, data.inhibit_times, ...
                 [y2(end,1),y2(end,2),y2(end,3)],options_mp,params);
 
             t = [t1;t2;t3];
