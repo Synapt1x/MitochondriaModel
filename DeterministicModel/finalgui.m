@@ -87,14 +87,14 @@ end
 %store all control editing text boxes in the handles structure as an array
 [handles.allcontEdits{1:10}] = deal(handles.V_max_cedit, handles.K_1_cedit, ...
     handles.K_m_cedit,handles.p1_cedit,handles.p2_cedit, handles.p3_cedit, ...
-    handles.f0Vmax_cedit, handles.f0Km_cedit, handles.Dh_cedit, ...
-    handles.alpha_cedit);
+    handles.f0Vmax_cedit, handles.f0Km_cedit, handles.alpha_cedit, ...
+    handles.p_fccp_cedit);
 
 %store all exp editing text boxes in the handles structure as an array
 [handles.allEdits{1:10}] = deal(handles.V_max_edit, handles.K_1_edit, ...
     handles.K_m_edit,handles.p1_edit,handles.p2_edit, handles.p3_edit, ...
-    handles.f0Vmax_edit, handles.f0Km_edit, handles.Dh_edit, ...
-    handles.alpha_edit);
+    handles.f0Vmax_edit, handles.f0Km_edit, handles.alpha_edit, ...
+    handles.p_fccp_edit);
 
 %store all initial concentrations text boxes in the handles structure as an
 %array
@@ -264,8 +264,8 @@ function f0Km_cedit_Callback(hObject, eventdata, handles)
 [hObject, handles] = edit_box(hObject,handles,'control','f0_Km');
 guidata(hObject,handles);
 
-function Dh_cedit_Callback(hObject, eventdata, handles)
-[hObject, handles] = edit_box(hObject,handles,'control','Dh');
+function p_fccp_cedit_Callback(hObject, eventdata, handles)
+[hObject, handles] = edit_box(hObject,handles,'control','p_fccp');
 guidata(hObject,handles);
 
 function alpha_cedit_Callback(hObject, eventdata, handles)
@@ -304,8 +304,8 @@ function f0Km_edit_Callback(hObject, eventdata, handles)
 [hObject, handles] = edit_box(hObject,handles,'experimental','f0_Km');
 guidata(hObject,handles);
 
-function Dh_edit_Callback(hObject, eventdata, handles)
-[hObject, handles] = edit_box(hObject,handles,'experimental','Dh');
+function p_fccp_edit_Callback(hObject, eventdata, handles)
+[hObject, handles] = edit_box(hObject,handles,'experimental','p_fccp');
 guidata(hObject,handles);
 
 function alpha_edit_Callback(hObject, eventdata, handles)

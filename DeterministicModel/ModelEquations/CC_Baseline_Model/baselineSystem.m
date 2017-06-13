@@ -46,14 +46,16 @@ f_0 = ((params.f0_Vmax*(cytcdiff))/(params.f0_Km+(cytcdiff))) ...
 f_4 = ((params.fIV_Vmax*O2)/(params.fIV_Km*(1 ...
         +(params.fIV_K/cytcred))+O2))*(Hn./Hp); % complex IV
 f_5 = ((params.fV_Vmax.*Hp) ...
-        /(Hp+params.fV_K.*Hn+params.fV_Km)).*Hp; % ATP Synthase or complex V
+        /(Hp+params.fV_K.*Hn+params.fV_Km)); % ATP Synthase or complex V
+f_leak = params.p_alpha * (sqrt((Hp.^3) ./ Hn) - sqrt((Hn.^3) ./ Hp)); % leak
+
 
 %% Solve equation system
 
 dydt(1) = 2 * f_0 - 2 * f_4; %dCytcred
 dydt(2) = -0.5 * f_4; %dO2
-dydt(3) = -6 * f_0 - 4 * f_4 + f_5; %dHn
-dydt(4) = 8 * f_0 + 2 * f_4 - f_5; %dHp
+dydt(3) = -6 * f_0 - 4 * f_4 + f_5 + f_leak; %dHn
+dydt(4) = 8 * f_0 + 2 * f_4 - f_5 - f_leak; %dHp
 
 dydt=dydt'; %correct vector orientation
 

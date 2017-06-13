@@ -47,25 +47,23 @@ f_0 = ((params.f0_Vmax*(cytcdiff))/(params.f0_Km+(cytcdiff))) ...
         *(Hn./Hp); % complexes I-III
 f_4 = ((params.fIV_Vmax*O2)/(params.fIV_Km*(1 ...
         +(params.fIV_K/cytcred))+O2))*(Hn./Hp); % complex IV
-f_6 = params.Dh * ((Hp - Hn) + Hp * log(Hp/Hn)); % FCCP
+f_leak = params.p_alpha * (sqrt((Hp.^3) ./ Hn) - sqrt((Hn.^3) ./ Hp)); % leak
 
 % steps for gradual FCCP injection
-step_1 = 0.25 * heaviside(t - params.fccp_25_t) * ...
-    exp(-params.p_alpha*(t - params.fccp_25_t));
-step_2 = 0.25 * heaviside(t - params.fccp_50_t) * ...
-    exp(-params.p_alpha*(t - params.fccp_50_t));
-step_3 = 0.25 * heaviside(t - params.fccp_75_t) * ...
-    exp(-params.p_alpha*(t - params.fccp_75_t));
-step_4 = 0.25 * heaviside(t - params.fccp_100_t) * ...
-    exp(-params.p_alpha*(t - params.fccp_100_t));
+step_1 = 0.25 * heaviside(t - params.fccp_25_t);
+step_2 = 0.25 * heaviside(t - params.fccp_50_t);
+step_3 = 0.25 * heaviside(t - params.fccp_75_t);
+step_4 = 0.25 * heaviside(t - params.fccp_100_t);
 
 
 %% Solve equation system
 
 dydt(1) = 2 * f_0 - 2 * f_4; %dcytcred
 dydt(2) = -0.5 * f_4; %dO2
-dydt(3) = -6 * f_0 - 4 * f_4 + (step_1 + step_2 + step_3 + step_4) * f_6;%dHn
-dydt(4) = 8 * f_0 + 2 * f_4 - (step_1 + step_2 + step_3 + step_4) * f_6; %dHp
+dydt(3) = -6 * f_0 - 4 * f_4 + (step_1 + step_2 + step_3 + step_4) * ...
+    + (1 + params.p_fccp) * f_leak; %dHn
+dydt(4) = 8 * f_0 + 2 * f_4 - (step_1 + step_2 + step_3 + step_4) * f_6 ...
+    - (1 + params.p_fccp) * f_leak; %dHp
 
 dydt=dydt'; %correct vector orientation
 

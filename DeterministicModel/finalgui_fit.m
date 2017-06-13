@@ -95,7 +95,7 @@ graph_label(handles, 'fitting');
 [handles.allEdits{1:10}] = deal(handles.fIV_Vmax_edit, handles.fIV_K_edit, ...
     handles.fIV_Km_edit,handles.fV_Vmax_edit,handles.fV_K_edit, ...
     handles.fV_Km_edit, handles.f0_Vmax_edit, handles.f0_Km_edit, ...
-    handles.Dh_edit, handles.alpha_edit);
+    handles.alpha_edit, handles.p_fccp_edit);
 
 %store all initial concentrations text boxes in the handles structure as an
 %array
@@ -232,8 +232,8 @@ function f0Km_edit_Callback(hObject, eventdata, handles)
 [hObject, handles] = edit_box(hObject,handles,'experimental','f0_Km');
 guidata(hObject,handles);
 
-function Dh_edit_Callback(hObject, eventdata, handles)
-[hObject, handles] = edit_box(hObject,handles,'experimental','Dh');
+function p_fccp_edit_Callback(hObject, eventdata, handles)
+[hObject, handles] = edit_box(hObject,handles,'experimental','p_fccp');
 guidata(hObject,handles);
 
 function alpha_edit_Callback(hObject, eventdata, handles)
