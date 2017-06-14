@@ -37,7 +37,7 @@ set(boxFig(7,:),'Visible','Off');
 set(gcf,'color','w');
 
 % Add axis labels
-set(gca,'XTickLabel',label{:});
+set(gca,'XTickLabel',{label{:}});
 set(gca, 'XTickLabelRotation', -45);
 ylabel(ylab);
 
