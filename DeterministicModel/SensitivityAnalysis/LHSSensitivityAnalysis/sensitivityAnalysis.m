@@ -217,10 +217,10 @@ for figurenum=2:5
         {sensitivityOutput.outputLabels{small_range}}, ...
         sensitivityLabels{figurenum}, titles{figurenum});
 
-    fullFilename = [curdir,'/Images/',date,filenames{boxplotnum},'-Boxplot'];
+    fullFilename = [curdir,'/Images/',date,filenames{figurenum},'-Boxplot'];
     
-%     % next turn off figures from popping up
-%     set(gcf,'Visible','Off');
+    % turn off figures from popping up
+    set(gcf,'Visible','Off');
     
     % save the boxplot figure to a fig file and a png file
     savefig(fullFilename);
