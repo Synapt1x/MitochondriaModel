@@ -51,7 +51,6 @@ for n=length(X):-1:1
         realo2Data = data.(data_types{parameters.data_fitting}); %exp o2 data
         
         F(1,n) = sum((realo2Data-evaluations).^2)/numel(realo2Data) * scale;
-        pause(0.00001);
     catch
         F(1,n) = data.max_error(parameters.data_fitting) * scale;
     end

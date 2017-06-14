@@ -34,7 +34,7 @@ parameters.ctrlParams.fV_Km = 11387.5724922773; %bounds: [1E-6 1]
 parameters.ctrlParams.f0_Vmax = 9812.42645440625; %bounds: [0.01 10]
 parameters.ctrlParams.f0_Km = 12.2505629561911; %bounds: [0.1 1E4]
 parameters.ctrlParams.p_alpha = 0.5; %bounds: [1E-9 1]
-parameters.ctrlParams.p_fccp = 5; %bounds: [1 1E6]
+parameters.ctrlParams.p_fccp = 5; %bounds: [1 1E5]
 parameters.ctrlParams.cytcred = 0.0499624001853914 ...
     * parameters.converter; %bounds: [1E-6 1]
 parameters.ctrlParams.cytcox = 6.37656163806675 ...
@@ -61,7 +61,7 @@ parameters.expParams.fV_Km =parameters.ctrlParams.fV_Km; %bounds: [1E-6 1]
 parameters.expParams.f0_Vmax = parameters.ctrlParams.f0_Vmax; %bounds: [0.01 10]
 parameters.expParams.f0_Km = parameters.ctrlParams.f0_Km; %bounds: [0.1 1E4]
 parameters.expParams.p_alpha = parameters.ctrlParams.p_alpha; %bounds: [1E-3 1E6]
-parameters.expParams.p_fccp = parameters.ctrlParams.p_fccp; %bounds: [1 1E6]
+parameters.expParams.p_fccp = parameters.ctrlParams.p_fccp; %bounds: [1 1E5]
 parameters.expParams.cytcred = parameters.ctrlParams.cytcred; %bounds: [1E-6 1]
 parameters.expParams.cytcox = parameters.ctrlParams.cytcox; %bounds: [1E-6 1]
 
