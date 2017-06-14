@@ -17,8 +17,7 @@ sensitivity coefficients.
 
 % calculate the descriptive statistics on each column in dataMtx
 for variable=1:size(dataMtx,2)
-      
-      % calculate the descriptive statistics
+      % calculate the descriptive statistics for the boxplot
       quartiles = quantile(dataMtx(:,variable),[0.25 0.5 0.75]);
       firstQuart(variable) = quartiles(1);
       median(variable) = quartiles(2);
@@ -43,26 +42,3 @@ ylabel(ylab);
 
 % Add a title
 title(boxplot_title);
-
-% 
-% % find the bounds for the boxplot axis
-% [minVal,minBox] = min(firstQuart);
-% [maxVal,maxBox] = max(thirdQuart);
-% lb = minVal - 1.4*(thirdQuart(minBox)-minVal);
-% ub = maxVal + 1.4*(maxVal-firstQuart(maxBox));
-% 
-% if ~(lb==ub) % if it's a zero value then no need to format
-%       % reformat the axis for the boxplot
-%       axis([0.5,size(dataMtx,2)+0.5,lb,ub]);
-% end
-% 
-% % label the boxplot
-% title(label);
-% ylabel(ylab);
-% xlabel(label);
-% 
-% % set the background to white
-% set(gcf,'color','w');
-% 
-% % remove x axis label
-% set(gca,'XTick',[]);

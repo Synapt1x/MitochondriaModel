@@ -187,11 +187,6 @@ cd(curdir)
 dataMatrix = sensitivityOutput.finalVals;
 
 %% Compute statistics
-% firstly compute the mean and variance of each value
-meanVals = mean(dataMatrix,1);
-deviationVals = std(dataMatrix,0,1);
-varianceVals = deviationVals.^2;
-
 % create box plots, one for each substrate in simulation and one for each
 % equation provided for the sensitivity analysis
 first_fig = figure(1);
