@@ -1,5 +1,4 @@
-function [t,y] = solver(parameters, params, data, model_type, ...
-    models)
+function [t,y] = solver(parameters, params, data, model_type, models)
 %{
 Created by: Chris Cadonic
 ========================================

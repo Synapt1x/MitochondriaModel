@@ -44,15 +44,14 @@ rot/AA start injection at t = 28.13 m.
 %% Evaluate each mito-complex function
 f_4 = ((params.fIV_Vmax*O2)/(params.fIV_Km*(1 ...
         +(params.fIV_K/cytcred))+O2))*(Hn./Hp); % complex IV
-f_6 = params.Dh * ((Hp - Hn) + Hp * log(Hp/Hn)); % FCCP
 f_leak = params.p_alpha * (sqrt((Hp.^3) ./ Hn) - sqrt((Hn.^3) ./ Hp)); % leak
 
 %% Solve equation system
 
 dydt(1) = -2 * f_4; %dcytcred
 dydt(2) = -0.5 * f_4; %dO2
-dydt(3) =  -4 * f_4 + f_6 + f_leak; %dHn
-dydt(4) =  2 * f_4 - f_6 - f_leak; %dHn
+dydt(3) =  -4 * f_4 + (1 + params.p_fccp) * f_leak; %dHn
+dydt(4) =  2 * f_4 - (1 + params.p_fccp) * f_leak; %dHn
 
 dydt=dydt'; %correct vector orientation
 
