@@ -25,19 +25,19 @@ addpath(parameters.curdir, filesep, 'ModelSystems');
 
 %% Define the Parameters of the Model
 % control condition parameter values
-parameters.ctrlParams.fIV_Vmax = 0.7225; %bounds: [0.01 10]
-parameters.ctrlParams.fIV_K = 365.0185; %bounds: [0.1 1E4]
-parameters.ctrlParams.fIV_Km = 0.1627; %bounds: [0.1 1E4]
-parameters.ctrlParams.fV_Vmax = 43166.2487041382; %bounds: [1 1E4]
-parameters.ctrlParams.fV_K = 9342.59161533985; %bounds: [1 1E4]
-parameters.ctrlParams.fV_Km = 11387.5724922773; %bounds: [1E-6 1]
-parameters.ctrlParams.f0_Vmax = 9812.42645440625; %bounds: [0.01 10]
-parameters.ctrlParams.f0_Km = 12.2505629561911; %bounds: [0.1 1E4]
-parameters.ctrlParams.p_alpha = 0.5; %bounds: [1E-9 1]
-parameters.ctrlParams.p_fccp = 5; %bounds: [1 1E5]
-parameters.ctrlParams.cytcred = 0.0499624001853914 ...
+parameters.ctrlParams.fIV_Vmax = 6.99081e+06; %bounds: [0.01 10]
+parameters.ctrlParams.fIV_K = 956906; %bounds: [0.1 1E4]
+parameters.ctrlParams.fIV_Km = 997565; %bounds: [0.1 1E4]
+parameters.ctrlParams.fV_Vmax = 1e+06; %bounds: [1 1E4]
+parameters.ctrlParams.fV_K = 377045; %bounds: [1 1E4]
+parameters.ctrlParams.fV_Km = 1.04417; %bounds: [1E-6 1]
+parameters.ctrlParams.f0_Vmax = 223861; %bounds: [0.01 10]
+parameters.ctrlParams.f0_Km = 989850; %bounds: [0.1 1E4]
+parameters.ctrlParams.p_alpha = 0.00133617; %bounds: [1E-9 1]
+parameters.ctrlParams.p_fccp = 1.00382; %bounds: [1 1E5]
+parameters.ctrlParams.cytcred = 7530.07 ...
     * parameters.converter; %bounds: [1E-6 1]
-parameters.ctrlParams.cytcox = 6.37656163806675 ...
+parameters.ctrlParams.cytcox = 1313.58 ...
     * parameters.converter; %bounds: [1E-6 1]
 
 parameters.paramNames = fields(parameters.ctrlParams);

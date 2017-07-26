@@ -82,7 +82,7 @@ for type=1:2
         ocr_calc(j+1) = (data.(o2_handles{type})(j+1) ...
             - data.(o2_handles{type})(j)) / (data.Time(j+1) - data.Time(j));
     end
-    data.(ocr_handles{type}) = ocr_calc' * -1000;
+    data.(ocr_handles{type}) = ocr_calc' * 1000;
 end
 
 %calculate the max possible error
