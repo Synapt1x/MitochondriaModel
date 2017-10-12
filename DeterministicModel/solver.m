@@ -30,7 +30,7 @@ num_times = numel(t_fallback);
 model_equations = models.(model_type);
 
 % start timer
-tic;
+%tic;
 
 %Determine the appropriate solving methods for the given model
 try
@@ -41,18 +41,8 @@ try
             %Solve by using ode for each section and passing along the final
             %values as initial values for the next section using the proton
             %balance equations
-            [t1,y1] = ode23t(model_equations{1}, data.baseline_times, ...
+            [t, y] = ode23t(@fullSystem, data.Time, ...
                 initial_params,options,params);
-            [t2,y2] = ode23t(model_equations{2}, data.oligo_fccp_times, ...
-                [y1(end,1),y1(end,2),y1(end,3),y1(end,4)],options,params);
-            if (y2(end,3)==0)||(y2(end,3)<1.9972e-07)
-                y2(end,3)=1.9972e-07;
-            end
-            [t3,y3] = ode23t(model_equations{3}, data.inhibit_times, ...
-                [y2(end,1),y2(end,2),y2(end,3),y2(end,4)],options,params);
-
-            t = [t1;t2;t3];
-            y = [y1;y2;y3];
 
             if (numel(y(:,2)) ~= num_times) || (~isreal(y))
                 error('Error in ode solver.');
@@ -91,4 +81,4 @@ catch
     y(:,3:4) = ones(num_times, 2);
 end
 
-toc;
+%toc;

@@ -30,27 +30,35 @@ par.general.NPop=2;
 % Parameters (X)
 par.X.fIV_Vmax.range=[1E-4,1E7];
 %
-par.X.fIV_K.range=[1E-4,1E6];
+par.X.fIV_K.range=[1E-4, 1E6];
 %
-par.X.fIV_Km.range=[1E-4,1E6];
+par.X.fIV_Km.range=[1E-4, 1E6];
 %
-par.X.fV_Vmax.range=[1E-4,1E6];
+par.X.fV_Vmax.range=[1E-4, 1E6];
 %
-par.X.fV_K.range=[1E-4,1E6];
+par.X.fV_K.range=[1E-4, 1E6];
 %
-par.X.fV_Km.range=[1E-4,1E5];
+par.X.fV_Km.range=[1E-4, 1E5];
 %
-par.X.f0_Vmax.range=[1E-4,1E6];
+par.X.f0_Vmax.range=[1E-4, 1E6];
 %
-par.X.f0_Km.range=[1E-4,1E6];
+par.X.f0_Km.range=[1E-4, 1E6];
 %
-par.X.cytcred.range=[1E-3,1E4];
+par.X.cytcred.range=[1E-3, 1E4];
 %
-par.X.cytcox.range=[1E-3,1E4];
+par.X.cytcox.range=[1E-3, 1E4];
 %
-par.X.p_alpha.range=[0,1];
+par.X.p_alpha.range=[0, 1];
 %
-par.X.p_fccp.range=[1,1E5];
+par.X.p_fccp.range=[1, 1E5];
+%
+par.X.amp_1.range=[1E-3, 1];
+%
+par.X.amp_2.range=[1E-3, 1];
+%
+par.X.amp_3.range=[1E-3, 1];
+%
+par.X.amp_4.range=[1E-3, 1];
 %
 % ====================================
 % Parallel Computing

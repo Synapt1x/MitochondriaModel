@@ -49,6 +49,11 @@ parameters.ctrlParams.rho = 0.0398107 ...
     * parameters.converter; %assuming a pH of 7.4 we get 3.981E-8 mol/L
 parameters.ctrlParams.psi = -log(parameters.ctrlParams.omega / ...
                                 parameters.ctrlParams.rho); %MP approximation
+                            
+parameters.ctrlParams.amp_1 = 0.25; % max effect of FCCP in first injection
+parameters.ctrlParams.amp_2 = 0.25; % max effect of FCCP in second injection
+parameters.ctrlParams.amp_3 = 0.25; % max effect of FCCP in third injection
+parameters.ctrlParams.amp_4 = 0.25; % max effect of FCCP in final injection
 
 % experimental condition parameter values
 % Initially set to be equivalent to the control parameter set
@@ -71,6 +76,11 @@ parameters.expParams.omega = parameters.ctrlParams.omega; %bounds: [1E-6 1]
 parameters.expParams.rho = parameters.ctrlParams.rho; % pH=7.4
 parameters.expParams.psi = parameters.ctrlParams.psi; %MP approximation
 
+parameters.expParams.amp_1 = parameters.ctrlParams.amp_1;                            
+parameters.expParams.amp_2 = parameters.ctrlParams.amp_2;
+parameters.expParams.amp_3 = parameters.ctrlParams.amp_3;
+parameters.expParams.amp_4 = parameters.ctrlParams.amp_4;
+
 %define the initial condition fields
 parameters.conditionNames = {'cytctot', 'cytcox', 'cytcred', 'oxygen', ...
     'omega', 'rho'};
@@ -88,6 +98,8 @@ parameters.Hp = parameters.ctrlParams.rho;
 parameters.psi = parameters.ctrlParams.psi;
 
 %% Add time points to ctrl and exp param sets
+[parameters.ctrlParams.oligo_t, parameters.expParams.oligo_t] = ...
+    deal(data.oligo_t);
 [parameters.ctrlParams.fccp_25_t, parameters.expParams.fccp_25_t] = ...
     deal(data.fccp_25_t);
 [parameters.ctrlParams.fccp_50_t, parameters.expParams.fccp_50_t] = ...
@@ -96,6 +108,8 @@ parameters.psi = parameters.ctrlParams.psi;
     deal(data.fccp_75_t);
 [parameters.ctrlParams.fccp_100_t, parameters.expParams.fccp_100_t] = ...
     deal(data.fccp_100_t);
+[parameters.ctrlParams.inhibit_t, parameters.expParams.inhibit_t] = ...
+    deal(data.inhibit_t);
 
 %% Add all of the different subsystems of the model
 parameters.system = {};
