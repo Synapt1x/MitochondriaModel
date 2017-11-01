@@ -1,4 +1,4 @@
-function dydt = fullSystem(t,y,params)
+function dydt = oligoFccpSystem(t,y,params)
 %{
 Created by: Chris Cadonic
 ========================================
@@ -66,16 +66,13 @@ step_3 = params.amp_3 * (heaviside(t - params.fccp_75_t) ...
     - heaviside(t - params.fccp_100_t));
 step_4 = params.amp_4 * heaviside(t - params.fccp_100_t);
 
-% step for injecting AA/rotenone
-step_inhibit = 1 - heaviside(t - params.inhibit_t);
-
 %% Solve equation system
 
-dydt(1) = 2 * step_inhibit * f_0 - 2 * f_4; %dCytcred
+dydt(1) = 2 * f_0 - 2 * f_4; %dCytcred
 dydt(2) = -0.5 * f_4; %dO2
-dydt(3) = -6 * step_inhibit * f_0 - 4 * f_4 + step_oligo * f_5 ...
+dydt(3) = -6 * f_0 - 4 * f_4 + step_oligo * f_5 ...
     + (step_1 + step_2 + step_3 + step_4) * (1 + params.p_fccp) * f_leak; %dHn
-dydt(4) = 8 * step_inhibit * f_0 + 2 * f_4 - step_oligo * f_5 ...
+dydt(4) = 8 * f_0 + 2 * f_4 - step_oligo * f_5 ...
     - (step_1 + step_2 + step_3 + step_4) * (1 + params.p_fccp) * f_leak; %dHp
 
 dydt=dydt'; %correct vector orientation

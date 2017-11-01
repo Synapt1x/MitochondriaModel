@@ -55,6 +55,10 @@ parameters.ctrlParams.amp_2 = 0.25; % max effect of FCCP in second injection
 parameters.ctrlParams.amp_3 = 0.25; % max effect of FCCP in third injection
 parameters.ctrlParams.amp_4 = 0.25; % max effect of FCCP in final injection
 
+% multiplier to reduce proportion of cyt c red in inhibit step
+parameters.ctrlParams.cyt_c_drop = 0.1; 
+
+
 % experimental condition parameter values
 % Initially set to be equivalent to the control parameter set
 parameters.expParams.fIV_Vmax =parameters.ctrlParams.fIV_Vmax; %bounds: [0.01 10]
@@ -80,6 +84,8 @@ parameters.expParams.amp_1 = parameters.ctrlParams.amp_1;
 parameters.expParams.amp_2 = parameters.ctrlParams.amp_2;
 parameters.expParams.amp_3 = parameters.ctrlParams.amp_3;
 parameters.expParams.amp_4 = parameters.ctrlParams.amp_4;
+
+parameters.expParams.cyt_c_drop = parameters.ctrlParams.cyt_c_drop; 
 
 %define the initial condition fields
 parameters.conditionNames = {'cytctot', 'cytcox', 'cytcred', 'oxygen', ...

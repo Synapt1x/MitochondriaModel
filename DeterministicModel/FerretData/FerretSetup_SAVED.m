@@ -60,6 +60,8 @@ par.X.amp_3.range=[1E-3, 1];
 %
 par.X.amp_4.range=[1E-3, 1];
 %
+par.X.cyt_c_drop.range=[1E-9, 1];
+%
 % ====================================
 % Parallel Computing
 par.parallel.NWorkers=0; % Number of worker nodes to launch initially.

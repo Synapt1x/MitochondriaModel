@@ -41,8 +41,14 @@ try
             %Solve by using ode for each section and passing along the final
             %values as initial values for the next section using the proton
             %balance equations
-            [t, y] = ode23t(@fullSystem, data.Time, ...
-                initial_params,options,params);
+            [t1,y1] = ode23t(@oligoFccpSystem, [data.baseline_times; ...
+                data.oligo_fccp_times], initial_params,options,params);
+            [t2,y2] = ode23t(@inhibitSystem, data.inhibit_times, ...
+                [params.cyt_c_drop * y1(end,1), y1(end,2), y1(end,3), ...
+                y1(end,4)], options_mp,params);
+            
+            t = [t1; t2];
+            y = [y1; y2];
 
             if (numel(y(:,2)) ~= num_times) || (~isreal(y))
                 error('Error in ode solver.');
