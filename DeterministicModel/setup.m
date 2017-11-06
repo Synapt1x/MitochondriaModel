@@ -40,6 +40,14 @@ parameters.ctrlParams.cytcred = 7530.07 ...
 parameters.ctrlParams.cytcox = 1313.58 ...
     * parameters.converter; %bounds: [1E-6 1]
 
+parameters.ctrlParams.amp_1 = 0.25; % max effect of FCCP in first injection
+parameters.ctrlParams.amp_2 = 0.25; % max effect of FCCP in second injection
+parameters.ctrlParams.amp_3 = 0.25; % max effect of FCCP in third injection
+parameters.ctrlParams.amp_4 = 0.25; % max effect of FCCP in final injection
+
+% multiplier to reduce proportion of cyt c red in inhibit step
+parameters.ctrlParams.cyt_c_drop = 0.1; 
+
 parameters.paramNames = fields(parameters.ctrlParams);
 
 parameters.ctrlParams.oxygen = data.CtrlO2(1); %bounds: [1E-6 1]
@@ -49,14 +57,15 @@ parameters.ctrlParams.rho = 0.0398107 ...
     * parameters.converter; %assuming a pH of 7.4 we get 3.981E-8 mol/L
 parameters.ctrlParams.psi = -log(parameters.ctrlParams.omega / ...
                                 parameters.ctrlParams.rho); %MP approximation
-                            
+%{                          
 parameters.ctrlParams.amp_1 = 0.25; % max effect of FCCP in first injection
 parameters.ctrlParams.amp_2 = 0.25; % max effect of FCCP in second injection
 parameters.ctrlParams.amp_3 = 0.25; % max effect of FCCP in third injection
 parameters.ctrlParams.amp_4 = 0.25; % max effect of FCCP in final injection
 
 % multiplier to reduce proportion of cyt c red in inhibit step
-parameters.ctrlParams.cyt_c_drop = 0.1; 
+parameters.ctrlParams.cyt_c_drop = 0.1;
+%}
 
 
 % experimental condition parameter values
