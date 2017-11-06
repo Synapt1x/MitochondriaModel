@@ -31,12 +31,14 @@ parameters.O2 = parameters.ctrlParams.oxygen;
 parameters.ctrlParams.cytctot = parameters.ctrlParams.cytcred ...
     + parameters.ctrlParams.cytcox;
 
+tic();
 warning off
 %call ode to solve the system of equations for this solver
         %[~, y] = solver(parameters, params, data, selected_model, models);
 [~, y] = solver(parameters, parameters.ctrlParams, data, 'cc_full_model', ...
     models);
 warning on
+toc()
         
 %for fitting O2
 try
