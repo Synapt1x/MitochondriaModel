@@ -23,7 +23,8 @@ parameters = setup; %run the setup function which creates the
 % store the values of the parameters in a vector
 [paramSet,paramMT,paramPT] = deal(parameters.ctrlParams);
 paramVals = [paramSet.f0Vmax, paramSet.f0Km, paramSet.Vmax, paramSet.Km, ...
-      paramSet.K1, paramSet.p1, paramSet.p2, paramSet.p3, paramSet.Dh];
+      paramSet.K1, paramSet.p1, paramSet.p2, paramSet.p3, paramSet.Dh, ...
+      ];
 
 % store +/- 10% values in new structures
 paramMT = structfun(@(x)x*0.9,paramSet);

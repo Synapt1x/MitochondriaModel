@@ -25,28 +25,28 @@ addpath(parameters.curdir, filesep, 'ModelSystems');
 
 %% Define the Parameters of the Model
 % control condition parameter values
-parameters.ctrlParams.fIV_Vmax = 6.99081e+06; %bounds: [0.01 10]
-parameters.ctrlParams.fIV_K = 956906; %bounds: [0.1 1E4]
-parameters.ctrlParams.fIV_Km = 997565; %bounds: [0.1 1E4]
-parameters.ctrlParams.fV_Vmax = 1e+06; %bounds: [1 1E4]
-parameters.ctrlParams.fV_K = 377045; %bounds: [1 1E4]
-parameters.ctrlParams.fV_Km = 1.04417; %bounds: [1E-6 1]
-parameters.ctrlParams.f0_Vmax = 223861; %bounds: [0.01 10]
-parameters.ctrlParams.f0_Km = 989850; %bounds: [0.1 1E4]
-parameters.ctrlParams.p_alpha = 0.00133617; %bounds: [1E-9 1]
-parameters.ctrlParams.p_fccp = 1.00382; %bounds: [1 1E5]
-parameters.ctrlParams.cytcred = 7530.07 ...
+parameters.ctrlParams.fIV_Vmax = 2.7550E6; %bounds: [0.01 10]
+parameters.ctrlParams.fIV_K = 1.989E5; %bounds: [0.1 1E4]
+parameters.ctrlParams.fIV_Km = 9.9503E5; %bounds: [0.1 1E4]
+parameters.ctrlParams.fV_Vmax = 3.7813E5; %bounds: [1 1E4]
+parameters.ctrlParams.fV_K = 9.9999E5; %bounds: [1 1E4]
+parameters.ctrlParams.fV_Km = 1E-4; %bounds: [1E-6 1]
+parameters.ctrlParams.f0_Vmax = 1E6; %bounds: [0.01 10]
+parameters.ctrlParams.f0_Km = 3.0008; %bounds: [0.1 1E4]
+parameters.ctrlParams.p_alpha = 0.4099; %bounds: [1E-9 1]
+parameters.ctrlParams.p_fccp = 1.0073; %bounds: [1 1E5]
+parameters.ctrlParams.cytcred = 1.7045E3 ...
     * parameters.converter; %bounds: [1E-6 1]
-parameters.ctrlParams.cytcox = 1313.58 ...
+parameters.ctrlParams.cytcox = 2.1267E3 ...
     * parameters.converter; %bounds: [1E-6 1]
 
-parameters.ctrlParams.amp_1 = 0.25; % max effect of FCCP in first injection
-parameters.ctrlParams.amp_2 = 0.25; % max effect of FCCP in second injection
-parameters.ctrlParams.amp_3 = 0.25; % max effect of FCCP in third injection
-parameters.ctrlParams.amp_4 = 0.25; % max effect of FCCP in final injection
+parameters.ctrlParams.amp_1 = 1E-3; % max effect of FCCP in first injection
+parameters.ctrlParams.amp_2 = 0.0017; % max effect of FCCP in second injection
+parameters.ctrlParams.amp_3 = 0.0036; % max effect of FCCP in third injection
+parameters.ctrlParams.amp_4 = 0.0168; % max effect of FCCP in final injection
 
 % multiplier to reduce proportion of cyt c red in inhibit step
-parameters.ctrlParams.cyt_c_drop = 0.1; 
+parameters.ctrlParams.cyt_c_drop = 0.1108; 
 
 parameters.paramNames = fields(parameters.ctrlParams);
 
