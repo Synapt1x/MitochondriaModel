@@ -20,6 +20,7 @@ size_sols = size(OptimalSolutions.X, 2);
 bestFit = OptimalSolutions.F(:,1).*inf;
 bestSet = struct();
 errs = struct();
+means = struct();
 all_params = [];
 F = Inf(1, size_sols);
 
@@ -55,6 +56,7 @@ for i = 1:numel(fields) - 1
     fieldname = fields{i};
     field_vals = [top_params.(fieldname)];
     errs.(fieldname) = std(field_vals) / sqrt(length(field_vals));
+    means.(fieldname) = mean(field_vals);
 end
 
 %% Save files to Solutions folder
@@ -65,7 +67,7 @@ todayDate = date; %get the run date
 
 %save the Best solution to the Solutions folder
 resultsname = [todayDate '-BestResults'];
-save(resultsname,'bestSet','bestFit', 'errs');
+save(resultsname,'bestSet','bestFit', 'errs', 'means');
 
 %display a message indicating the files will be saved
 disp(['Saving output files to ' folder '/Solutions.']);
