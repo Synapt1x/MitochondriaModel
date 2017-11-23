@@ -16,53 +16,86 @@ clc
 % intialize storage vectors
 [E_stars,sensitivityVals] = deal([]);
 
-parameters = setup; %run the setup function which creates the
+[parameters, data, models] = setup; %run the setup function which creates the
 %structure storing all variables necessary
 %for evaluating the model (found in 'setup.m')
+origParameters = parameters;
 
 % store the values of the parameters in a vector
 [paramSet,paramMT,paramPT] = deal(parameters.ctrlParams);
-paramVals = [paramSet.f0Vmax, paramSet.f0Km, paramSet.Vmax, paramSet.Km, ...
-      paramSet.K1, paramSet.p1, paramSet.p2, paramSet.p3, paramSet.Dh, ...
-      ];
+paramVals = [paramSet.f0_Vmax, paramSet.f0_Km, paramSet.fIV_Vmax, ...
+    paramSet.fIV_K, paramSet.fIV_Km, paramSet.fV_Vmax, paramSet.fV_K, ...
+    paramSet.fV_Km, paramSet.p_alpha, paramSet.p_fccp, paramSet.cytcred, ...
+    paramSet.cytcox, paramSet.amp_1, paramSet.amp_2, paramSet.amp_3, ...
+    paramSet.amp_4, paramSet.cyt_c_drop];
+origCytProp = paramSet.cytcred/paramSet.cytctot;
 
 % store +/- 10% values in new structures
 paramMT = structfun(@(x)x*0.9,paramSet);
 paramPT = structfun(@(x)x*1.1,paramSet);
 
 % names of each parameters as they are stored
-parameterIDs = {'f0Vmax','f0Km','Vmax','Km','K1','p1','p2','p3','Dh'};
+parameterIDs = {'f0_Vmax', 'f0_Km', 'fIV_Vmax', 'fIV_K', 'fIV_Km', ...
+    'fV_Vmax', 'fV_K', 'fV_Km', 'p_alpha', 'p_fccp', 'cytcred', 'cytcox', ...
+    'amp_1', 'amp_2', 'amp_3', 'amp_4', 'cyt_c_drop'};
 
 %% Evaluate E* and E*+/- 10%
 
 % evalute E*, consistent across all parameter changes
-E_star = sensitivitySolver(parameters,paramSet);
+E_star = sensitivitySolver(parameters, paramSet, data);
 
 % evaluate E* of plus and minus 10 for each parameter
 for param=1:numel(parameterIDs)
-      parameterSet = paramSet;      
+      parameterSet = paramSet;
+      parameters = origParameters;
+      
+      if param==11
+          parameters.cytcox = paramMT(param);
+          parameters.cytctot = parameters.cytcred + parameters.cytcox;
+          
+          parameterSet.cytcred = parameters.cytcred;
+          parameterSet.cytctot = parameters.cytctot;
+      end
+      if param==12
+          parameters.cytctot = paramMT(param);
+          parameters.cytcred = parameters.cytctot*origCytProp;
+          parameters.cytcox = parameters.cytctot*(1-origCytProp);
+          
+          parameterSet.cytcred = parameters.cytcred;
+          parameterSet.cytcox = parameters.cytcox;
+          parameterSet.cytctot = parameters.cytctot;
+      end
       
       % Change vmax to be evaluated at minus 10%
       parameterSet.(parameterIDs{param}) = paramMT(param);
-      [~,minusEval] = solver(parameters,parameterSet);
+      [~,minusEval] = solver(parameters,parameterSet, data, 'cc_full_model', ...
+          models);
       
       % Change vmax to be evaluated at plus 10%
       parameterSet.(parameterIDs{param}) = paramPT(param);
-      [~,plusEval] = solver(parameters,parameterSet);
+      [~,plusEval] = solver(parameters,parameterSet, data, 'cc_full_model', ...
+          models);
       
       % evaluate E*'s
-      E_minus = sum((realData - minusEval(:,2)).^2)/numel(realData);
-      E_plus = sum((realData - plusEval(:,2)).^2)/numel(realData);
+      E_minus = sum((data.CtrlO2 - minusEval(:,2)).^2)/numel(data.CtrlO2);
+      E_plus = sum((data.CtrlO2 - plusEval(:,2)).^2)/numel(data.CtrlO2);
       
       %store into sensitivity matrix
       E_stars(param,1) = E_minus;
       E_stars(param,2) = E_plus;
       
-      sensitivityVals(param) = max(abs(E_stars(param,1)-E_star)/(0.1*E_star), ...
-            abs(E_stars(param,2)-E_star)/(0.1*E_star));
+      sensitivityVals(param) = max(abs(E_stars(param,1)-E_star{1})/(0.1*E_star{1}), ...
+            abs(E_stars(param,2)-E_star{1})/(0.1*E_star{1}));
       
       % calculate and display the sensitivity values
       disp(['Sensitivity for parameter ', parameterIDs{param}, ' is: ', ...
+            num2str(sensitivityVals(param))]);
+end
+
+sensitivityVals = sensitivityVals ./ sum(sensitivityVals);
+
+for param=1:numel(parameterIDs)
+    disp(['NORMALIZED Sensitivity for parameter ', parameterIDs{param}, ' is: ', ...
             num2str(sensitivityVals(param))]);
 end
 

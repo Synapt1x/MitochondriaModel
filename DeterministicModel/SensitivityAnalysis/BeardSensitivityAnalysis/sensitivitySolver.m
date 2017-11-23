@@ -1,4 +1,4 @@
-function errors = sensitivitySolver(parameters,params)
+function errors = sensitivitySolver(parameters,params, data)
 %{
 Created by: Chris Cadonic
 ========================================
@@ -17,45 +17,35 @@ errors = {};
 %Set the options for running ode45
 options = odeset('NonNegative',[1,2,3,4]);
 
+initial_params = [params.cytcred, params.oxygen, params.omega, params.rho];
+
 %Solve by using ode for each section and passing along the final
 %values as initial values for the next section
 tic
-[t1,y1] = ode45(@baselineSystem, parameters.baselineTimes, ...
-    [parameters.Cytcred,parameters.O2,parameters.Hn, ...
-    parameters.Hp],options,params);
-[t2,y2] = ode45(@oligoSystem, parameters.oligoTimes, ...
-    [y1(end,1),y1(end,2),y1(end,3),y1(end,4)],options,params);
-[t3,y3] = ode45(@fccpSystem, parameters.fccpTimes, ...
-    [y2(end,1),y2(end,2),y2(end,3),y2(end,4)],options,params);
-[t4,y4] = ode45(@inhibitSystem, parameters.inhibitTimes, ...
-    [y3(end,1),y3(end,2),y3(end,3),y3(end,4)],options,params);
+[t1,y1] = ode23t(@oligoFccpSystem, [data.baseline_times; ...
+    data.oligo_fccp_times], initial_params,options,params);
+[t2,y2] = ode23t(@inhibitSystem, data.inhibit_times, ...
+    [params.cyt_c_drop * y1(end,1), y1(end,2), y1(end,3), ...
+    y1(end,4)], options,params);
+
+t = [t1; t2];
+y = [y1; y2];
 toc
 
 %store the first, solution for the entire model
-solutionEval{1} = [y1;y2;y3;y4];
+solutionEval{1} = y;
 
 %repeat solving the system for each section separately
-[~,solutionEval{2}] = ode45(@baselineSystem, parameters.baselineTimes, ...
-    [parameters.Cytcred,parameters.O2,parameters.Hn, ...
-    parameters.Hp],options,params);
-[~,solutionEval{3}] = ode45(@oligoSystem, parameters.oligoTimes, ...
-    [solutionEval{2}(end,1),solutionEval{2}(end,2),solutionEval{2}(end,3), ...
-    solutionEval{2}(end,4)],options,params);
-[~,solutionEval{4}] = ode45(@fccpSystem, parameters.fccpTimes, ...
-    [solutionEval{3}(end,1),solutionEval{3}(end,2),solutionEval{3}(end,3), ...
-    solutionEval{3}(end,4)],options,params);
-[~,solutionEval{5}] = ode45(@inhibitSystem, parameters.inhibitTimes, ...
-    [solutionEval{4}(end,1),solutionEval{4}(end,2),solutionEval{4}(end,3), ...
-    solutionEval{4}(end,4)],options,params);
+[~, solutionEval{2}] = ode23t(@oligoFccpSystem, [data.baseline_times; ...
+    data.oligo_fccp_times], initial_params,options,params);
+[~, solutionEval{3}] = ode23t(@inhibitSystem, data.inhibit_times, ...
+    [params.cyt_c_drop * y1(end,1), y1(end,2), y1(end,3), ...
+    y1(end,4)], options,params);
 
 %format real data for 5 separate solutions
-realData{1} = parameters.realo2Data;
-realData{2} = realData{1}(1:parameters.oligoTime-1);
-realData{3} = realData{1}(parameters.oligoTime: ...
-      parameters.fccpTime-1);
-realData{4} = realData{1}(parameters.fccpTime: ...
-      parameters.inhibitTime-1);
-realData{5} = realData{1}(parameters.inhibitTime:end);
+realData{1} = data.CtrlO2;
+realData{2} = [data.baseline_times; data.oligo_fccp_times];
+realData{3} = data.inhibit_times;
 
 % loop over and calculate the error for each condition
 for condition = 1:numel(solutionEval) 
