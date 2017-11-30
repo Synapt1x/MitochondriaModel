@@ -20,13 +20,23 @@ orig_cytcred_prop = parameters.ctrlParams.cytcred ...
 
 % slice parameters
 plots = {'f0', 'fIV'};
-step_factor = 0.05;
+step_factor = 0.005;
 
 %% x, y, z = Vmax, Km, Cyt c for f0
 %% x, y, z = Vmax, Km, K for fIV
 vars = struct();
 vars.f0 = {'f0_Vmax', 'f0_Km', 'cytctot'};
 vars.fIV = {'fIV_Vmax', 'fIV_Km', 'fIV_K'};
+
+labels.f0 = {'V_{max_{f0}}', 'Km_{f0}', 'cyt c_{tot}'};
+labels.fIV = {'V_{max_{fIV}}', 'Km_{fIV}', 'K_{fIV}'};
+
+% plot parameters
+figs = {};
+fig_names = {{'Effect of Altering Input Function Parameters', 'on Average OCR'}, ...
+    {'Effect of Altering Complex IV Function Parameters', 'on Average OCR'}};
+filenames = {['SlicePredictions/f0-Predictions-', date] ...
+    ['SlicePredictions/fIV-Predictions-', date]};
 
 for plot_num=1:2
     
@@ -51,22 +61,21 @@ for plot_num=1:2
         y_min : step_y : y_max, ...
         z_min : step_z : z_max);
     
-    len = length(x(1, :, 1));
+    pts = [x(:), y(:), z(:)];
+    all_o2 = zeros(length(pts), 1);
     
-    x_vals = x(1, :, 1);
-    y_vals = y(:, 1, 1)';
-    z_vals = z(1, 1, :);
-    z_vals = reshape(z_vals, [1, len]);
-    
-    all_vals = [x_vals; y_vals; z_vals]';
+    arm_length = length(x);
+    len = numel(x);    
 
     for i=1:len
         parameters = orig_parameters;
         
-        cur_vals = all_vals(i, :);
+        cur_vals = pts(i, :);
         
-        for j=1:length(cur_vals)
-            parameters.ctrlParams.(var_plot{j}) = cur_vals(j);
+        for j=1:length(var_plot)
+            var = var_plot{j};
+            
+            parameters.ctrlParams.(var) = cur_vals(j);
             
             if strcmp(var_plot{j},'cytctot')
                 parameters.cytctot = cur_vals(j);
@@ -78,17 +87,40 @@ for plot_num=1:2
             end
         end
         
-        [t, y] = solver(parameters, parameters.ctrlParams, data, ...
+        [~, out] = solver(parameters, parameters.ctrlParams, data, ...
             'cc_baseline_model', models);
+        
+        o2 = out(:,2);
+        avg_o2 = mean(o2);
+        
+        all_o2(i) = avg_o2;
     end
+    
+    all_o2 = reshape(all_o2, [arm_length, arm_length, arm_length]);
     
     xslice = x_max / 2;
     yslice = y_max / 2;
     zslice = z_max / 2;
     
+    figure(plot_num);
+    fig = slice(x, y, z, all_o2, xslice, yslice, zslice);
     
-    slice(x, y, z, v, xslice, yslice, zslice);
+    slice_labels = labels.(plots{plot_num});
+    title(fig_names{plot_num});
+    xlabel(slice_labels{1});
+    ylabel(slice_labels{2});
+    zlabel(slice_labels{3});
     
-    colormap hsv;
+    for i=1:length(fig)
+        fig(i).FaceColor = 'interp';
+        fig(i).EdgeColor = 'none';
+        fig(i).DiffuseStrength = 0.8;
+    end
+    axis tight;
+    colormap jet;
+    colorbar;
     
+    export_fig(filenames{plot_num})
 end
+
+

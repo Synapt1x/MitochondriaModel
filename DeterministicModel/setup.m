@@ -17,8 +17,6 @@ else
     [data, parameters.converter] = data_formatter;
 end
 
-
-
 parameters.data_fitting = 1; % default fit is for fitting control data
 
 %get the current working directory
