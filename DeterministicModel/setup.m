@@ -17,11 +17,16 @@ else
     [data, parameters.converter] = data_formatter;
 end
 
+
+
 parameters.data_fitting = 1; % default fit is for fitting control data
 
 %get the current working directory
 parameters.curdir = fileparts(which(mfilename));
 addpath(parameters.curdir, filesep, 'ModelSystems');
+
+% add model equations folder to path var
+addpath(genpath([parameters.curdir, filesep, 'ModelEquations']));
 
 %% Define the Parameters of the Model
 % control condition parameter values

@@ -59,7 +59,7 @@ try
             [t,y] = ode23t(model_equations{1}, t_fallback, initial_params,options,...
                 params);
 
-            if numel(y) ~= num_times
+            if numel(y(:,2)) ~= num_times
                 error('Error in ode solver.');
             end
         case 'cc_mp_model'
