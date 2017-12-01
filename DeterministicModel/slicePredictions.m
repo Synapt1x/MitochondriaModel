@@ -20,7 +20,7 @@ orig_cytcred_prop = parameters.ctrlParams.cytcred ...
 
 % slice parameters
 plots = {'f0', 'fIV'};
-step_factor = 0.005;
+step_factor = 0.01;
 
 %% x, y, z = Vmax, Km, Cyt c for f0
 %% x, y, z = Vmax, Km, K for fIV
@@ -37,10 +37,14 @@ fig_names = {{'Effect of Altering Input Function Parameters', 'on Average OCR'},
     {'Effect of Altering Complex IV Function Parameters', 'on Average OCR'}};
 filenames = {['SlicePredictions/f0-Predictions-', date] ...
     ['SlicePredictions/fIV-Predictions-', date]};
+var_files = {['SlicePredictions/f0-vars-', date, '.mat'], ...
+    ['SlicePredictions/fIV-vars-', date, '.mat']};
 
 for plot_num=1:2
     
     cur_plot = plots{plot_num};
+    
+    disp(['-- Starting plot of ', cur_plot, ' --']);
     
     var_plot = vars.(cur_plot);
     
@@ -121,6 +125,9 @@ for plot_num=1:2
     colorbar;
     
     export_fig(filenames{plot_num})
+    save(var_files{plot_num}, 'fig', 'all_o2', 'xslice', 'yslice', ...
+        'zslice')
+    disp('--Finished plot--');
 end
 
 
