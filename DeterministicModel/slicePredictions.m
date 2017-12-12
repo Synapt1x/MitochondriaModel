@@ -6,7 +6,9 @@ For: M.Sc program in Biomedical Engineering
 Project: Modeling Mitochondrial Bioenergetics
 ========================================
 This is the code used for running and outputting graphs for predictions
-using the mitochondrial model developed in my masters project.
+using the mitochondrial model developed in my masters project, specifically
+the volumetric slice plots illustrating the effect of changing main model
+parameters on baseline model output.
 
 These predictions are made in an effort to illustrate how the model
 suggests changes in Alzheimer's data may appear.
@@ -32,7 +34,6 @@ labels.f0 = {'V_{max_{f0}}', 'Km_{f0}', 'cyt c_{tot}'};
 labels.fIV = {'V_{max_{fIV}}', 'Km_{fIV}', 'K_{fIV}'};
 
 % plot parameters
-figs = {};
 fig_names = {{'Effect of Altering Input Function Parameters', 'on Average OCR'}, ...
     {'Effect of Altering Complex IV Function Parameters', 'on Average OCR'}};
 filenames = {['SlicePredictions/f0-Predictions-', date] ...
