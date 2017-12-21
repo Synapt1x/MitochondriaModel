@@ -50,8 +50,10 @@ f_leak = params.p_alpha * (sqrt((Hp.^3) ./ Hn) - sqrt((Hn.^3) ./ Hp)); % leak
 
 dydt(1) = -2 * f_4; %dcytcred
 dydt(2) = -0.5 * f_4; %dO2
-dydt(3) =  -4 * f_4 + (1 + params.p_fccp) * f_leak; %dHn
-dydt(4) =  2 * f_4 - (1 + params.p_fccp) * f_leak; %dHn
+dydt(3) =  -4 * f_4 + (1 + (params.amp_1 + params.amp_2 + params.amp_3 ...
+    + params.amp_4) * params.p_fccp) * f_leak; %dHn
+dydt(4) =  2 * f_4 - (1 + (params.amp_1 + params.amp_2 + params.amp_3 ...
+    + params.amp_4) * params.p_fccp) * f_leak; %dHn
 
 dydt=dydt'; %correct vector orientation
 

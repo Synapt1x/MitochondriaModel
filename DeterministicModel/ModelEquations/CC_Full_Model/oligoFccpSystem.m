@@ -71,9 +71,9 @@ step_4 = params.amp_4 * heaviside(t - params.fccp_100_t);
 dydt(1) = 2 * f_0 - 2 * f_4; %dCytcred
 dydt(2) = -0.5 * f_4; %dO2
 dydt(3) = -6 * f_0 - 4 * f_4 + step_oligo * f_5 ...
-    + (step_1 + step_2 + step_3 + step_4) * (1 + params.p_fccp) * f_leak; %dHn
+    + (1 + (step_1 + step_2 + step_3 + step_4) * params.p_fccp) * f_leak; %dHn
 dydt(4) = 8 * f_0 + 2 * f_4 - step_oligo * f_5 ...
-    - (step_1 + step_2 + step_3 + step_4) * (1 + params.p_fccp) * f_leak; %dHp
+    - (1 + (step_1 + step_2 + step_3 + step_4) * params.p_fccp) * f_leak; %dHp
 
 dydt=dydt'; %correct vector orientation
 
