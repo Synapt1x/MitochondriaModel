@@ -15,6 +15,7 @@ global best, which will be stored in the variable result.
 
 % number of general solutions
 size_sols = size(OptimalSolutions.X, 2);
+%size_sols = 40;
 
 main_dir=fileparts(which(mfilename));
 
@@ -60,13 +61,31 @@ top_params = all_params(top_F_idx);
 
 fields = fieldnames(top_params);
 
+top_field_vals = struct;
+normed_field_vals = struct;
+normed_vals = [];
+order = cell([numel(fields) - 1, 1]);
+
 for i = 1:numel(fields) - 1
     fieldname = fields{i};
     field_vals = [top_params.(fieldname)];
+    top_field_vals.(fieldname) = field_vals;
+    normed_field_vals.(fieldname) = field_vals / max(field_vals);
+    
+    normed_vals = [normed_vals, normed_field_vals.(fieldname)'];
+    order{i} = fieldname;
+    
     stds.(fieldname) = std(field_vals);
     errs.(fieldname) = stds.(fieldname) / sqrt(length(field_vals));
     means.(fieldname) = mean(field_vals);
 end
+
+%% Plot all boxplots on same figure
+figure(1);
+boxplot(normed_vals);
+%ylim([0 1])
+title('Boxplots for top 10% of solutions');
+set(gca, 'XTickLabel', order, 'XTickLabelRotation', 45, 'fontsize', 14);
 
 %% Plot all of the curves from top 10% of solutions
 for i=1:top_ten
@@ -100,7 +119,7 @@ end
 max_vals = max(all_top_o2, [], 2);
 min_vals = min(all_top_o2, [], 2);
 
-figure(1);
+figure(20);
 hold on
 f = plot(data.Time, best_fit, 'b', 'LineWidth', 2);
 plot(data.Time, max_vals, 'g--');
@@ -121,7 +140,8 @@ todayDate = date; %get the run date
 
 %save the Best solution to the Solutions folder
 resultsname = [todayDate '-BestResults'];
-save(resultsname,'bestSet','bestFit', 'errs', 'stds', 'means', 'all_top_o2');
+save(resultsname,'bestSet','bestFit', 'errs', 'stds', 'means', 'all_top_o2', ...
+'top_field_vals', 'normed_field_vals', 'normed_vals', 'order');
 
 %display a message indicating the files will be saved
 disp(['Saving output files to ' folder '/Solutions.']);
