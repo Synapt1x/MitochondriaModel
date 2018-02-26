@@ -15,7 +15,7 @@ global best, which will be stored in the variable result.
 
 % number of general solutions
 size_sols = size(OptimalSolutions.X, 2);
-%size_sols = 40;
+%size_sols = 30;
 
 main_dir=fileparts(which(mfilename));
 
@@ -62,17 +62,33 @@ top_params = all_params(top_F_idx);
 fields = fieldnames(top_params);
 
 top_field_vals = struct;
-normed_field_vals = struct;
-normed_vals = [];
+mean_normed_field_vals = struct;
+range_normed_field_vals = struct;
+max_normed_field_vals = struct;
+mean_normed_vals = [];
+range_normed_vals = [];
+max_normed_vals = [];
 order = cell([numel(fields) - 1, 1]);
+names = {'V_{max_{cIV}}', 'K_{cIV}', 'K_{m_{cIV}}', 'V_{max_{cV}}', ... 
+    'K_{cV}', 'K_{m_{cV}}', 'V_{max_{f0}}', 'K_{m_{f0}}', ...
+    'cyt c_{red}', 'cyt c_{ox}', 'P_{leak}', 'P_{FCCP}', '\alpha_{fccp_{0.25}}', ...
+    '\alpha_{fccp_{0.5}}', '\alpha_{fccp_{0.75}}', '\alpha_{fccp_{1.0}}',...
+    'r_{attenuate}'};
 
 for i = 1:numel(fields) - 1
     fieldname = fields{i};
     field_vals = [top_params.(fieldname)];
     top_field_vals.(fieldname) = field_vals;
-    normed_field_vals.(fieldname) = field_vals / max(field_vals);
+    mean_normed_field_vals.(fieldname) = (field_vals  - mean(field_vals)) / ...
+        (max(field_vals) - min(field_vals));
+    range_normed_field_vals.(fieldname) = (field_vals  - min(field_vals)) / ...
+        (max(field_vals) - min(field_vals));
+    max_normed_field_vals.(fieldname) = field_vals / max(field_vals);
     
-    normed_vals = [normed_vals, normed_field_vals.(fieldname)'];
+    max_normed_vals = [max_normed_vals, max_normed_field_vals.(fieldname)'];
+    mean_normed_vals = [mean_normed_vals, mean_normed_field_vals.(fieldname)'];
+    range_normed_vals = [range_normed_vals, ...
+        range_normed_field_vals.(fieldname)'];
     order{i} = fieldname;
     
     stds.(fieldname) = std(field_vals);
@@ -82,10 +98,32 @@ end
 
 %% Plot all boxplots on same figure
 figure(1);
-boxplot(normed_vals);
+boxplot(mean_normed_vals);
 %ylim([0 1])
-title('Boxplots for top 10% of solutions');
-set(gca, 'XTickLabel', order, 'XTickLabelRotation', 45, 'fontsize', 14);
+title('Boxplots for top 10% of solutions after Mean Normalization');
+set(gca, 'TickLabelInterpreter', 'tex');
+set(gca, 'XTickLabel', names, 'XTickLabelRotation', 45, 'fontsize', 14);
+xlabel('Model Parameter');
+ylabel('Feature-normalized value');
+
+figure(2);
+boxplot(range_normed_vals);
+%ylim([0 1])
+title('Boxplots for top 10% of solutions after Range Normalization');
+set(gca, 'TickLabelInterpreter', 'tex');
+set(gca, 'XTickLabel', names, 'XTickLabelRotation', 45, 'fontsize', 14);
+xlabel('Model Parameter');
+ylabel('Feature-normalized value');
+
+figure(3);
+boxplot(range_normed_vals);
+%ylim([0 1])
+title('Boxplots for top 10% of solutions after Max Normalization');
+set(gca, 'TickLabelInterpreter', 'tex');
+set(gca, 'XTickLabel', names, 'XTickLabelRotation', 45, 'fontsize', 14);
+xlabel('Model Parameter');
+ylabel('Feature-normalized value');
+
 
 %% Plot all of the curves from top 10% of solutions
 for i=1:top_ten
@@ -141,7 +179,8 @@ todayDate = date; %get the run date
 %save the Best solution to the Solutions folder
 resultsname = [todayDate '-BestResults'];
 save(resultsname,'bestSet','bestFit', 'errs', 'stds', 'means', 'all_top_o2', ...
-'top_field_vals', 'normed_field_vals', 'normed_vals', 'order');
+'top_field_vals', 'mean_normed_field_vals', 'range_normed_field_vals', ...
+'max_normed_field_vals', 'order', 'names');
 
 %display a message indicating the files will be saved
 disp(['Saving output files to ' folder '/Solutions.']);
