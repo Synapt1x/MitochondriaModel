@@ -83,6 +83,15 @@ drho = 8 * ((f0_Vmax*(cytcdiff))...
     - ((fV_Vmax.*rho)/(rho+fV_K.*omega+fV_Km)) ...
     + p_alpha * (sqrt((rho.^3) ./ omega) - sqrt((omega.^3) ./ rho)); %dHp
 
+
+
+
+
+
+
+%% OLD============================================================ %%
+
+%{
 %define arrays containing all funcs and all params
 funcs = [dr,do,domega,drho];
 parameters = [f0_Vmax, f0_Km, fIV_Vmax, fIV_K, fIV_Km, fV_Vmax, fV_K, ...
@@ -223,3 +232,4 @@ for figurenum=2:5
     
     close all;
 end
+}%
