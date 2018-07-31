@@ -15,18 +15,20 @@ This will be carrying out sensitivty analysis for the baseline system.
 
 %%%%%%%%%%%%%%%%%%%%%%%% define parameters for run %%%%%%%%%%%%%%%%%%%%%%%%
 
-numsims = 5;
+numsims = 1E3;
 max_t = 1E3;
 % lower bounds for params
-lb = [0.01, 0.01, 0.01, ... %fIV
-    0.1, 0.1, 0.1, ... %fV
-    0.01, 0.01, ... %f0
-    1E-6, 0, 1E-6, 1, 0];
+lb = [1E5, 1, ... %f0
+    1E6, 1E5, 1E5, ... %fIV
+    1E5, 100, 1E5, ... %fV
+    1E3, 1E3, 0.05, 1E-3, 1E-3, 1E-3, 1E-3, 0.05];
+    % last row: r0, ox0, leak, amp1-4, attenuate
 % upper bounds for params
-ub = [10, 1E4, 1E4, ... %fIV
-    1E4, 1E4, 1E4, ... %fV
-    1E4, 1E4, ... %f0
-    1E5, 1, 1E4, 1E5, max_t]; 
+ub = [1E6, 50, ... %f0
+    1E7, 1E6, 1E6, ... %fIV
+    1E6, 5E2, 1E6, ... %fV
+    5E3, 5E3, 1.0, 5E-3, 5E-3, 5E-3, 5E-3, 1.0];
+    % last row: r0, ox0, leak, amp1-4, attenuate
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -38,7 +40,8 @@ curdir = fileparts(which(mfilename));
 cd(['..',filesep,'..']);
 
 % acquire initial setup data for the model
-[params, data, models] = setup;
+[all_params, data, models] = setup;
+params = all_params.ctrlParams;
 
 cd(curdir);
 
@@ -48,13 +51,15 @@ cd(curdir);
 % cd('SensitivityAnalysis');
 
 %Initialize the symbolic variables in the model; vars, params and t
-syms r o omega rho f0_Vmax f0_Km fIV_Vmax fIV_K fIV_Km fV_Vmax ...
-    fV_K fV_Km cytcred cytcox p_alpha p_fccp t;
+syms r o omega rho t f0_Vmax f0_Km fIV_Vmax fIV_K fIV_Km fV_Vmax ...
+    fV_K fV_Km r0 ox0 p_leak amp_1 amp_2 amp_3 amp_4 r_attenuate;
+parameters = [f0_Vmax, f0_Km, fIV_Vmax, fIV_K, fIV_Km, fV_Vmax, ...
+    fV_K, fV_Km, r0, ox0, p_leak, amp_1, amp_2, amp_3, amp_4, r_attenuate];
 % state variables
 r = params.cytcred;
 o = 171.0549;
-omega = params.Hn;
-rho = params.Hp;
+omega = all_params.Hn;
+rho = all_params.Hp;
 
 %Initialize output parameters
 sensitivityOutput.equations = [];
@@ -62,30 +67,49 @@ sensitivityOutput.equations = [];
     = deal({});
 
 %define cytcdiff
-cytcdiff = cytcox - r;
-
+cytcdiff = ox0 - r;
 
 %% Solve equation system
 disp('Differentiating equations and finding sensitivity coefficients...')
 
-dr = 2 * ((f0_Vmax*(cytcdiff))...
-    /(f0_Km+(cytcdiff)))*(omega./rho) - 2 * ((fIV_Vmax*o)/(fIV_Km*(1 ...
-    +(fIV_K/cytcred))+o))*(omega./rho); %dCytcred
-do = -0.5 * ((fIV_Vmax*o)/(fIV_Km*(1+(fIV_K/cytcred))+o))*(omega./rho); %dO2
-domega = -6 * ((f0_Vmax*(cytcdiff))...
-    / (f0_Km+(cytcdiff)))*(omega./rho) - 4 * ((fIV_Vmax*o)/(fIV_Km*(1 ...
-    + (fIV_K/cytcred))+o))*(omega./rho) ...
-    + ((fV_Vmax.*rho)/(rho+fV_K.*omega+fV_Km)) ...
-    + p_alpha * (sqrt((rho.^3) ./ omega) - sqrt((omega.^3) ./ rho)); %dHn
-drho = 8 * ((f0_Vmax*(cytcdiff))...
-    / (f0_Km+(cytcdiff)))*(omega./rho) + 2 * ((fIV_Vmax*o)/(fIV_Km*(1 ...
-    + (fIV_K/cytcred))+o))*(omega./rho) ...
-    - ((fV_Vmax.*rho)/(rho+fV_K.*omega+fV_Km)) ...
-    + p_alpha * (sqrt((rho.^3) ./ omega) - sqrt((omega.^3) ./ rho)); %dHp
+%% Solve equation system
+%% =================== FULL SYSTEM ONLINE ==================== %%
+f_0 = ((f0_Vmax*(cytcdiff))/(f0_Km+(cytcdiff))) ...
+        *(omega./rho); % complexes I-III
+f_4 = ((fIV_Vmax*o)/(fIV_Km*(1 ...
+        +(fIV_K/r))+o))*(omega./rho); % complex IV
+f_5 = ((fV_Vmax.*rho)/(rho+fV_K.*omega+fV_Km)); % ATP Synthase
+f_leak = p_leak * (sqrt((rho.^3) ./ omega) ...
+    - sqrt((omega.^3) ./ rho)); % leak
 
+% step for oligomycin injection
+step_oligo = 1 - heaviside(t - params.oligo_t);
 
+% steps for gradual FCCP injection
+step_1 = amp_1 * (heaviside(t - params.fccp_25_t) ...
+    - heaviside(t - params.fccp_50_t));
+step_2 = amp_2 * (heaviside(t - params.fccp_50_t) ...
+    - heaviside(t - params.fccp_75_t));
+step_3 = amp_3 * (heaviside(t - params.fccp_75_t) ...
+    - heaviside(t - params.fccp_100_t));
+step_4 = amp_4 * heaviside(t - params.fccp_100_t);
 
+% step for injecting AA/rotenone
+step_inhibit = 1 - heaviside(t - params.inhibit_t);
 
+%% Solve equation system
+
+dr = 2 * step_inhibit * f_0 - 2 * f_4; %dCytcred
+do = -0.5 * f_4; %dO2
+domega = -6 * step_inhibit * f_0 - 4 * f_4 + step_oligo * f_5 ...
+    + (1 + (step_1 + step_2 + step_3 + step_4) * params.p_fccp) * f_leak; %dHn
+drho = 8 * step_inhibit * f_0 + 2 * f_4 - step_oligo * f_5 ...
+    - (1 + (step_1 + step_2 + step_3 + step_4) * params.p_fccp) * f_leak;
+
+% create the sampling pool using latin hypercube sampling
+lhsRaw = lhsdesign(numsims, numel(parameters));
+lhs = bsxfun(@plus, lb, bsxfun(@times, lhsRaw, (ub-lb))); % rescale
+lhsCell = num2cell(lhs);  % convert to cell matrix
 
 
 
@@ -232,4 +256,4 @@ for figurenum=2:5
     
     close all;
 end
-}%
+%}
