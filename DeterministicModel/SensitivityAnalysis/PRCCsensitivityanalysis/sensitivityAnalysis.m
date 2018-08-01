@@ -16,7 +16,7 @@ function sensitivityAnalysis()
     %%%%%%%%%%%%%%%%%%%%%%%% define parameters for run %%%%%%%%%%%%%%%%%%%%%%%%
 
     % universal and single-run parameters
-    num_sims = 1E5;
+    num_sims = 1E4;
     display_interval = num_sims / 4;
     max_t = 1E3;
     % lower bounds for params
@@ -34,7 +34,7 @@ function sensitivityAnalysis()
         
     % set parameters for time evolution
     num_time_samples = 180;
-    num_multi_sims = 5E3;
+    num_multi_sims = 1E3;
     independent_multi = true;
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -80,9 +80,11 @@ function sensitivityAnalysis()
 
     disp('Simulating outputs from LHS sampling...');
 
+    tic
     % calculate all output vals using simulations
     [sensitivityOutput.finalVals, all_y] = calc_output(params, lhs, ...
         data, initial_params, num_times, display_interval);
+    toc
 
     % firstly, remove all NaN result rows
     [remove_rows, ~] = find(isnan(sensitivityOutput.finalVals));
@@ -123,6 +125,7 @@ function sensitivityAnalysis()
         if independent_multi
             disp('Simulating next time point...');
             
+            tic
             % create the sampling pool using latin hypercube sampling
             lhsRaw = lhsdesign(num_multi_sims, numel(parameters));
             lhs = bsxfun(@plus, lb, bsxfun(@times, lhsRaw, (ub-lb))); % rescale
@@ -137,6 +140,7 @@ function sensitivityAnalysis()
             n = numel(lhs(:, 1));
 
             sim_y = transpose(all_y(t_i, :));
+            toc
         else
             
             y_vals = transpose(all_y(t_i, :));
