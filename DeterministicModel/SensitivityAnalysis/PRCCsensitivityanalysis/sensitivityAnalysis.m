@@ -15,20 +15,23 @@ This will be carrying out sensitivty analysis for the baseline system.
 
 %%%%%%%%%%%%%%%%%%%%%%%% define parameters for run %%%%%%%%%%%%%%%%%%%%%%%%
 
-num_sims = 1E3;
+num_sims = 40;
+display_interval = num_sims / 4;
 max_t = 1E3;
 % lower bounds for params
 lb = [1E5, 1, ... %f0
     1E6, 1E5, 1E5, ... %fIV
-    1E5, 100, 1E5, ... %fV
+    1E5, 5E5, 5E-4, ... %fV
     1E3, 1E3, 0.05, 1E-3, 1E-3, 1E-3, 1E-3, 0.05];
     % last row: r0, ox0, leak, amp1-4, attenuate
 % upper bounds for params
 ub = [1E6, 50, ... %f0
     1E7, 1E6, 1E6, ... %fIV
-    1E6, 5E2, 1E6, ... %fV
+    1E6, 5E6, 5E-3, ... %fV
     5E3, 5E3, 1.0, 5E-3, 5E-3, 5E-3, 5E-3, 1.0];
     % last row: r0, ox0, leak, amp1-4, attenuate
+% set parameters for time evolution
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -40,270 +43,160 @@ curdir = fileparts(which(mfilename));
 cd(['..',filesep,'..']);
 
 % acquire initial setup data for the model
-[all_params, data, models] = setup;
+[all_params, data, ~] = setup;
 params = all_params.ctrlParams;
 
 cd(curdir);
 
-% Add export_fig function to path for boxplot figures
-% cd(['..' ,filesep, '..']);
-% addpath([pwd,'/AdditionalFuncs']);
-% cd('SensitivityAnalysis');
-
 %Initialize the symbolic variables in the model; vars, params and t
-syms r o omega rho t f0_Vmax f0_Km fIV_Vmax fIV_K fIV_Km fV_Vmax ...
-    fV_K fV_Km r0 ox0 p_leak amp_1 amp_2 amp_3 amp_4 r_attenuate;
-parameters = [f0_Vmax, f0_Km, fIV_Vmax, fIV_K, fIV_Km, fV_Vmax, ...
-    fV_K, fV_Km, r0, ox0, p_leak, amp_1, amp_2, amp_3, amp_4, r_attenuate];
+parameters = {'f0_Vmax', 'f0_Km', 'fIV_Vmax', 'fIV_K', 'fIV_Km', ...
+    'fV_Vmax', 'fV_K', 'fV_Km', 'r0', 'ox0', 'p_leak', 'amp_1', ...
+    'amp_2', 'amp_3', 'amp_4', 'r_attenuate'};
 initial_params = [params.cytcred, params.oxygen, params.omega, params.rho];
 num_params = numel(parameters);
 
-options = odeset('NonNegative',[1,2,3,4]);  % settings for ode
-
-%Setup a fallback set of times in cases of unsolvable parameter sets
-t_fallback = [data.baseline_times; data.oligo_fccp_times; data.inhibit_times];
-num_times = numel(t_fallback);
-
-% state variables
-r = params.cytcred;
-o = 171.0549;
-omega = all_params.Hn;
-rho = all_params.Hp;
-
 %Initialize output parameters
-sensitivityOutput.equations = [];
-[sensitivityOutput.outputLabels, sensitivityOutput.outputVals] ...
-    = deal({});
-sensitivityOutput.finalVals = zeros(num_sims, 4);
+sensitivityOutput.outputLabels = {};
+sensitivityOutput.finalVals = zeros(num_sims, 1);
+sensitivityOutput.prcc = [];
+sensitivityOutput.sensitivity = struct();
 
-%define cytcdiff
-cytcdiff = ox0 - r;
-
-%% Solve equation system
-disp('Generating Latin Hypercube Sampling...')
-
-%% Solve equation system
-%% =================== FULL SYSTEM ONLINE ==================== %%
-f_0 = ((f0_Vmax*(cytcdiff))/(f0_Km+(cytcdiff))) ...
-        *(omega./rho); % complexes I-III
-f_4 = ((fIV_Vmax*o)/(fIV_Km*(1 ...
-        +(fIV_K/r))+o))*(omega./rho); % complex IV
-f_5 = ((fV_Vmax.*rho)/(rho+fV_K.*omega+fV_Km)); % ATP Synthase
-f_leak = p_leak * (sqrt((rho.^3) ./ omega) ...
-    - sqrt((omega.^3) ./ rho)); % leak
-
-% step for oligomycin injection
-step_oligo = 1 - heaviside(t - params.oligo_t);
-
-% steps for gradual FCCP injection
-step_1 = amp_1 * (heaviside(t - params.fccp_25_t) ...
-    - heaviside(t - params.fccp_50_t));
-step_2 = amp_2 * (heaviside(t - params.fccp_50_t) ...
-    - heaviside(t - params.fccp_75_t));
-step_3 = amp_3 * (heaviside(t - params.fccp_75_t) ...
-    - heaviside(t - params.fccp_100_t));
-step_4 = amp_4 * heaviside(t - params.fccp_100_t);
-
-% step for injecting AA/rotenone
-step_inhibit = 1 - heaviside(t - params.inhibit_t);
-
-dr = 2 * step_inhibit * f_0 - 2 * f_4; %dCytcred
-do = -0.5 * f_4; %dO2
-domega = -6 * step_inhibit * f_0 - 4 * f_4 + step_oligo * f_5 ...
-    + (1 + (step_1 + step_2 + step_3 + step_4) * params.p_fccp) * f_leak; %dHn
-drho = 8 * step_inhibit * f_0 + 2 * f_4 - step_oligo * f_5 ...
-    - (1 + (step_1 + step_2 + step_3 + step_4) * params.p_fccp) * f_leak;
-
-%% LHS Generation
+%% Run single test
 
 % create the sampling pool using latin hypercube sampling
 lhsRaw = lhsdesign(num_sims, numel(parameters));
 lhs = bsxfun(@plus, lb, bsxfun(@times, lhsRaw, (ub-lb))); % rescale
-lhsCell = num2cell(lhs);  % convert to cell matrix
-
-outputMtx = [];
 
 %% Generate output matrix from simulations
 
 disp('Simulating outputs from LHS sampling...');
 
-warning off;
+% calculate all output vals using simulations
+sensitivityOutput.finalVals = calc_output(params, lhs, data, ...
+    initial_params, display_interval);
 
-for simnum=1:num_sims
-    paramvals = lhsCell(simnum, :);
-    % convert to cell array to distribute to params
-    [params.f0_Vmax,params.f0_Km, ...
-        params.fIV_Vmax,params.fIV_K, params.fIV_Km, ...
-        params.fV_Vmax, params.fV_K, params.fV_Km, ...
-        params.cytcred, params.cytcox, params.p_alpha, params.amp_1, ...
-        params.amp_2, params.amp_3, params.amp_4, params.cyt_c_drop] ...
-        = paramvals{:};
-    
-    % simulate the system using ode23t
-    [t1,y1] = ode23t(@oligoFccpSystem, [data.baseline_times; ...
-                data.oligo_fccp_times], initial_params,options,params);
-    [t2,y2] = ode23t(@inhibitSystem, data.inhibit_times, ...
-        [params.cyt_c_drop * y1(end,1), y1(end,2), y1(end,3), ...
-        y1(end,4)], options,params);
-            
-    t = [t1; t2];
-    y = [y1; y2];
-    
-    % store the final value(s)s of each simulation
-    if numel(y(:,2)) ~= num_times
-        sensitivityOutput.finalVals(simnum, 1:4) = NaN(1, 4);
-    else 
-        sensitivityOutput.finalVals(simnum,1:4) = ...
-        mean(y(end-round(numel(y)*0.1):end,:));
+% firstly, remove all NaN result rows
+[remove_rows, ~] = find(isnan(sensitivityOutput.finalVals));
+sensitivityOutput.finalVals(remove_rows) = [];
+lhs(remove_rows, :) = [];
+n = numel(lhs(:, 1));
+
+% calculate rank order matrices
+[~, rank_lhs] = sort(lhs, 'ascend');
+[~, rank_out] = sort(sensitivityOutput.finalVals, 'descend');
+
+sensitivityOutput.prcc = calc_prcc(rank_out, rank_lhs);
+
+% save prcc and sensitivity value to output
+for p=1:num_params
+    param_name = parameters{p};
+    val = sensitivityOutput.prcc(p);
+    sensitivityOutput.sensitivity.(param_name) = val;
+    disp([param_name, ' sensitivity: ', num2str(val)]);
+end
+
+save sensitivityOutput.mat sensitivityOutput
+
+%% run multiple tests at key time points
+
+
+end
+
+%% function for calculating output vals given LHS sampling for params
+function final_vals = calc_output(params, param_lhs, data, ...
+    initial_params, varagin)
+
+    % extract number of simulations used in this lhs sampling
+    num_sims = numel(param_lhs(:, 1));
+    if numel(varagin) == 0
+        display_interval = num_sims / 4;
+    else
+        display_interval = varagin(1);
     end
     
-    % now need to do PRCC
+    % initialize final values vector for output
+    final_vals = zeros(num_sims, 1);
     
-end
-
-warning on;
-
-%% OLD============================================================ %%
-
-%{
-%define arrays containing all funcs and all params
-funcs = [dr,do,domega,drho];
-parameters = [f0_Vmax, f0_Km, fIV_Vmax, fIV_K, fIV_Km, fV_Vmax, fV_K, ...
-    fV_Km, cytcred, cytcox, p_alpha, p_fccp, t];
-
-%call jacobian to calculate the jacobian function to calc all derivs
-jacobianMatrix = jacobian(funcs,parameters);
-
-% normalize the equations by multiplying by reciprocal ratios, e.g.
-%dr/df0_Vmax is normalized by multiplying by f0_Vmax/r
-normalizingFactors = [parameters./r; parameters./o; parameters./omega; ...
-    parameters./rho];
-equations = num2cell(jacobianMatrix.*normalizingFactors);
-% equations = num2cell(jacobianMatrix); % non normalized
-
-disp('Generating equations using latin hypercube sampling...');
-
-% create the sampling pool using latin hypercube sampling
-lhsRaw = lhsdesign(numsims,numel(parameters));
-lhs = bsxfun(@plus,lb,bsxfun(@times,lhsRaw,(ub-lb))); %rescale to fit within bounds
-lhsCell = num2cell(lhs); %convert to cell matrix
-
-% create equation label matrix
-sensitivityOutput.outputLabels = {
-    'dr/df0_Vmax', 'dr/df0_Km', 'dr/dfIV_Vmax', 'dr/dfIV_K', ...
-    'dr/dfIV_Km', 'dr/dfV_Vmax','dr/dfV_K', 'dr/dfV_Km', ...
-    'dr/dcytcred', 'dr/dcytcox', 'dr/dp_alpha', 'dr/dp_fccp', 'dr/dt'; ...
-    'do/df0_Vmax', 'do/df0_Km', 'do/dfIV_Vmax', 'do/dfIV_K', ...
-    'do/dfIV_Km', 'do/dfV_Vmax','do/dfV_K','do/dfV_Km', ...
-    'do/dcytcred', 'do/dcytcox', 'do/dp_alpha', 'dr/dp_fccp', 'do/dt'; ...
-    'domega/df0_Vmax', 'domega/df0_Km', 'domega/dfIV_Vmax', 'domega/dfV_K', ...
-    'domega/dfIV_Km', 'domega/dfV_Vmax', 'domega/dfV_K','domega/dfV_Km', ...
-    'domega/dcytcred', 'domega/dcytcox', 'domega/dp_alpha', ...
-    'domega/dp_fccp', 'domega/dt'; ...
-    'drho/df0_Vmax', 'drho/df0_Km', 'drho/dfIV_Vmax', 'drho/dfIV_K', ...
-    'drho/dfIV_Km', 'drho/dfV_Vmax', 'drho/dfV_K', 'drho/fV_Km', ...
-    'drho/dcytcred', 'drho/dcytcox', 'drho/dp_alpha', 'drho/dp_fccp', ...
-    'drho/dt'}';
-
-% create boxplot label matrix
-modelLabels = {'Cyt c red', 'Oxygen', 'Hn', 'Hp'};
-sensitivityLabels = repmat({'Sensitivity Coefficient Value'},1,4);
-titles = {'Final Concentrations for Each State Variable', ...
-    'Sensitivity Coefficients for dr', ...
-    'Sensitivity Coefficients for do', ...
-    'Sensitivity Coefficients for domega', ...
-    'Sensitivity Coefficients for drho'};
-
-% create file names for saving to png files
-filenames = {'Statevar_concentrations', 'drSensitivities', ...
-    'doSensitivities', 'domegaSensitivities', 'drhoSensitivities'};
-fullFilename = '';
-
-% convert from symbolic notation and store in structure
-sensitivityOutput.equations = vpa(equations);
-
-%% Apply LHS sampling and carry out statistics on results
-
-% move up to the main model
-cd(['..',filesep,'..']);
-addpath(genpath([params.curdir, filesep, 'ModelEquations']));
-
-% acquire params for the properties of the model
-params.timePoints = linspace(0.1,max_t,1E3);
-sensitivityOutput.finalVals = [];
-
-disp('Simulating the model and keeping final values of long-time runs...');
-
-for sim=1:numsims
-    % convert to cell array to distribute to params
-    tempLhs = num2cell(lhs(sim,:));
-    [params.ctrlParams.f0_Vmax,params.ctrlParams.f0_Km, ...
-        params.ctrlParams.fIV_Vmax,params.ctrlParams.fIV_K, ...
-        params.ctrlParams.fIV_Km,params.ctrlParams.fV_Vmax, ...
-        params.ctrlParams.fV_K,params.ctrlParams.fV_Km, ...
-        params.ctrlParams.cytcred, params.ctrlParams.cytcox, ...
-        params.ctrlParams.p_alpha, params.ctrlParams.p_fccp, ...
-        params.ctrlParams.t] = tempLhs{:};
+    warning off;
+    progress = 25;
     
-    % simulate the system using ode23t
-    [~,y] = ode23t(@baselineSystem, params.timePoints, ...
-        [params.cytcred,params.O2,params.Hn, params.Hp], ...
-        [],params.ctrlParams);
-    
-    % store the final value(s)s of each simulation
-    sensitivityOutput.finalVals(sim,1:4) = mean(y(end-round(numel(y)*0.1):end,:));
-    
-    % also use the lhs values to find the values for each
-    % sensitivity coefficient
-    [f0_Vmax, f0_Km, fIV_Vmax, fIV_K, fIV_Km, fV_Vmax, fV_K, fV_Km, ...
-        cytcred, cytcox, p_alpha, p_fccp, t] = deal(lhsCell{sim,:}); %set values
-    
-    for eqNum=1:numel(equations) % evaluate each equation with this value set
-        sensitivityOutput.finalVals(sim,eqNum+4) = subs(equations{eqNum});
+    % set some options for ode23t
+    options = odeset('NonNegative',[1,2,3,4]);  % settings for ode
+
+    %Setup a fallback set of times in cases of unsolvable parameter sets
+    t_fallback = [data.baseline_times; data.oligo_fccp_times; ...
+        data.inhibit_times];
+    num_times = numel(t_fallback);
+
+    for simnum=1:num_sims
+        % little display for progress through simulations
+        if mod(simnum, display_interval) == 0
+            disp(['Progress...', num2str(progress), '%...']);
+            progress = progress + 25;
+        end
+
+        paramvals = num2cell(param_lhs(simnum, :));
+        % convert to cell array to distribute to params
+        [params.f0_Vmax,params.f0_Km, ...
+            params.fIV_Vmax,params.fIV_K, params.fIV_Km, ...
+            params.fV_Vmax, params.fV_K, params.fV_Km, ...
+            params.cytcred, params.cytcox, params.p_alpha, params.amp_1, ...
+            params.amp_2, params.amp_3, params.amp_4, params.cyt_c_drop] ...
+            = paramvals{:};
+        params.cytctot = params.cytcred + params.cytcox;
+
+        % simulate the system using ode23t
+        [t1,y1] = ode23t(@oligoFccpSystem, [data.baseline_times; ...
+                    data.oligo_fccp_times], initial_params,options,params);
+        [t2,y2] = ode23t(@inhibitSystem, data.inhibit_times, ...
+            [params.cyt_c_drop * y1(end,1), y1(end,2), y1(end,3), ...
+            y1(end,4)], options,params);
+
+        t = [t1; t2];
+        y = [y1; y2];
+
+        % store the final value(s)s of each simulation
+        if (sum(y(:, 2)) == 0) || (numel(y(:, 2)) ~= num_times)
+            final_vals(simnum) = NaN(1);
+        else
+            evaluations = y(:,2); %evaluated data for o2
+            realo2Data = data.CtrlO2; %exp o2 data
+
+            final_vals(simnum) = sum((realo2Data-evaluations).^2)...
+                /numel(realo2Data);
+        end
     end
+    
+    warning on;
 end
 
-%change back to sensitivity analysis folder
-cd(curdir)
-
-% store value matrix in a regular matrix outside of struc
-dataMatrix = sensitivityOutput.finalVals;
-
-%% Compute statistics
-% create box plots, one for each substrate in simulation and one for each
-% equation provided for the sensitivity analysis
-first_fig = figure(1);
-
-formatBoxplot(dataMatrix(:, 1:4), modelLabels, ...
-    'Final Concentration (nmol/mL)', ...
-    titles{1});
-
-fullFilename = [curdir, filesep, 'Images', filesep, date, filenames{1}];
-
-% save the boxplot figures to a fig file and a png file
-savefig(fullFilename)
-saveas(first_fig, fullFilename, 'png');
-
-for figurenum=2:5
-    curfig = figure(figurenum);
-        
-    small_range = [13*(figurenum-2) + 1:13*(figurenum-2) + 13];
-    data_range = small_range + 4;
-
-    % create a formatted boxplot for this column
-    formatBoxplot(dataMatrix(:, data_range), ...
-        {sensitivityOutput.outputLabels{small_range}}, ...
-        sensitivityLabels{figurenum}, titles{figurenum});
-
-    fullFilename = [curdir,'/Images/',date,filenames{figurenum},'-Boxplot'];
+%% function for calculating sensitivity vals given output and parameter mtx
+function prcc = calc_prcc(rank_out, rank_lhs)
     
-    % turn off figures from popping up
-    set(gcf,'Visible','Off');
+    % extract number of parameters in LHS sampling
+    num_params = numel(rank_lhs(1, :));
     
-    % save the boxplot figure to a fig file and a png file
-    savefig(fullFilename);
-    saveas(curfig, fullFilename, 'png');
-    
-    close all;
+    % initialize prcc output var
+    prcc = [];
+
+    % calculate and populate prcc
+    for p=1:num_params
+        % exclude p-th parameter
+        temp_rank_A = rank_lhs(:, p);
+        temp_A = rank_lhs;
+        temp_A(:, p) = [];
+     
+        % calculate linear regressions and residuals
+        regression = {'r'};  % extract residuals from regression
+        regress_A = regstats(rank_out, temp_A, 'linear', regression);
+        out_residual = regress_A.r;
+        regress_B = regstats(temp_rank_A, temp_A, 'linear', regression);
+        residual_B = regress_B.r;
+        correl_val = corr(out_residual, residual_B);
+
+        prcc = [prcc correl_val];
+    end
+
 end
-%}
+
+
