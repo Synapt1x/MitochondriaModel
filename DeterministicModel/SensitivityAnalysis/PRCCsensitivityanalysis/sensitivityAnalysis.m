@@ -15,7 +15,7 @@ This will be carrying out sensitivty analysis for the baseline system.
 
 %%%%%%%%%%%%%%%%%%%%%%%% define parameters for run %%%%%%%%%%%%%%%%%%%%%%%%
 
-numsims = 1E3;
+num_sims = 1E3;
 max_t = 1E3;
 % lower bounds for params
 lb = [1E5, 1, ... %f0
@@ -55,6 +55,15 @@ syms r o omega rho t f0_Vmax f0_Km fIV_Vmax fIV_K fIV_Km fV_Vmax ...
     fV_K fV_Km r0 ox0 p_leak amp_1 amp_2 amp_3 amp_4 r_attenuate;
 parameters = [f0_Vmax, f0_Km, fIV_Vmax, fIV_K, fIV_Km, fV_Vmax, ...
     fV_K, fV_Km, r0, ox0, p_leak, amp_1, amp_2, amp_3, amp_4, r_attenuate];
+initial_params = [params.cytcred, params.oxygen, params.omega, params.rho];
+num_params = numel(parameters);
+
+options = odeset('NonNegative',[1,2,3,4]);  % settings for ode
+
+%Setup a fallback set of times in cases of unsolvable parameter sets
+t_fallback = [data.baseline_times; data.oligo_fccp_times; data.inhibit_times];
+num_times = numel(t_fallback);
+
 % state variables
 r = params.cytcred;
 o = 171.0549;
@@ -65,12 +74,13 @@ rho = all_params.Hp;
 sensitivityOutput.equations = [];
 [sensitivityOutput.outputLabels, sensitivityOutput.outputVals] ...
     = deal({});
+sensitivityOutput.finalVals = zeros(num_sims, 4);
 
 %define cytcdiff
 cytcdiff = ox0 - r;
 
 %% Solve equation system
-disp('Differentiating equations and finding sensitivity coefficients...')
+disp('Generating Latin Hypercube Sampling...')
 
 %% Solve equation system
 %% =================== FULL SYSTEM ONLINE ==================== %%
@@ -97,8 +107,6 @@ step_4 = amp_4 * heaviside(t - params.fccp_100_t);
 % step for injecting AA/rotenone
 step_inhibit = 1 - heaviside(t - params.inhibit_t);
 
-%% Solve equation system
-
 dr = 2 * step_inhibit * f_0 - 2 * f_4; %dCytcred
 do = -0.5 * f_4; %dO2
 domega = -6 * step_inhibit * f_0 - 4 * f_4 + step_oligo * f_5 ...
@@ -106,12 +114,54 @@ domega = -6 * step_inhibit * f_0 - 4 * f_4 + step_oligo * f_5 ...
 drho = 8 * step_inhibit * f_0 + 2 * f_4 - step_oligo * f_5 ...
     - (1 + (step_1 + step_2 + step_3 + step_4) * params.p_fccp) * f_leak;
 
+%% LHS Generation
+
 % create the sampling pool using latin hypercube sampling
-lhsRaw = lhsdesign(numsims, numel(parameters));
+lhsRaw = lhsdesign(num_sims, numel(parameters));
 lhs = bsxfun(@plus, lb, bsxfun(@times, lhsRaw, (ub-lb))); % rescale
 lhsCell = num2cell(lhs);  % convert to cell matrix
 
+outputMtx = [];
 
+%% Generate output matrix from simulations
+
+disp('Simulating outputs from LHS sampling...');
+
+warning off;
+
+for simnum=1:num_sims
+    paramvals = lhsCell(simnum, :);
+    % convert to cell array to distribute to params
+    [params.f0_Vmax,params.f0_Km, ...
+        params.fIV_Vmax,params.fIV_K, params.fIV_Km, ...
+        params.fV_Vmax, params.fV_K, params.fV_Km, ...
+        params.cytcred, params.cytcox, params.p_alpha, params.amp_1, ...
+        params.amp_2, params.amp_3, params.amp_4, params.cyt_c_drop] ...
+        = paramvals{:};
+    
+    % simulate the system using ode23t
+    [t1,y1] = ode23t(@oligoFccpSystem, [data.baseline_times; ...
+                data.oligo_fccp_times], initial_params,options,params);
+    [t2,y2] = ode23t(@inhibitSystem, data.inhibit_times, ...
+        [params.cyt_c_drop * y1(end,1), y1(end,2), y1(end,3), ...
+        y1(end,4)], options,params);
+            
+    t = [t1; t2];
+    y = [y1; y2];
+    
+    % store the final value(s)s of each simulation
+    if numel(y(:,2)) ~= num_times
+        sensitivityOutput.finalVals(simnum, 1:4) = NaN(1, 4);
+    else 
+        sensitivityOutput.finalVals(simnum,1:4) = ...
+        mean(y(end-round(numel(y)*0.1):end,:));
+    end
+    
+    % now need to do PRCC
+    
+end
+
+warning on;
 
 %% OLD============================================================ %%
 
