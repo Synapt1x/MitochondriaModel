@@ -75,8 +75,8 @@ function sensitivityAnalysis()
     disp('Simulating outputs from LHS sampling...');
 
     % calculate all output vals using simulations
-    sensitivityOutput.finalVals, all_y = calc_output(params, lhs, data, ...
-        initial_params, display_interval);
+    [sensitivityOutput.finalVals, ~] = calc_output(params, lhs, ...
+        data, initial_params, display_interval);
 
     % firstly, remove all NaN result rows
     [remove_rows, ~] = find(isnan(sensitivityOutput.finalVals));
@@ -113,6 +113,8 @@ function sensitivityAnalysis()
     % extra the comparison data at these time points
     compare_data = data.CtrlO2(sample_times);
     
+    disp('=====Examining time evolution of samples=====');
+    
     for t_i=1:num_time_samples
 
         % create the sampling pool using latin hypercube sampling
@@ -121,21 +123,15 @@ function sensitivityAnalysis()
 
         %% Generate output matrix from simulations
 
-        disp('Simulating outputs from LHS sampling...');
+        disp('Simulating next time point...');
 
         % calculate all output vals using simulations
-        sensitivityOutput.finalVals = calc_output(params, lhs, data, ...
-            initial_params, display_interval);
-
-        % firstly, remove all NaN result rows
-        [remove_rows, ~] = find(isnan(sensitivityOutput.finalVals));
-        sensitivityOutput.finalVals(remove_rows) = [];
-        lhs(remove_rows, :) = [];
-        n = numel(lhs(:, 1));
-
+        [~, all_y] = calc_output(params, lhs, data, initial_params, ...
+            display_interval);
+        
         % calculate rank order matrices
         [~, rank_lhs] = sort(lhs, 'ascend');
-        [~, rank_out] = sort(sensitivityOutput.finalVals, 'descend');
+        [~, rank_out] = sort(finalVals, 'descend');
 
         sensitivityOutput.prcc = calc_prcc(rank_out, rank_lhs);
 
@@ -153,7 +149,7 @@ function sensitivityAnalysis()
 end
 
 %% function for calculating output vals given LHS sampling for params
-function final_vals = calc_output(params, param_lhs, data, ...
+function [final_vals, all_y] = calc_output(params, param_lhs, data, ...
     initial_params, varagin)
 
     % extract number of simulations used in this lhs sampling
