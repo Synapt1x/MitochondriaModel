@@ -123,7 +123,8 @@ function sensitivityAnalysis()
     for t_i=1:num_time_samples
                 
         if independent_multi
-            disp('Simulating next time point...');
+            disp(['Simulating next time point...', num2str(t_i), ...
+                '/', num2str(num_time_samples)]);
             
             tic
             % create the sampling pool using latin hypercube sampling
