@@ -16,7 +16,7 @@ function sensitivityAnalysis()
     %%%%%%%%%%%%%%%%%%%%%%%% define parameters for run %%%%%%%%%%%%%%%%%%%%%%%%
 
     % universal and single-run parameters
-    num_sims = 40;
+    num_sims = 1E5;
     display_interval = num_sims / 4;
     max_t = 1E3;
     % lower bounds for params
@@ -33,8 +33,8 @@ function sensitivityAnalysis()
         % last row: r0, ox0, leak, amp1-4, attenuate
         
     % set parameters for time evolution
-    num_time_samples = 120;
-    num_multi_sims = 40;
+    num_time_samples = 180;
+    num_multi_sims = 5E3;
     independent_multi = true;
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -124,7 +124,7 @@ function sensitivityAnalysis()
             disp('Simulating next time point...');
             
             % create the sampling pool using latin hypercube sampling
-            lhsRaw = lhsdesign(num_sims, numel(parameters));
+            lhsRaw = lhsdesign(num_multi_sims, numel(parameters));
             lhs = bsxfun(@plus, lb, bsxfun(@times, lhsRaw, (ub-lb))); % rescale
 
             % calculate all output vals using simulations
