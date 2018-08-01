@@ -18,15 +18,15 @@ if strcmp(handles.selected_model.String, 'CC MP Model')
     [cytcred, o2, psi] = deal(y(:,1),y(:,2),y(:,3));
     
     %calculate the OCR values from the oxygen
-    calcOCR = calculateOCR(handles,'control',cytcred,o2, psi);
+    calcOCR = calculateOCR(handles,'control',cytcred,o2, psi, t);
     calcOCR = calcOCR * -1000;
 else
     %store the values calculated for each variable
     [cytcred, o2, Hn, Hp] = deal(y(:,1),y(:,2),y(:,3),y(:,4));
     
     %calculate the OCR values from the oxygen
-    calcOCR = calculateOCR(handles,'control',cytcred,o2,Hn,Hp);
-    calcOCR = calcOCR * -1000;
+    calcOCR = calculateOCR(handles,'control',cytcred,o2,Hn,Hp, t);
+    calcOCR = calcOCR * -100000;
 end
 
 %plot the O2 concentration over time with real O2 data on top

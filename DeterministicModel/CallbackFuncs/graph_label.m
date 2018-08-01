@@ -18,5 +18,5 @@ for i=1:num_graphs
     xlabel(handles.parameters.xlab,'FontName','Helvetica','FontSize',8);
     ylabel(handles.parameters.ylab{i},'FontName','Helvetica','FontSize',8);
     title(textwrap({handles.parameters.title{i}},30), ...
-        'FontWeight','bold','FontName','Helvetica','FontSize',9);
+        'FontWeight','bold','FontName','Helvetica','FontSize',11);
 end
