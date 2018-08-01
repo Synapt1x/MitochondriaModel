@@ -16,6 +16,7 @@ function sensitivityAnalysis()
     %%%%%%%%%%%%%%%%%%%%%%%% define parameters for run %%%%%%%%%%%%%%%%%%%%%%%%
 
     % universal and single-run parameters
+    filename = sprintf(['Output', filesep, date, '-sensitivityOutput.mat']);
     num_sims = 1E4;
     display_interval = num_sims / 4;
     max_t = 1E3;
@@ -35,7 +36,7 @@ function sensitivityAnalysis()
     % set parameters for time evolution
     num_time_samples = 180;
     num_multi_sims = 1E3;
-    independent_multi = true;
+    independent_multi = false;
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -69,12 +70,14 @@ function sensitivityAnalysis()
     sensitivityOutput.finalVals = zeros(num_sims, 1);
     sensitivityOutput.prcc = [];
     sensitivityOutput.sensitivity = struct();
+    sensitivityOutput.raw_data = struct();
 
     %% Run single test ================================================ %%
 
     % create the sampling pool using latin hypercube sampling
     lhsRaw = lhsdesign(num_sims, numel(parameters));
     lhs = bsxfun(@plus, lb, bsxfun(@times, lhsRaw, (ub-lb))); % rescale
+    sensitivityOutput.raw_data.single_lhs = lhs;
 
     %% Generate output matrix from simulations
 
@@ -114,6 +117,9 @@ function sensitivityAnalysis()
     sample_times = all_t(sample_times_idx);
     % extra the comparison data at these time points
     compare_data = data.CtrlO2(sample_times_idx);
+    
+    % save time points to output
+    sensitivityOutput.time_points = sample_times;
     
     %Initialize output parameters
     sensitivityOutput.time_prcc = zeros(num_time_samples, num_params);
@@ -160,8 +166,12 @@ function sensitivityAnalysis()
     if ~independent_multi
         disp('Finished assembling PRCC evolution...');
     end
+    
+    % calculate statistics
+    sensitivityOutput.variance = var(sensitivityOutput.time_prcc);
+    sensitivityOutput.means = mean(sensitivityOutput.time_prcc);
 
-    save sensitivityOutput.mat sensitivityOutput;
+    save(filename, 'sensitivityOutput');
 
 end
 
