@@ -23,8 +23,8 @@ function sensitivityAnalysis()
     num_sims = 1E3;
     display_interval = num_sims / 4;
     max_t = 1E3;
-    %calc_type = 'RMSE';
-    calc_type = 'finalO2val';
+    calc_type = 'RMSE';
+    %calc_type = 'finalO2val';
     %calc_type = 'avgO2';
     filename = sprintf(['Output', filesep, date, ...
         '-sensitivityOutput-', calc_type, '.mat']);
@@ -44,7 +44,7 @@ function sensitivityAnalysis()
     % set parameters for time evolution
     num_time_samples = 36;
     num_multi_sims = 5E2;
-    independent_multi = false;
+    independent_multi = true;
     
     % store the output settings
     sensitivityOutput.settings = struct('num_sims', num_sims, ...
