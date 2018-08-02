@@ -26,8 +26,6 @@ function sensitivityAnalysis()
     calc_type = 'RMSE';
     %calc_type = 'finalO2val';
     %calc_type = 'avgO2';
-    filename = sprintf(['Output', filesep, date, ...
-        '-sensitivityOutput-', calc_type, '.mat']);
     % lower bounds for params
     lb = [1E5, 1, ... %f0
         1E6, 1E5, 1E5, ... %fIV
@@ -45,6 +43,16 @@ function sensitivityAnalysis()
     num_time_samples = 36;
     num_multi_sims = 5E2;
     independent_multi = true;
+    
+    if (independent_multi)
+        multi_on = 'multi';
+    else
+        multi_on = 'single';
+    end
+    
+    % set the output filename for the .mat
+    filename = sprintf(['Output', filesep, date, ...
+    '-sensitivityOutput-', calc_type, '-', multi_on, '.mat']);
     
     % store the output settings
     sensitivityOutput.settings = struct('num_sims', num_sims, ...
