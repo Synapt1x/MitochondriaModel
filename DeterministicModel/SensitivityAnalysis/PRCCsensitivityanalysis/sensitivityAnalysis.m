@@ -198,12 +198,6 @@ function sensitivityAnalysis()
         transpose(sensitivityOutput.means), ...
         transpose(sensitivityOutput.variance), ...
         'VariableNames', {'parameters', 'sensitivity', 'mean', 'variance'})
-%     disp('*means:');
-%     disp(parameters);
-%     disp(sensitivityOutput.means);
-%     disp('*variances:');
-%     disp(parameters);
-%     disp(sensitivityOutput.variance);
 
     save(filename, 'sensitivityOutput');
     
