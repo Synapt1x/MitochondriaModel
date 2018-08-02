@@ -13,14 +13,14 @@ function sensitivityAnalysis()
 
     %% Create LHS sampling and Sensitivity Coefficients
 
-    %%%%%%%%%%%%%%%%%%%%%%%% define parameters for run %%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%% define parameters for run %%%%%%%%%%%%%%%%%%%%%%
 
     % universal and single-run parameters
     plot_on = true;  % whether to plot immediately after or not
     plot_prcc = {'f0_Vmax', 'fIV_Vmax', 'fIV_Km', 'fV_Vmax', ...
         'fV_Km', 'fV_K'};
     
-    num_sims = 40;
+    num_sims = 2E4;
     display_interval = num_sims / 4;
     max_t = 1E3;
     %calc_type = 'RMSE';
@@ -43,7 +43,7 @@ function sensitivityAnalysis()
         
     % set parameters for time evolution
     num_time_samples = 36;
-    num_multi_sims = 40;
+    num_multi_sims = 2E3;
     independent_multi = false;
     
     % store the output settings
@@ -52,7 +52,7 @@ function sensitivityAnalysis()
         'num_multi_sims', num_multi_sims, ...
         'indendent_multi', independent_multi);
 
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
     % clear cmd history for clarity
     clc
@@ -76,7 +76,8 @@ function sensitivityAnalysis()
     parameters = {'f0_Vmax', 'f0_Km', 'fIV_Vmax', 'fIV_K', 'fIV_Km', ...
         'fV_Vmax', 'fV_K', 'fV_Km', 'r0', 'ox0', 'p_leak', 'amp_1', ...
         'amp_2', 'amp_3', 'amp_4', 'r_attenuate'};
-    initial_params = [params.cytcred, params.oxygen, params.omega, params.rho];
+    initial_params = [params.cytcred, params.oxygen, params.omega, ...
+        params.rho];
     num_params = numel(parameters);
 
     %Initialize output parameters
@@ -146,7 +147,8 @@ function sensitivityAnalysis()
             
             % create the sampling pool using latin hypercube sampling
             lhsRaw = lhsdesign(num_multi_sims, numel(parameters));
-            lhs = bsxfun(@plus, lb, bsxfun(@times, lhsRaw, (ub-lb))); % rescale
+            % rescale
+            lhs = bsxfun(@plus, lb, bsxfun(@times, lhsRaw, (ub-lb)));
 
             % calculate all output vals using simulations
             [finalVals, all_y] = calc_output(params, lhs, data, ...
