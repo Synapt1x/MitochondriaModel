@@ -20,11 +20,11 @@ function sensitivityAnalysis()
     plot_prcc = {'f0_Vmax', 'fIV_Vmax', 'fIV_Km', 'fV_Vmax', ...
         'fV_Km', 'fV_K'};
     
-    num_sims = 1E3;
+    num_sims = 1E4;
     display_interval = num_sims / 4;
     max_t = 1E3;
-    calc_type = 'RMSE';
-    %calc_type = 'finalO2val';
+    %calc_type = 'RMSE';
+    calc_type = 'finalO2val';
     %calc_type = 'avgO2';
     % lower bounds for params
     lb = [1E5, 1, ... %f0
@@ -40,8 +40,8 @@ function sensitivityAnalysis()
         % last row: r0, ox0, leak, amp1-4, attenuate
         
     % set parameters for time evolution
-    num_time_samples = 36;
-    num_multi_sims = 2E2;
+    num_time_samples = 90;
+    num_multi_sims = 1E3;
     independent_multi = true;
     
     if (independent_multi)
