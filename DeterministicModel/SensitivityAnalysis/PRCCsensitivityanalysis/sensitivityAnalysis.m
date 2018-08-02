@@ -180,8 +180,10 @@ function sensitivityAnalysis()
         end
         
         % calculate rank order matrices
-        [~, rank_lhs] = sort(lhs, 'ascend');
-        [~, rank_out] = sort(sim_y, 'descend');
+        %[~, rank_lhs] = sort(lhs, 'ascend');
+        %[~, rank_out] = sort(sim_y, 'descend');
+	rank_lhs = rank_order(lhs);
+	rank_out = rank_order(sim_y);
 
         new_prcc = calc_prcc(rank_out, rank_lhs);
         sensitivityOutput.time_prcc(t_i, :) = new_prcc;
