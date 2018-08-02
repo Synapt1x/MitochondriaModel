@@ -329,7 +329,7 @@ function plot_prcc_multi(sensitivityOutput, varargin)
     f1 = figure(1);
     plot(time_points, prcc_vals);
     title('PRCC values for all parameters over time');
-    xlabel('Time (sec');
+    xlabel('Time (sec)');
     ylabel('Correlation');
     ylim([-1.0, 1.0]);
     leg1 = legend(sensitivityOutput.outputLabels);
