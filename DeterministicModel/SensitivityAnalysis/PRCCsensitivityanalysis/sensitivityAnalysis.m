@@ -88,6 +88,8 @@ function sensitivityAnalysis()
     sensitivityOutput.raw_data = struct();
 
     %% Run single test ================================================ %%
+    
+    disp('Generating overall LHS ...');
 
     % create the sampling pool using latin hypercube sampling
     lhsRaw = lhsdesign(num_sims, numel(parameters));
@@ -96,7 +98,7 @@ function sensitivityAnalysis()
 
     %% Generate output matrix from simulations
 
-    disp('Simulating outputs from LHS sampling...');
+    disp('Simulating outputs from LHS ...');
 
     % calculate all output vals using simulations
     [sensitivityOutput.finalVals, all_y] = calc_output(params, lhs, ...
