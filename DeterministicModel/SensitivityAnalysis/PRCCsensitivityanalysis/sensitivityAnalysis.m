@@ -41,7 +41,7 @@ function sensitivityAnalysis()
         
     % set parameters for time evolution
     num_time_samples = 36;
-    num_multi_sims = 5E2;
+    num_multi_sims = 2E2;
     independent_multi = true;
     
     if (independent_multi)
@@ -168,21 +168,15 @@ function sensitivityAnalysis()
             lhs(remove_rows, :) = [];
             finalVals(remove_rows) = [];
             n = numel(lhs(:, 1));
+        end
 
-            if strcmp(calc_type, 'RMSE')
-                sim_y = finalVals;
-            elseif strcmp(calc_type, 'finalO2val')
-                sim_y = all_y(t_i, :)';
-            end
-        else
-            y_vals = all_y(t_i, :)';
+        y_vals = all_y(t_i, :)';
 
-            if strcmp(calc_type, 'RMSE')
-                compare_y = compare_data(t_i);
-                sim_y = (y_vals - compare_y) .^ 2;
-            elseif strcmp(calc_type, 'finalO2val')
-                sim_y = y_vals;
-            end
+        if strcmp(calc_type, 'RMSE')
+            compare_y = compare_data(t_i);
+            sim_y = (y_vals - compare_y) .^ 2;
+        elseif strcmp(calc_type, 'finalO2val')
+            sim_y = y_vals;
         end
         
         % calculate rank order matrices
