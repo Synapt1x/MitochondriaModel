@@ -20,7 +20,7 @@ function sensitivityAnalysis()
     plot_prcc = {'f0_Vmax', 'fIV_Vmax', 'fIV_Km', 'fV_Vmax', ...
         'fV_Km', 'fV_K'};
     
-    num_sims = 2E4;
+    num_sims = 1E4;
     display_interval = num_sims / 4;
     max_t = 1E3;
     %calc_type = 'RMSE';
@@ -121,7 +121,6 @@ function sensitivityAnalysis()
         param_name = parameters{p};
         val = sensitivityOutput.prcc(p);
         sensitivityOutput.sensitivity.(param_name) = val;
-        disp([param_name, ' sensitivity: ', num2str(val)]);
     end
 
     %% Multiple tests at key time points ========================== %%
@@ -192,6 +191,19 @@ function sensitivityAnalysis()
     % calculate statistics
     sensitivityOutput.variance = var(sensitivityOutput.time_prcc);
     sensitivityOutput.means = mean(sensitivityOutput.time_prcc);
+    
+    % print results
+    disp('==================== RESULTS =======================');
+    table(transpose(parameters), transpose(sensitivityOutput.prcc), ...
+        transpose(sensitivityOutput.means), ...
+        transpose(sensitivityOutput.variance), ...
+        'VariableNames', {'parameters', 'sensitivity', 'mean', 'variance'})
+%     disp('*means:');
+%     disp(parameters);
+%     disp(sensitivityOutput.means);
+%     disp('*variances:');
+%     disp(parameters);
+%     disp(sensitivityOutput.variance);
 
     save(filename, 'sensitivityOutput');
     
