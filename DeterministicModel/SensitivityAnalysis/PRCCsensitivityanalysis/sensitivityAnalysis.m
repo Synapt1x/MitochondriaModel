@@ -20,7 +20,7 @@ function sensitivityAnalysis()
     plot_prcc = {'f0_Vmax', 'fIV_Vmax', 'fIV_Km', 'fV_Vmax', ...
         'fV_Km', 'fV_K'};
     
-    num_sims = 1E4;
+    num_sims = 40;
     display_interval = num_sims / 4;
     max_t = 1E3;
     %calc_type = 'RMSE';
@@ -43,7 +43,7 @@ function sensitivityAnalysis()
         
     % set parameters for time evolution
     num_time_samples = 36;
-    num_multi_sims = 5E3;
+    num_multi_sims = 40;
     independent_multi = false;
     
     % store the output settings
@@ -313,37 +313,44 @@ function plot_prcc_multi(sensitivityOutput, varargin)
     
     % create filename for plotting all prcc
     all_filename = sprintf(['Images', filesep, date, ...
-        '-AllPRCCvals-', sensitivityOutput.settings.calc_type, '.fig']);
+        '-AllPRCCvals-', sensitivityOutput.settings.calc_type]);
     
     % plot
-    figure(1)
+    f1 = figure(1);
     plot(time_points, prcc_vals);
     title('PRCC values for all parameters over time');
     xlabel('Time (sec');
     ylabel('Correlation');
     ylim([-1.0, 1.0]);
+    leg1 = legend(sensitivityOutput.outputLabels);
+    set(leg1,'Location','BestOutside'); 
     
-    savefig(all_filename);
+    savefig(f1, all_filename);
+    saveas(f1, all_filename, 'png');
     
     % plot specific plots if specified
     if (numel(varargin) > 0)
         plot_params = varargin(1);
         
         select_filename = sprintf(['Images', filesep, date, '-', ...
-            [sensitivityOutput.outputLabels{:}], ...
-        '-PRCCvals-', sensitivityOutput.settings.calc_type, '.fig']);
+            [plot_params{1}{:}], ...
+        '-PRCCvals-', sensitivityOutput.settings.calc_type]);
         
         param_idx = [find(ismember(sensitivityOutput.outputLabels, ...
             plot_params{1}))];
         
-        figure(2)
+        f2 = figure(2);
         plot(time_points, prcc_vals(:, param_idx));
         title('PRCC values for selected parameters over time');
         xlabel('Time (sec');
         ylabel('Correlation');
         ylim([-1.0, 1.0]);
+        leg2 = legend(plot_params{1});
+        set(leg2, 'Location', 'BestOutside');
         
-        savefig(select_filename);
+        
+        savefig(f2, select_filename);
+        saveas(f2, select_filename, 'png');
         
     end
 
