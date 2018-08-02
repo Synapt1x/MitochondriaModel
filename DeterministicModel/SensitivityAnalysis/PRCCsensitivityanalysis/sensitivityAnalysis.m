@@ -20,7 +20,7 @@ function sensitivityAnalysis()
     plot_prcc = {'f0_Vmax', 'fIV_Vmax', 'fIV_Km', 'fV_Vmax', ...
         'fV_Km', 'fV_K'};
     
-    num_sims = 1E4;
+    num_sims = 1E3;
     display_interval = num_sims / 4;
     max_t = 1E3;
     %calc_type = 'RMSE';
@@ -43,7 +43,7 @@ function sensitivityAnalysis()
         
     % set parameters for time evolution
     num_time_samples = 36;
-    num_multi_sims = 2E3;
+    num_multi_sims = 5E2;
     independent_multi = false;
     
     % store the output settings
@@ -111,9 +111,9 @@ function sensitivityAnalysis()
     n = numel(lhs(:, 1));
 
     % calculate rank order matrices
-    [~, rank_lhs] = sort(lhs, 'ascend');
-    [~, rank_out] = sort(sensitivityOutput.finalVals, 'descend');
-
+    rank_lhs = rank_order(lhs);
+    rank_out = rank_order(sensitivityOutput.finalVals);
+    
     sensitivityOutput.prcc = calc_prcc(rank_out, rank_lhs);
 
     % save prcc and sensitivity value to output
@@ -164,10 +164,10 @@ function sensitivityAnalysis()
             if strcmp(calc_type, 'RMSE')
                 sim_y = finalVals;
             elseif strcmp(calc_type, 'finalO2val')
-                sim_y = transpose(all_y(t_i, :));
+                sim_y = all_y(t_i, :)';
             end
         else
-            y_vals = transpose(all_y(t_i, :));
+            y_vals = all_y(t_i, :)';
 
             if strcmp(calc_type, 'RMSE')
                 compare_y = compare_data(t_i);
@@ -194,9 +194,8 @@ function sensitivityAnalysis()
     
     % print results
     disp('==================== RESULTS =======================');
-    table(transpose(parameters), transpose(sensitivityOutput.prcc), ...
-        transpose(sensitivityOutput.means), ...
-        transpose(sensitivityOutput.variance), ...
+    table(parameters', sensitivityOutput.prcc', ...
+        sensitivityOutput.means', sensitivityOutput.variance', ...
         'VariableNames', {'parameters', 'sensitivity', 'mean', 'variance'})
 
     save(filename, 'sensitivityOutput');
@@ -205,6 +204,19 @@ function sensitivityAnalysis()
     if plot_on
         plot_prcc_multi(sensitivityOutput, plot_prcc);
     end    
+
+end
+
+%% function for rank-ordering a matrix
+function rank_mtx = rank_order(x)
+
+    rank_mtx = zeros(size(x));
+
+    [rows, cols] = size(x);
+    for j=1:cols
+        [~, i] = sort(x(:, j));
+        rank_mtx(i, j) = (1 : rows)';
+    end
 
 end
 
