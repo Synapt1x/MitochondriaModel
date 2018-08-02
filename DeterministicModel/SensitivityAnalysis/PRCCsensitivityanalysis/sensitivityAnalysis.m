@@ -16,10 +16,18 @@ function sensitivityAnalysis()
     %%%%%%%%%%%%%%%%%%%%%%%% define parameters for run %%%%%%%%%%%%%%%%%%%%%%%%
 
     % universal and single-run parameters
-    filename = sprintf(['Output', filesep, date, '-sensitivityOutput.mat']);
+    plot_on = true;  % whether to plot immediately after or not
+    plot_prcc = {'f0_Vmax', 'fIV_Vmax', 'fIV_Km', 'fV_Vmax', ...
+        'fV_Km', 'fV_K'};
+    
     num_sims = 1E4;
     display_interval = num_sims / 4;
     max_t = 1E3;
+    %calc_type = 'RMSE';
+    calc_type = 'finalO2val';
+    %calc_type = 'avgO2';
+    filename = sprintf(['Output', filesep, date, ...
+        '-sensitivityOutput-', calc_type, '.mat']);
     % lower bounds for params
     lb = [1E5, 1, ... %f0
         1E6, 1E5, 1E5, ... %fIV
@@ -34,9 +42,15 @@ function sensitivityAnalysis()
         % last row: r0, ox0, leak, amp1-4, attenuate
         
     % set parameters for time evolution
-    num_time_samples = 180;
-    num_multi_sims = 1E3;
+    num_time_samples = 36;
+    num_multi_sims = 5E3;
     independent_multi = false;
+    
+    % store the output settings
+    sensitivityOutput.settings = struct('num_sims', num_sims, ...
+        'calc_type', calc_type, 'num_time_samples', num_time_samples, ...
+        'num_multi_sims', num_multi_sims, ...
+        'indendent_multi', independent_multi);
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -66,7 +80,7 @@ function sensitivityAnalysis()
     num_params = numel(parameters);
 
     %Initialize output parameters
-    sensitivityOutput.outputLabels = {};
+    sensitivityOutput.outputLabels = parameters;
     sensitivityOutput.finalVals = zeros(num_sims, 1);
     sensitivityOutput.prcc = [];
     sensitivityOutput.sensitivity = struct();
@@ -83,11 +97,9 @@ function sensitivityAnalysis()
 
     disp('Simulating outputs from LHS sampling...');
 
-    tic
     % calculate all output vals using simulations
     [sensitivityOutput.finalVals, all_y] = calc_output(params, lhs, ...
-        data, initial_params, num_times, display_interval);
-    toc
+        data, initial_params, num_times, calc_type, display_interval);
 
     % firstly, remove all NaN result rows
     [remove_rows, ~] = find(isnan(sensitivityOutput.finalVals));
@@ -132,28 +144,34 @@ function sensitivityAnalysis()
             disp(['Simulating next time point...', num2str(t_i), ...
                 '/', num2str(num_time_samples)]);
             
-            tic
             % create the sampling pool using latin hypercube sampling
             lhsRaw = lhsdesign(num_multi_sims, numel(parameters));
             lhs = bsxfun(@plus, lb, bsxfun(@times, lhsRaw, (ub-lb))); % rescale
 
             % calculate all output vals using simulations
             [finalVals, all_y] = calc_output(params, lhs, data, ...
-                initial_params, num_times, display_interval);
+                initial_params, num_times, calc_type, display_interval);
             
             % firstly, remove all NaN result rows
             [remove_rows, ~] = find(isnan(finalVals));
             lhs(remove_rows, :) = [];
+            finalVals(remove_rows) = [];
             n = numel(lhs(:, 1));
 
-            sim_y = transpose(all_y(t_i, :));
-            toc
+            if strcmp(calc_type, 'RMSE')
+                sim_y = finalVals;
+            elseif strcmp(calc_type, 'finalO2val')
+                sim_y = transpose(all_y(t_i, :));
+            end
         else
-            
             y_vals = transpose(all_y(t_i, :));
-            compare_y = compare_data(t_i);
-            
-            sim_y = (y_vals - compare_y) .^ 2;
+
+            if strcmp(calc_type, 'RMSE')
+                compare_y = compare_data(t_i);
+                sim_y = (y_vals - compare_y) .^ 2;
+            elseif strcmp(calc_type, 'finalO2val')
+                sim_y = y_vals;
+            end
         end
         
         % calculate rank order matrices
@@ -172,16 +190,23 @@ function sensitivityAnalysis()
     sensitivityOutput.means = mean(sensitivityOutput.time_prcc);
 
     save(filename, 'sensitivityOutput');
+    
+    % plot if plot_on is set to do so
+    if plot_on
+        plot_prcc_multi(sensitivityOutput, plot_prcc);
+    end    
 
 end
 
 %% function for calculating output vals given LHS sampling for params
 function [final_vals, all_y] = calc_output(params, param_lhs, data, ...
-    initial_params, num_times, varagin)
+    initial_params, num_times, calc_type, varagin)
+
+    tic  % time the function
 
     % extract number of simulations used in this lhs sampling
     num_sims = numel(param_lhs(:, 1));
-    if numel(varagin) == 0
+    if (numel(varagin) == 0)
         display_interval = num_sims / 4;
     else
         display_interval = varagin(1);
@@ -228,16 +253,24 @@ function [final_vals, all_y] = calc_output(params, param_lhs, data, ...
         if (sum(y(:, 2)) == 0) || (numel(y(:, 2)) ~= num_times)
             final_vals(simnum) = NaN(1);
         else
-            evaluations = y(:,2); %evaluated data for o2
-            realo2Data = data.CtrlO2; %exp o2 data
-
-            final_vals(simnum) = sum((realo2Data-evaluations).^2)...
-                /numel(realo2Data);
             all_y = [all_y, y(:, 2)];
+            if (strcmp(calc_type, 'RMSE'))
+                % output RMSE for entire timeframe of data
+                evaluations = y(:,2); %evaluated data for o2
+                realo2Data = data.CtrlO2; %exp o2 data
+
+                final_vals(simnum) = sum((realo2Data-evaluations).^2)...
+                    /numel(realo2Data);
+            elseif (strcmp(calc_type, 'finalO2val'))
+                % output final O2 value
+                final_vals(simnum) = y(end, 2);
+                
+            end
         end
     end
     
     warning on;
+    toc
 end
 
 %% function for calculating sensitivity vals given output and parameter mtx
@@ -269,4 +302,50 @@ function prcc = calc_prcc(rank_out, rank_lhs)
 
 end
 
+%% function for plotting sensitivity vals over time with various params
+function plot_prcc_multi(sensitivityOutput, varargin)
+    
+    %%%% Varargin specifies which prcc vals to plot singly as strings
+
+    % extract values
+    time_points = sensitivityOutput.time_points;
+    prcc_vals = sensitivityOutput.time_prcc;
+    
+    % create filename for plotting all prcc
+    all_filename = sprintf(['Images', filesep, date, ...
+        '-AllPRCCvals-', sensitivityOutput.settings.calc_type, '.fig']);
+    
+    % plot
+    figure(1)
+    plot(time_points, prcc_vals);
+    title('PRCC values for all parameters over time');
+    xlabel('Time (sec');
+    ylabel('Correlation');
+    ylim([-1.0, 1.0]);
+    
+    savefig(all_filename);
+    
+    % plot specific plots if specified
+    if (numel(varargin) > 0)
+        plot_params = varargin(1);
+        
+        select_filename = sprintf(['Images', filesep, date, '-', ...
+            [sensitivityOutput.outputLabels{:}], ...
+        '-PRCCvals-', sensitivityOutput.settings.calc_type, '.fig']);
+        
+        param_idx = [find(ismember(sensitivityOutput.outputLabels, ...
+            plot_params{1}))];
+        
+        figure(2)
+        plot(time_points, prcc_vals(:, param_idx));
+        title('PRCC values for selected parameters over time');
+        xlabel('Time (sec');
+        ylabel('Correlation');
+        ylim([-1.0, 1.0]);
+        
+        savefig(select_filename);
+        
+    end
+
+end
 
