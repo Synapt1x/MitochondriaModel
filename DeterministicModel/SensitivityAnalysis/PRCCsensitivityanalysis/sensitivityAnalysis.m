@@ -23,8 +23,8 @@ function sensitivityAnalysis()
     num_sims = 1E3;
     display_interval = num_sims / 4;
     max_t = 1E3;
-    calc_type = 'RMSE';
-    %calc_type = 'finalO2val';
+    %calc_type = 'RMSE';
+    calc_type = 'finalO2val';
     %calc_type = 'avgO2';
     % lower bounds for params
     lb = [1E5, 1, ... %f0
