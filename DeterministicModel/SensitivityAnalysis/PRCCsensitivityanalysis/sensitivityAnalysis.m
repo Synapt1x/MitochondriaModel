@@ -43,7 +43,7 @@ function sensitivityAnalysis()
     % set parameters for time evolution
     num_time_samples = 120;
     num_multi_sims = 2E3;
-    independent_multi = false;
+    independent_multi = true;
     smooth_on = true;
     smooth_type = 'rlowess';
     
