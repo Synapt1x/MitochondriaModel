@@ -18,9 +18,9 @@ function sensitivityAnalysis()
     % universal and single-run parameters
     plot_on = true;  % whether to plot immediately after or not
     plot_prcc = {'f0_Vmax', 'fIV_Vmax', 'fIV_Km', 'fV_Vmax', ...
-        'fV_Km', 'fV_K'};
+        'fV_Km', 'fV_K', 'dummy'};
     
-    num_sims = 32;
+    num_sims = 60;
     display_interval = num_sims / 4;
     max_t = 1E3;
     %calc_type = 'RMSE';
@@ -30,19 +30,21 @@ function sensitivityAnalysis()
     lb = [1E5, 1, ... %f0
         1E6, 1E5, 1E5, ... %fIV
         1E5, 5E5, 5E-4, ... %fV
-        1E3, 1E3, 0.05, 1E-3, 1E-3, 1E-3, 1E-3, 0.05];
+        1E3, 1E3, 0.05, 1E-3, 1E-3, 1E-3, 1E-3, 0.05, 0];
         % last row: r0, ox0, leak, amp1-4, attenuate
     % upper bounds for params
     ub = [1E6, 50, ... %f0
         1E7, 1E6, 1E6, ... %fIV
         1E6, 5E6, 5E-3, ... %fV
-        5E3, 5E3, 1.0, 5E-3, 5E-3, 5E-3, 5E-3, 1.0];
+        5E3, 5E3, 1.0, 5E-3, 5E-3, 5E-3, 5E-3, 1.0, 1000];
         % last row: r0, ox0, leak, amp1-4, attenuate
         
     % set parameters for time evolution
-    num_time_samples = 90;
+    num_time_samples = 180;
     num_multi_sims = 32;
-    independent_multi = true;
+    independent_multi = false;
+    smooth_on = true;
+    smooth_type = 'rlowess';
     
     if (independent_multi)
         multi_on = 'multi';
@@ -83,7 +85,7 @@ function sensitivityAnalysis()
     %Initialize the symbolic variables in the model; vars, params and t
     parameters = {'f0_Vmax', 'f0_Km', 'fIV_Vmax', 'fIV_K', 'fIV_Km', ...
         'fV_Vmax', 'fV_K', 'fV_Km', 'r0', 'ox0', 'p_leak', 'amp_1', ...
-        'amp_2', 'amp_3', 'amp_4', 'r_attenuate'};
+        'amp_2', 'amp_3', 'amp_4', 'r_attenuate', 'dummy'};
     initial_params = [params.cytcred, params.oxygen, params.omega, ...
         params.rho];
     num_params = numel(parameters);
@@ -179,11 +181,8 @@ function sensitivityAnalysis()
             sim_y = y_vals;
         end
         
-        % calculate rank order matrices
-        %[~, rank_lhs] = sort(lhs, 'ascend');
-        %[~, rank_out] = sort(sim_y, 'descend');
-	rank_lhs = rank_order(lhs);
-	rank_out = rank_order(sim_y);
+        rank_lhs = rank_order(lhs);
+        rank_out = rank_order(sim_y);
 
         new_prcc = calc_prcc(rank_out, rank_lhs);
         sensitivityOutput.time_prcc(t_i, :) = new_prcc;
@@ -195,19 +194,26 @@ function sensitivityAnalysis()
     % calculate statistics
     sensitivityOutput.variance = var(sensitivityOutput.time_prcc);
     sensitivityOutput.means = mean(sensitivityOutput.time_prcc);
+    [sensitivityOutput.p_vals, sensitivityOutput.sig_val, ...
+        sensitivityOutput.significance] = inference(sensitivityOutput, n);
     
     % print results
     disp('==================== RESULTS =======================');
     table(parameters', sensitivityOutput.prcc', ...
         sensitivityOutput.means', sensitivityOutput.variance', ...
-        'VariableNames', {'parameters', 'sensitivity', 'mean', 'variance'})
+        sensitivityOutput.p_vals, 'VariableNames', ...
+        {'parameters', 'sensitivity', 'mean', 'variance', 'p'})
+    
+    sensitivityOutput.smoothed_prcc = smooth_data(sensitivityOutput, ...
+        smooth_type);
 
-    save(filename, 'sensitivityOutput');
+    %save(filename, 'sensitivityOutput');
     
     % plot if plot_on is set to do so
     if plot_on
         plot_sensitivity(sensitivityOutput, parameters);
-        plot_prcc_multi(sensitivityOutput, plot_prcc);
+        plot_prcc_multi(sensitivityOutput, smooth_on, smooth_type, ...
+            plot_prcc);
     end
 
 end
@@ -227,16 +233,16 @@ end
 
 %% function for calculating output vals given LHS sampling for params
 function [final_vals, all_y] = calc_output(params, param_lhs, data, ...
-    initial_params, num_times, calc_type, varagin)
+    initial_params, num_times, calc_type, varargin)
 
     tic  % time the function
 
     % extract number of simulations used in this lhs sampling
     num_sims = numel(param_lhs(:, 1));
-    if (numel(varagin) == 0)
+    if (numel(varargin) == 0)
         display_interval = num_sims / 4;
     else
-        display_interval = varagin(1);
+        display_interval = varargin{1};
     end
     
     % initialize final values vector for output
@@ -337,7 +343,7 @@ function plot_sensitivity(sensitivityOutput, param_names)
     vals = [];
     
     % significance value
-    sig_val = 0.2;  %%%% pass into function instead
+    sig_val = sensitivityOutput.sig_val;
     
     for i=1:numel(param_names)
         name = param_names{i};
@@ -346,60 +352,80 @@ function plot_sensitivity(sensitivityOutput, param_names)
         vals = [vals param_val];
     end
     
+    num_params = numel(param_names);
+    
     % plot bar graph of sensitivities
-    barfig = figure(4);
+    barfig = figure(1);
     bar(vals);
     % label the graph appropriately
     title('Sensitivity of each Model Parameter');
     ylabel('Correlation');
     ylim([-1, 1]);
-    xlim([0, 17]);
+    xlim([0, num_params + 1]);
     set(gca, 'FontSize', 10, 'XTickLabelRotation', 90, ...
-        'xticklabel', param_names, 'xtick', 1:16);
+        'xticklabel', param_names, 'xtick', 1:num_params);
     % create highlight patch for significance level
-    line([0, 17], [sig_val, sig_val], 'Color', 'red', ...
+    line([0, (num_params + 1)], [sig_val, sig_val], 'Color', 'red', ...
         'LineStyle', '--', 'LineWidth', 1.5);
-    line([0, 17], [-sig_val, -sig_val], 'Color', 'red', ...
+    line([0, (num_params + 1)], [-sig_val, -sig_val], 'Color', 'red', ...
         'LineStyle', '--', 'LineWidth', 1.5);
-    x = [0 17 17 0];
+    x = [0 (num_params + 1) (num_params + 1) 0];
     y = [-sig_val -sig_val sig_val sig_val];
     sig_patch = patch(x, y, 'red');
     alpha(sig_patch, 0.3);
     % reverse gca children to send bar graph to front
     set(gca,'children',flipud(get(gca,'children')))
-
-
+    
+    % finally add significance asterisks
+    sig_params = find(strcmp(sensitivityOutput.significance, '*') > 0);
+    for i=1:numel(sig_params)
+        x = sig_params(i);
+        y = vals(x);
+        x = x - 0.15;
+        if y < 0
+            y = y - 0.05;
+        else
+            y = y + 0.05;
+        end
+        text(x, y, '*');
+    end
+    
 end
 
 %% function for plotting sensitivity vals over time with various params
-function plot_prcc_multi(sensitivityOutput, varargin)
+function plot_prcc_multi(sensitivityOutput, smooth_on, smooth_type, varargin)
     
     %%%% Varargin specifies which prcc vals to plot singly as strings
 
     % extract values
     time_points = sensitivityOutput.time_points;
-    prcc_vals = sensitivityOutput.time_prcc;
+    if smooth_on
+        prcc_vals = smooth_data(sensitivityOutput, smooth_type);
+    else
+        prcc_vals = sensitivityOutput.time_prcc;
+    end
     
     % create filename for plotting all prcc
     all_filename = sprintf(['Images', filesep, date, ...
         '-AllPRCCvals-', sensitivityOutput.settings.calc_type]);
     
     % plot
-    f1 = figure(1);
+    f2 = figure(2);
     plot(time_points, prcc_vals);
     title('PRCC values for all parameters over time');
     xlabel('Time (sec)');
     ylabel('Correlation');
     ylim([-1.0, 1.0]);
-    leg1 = legend(sensitivityOutput.outputLabels);
-    set(leg1,'Location','BestOutside'); 
+    leg2 = legend(sensitivityOutput.outputLabels);
+    set(leg2,'Location','BestOutside'); 
     
-    savefig(f1, all_filename);
-    saveas(f1, all_filename, 'png');
+%     savefig(f2, all_filename);
+%     saveas(f2, all_filename, 'png');
     
     % plot specific plots if specified
     if (numel(varargin) > 0)
         plot_params = varargin(1);
+        
         
         select_filename = sprintf(['Images', filesep, date, '-', ...
             [plot_params{1}{:}], ...
@@ -408,26 +434,67 @@ function plot_prcc_multi(sensitivityOutput, varargin)
         param_idx = [find(ismember(sensitivityOutput.outputLabels, ...
             plot_params{1}))];
         
-        f2 = figure(2);
+        f3 = figure(3);
         plot(time_points, prcc_vals(:, param_idx));
         title('PRCC values for selected parameters over time');
         xlabel('Time (sec');
         ylabel('Correlation');
         ylim([-1.0, 1.0]);
-        leg2 = legend(plot_params{1});
-        set(leg2, 'Location', 'BestOutside');
+        leg3 = legend(plot_params{1});
+        set(leg3, 'Location', 'BestOutside');
         
-        
-        savefig(f2, select_filename);
-        saveas(f2, select_filename, 'png');
+%         savefig(f3, select_filename);
+%         saveas(f3, select_filename, 'png');
         
     end
 
 end
 
-%% function for conducting inference on the calculated PRCCs
-function sig_val = inference(sensitivityOutput)
+%% function for smoothing time_prcc if wanted
+function smoothed = smooth_data(sensitivityOutput, varargin)
+
+    % extract data
+    data = sensitivityOutput.time_prcc;
+    [rows, cols] = size(data);
+    smoothed = zeros([rows, cols]);
     
-    sig_val = 0.2;  %%%% default -- calculate it now
+    % extract smoothing method in case one is passed in
+    if numel(varargin) > 0
+        smooth_type = varargin{1};
+    else
+        smooth_type = 'moving';
+    end
+    
+    % smooth each column independently
+    for j=1:cols
+        smoothed(:, j) = smooth(data(:, j), smooth_type);
+    end
+
+end
+
+%% function for conducting inference on the calculated PRCCs
+function [p_vals, sig_val, sig] = inference(sensitivityOutput, n)
+    
+    % initialize and extract
+    sig = cell(numel(sensitivityOutput.prcc), 1);
+    sig_val = 0.05;  % default alpha
+    prcc = abs(sensitivityOutput.prcc);
+    
+    df = n - 2 -1;  % degrees of freedom
+    
+    % calculate T scores and p-values
+    t_scores = prcc .* sqrt(df ./ (1 - prcc .^ 2));
+    p_vals = tcdf(t_scores, df, 'upper')';
+    
+    % get bonferroni correction val
+    b_alpha = 1 - (1 - sig_val)^(1 / numel(prcc));
+    
+    % determine which are significant
+    sig(p_vals < b_alpha) = {'*'};
+    sig(p_vals >= b_alpha) = {'-'};
+    
+    % finally determine correlation that corresponds to corrected alpha
+    t_cutoff = abs(tinv(b_alpha, df));
+    sig_val = sqrt(t_cutoff ^2 / (df + t_cutoff^2));
     
 end
