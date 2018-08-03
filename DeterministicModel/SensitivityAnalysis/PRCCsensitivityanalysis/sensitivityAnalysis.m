@@ -17,10 +17,11 @@ function sensitivityAnalysis()
 
     % universal and single-run parameters
     plot_on = true;  % whether to plot immediately after or not
-    plot_prcc = {'f0_Vmax', 'fIV_Vmax', 'fIV_Km', 'fV_Vmax', ...
-        'fV_Km', 'fV_K', 'dummy'};
+    plot_prcc = {'fIV_Vmax', 'fIV_K', 'fIV_Km', 'fV_Vmax', ...
+        'fV_K', 'fV_Km', 'r0', 'ox0', 'p_leak', 'dummy'};
+    fig_visibility = 'off';  % set to on to view figures during run
     
-    num_sims = 60;
+    num_sims = 2E4;
     display_interval = num_sims / 4;
     max_t = 1E3;
     %calc_type = 'RMSE';
@@ -40,8 +41,8 @@ function sensitivityAnalysis()
         % last row: r0, ox0, leak, amp1-4, attenuate
         
     % set parameters for time evolution
-    num_time_samples = 180;
-    num_multi_sims = 32;
+    num_time_samples = 120;
+    num_multi_sims = 2E3;
     independent_multi = false;
     smooth_on = true;
     smooth_type = 'rlowess';
@@ -207,13 +208,13 @@ function sensitivityAnalysis()
     sensitivityOutput.smoothed_prcc = smooth_data(sensitivityOutput, ...
         smooth_type);
 
-    %save(filename, 'sensitivityOutput');
+    save(filename, 'sensitivityOutput');
     
     % plot if plot_on is set to do so
     if plot_on
-        plot_sensitivity(sensitivityOutput, parameters);
+        plot_sensitivity(sensitivityOutput, parameters, fig_visibility);
         plot_prcc_multi(sensitivityOutput, smooth_on, smooth_type, ...
-            plot_prcc);
+            fig_visibility, plot_prcc);
     end
 
 end
@@ -336,7 +337,7 @@ function prcc = calc_prcc(rank_out, rank_lhs)
 end
 
 %% function for plotting global sensitivity vals
-function plot_sensitivity(sensitivityOutput, param_names)
+function plot_sensitivity(sensitivityOutput, param_names, fig_visibility)
 
     % extract from sensitivity output
     sensitivities = sensitivityOutput.sensitivity;
@@ -355,7 +356,8 @@ function plot_sensitivity(sensitivityOutput, param_names)
     num_params = numel(param_names);
     
     % plot bar graph of sensitivities
-    barfig = figure(1);
+    barfig = figure('Name', 'Figure 1: Parameter Sensitivities', ...
+        'visible', fig_visibility);
     bar(vals);
     % label the graph appropriately
     title('Sensitivity of each Model Parameter');
@@ -393,7 +395,8 @@ function plot_sensitivity(sensitivityOutput, param_names)
 end
 
 %% function for plotting sensitivity vals over time with various params
-function plot_prcc_multi(sensitivityOutput, smooth_on, smooth_type, varargin)
+function plot_prcc_multi(sensitivityOutput, smooth_on, smooth_type, ...
+    fig_visibility, varargin)
     
     %%%% Varargin specifies which prcc vals to plot singly as strings
 
@@ -410,7 +413,8 @@ function plot_prcc_multi(sensitivityOutput, smooth_on, smooth_type, varargin)
         '-AllPRCCvals-', sensitivityOutput.settings.calc_type]);
     
     % plot
-    f2 = figure(2);
+    f2 = figure('Name', 'Figure 2: PRCC Over Time for All Parameters', ...
+        'visible', fig_visibility);
     plot(time_points, prcc_vals);
     title('PRCC values for all parameters over time');
     xlabel('Time (sec)');
@@ -419,8 +423,8 @@ function plot_prcc_multi(sensitivityOutput, smooth_on, smooth_type, varargin)
     leg2 = legend(sensitivityOutput.outputLabels);
     set(leg2,'Location','BestOutside'); 
     
-%     savefig(f2, all_filename);
-%     saveas(f2, all_filename, 'png');
+    savefig(f2, all_filename);
+    saveas(f2, all_filename, 'png');
     
     % plot specific plots if specified
     if (numel(varargin) > 0)
@@ -434,7 +438,9 @@ function plot_prcc_multi(sensitivityOutput, smooth_on, smooth_type, varargin)
         param_idx = [find(ismember(sensitivityOutput.outputLabels, ...
             plot_params{1}))];
         
-        f3 = figure(3);
+        f3 = figure('Name', ...
+            'Figure 3: PRCC Over Time for Selected Parameters', ...
+            'visible', fig_visibility);
         plot(time_points, prcc_vals(:, param_idx));
         title('PRCC values for selected parameters over time');
         xlabel('Time (sec');
@@ -443,8 +449,8 @@ function plot_prcc_multi(sensitivityOutput, smooth_on, smooth_type, varargin)
         leg3 = legend(plot_params{1});
         set(leg3, 'Location', 'BestOutside');
         
-%         savefig(f3, select_filename);
-%         saveas(f3, select_filename, 'png');
+        savefig(f3, select_filename);
+        saveas(f3, select_filename, 'png');
         
     end
 
