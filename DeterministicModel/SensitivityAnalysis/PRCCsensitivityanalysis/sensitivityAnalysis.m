@@ -20,7 +20,7 @@ function sensitivityAnalysis()
     plot_prcc = {'f0_Vmax', 'fIV_Vmax', 'fIV_Km', 'fV_Vmax', ...
         'fV_Km', 'fV_K'};
     
-    num_sims = 1E4;
+    num_sims = 32;
     display_interval = num_sims / 4;
     max_t = 1E3;
     %calc_type = 'RMSE';
@@ -41,7 +41,7 @@ function sensitivityAnalysis()
         
     % set parameters for time evolution
     num_time_samples = 90;
-    num_multi_sims = 1E3;
+    num_multi_sims = 32;
     independent_multi = true;
     
     if (independent_multi)
