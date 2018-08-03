@@ -62,7 +62,7 @@ useMex_=true; % Use compiled functions when possible.
 % * reasonably well between displays.  You might also choose the "Minimalist"
 % * skin if you are using a very old MATLAB 7.x version or if you want to
 % * minimize graphics resources.
-QubistSkin_='Unity'; % Best choice for most computers and MATLAB versions.
+QubistSkin_='Minimalist'; % Best choice for most computers and MATLAB versions.
 % QubistSkin_='Minimalist';  % Basic interface.  Best choice for old MATLAB 7.x versions.
 %
 % * Graphics and text scaling:
