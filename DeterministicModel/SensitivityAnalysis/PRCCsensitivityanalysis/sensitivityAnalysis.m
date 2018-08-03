@@ -206,8 +206,9 @@ function sensitivityAnalysis()
     
     % plot if plot_on is set to do so
     if plot_on
+        plot_sensitivity(sensitivityOutput, parameters);
         plot_prcc_multi(sensitivityOutput, plot_prcc);
-    end    
+    end
 
 end
 
@@ -328,6 +329,48 @@ function prcc = calc_prcc(rank_out, rank_lhs)
 
 end
 
+%% function for plotting global sensitivity vals
+function plot_sensitivity(sensitivityOutput, param_names)
+
+    % extract from sensitivity output
+    sensitivities = sensitivityOutput.sensitivity;
+    vals = [];
+    
+    % significance value
+    sig_val = 0.2;  %%%% pass into function instead
+    
+    for i=1:numel(param_names)
+        name = param_names{i};
+        param_val = sensitivities.(name);
+        
+        vals = [vals param_val];
+    end
+    
+    % plot bar graph of sensitivities
+    barfig = figure(4);
+    bar(vals);
+    % label the graph appropriately
+    title('Sensitivity of each Model Parameter');
+    ylabel('Correlation');
+    ylim([-1, 1]);
+    xlim([0, 17]);
+    set(gca, 'FontSize', 10, 'XTickLabelRotation', 90, ...
+        'xticklabel', param_names, 'xtick', 1:16);
+    % create highlight patch for significance level
+    line([0, 17], [sig_val, sig_val], 'Color', 'red', ...
+        'LineStyle', '--', 'LineWidth', 1.5);
+    line([0, 17], [-sig_val, -sig_val], 'Color', 'red', ...
+        'LineStyle', '--', 'LineWidth', 1.5);
+    x = [0 17 17 0];
+    y = [-sig_val -sig_val sig_val sig_val];
+    sig_patch = patch(x, y, 'red');
+    alpha(sig_patch, 0.3);
+    % reverse gca children to send bar graph to front
+    set(gca,'children',flipud(get(gca,'children')))
+
+
+end
+
 %% function for plotting sensitivity vals over time with various params
 function plot_prcc_multi(sensitivityOutput, varargin)
     
@@ -382,3 +425,9 @@ function plot_prcc_multi(sensitivityOutput, varargin)
 
 end
 
+%% function for conducting inference on the calculated PRCCs
+function sig_val = inference(sensitivityOutput)
+    
+    sig_val = 0.2;  %%%% default -- calculate it now
+    
+end
