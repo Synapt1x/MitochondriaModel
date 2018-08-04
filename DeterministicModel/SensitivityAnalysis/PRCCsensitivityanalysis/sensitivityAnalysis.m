@@ -92,7 +92,10 @@ function sensitivityAnalysis()
     num_params = numel(parameters);
 
     %Initialize output parameters
-    sensitivityOutput.outputLabels = parameters;
+    sensitivityOutput.outputLabels = {'f0_{Vmax}', 'f0_{Km}', 'fIV_{Vmax}', ...
+        'fIV_K', 'fIV_{Km}', 'fV_{Vmax}', 'fV_K', 'fV_{Km}', 'r(0)', ...
+        'ox(0)', 'p_{leak}', '\alpha_1', '\alpha_2', '\alpha_3', '\alpha_4', ...
+        'r_{attenuate}', 'dummy'};
     sensitivityOutput.finalVals = zeros(num_sims, 1);
     sensitivityOutput.prcc = [];
     sensitivityOutput.sensitivity = struct();
@@ -346,6 +349,10 @@ function plot_sensitivity(sensitivityOutput, param_names, fig_visibility)
     % significance value
     sig_val = sensitivityOutput.sig_val;
     
+    % create filename for plotting sensitivities
+    sensitivities_filename = sprintf(['Images', filesep, date, ...
+        '-Sensitivities-', sensitivityOutput.settings.calc_type]);
+    
     for i=1:numel(param_names)
         name = param_names{i};
         param_val = sensitivities.(name);
@@ -365,7 +372,7 @@ function plot_sensitivity(sensitivityOutput, param_names, fig_visibility)
     ylim([-1, 1]);
     xlim([0, num_params + 1]);
     set(gca, 'FontSize', 10, 'XTickLabelRotation', 90, ...
-        'xticklabel', param_names, 'xtick', 1:num_params);
+        'xticklabel', sensitivityOutput.outputLabels, 'xtick', 1:num_params);
     % create highlight patch for significance level
     line([0, (num_params + 1)], [sig_val, sig_val], 'Color', 'red', ...
         'LineStyle', '--', 'LineWidth', 1.5);
@@ -391,6 +398,10 @@ function plot_sensitivity(sensitivityOutput, param_names, fig_visibility)
         end
         text(x, y, '*');
     end
+    
+    % save sensitivity figure
+    savefig(barfig, sensitivities_filename);
+    saveas(barfig, sensitivities_filename, 'png');
     
 end
 
@@ -423,6 +434,7 @@ function plot_prcc_multi(sensitivityOutput, smooth_on, smooth_type, ...
     leg2 = legend(sensitivityOutput.outputLabels);
     set(leg2,'Location','BestOutside'); 
     
+    % save all PRCC fig
     savefig(f2, all_filename);
     saveas(f2, all_filename, 'png');
     
@@ -449,6 +461,7 @@ function plot_prcc_multi(sensitivityOutput, smooth_on, smooth_type, ...
         leg3 = legend(plot_params{1});
         set(leg3, 'Location', 'BestOutside');
         
+        % save selected PRCC fig
         savefig(f3, select_filename);
         saveas(f3, select_filename, 'png');
         
