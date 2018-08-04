@@ -443,7 +443,7 @@ function plot_prcc_multi(sensitivityOutput, smooth_on, smooth_type, ...
             'visible', fig_visibility);
         plot(time_points, prcc_vals(:, param_idx));
         title('PRCC values for selected parameters over time');
-        xlabel('Time (sec');
+        xlabel('Time (sec)');
         ylabel('Correlation');
         ylim([-1.0, 1.0]);
         leg3 = legend(plot_params{1});
