@@ -85,7 +85,7 @@ par.X.cytcred.range=[500, 2500];
 %
 par.X.cytcox.range=[1500, 2500];
 %
-par.X.p_alpha.range=[0.32, 0.5];
+par.X.p_alpha.range=[1E-5, 0.5];
 %
 par.X.p_fccp.range=[1, 1E5];
 %

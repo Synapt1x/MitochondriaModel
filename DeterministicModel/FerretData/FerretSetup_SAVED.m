@@ -27,6 +27,8 @@ par.general.popSize=125;
 par.general.NGen=100000;
 par.general.NPop=2;
 % ====================================
+%{
+%%% Full range parameters
 % Parameters (X)
 par.X.fIV_Vmax.range=[1E-4,1E7];
 %
@@ -61,6 +63,41 @@ par.X.amp_3.range=[1E-3, 1];
 par.X.amp_4.range=[1E-3, 1];
 %
 par.X.cyt_c_drop.range=[1E-9, 1];
+%}
+%%% Constrained parameter search
+par.X.f0_Vmax.range=[7E5, 7E6];
+%
+par.X.f0_Km.range=[0.1, 48];
+%
+par.X.fIV_Vmax.range=[2E6, 4E6];
+%
+par.X.fIV_Km.range=[7E5, 2E6];
+%
+par.X.fIV_K.range=[1E5, 3.5E5];
+%
+par.X.fV_Vmax.range=[2E5, 6E5];
+%
+par.X.fV_Km.range=[5E-5, 5E-4];
+%
+par.X.fV_K.range=[5E4, 5E5];
+%
+par.X.cytcred.range=[500, 2500];
+%
+par.X.cytcox.range=[1500, 2500];
+%
+par.X.p_alpha.range=[1E-5, 0.5];
+%
+par.X.p_fccp.range=[1, 1E5];
+%
+par.X.amp_1.range=[5E-4, 5E-3];
+%
+par.X.amp_2.range=[5E-4, 5E-3];
+%
+par.X.amp_3.range=[5E-4, 5E-3];
+%
+par.X.amp_4.range=[5E-3, 5E-2];
+%
+par.X.cyt_c_drop.range=[0.08, 0.2];
 %
 % ====================================
 % Parallel Computing
