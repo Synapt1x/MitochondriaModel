@@ -46,14 +46,15 @@ f_4 = ((params.fIV_Vmax*O2)/(params.fIV_Km*(1 ...
         +(params.fIV_K/cytcred))+O2))*(Hn./Hp); % complex IV
 f_leak = params.p_alpha * (sqrt((Hp.^3) ./ Hn) - sqrt((Hn.^3) ./ Hp)); % leak
 
+% calculate fccp leak
+fccp_leak = 1 + params.amp_1 + params.amp_2 + params.amp_3 + params.amp_4;
+
 %% Solve equation system
 
 dydt(1) = -2 * f_4; %dcytcred
 dydt(2) = -0.5 * f_4; %dO2
-dydt(3) =  -4 * f_4 + (1 + (params.amp_1 + params.amp_2 + params.amp_3 ...
-    + params.amp_4) * params.p_fccp) * f_leak; %dHn
-dydt(4) =  2 * f_4 - (1 + (params.amp_1 + params.amp_2 + params.amp_3 ...
-    + params.amp_4) * params.p_fccp) * f_leak; %dHn
+dydt(3) =  -4 * f_4 + fccp_leak * f_leak; %dHn
+dydt(4) =  2 * f_4 - fccp_leak * f_leak; %dHn
 
 dydt=dydt'; %correct vector orientation
 
