@@ -11,7 +11,7 @@
 % design.innovate.optimize @ www.nQube.ca
 % ============================================================================
 
-function par=FerretSetup(par)
+function par=FerretSetup_mito(par)
 %
 % ====================================
 % User
@@ -65,25 +65,33 @@ par.X.amp_4.range=[1E-3, 1];
 par.X.cyt_c_drop.range=[1E-9, 1];
 %}
 %%% Constrained parameter search
-par.X.f0_Vmax.range=[1E4, 1E6];
+par.X.f0_Vmax.range=[1E-4, 1E6];
+par.X.f0_Vmax.log = true;
 %
-par.X.f0_Km.range=[1E-3, 1E2];
+par.X.f0_Km.range=[1E-3, 1E6];
+par.X.f0_Km.log = true;
 %
-par.X.fIV_Vmax.range=[1E5, 9E6];
+par.X.fIV_Vmax.range=[1E-3, 1E6];
+par.X.fIV_Vmax.log = true;
 %
-par.X.fIV_Km.range=[1E5, 2E6];
+par.X.fIV_Km.range=[1E-3, 1E6];
+par.X.fIV_Km.log = true;
 %
-par.X.fIV_K.range=[5E4, 1E6];
+par.X.fIV_K.range=[1E-3, 1E6];
+par.X.fIV_K.log = true;
 %
-par.X.fV_Vmax.range=[5E4, 6E5];
+par.X.fV_Vmax.range=[1E-3, 1E6];
+par.X.fV_Vmax.log = true;
 %
-par.X.fV_Km.range=[1E-5, 5E-3];
+par.X.fV_Km.range=[1E-5, 1E6];
+par.X.fV_Km.log = true;
 %
-par.X.fV_K.range=[1E4, 1E6];
+par.X.fV_K.range=[1E-3, 1E6];
+par.X.fV_K.log = true;
 %
-par.X.cytcred.range=[10, 1E4];
+par.X.cytcred.range=[1, 1E4];
 %
-par.X.cytcox.range=[10, 1E4];
+par.X.cytcox.range=[1, 1E4];
 %
 par.X.p_alpha.range=[1E-7, 0.5];
 %
