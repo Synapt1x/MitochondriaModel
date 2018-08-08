@@ -46,11 +46,23 @@ for n=length(X):-1:1
         %call ode to solve the system of equations for this solver
         [~, y] = solver(parameters, params, data, selected_model, models);
         
-        
-        evaluations = y(:,2); %evaluated data for o2
         realo2Data = data.(data_types{parameters.data_fitting}); %exp o2 data
         
-        F(1,n) = sum((realo2Data-evaluations).^2)/numel(realo2Data) * scale;
+        switch selected_model
+            case 'cc_full_model'
+                evaluations = y(:,2); %evaluated data for o2
+        
+                F(1,n) = sum((realo2Data-evaluations).^2)...
+                    /numel(realo2Data) * scale;
+            case 'cc_baseline_model'
+                num_baseline_times = numel(data.baseline_times);
+                evaluations = y(1:num_baseline_times, 2);
+                realo2Data = realo2Data(1:num_baseline_times);
+                
+                F(1, n) = sum((realo2Data-evaluations).^2)...
+                    /numel(realo2Data) * scale;     
+        end
+        
     catch
         F(1,n) = data.max_error(parameters.data_fitting) * scale;
     end
