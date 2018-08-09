@@ -65,37 +65,37 @@ par.X.amp_4.range=[1E-3, 1];
 par.X.cyt_c_drop.range=[1E-9, 1];
 %}
 %%% Constrained parameter search
-par.X.f0_Vmax.range=[1, 40];
+par.X.f0_Vmax.range=[0.1, 100];
 %
-par.X.f0_Km.range=[0.8, 9.0];
+par.X.f0_Km.range=[0.1, 90];
 %
-par.X.fIV_Vmax.range=[0.2, 4];
+par.X.fIV_Vmax.range=[0.02, 40];
 %
-par.X.fIV_Km.range=[0.0001, 0.01];
+par.X.fIV_Km.range=[0.00005, 0.2];
 %
-par.X.fIV_K.range=[0.0005, 0.008];
+par.X.fIV_K.range=[0.0001, 0.01];
 %
-par.X.fV_Vmax.range=[25, 90];
+par.X.fV_Vmax.range=[1, 200];
 %
-par.X.fV_Km.range=[0.00005, 0.0008];
+par.X.fV_Km.range=[0.00001, 0.005];
 %
-par.X.fV_K.range=[0.0005, 0.008];
+par.X.fV_K.range=[0.0001, 0.05];
 %
-par.X.cytcred.range=[0.1, 8];
+par.X.cytcred.range=[0.01, 4000];
 %
-par.X.cytcox.range=[1.5E3, 3E3];
+par.X.cytcox.range=[0.01, 4000];
 %
-par.X.p_alpha.range=[0.0005, 0.01];
+par.X.p_alpha.range=[0.0000001, 0.1];
 %
-par.X.amp_1.range=[0.00005, 0.0005];
+par.X.amp_1.range=[0.00001, 0.001];
 %
-par.X.amp_2.range=[0.1, 0.8];
+par.X.amp_2.range=[0.01, 100];
 %
-par.X.amp_3.range=[0.1, 0.8];
+par.X.amp_3.range=[0.01, 100];
 %
-par.X.amp_4.range=[0.1, 0.8];
+par.X.amp_4.range=[0.01, 100];
 %
-par.X.cyt_c_drop.range=[0.00005, 0.0005];
+par.X.cyt_c_drop.range=[0.0000001, 0.1];
 %
 % ====================================
 % Parallel Computing
