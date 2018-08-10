@@ -42,7 +42,7 @@ function sensitivityAnalysis()
         
     % set parameters for time evolution
     num_time_samples = 120;
-    num_multi_sims = 2E3;
+    num_multi_sims = 1E3;
     independent_multi = true;
     smooth_on = true;
     smooth_type = 'rlowess';
@@ -136,6 +136,17 @@ function sensitivityAnalysis()
         val = sensitivityOutput.prcc(p);
         sensitivityOutput.sensitivity.(param_name) = val;
     end
+    
+    % calculate significant values for threshold
+    [sensitivityOutput.p_vals, sensitivityOutput.sig_val, ...
+    sensitivityOutput.significance] = inference(sensitivityOutput, n);
+    
+    save(filename, 'sensitivityOutput');
+    
+    % plot if plot_on is set to do so
+    if plot_on
+        plot_sensitivity(sensitivityOutput, parameters, fig_visibility);
+    end
 
     %% Multiple tests at key time points ========================== %%
     
@@ -198,8 +209,6 @@ function sensitivityAnalysis()
     % calculate statistics
     sensitivityOutput.variance = var(sensitivityOutput.time_prcc);
     sensitivityOutput.means = mean(sensitivityOutput.time_prcc);
-    [sensitivityOutput.p_vals, sensitivityOutput.sig_val, ...
-        sensitivityOutput.significance] = inference(sensitivityOutput, n);
     
     % print results
     disp('==================== RESULTS =======================');
@@ -211,11 +220,10 @@ function sensitivityAnalysis()
     sensitivityOutput.smoothed_prcc = smooth_data(sensitivityOutput, ...
         smooth_type);
 
-    save(filename, 'sensitivityOutput');
+    save(filename, 'sensitivityOutput');  % update
     
     % plot if plot_on is set to do so
     if plot_on
-        plot_sensitivity(sensitivityOutput, parameters, fig_visibility);
         plot_prcc_multi(sensitivityOutput, smooth_on, smooth_type, ...
             fig_visibility, plot_prcc);
     end
