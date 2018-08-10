@@ -20,7 +20,7 @@ function sensitivityAnalysis()
     plot_prcc = {'fIV_Vmax', 'fIV_K', 'fIV_Km', 'fV_Vmax', ...
         'fV_K', 'fV_Km', 'r0', 'ox0', 'p_leak', 'dummy'};
     fig_visibility = 'off';  % set to on to view figures during run   
-    
+
     num_sims = 2E4;
     display_interval = num_sims / 4;
     max_t = 1E3;
@@ -28,16 +28,16 @@ function sensitivityAnalysis()
     calc_type = 'finalO2val';
     %calc_type = 'avgO2';
     % lower bounds for params
-    lb = [2, 0.3, ... %f0
-        0.1, 0.0001, 0.0002, ... %fIV
-        5, 0.00001, 0.0001, ... %fV
-        0.1, 200, 0.0004, 1E-5, 1E-2, 1E-2, 1E-2, 0.00001, 0];
+    lb = [0.2, 0.01, ... %f0
+        0.001, 1E-7, 1E-6, ... %fIV
+        1, 1E-6, 1E-6, ... %fV
+        10, 10, 0.00004, 1E-7, 0.04, 1, 1E-4, 1E-8, 0];
         % last row: r0, ox0, leak, amp1-4, attenuate
     % upper bounds for params
-    ub = [200, 40, ... %f0
-        10, 0.01, 0.02, ... %fIV
-        600, 0.001, 0.01, ... %fV
-        10, 20000, 0.04, 1E-3, 0.9, 0.9, 0.9, 0.001, 1000];
+    ub = [2000, 500, ... %f0
+        10, 1E-4, 1E-2, ... %fIV
+        10000, 1E-2, 1E-2, ... %fV
+        100000, 10000, 0.4, 1E-3, 400, 10000, 1.0, 1E-4, 100];
         % last row: r0, ox0, leak, amp1-4, attenuate
         
     % set parameters for time evolution

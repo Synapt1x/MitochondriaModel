@@ -37,7 +37,7 @@ parameters.ctrlParams.fIV_K = 4.301E-4; %bounds: [0.1 1E4]
 parameters.ctrlParams.fV_Vmax = 110.8; %bounds: [1 1E4]
 parameters.ctrlParams.fV_Km = 9.248E-5; %bounds: [1E-6 1]
 parameters.ctrlParams.fV_K = 1E-4; %bounds: [1 1E4]
-parameters.ctrlParams.cytcred = 39.94 ...
+parameters.ctrlParams.cytcred = 2940 ...
     * parameters.converter; %bounds: [1E-6 1]
 parameters.ctrlParams.cytcox = 3922 ...
     * parameters.converter; %bounds: [1E-6 1]
@@ -50,7 +50,7 @@ parameters.ctrlParams.amp_3 = 97.22; % max effect of FCCP in third injection
 parameters.ctrlParams.amp_4 = 0.0099; % max effect of FCCP in final injection
 
 % multiplier to reduce proportion of cyt c red in inhibit step
-parameters.ctrlParams.cyt_c_drop = 1.039E-7; 
+parameters.ctrlParams.cyt_c_drop = 1.115E-6; 
 
 parameters.paramNames = fields(parameters.ctrlParams);
 
