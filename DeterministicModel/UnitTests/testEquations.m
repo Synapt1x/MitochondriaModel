@@ -27,13 +27,19 @@ test_one.t = [50,... % baseline time
     450, ...% fccp_75_time
     550, ...% fccp_full_time
     650];   % inhitibit time
-true_y_vals = [];  % calculated manually using correct formulas and the
+y_vals = [];  % calculated manually using correct formulas and the
 % fit parameters in p-star
-test_one.y = repmat(true_y_vals, numel(test_one.t));
+test_one.y = repmat(y_vals, numel(test_one.t));
 test_one.params = parameters.ctrlParams;
 
 % define correct output values for the given equations
-test_one.dy = [];
+test_one.dy = [9.644618695, -0.068049974, 80.519437673, -70.874818978; ...
+    9.644618695, -0.068049974, -30.274247973, 39.918866668; ...
+    9.644618695, -0.068049974, -30.274247767, 39.918866462; ...
+    9.644618695, -0.068049974, -30.191796749, 39.836415445; ...
+    9.644618695, -0.068049974, -28.188325636, 37.832944331; ...
+    9.644618695, -0.068049974, -28.188121621, 37.832740316; ...
+    -0.272199898, -0.068049974, 1.562334159, -1.834534057];
 
 % add test case to list of tests
 test_cases = [test_cases, test_one];
@@ -44,17 +50,12 @@ test_cases = [test_cases, test_one];
 test_two = struct();
 
 % define input values
-test_two.t = [50,... % baseline time
-    150, ...% oligo time
-    250, ...% fccp_25 time
-    350, ...% fccp_50_time
-    450, ...% fccp_75_time
-    550, ...% fccp_full_time
-    650];   % inhitibit time
-true_y_vals = [];  % calculated manually using correct formulas and the
-% fit parameters in p-star
-test_two.y = repmat(true_y_vals, numel(test_one.t));
+test_two.t = test_one.t;
+test_two.y = test_one.y;
 test_two.params = parameters.ctrlParams;
+
+% create artificial parameter values to ensure these are being used
+% correctly as well
 test_two.params.f0_Vmax = 20; %bounds: [0.01 10]
 test_two.params.f0_Km = 1; %bounds: [0.1 1E4]
 test_two.params.fIV_Vmax = 0.1; %bounds: [0.01 10]
@@ -79,7 +80,13 @@ test_two.params.amp_4 = 0.01; % max effect of FCCP in final injection
 test_two.params.cyt_c_drop = 1E-6; 
 
 % define correct output values for the given equations
-test_one.dy = [];
+test_two.dy = [9.644618695, -0.068049974, 80.519437673, -70.874818978; ...
+    9.644618695, -0.068049974, -30.274247973, 39.918866668; ...
+    9.644618695, -0.068049974, -30.274247767, 39.918866462; ...
+    9.644618695, -0.068049974, -30.191796749, 39.836415445; ...
+    9.644618695, -0.068049974, -28.188325636, 37.832944331; ...
+    9.644618695, -0.068049974, -28.188121621, 37.832740316; ...
+    -0.272199898, -0.068049974, 1.562334159, -1.834534057];
 
 % add test case to list of tests
 test_cases = [test_cases, test_two];
