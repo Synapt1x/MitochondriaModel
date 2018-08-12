@@ -124,9 +124,12 @@ for test_num=1:numel(test_cases)
         % check for value consistency
         diff_vals = abs(dy - calc_dy);
         check_vals = arrayfun(@(x) x < epsilon, diff_vals);
-        assert(all(check_vals), sprintf('Equations are not consistent ', ...
-            ' manually calculated values. Please re-check equations. ', ...
-            '**Specific fail for test %d computed at t=%d.', test_num, time));        
+        if ~all(check_vals)
+            close;
+            error(['\nEquations are not consistent wth ', ...
+            'manually calculated values. Please re-check equations. ', ...
+            '\n**Specific fail for test %d computed at t=%d.'], test_num, time);
+        end
     end
     
     fprintf('passed!\n');
