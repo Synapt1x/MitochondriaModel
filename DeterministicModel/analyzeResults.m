@@ -1,4 +1,4 @@
-function analyzeResults(OptimalSolutions)
+function analyzeResults(OptimalSolutions, varargin)
 %{
 Created by: Chris Cadonic
 ========================================
@@ -13,12 +13,23 @@ global best, which will be stored in the variable result.
 
 %% Initialize vars
 
+close all  % close all currently open windows
+
 % number of general solutions
 size_sols = size(OptimalSolutions.X, 2);
+size_sols = 20;
 
 main_dir=fileparts(which(mfilename));
 
-%initialize storage variables
+% determing if figures should be shown or not
+if numel(varargin) > 0
+    visibility = varargin{1};
+else
+    % default is not to show figures as popups but just to save them
+    visibility = 'off';
+end
+
+% initialize storage variables
 bestFit = OptimalSolutions.F(:,1).*inf;
 bestSet = struct();
 errs = struct();
@@ -34,6 +45,10 @@ top_ten = round(size_sols * 0.10);
 all_top_o2 = zeros(numel(data.Time), top_ten);
 best_fit = zeros(numel(data.Time), 1);
 
+% output image filenames
+save_mean_normed_filename = ['mean_normed_boxplots-', date];
+save_range_normed_filename = ['range_normed_boxplots-', date];
+save_max_normed_filename = ['max_normed_boxplots-', date];
 save_top_sols_filename = ['top_solutions-', date];
 
 %% Loop over OptimalSolutions to find Best
@@ -96,30 +111,30 @@ for i = 1:numel(fields) - 1
 end
 
 %% Plot all boxplots on same figure
-figure(1);
+f1 = figure('visible', visibility);
 boxplot(mean_normed_vals);
 %ylim([0 1])
 title('Boxplots for top 10% of solutions after Mean Normalization');
 set(gca, 'TickLabelInterpreter', 'tex');
-set(gca, 'XTickLabel', names, 'XTickLabelRotation', 45, 'fontsize', 14);
+set(gca, 'XTickLabel', names, 'XTickLabelRotation', 90, 'fontsize', 14);
 xlabel('Model Parameter');
 ylabel('Feature-normalized value');
 
-figure(2);
+f2 = figure('visible', visibility);
 boxplot(range_normed_vals);
 %ylim([0 1])
 title('Boxplots for top 10% of solutions after Range Normalization');
 set(gca, 'TickLabelInterpreter', 'tex');
-set(gca, 'XTickLabel', names, 'XTickLabelRotation', 45, 'fontsize', 14);
+set(gca, 'XTickLabel', names, 'XTickLabelRotation', 90, 'fontsize', 14);
 xlabel('Model Parameter');
 ylabel('Feature-normalized value');
 
-figure(3);
+f3 = figure('visible', visibility);
 boxplot(range_normed_vals);
 %ylim([0 1])
 title('Boxplots for top 10% of solutions after Max Normalization');
 set(gca, 'TickLabelInterpreter', 'tex');
-set(gca, 'XTickLabel', names, 'XTickLabelRotation', 45, 'fontsize', 14);
+set(gca, 'XTickLabel', names, 'XTickLabelRotation', 90, 'fontsize', 14);
 xlabel('Model Parameter');
 ylabel('Feature-normalized value');
 
@@ -156,7 +171,7 @@ end
 max_vals = max(all_top_o2, [], 2);
 min_vals = min(all_top_o2, [], 2);
 
-figure(20);
+ftop = figure('visible', visibility);
 hold on
 f = plot(data.Time, best_fit, 'b', 'LineWidth', 2);
 plot(data.Time, max_vals, 'g--');
@@ -183,6 +198,14 @@ save(resultsname,'bestSet','bestFit', 'errs', 'stds', 'means', 'all_top_o2', ...
 %display a message indicating the files will be saved
 disp(['Saving output files to ' folder '/Solutions.']);
 
-export_fig(save_top_sols_filename)
+% export figures and figure images
+saveas(f1, save_mean_normed_filename, 'fig');
+saveas(f2, save_range_normed_filename, 'fig');
+saveas(f3, save_max_normed_filename, 'fig');
+saveas(ftop, save_top_sols_filename, 'fig');
+export_fig(save_mean_normed_filename, f1);
+export_fig(save_range_normed_filename, f2);
+export_fig(save_max_normed_filename, f3);
+export_fig(save_top_sols_filename, ftop)
 
 cd(folder); %change back to original folder
