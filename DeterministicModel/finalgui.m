@@ -118,6 +118,9 @@ handles = set_initials_func(handles, [handles.parameters.cytctot, ...
 %insert the initial conditions into the textboxes
 set(findall(handles.controlGroup,'-property','Enable'),'Enable','off');
 
+% validate equations to make sure they are implemented correctly
+testEquations();
+
 guidata(hObject,handles);
 
 % --- Outputs from this function are returned to the command line.

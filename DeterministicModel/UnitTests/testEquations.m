@@ -13,7 +13,12 @@ input conditions.
 %structure storing all variables necessary
 %for the model (found in 'setup.m')
 
+epsilon = 1E-6; % epsilon error for float threshold
+
 test_cases = [];
+
+% notify that tests are being run
+disp('Testing equation sets to ensure match to manual calculations...');
 
 %% Test case 1
 % Test validitiy for inputs t and y for the full system equations
@@ -27,9 +32,9 @@ test_one.t = [50,... % baseline time
     450, ...% fccp_75_time
     550, ...% fccp_full_time
     650];   % inhitibit time
-y_vals = [];  % calculated manually using correct formulas and the
+y_vals = [2000, 150, 0.5, 2.5];  % calculated manually using correct formulas and the
 % fit parameters in p-star
-test_one.y = repmat(y_vals, numel(test_one.t));
+test_one.y = repmat(y_vals', 1, numel(test_one.t));
 test_one.params = parameters.ctrlParams;
 
 % define correct output values for the given equations
@@ -37,9 +42,9 @@ test_one.dy = [9.644618695, -0.068049974, 80.519437673, -70.874818978; ...
     9.644618695, -0.068049974, -30.274247973, 39.918866668; ...
     9.644618695, -0.068049974, -30.274247767, 39.918866462; ...
     9.644618695, -0.068049974, -30.191796749, 39.836415445; ...
-    9.644618695, -0.068049974, -28.188325636, 37.832944331; ...
-    9.644618695, -0.068049974, -28.188121621, 37.832740316; ...
-    -0.272199898, -0.068049974, 1.562334159, -1.834534057];
+    9.644618695, -0.068049974, -28.270776860, 37.915395555; ...
+    9.644618695, -0.068049974, -30.274043958, 39.918662653; ...
+    -0.272199898, -0.068049974, 1.562334159, -1.834534057]';
 
 % add test case to list of tests
 test_cases = [test_cases, test_one];
@@ -68,6 +73,7 @@ test_two.params.cytcred = 3000 ...
     * parameters.converter; %bounds: [1E-6 1]
 test_two.params.cytcox = 4000 ...
     * parameters.converter; %bounds: [1E-6 1]
+test_two.params.cytctot = test_two.params.cytcred + test_two.params.cytcox;
 test_two.params.p_alpha = 0.001; %bounds: [1E-9 1]
 test_two.params.p_fccp = 1.0; %bounds: [1 1E5]  NO LONGER USED
 
@@ -80,13 +86,13 @@ test_two.params.amp_4 = 0.01; % max effect of FCCP in final injection
 test_two.params.cyt_c_drop = 1E-6; 
 
 % define correct output values for the given equations
-test_two.dy = [9.644618695, -0.068049974, 80.519437673, -70.874818978; ...
-    9.644618695, -0.068049974, -30.274247973, 39.918866668; ...
-    9.644618695, -0.068049974, -30.274247767, 39.918866462; ...
-    9.644618695, -0.068049974, -30.191796749, 39.836415445; ...
-    9.644618695, -0.068049974, -28.188325636, 37.832944331; ...
-    9.644618695, -0.068049974, -28.188121621, 37.832740316; ...
-    -0.272199898, -0.068049974, 1.562334159, -1.834534057];
+test_two.dy = [7.958400323, -0.009999999, 75.924165969, -67.965765646; ...
+    7.958400323, -0.009999999, -24.069834391, 32.028234714; ...
+    7.958400323, -0.009999999, -24.069834338, 32.028234660; ...
+    7.958400323, -0.009999999, -24.048368085, 32.006768408; ...
+    7.958400323, -0.009999999, -23.533178077, 31.491578399; ...
+    7.958400323, -0.009999999, -24.069780726, 32.028181048; ...
+    -0.039999997, -0.009999999, 0.483542855, -0.523542852]';
 
 % add test case to list of tests
 test_cases = [test_cases, test_two];
@@ -94,3 +100,35 @@ test_cases = [test_cases, test_two];
 
 %% Run tests
 
+% loop over each test case
+for test_num=1:numel(test_cases)
+    fprintf('Running test %d / %d ...', test_num, numel(test_cases));
+    test_case = test_cases(test_num);
+    num_steps = numel(test_case.t);
+    
+    % loop over each time in the test
+    for t_i=1:num_steps
+        
+        % extract test values from case
+        time = test_case.t(t_i);
+        y_vals = test_case.y(:, t_i);
+        dy = test_case.dy(:, t_i);
+        
+        % compute values from equations
+        if time < data.inhibit_t
+            calc_dy = oligoFccpSystem(time, y_vals, test_case.params);
+        else
+            calc_dy = inhibitSystem(time, y_vals, test_case.params);
+        end
+        
+        % check for value consistency
+        diff_vals = abs(dy - calc_dy);
+        check_vals = arrayfun(@(x) x < epsilon, diff_vals);
+        assert(all(check_vals), sprintf('Equations are not consistent ', ...
+            ' manually calculated values. Please re-check equations. ', ...
+            '**Specific fail for test %d computed at t=%d.', test_num, time));        
+    end
+    
+    fprintf('passed!\n');
+    
+end
