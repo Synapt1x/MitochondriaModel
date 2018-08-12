@@ -15,7 +15,6 @@ global best, which will be stored in the variable result.
 
 % number of general solutions
 size_sols = size(OptimalSolutions.X, 2);
-%size_sols = 30;
 
 main_dir=fileparts(which(mfilename));
 
@@ -35,7 +34,7 @@ top_ten = round(size_sols * 0.10);
 all_top_o2 = zeros(numel(data.Time), top_ten);
 best_fit = zeros(numel(data.Time), 1);
 
-save_top_sols_filename = ['Solutions/top_solutions-', date];
+save_top_sols_filename = ['top_solutions-', date];
 
 %% Loop over OptimalSolutions to find Best
 
@@ -170,7 +169,6 @@ hold off
 %% Save files to Solutions folder
 
 cd(main_dir);
-export_fig(save_top_sols_filename)
 
 folder = fileparts(which(mfilename)); %get the current folder
 cd([folder '/Solutions']); %change to Solutions folder
@@ -184,5 +182,7 @@ save(resultsname,'bestSet','bestFit', 'errs', 'stds', 'means', 'all_top_o2', ...
 
 %display a message indicating the files will be saved
 disp(['Saving output files to ' folder '/Solutions.']);
+
+export_fig(save_top_sols_filename)
 
 cd(folder); %change back to original folder
