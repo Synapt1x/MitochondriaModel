@@ -14,6 +14,7 @@ global best, which will be stored in the variable result.
 %% Initialize vars
 
 close all  % close all currently open windows
+warning('off','MATLAB:prnRenderer:opengl');
 
 % number of general solutions
 size_sols = size(OptimalSolutions.X, 2);
@@ -209,3 +210,6 @@ export_fig(save_max_normed_filename, f3);
 export_fig(save_top_sols_filename, ftop)
 
 cd(folder); %change back to original folder
+
+% turn warnings back on
+warning('on','MATLAB:prnRenderer:opengl');
