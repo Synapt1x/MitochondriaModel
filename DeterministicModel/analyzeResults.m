@@ -18,7 +18,6 @@ warning('off','MATLAB:prnRenderer:opengl');
 
 % number of general solutions
 size_sols = size(OptimalSolutions.X, 2);
-size_sols = 20;
 
 main_dir=fileparts(which(mfilename));
 
