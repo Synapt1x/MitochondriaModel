@@ -37,7 +37,7 @@ function sensitivityAnalysis()
     ub = [2000, 500, ... %f0
         10, 1E-4, 1E-2, ... %fIV
         10000, 1E-2, 1E-2, ... %fV
-        100000, 10000, 0.4, 1E-3, 400, 10000, 1.0, 1E-4, 100];
+        100000, 100000, 0.4, 1E-3, 400, 10000, 1.0, 1E-4, 100];
         % last row: r0, ox0, leak, amp1-4, attenuate
         
     % set parameters for time evolution
