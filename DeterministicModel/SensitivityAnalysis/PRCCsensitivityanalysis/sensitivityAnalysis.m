@@ -16,52 +16,50 @@ function sensitivityAnalysis()
     %%%%%%%%%%%%%%%%%%%%% define parameters for run %%%%%%%%%%%%%%%%%%%%%%
 
     % universal and single-run parameters
-    plot_on = true;  % whether to plot immediately after or not
-    plot_prcc = {'fIV_Vmax', 'fIV_K', 'fIV_Km', 'fV_Vmax', ...
+    settings.plot_on = true;  % whether to plot immediately after or not
+    settings.plot_prcc = {'fIV_Vmax', 'fIV_K', 'fIV_Km', 'fV_Vmax', ...
         'fV_K', 'fV_Km', 'r0', 'ox0', 'p_leak', 'dummy'};
-    fig_visibility = 'off';  % set to on to view figures during run   
+    settings.fig_visibility = 'off';  % set to on to view figures during run
 
-    num_sims = 2E4;
-    display_interval = num_sims / 4;
-    max_t = 1E3;
+    settings.num_sims = 100;
+    settings.max_t = 1E3;
     %calc_type = 'RMSE';
-    calc_type = 'finalO2val';
+    settings.calc_type = 'finalO2val';
     %calc_type = 'avgO2';
     % lower bounds for params
-    lb = [0.2, 0.01, ... %f0
+    settings.lb = [0.2, 0.01, ... %f0
         0.001, 1E-7, 1E-6, ... %fIV
         1, 1E-6, 1E-6, ... %fV
         10, 10, 0.00004, 1E-7, 0.04, 1, 1E-4, 1E-8, 0];
         % last row: r0, ox0, leak, amp1-4, attenuate
     % upper bounds for params
-    ub = [2000, 500, ... %f0
+    settings.ub = [2000, 500, ... %f0
         10, 1E-4, 1E-2, ... %fIV
         10000, 1E-2, 1E-2, ... %fV
         100000, 100000, 0.4, 1E-3, 400, 10000, 1.0, 1E-4, 100];
         % last row: r0, ox0, leak, amp1-4, attenuate
         
+    % parameters for checking consistency of method
+    settings.check_consistency = 'on';  % set to turn on consistency tests
+    settings.consistency_num_sims = [500, 1E3, 5E3, 1E4, 2E4, 5E4, 1E5];
+    settings.consistency_threshold = 0.01;  % percentage as proportion
+    settings.consistency_iterations = 5;  % number of runs to compare
+        
     % set parameters for time evolution
-    num_time_samples = 120;
-    num_multi_sims = 1E3;
-    independent_multi = true;
-    smooth_on = true;
-    smooth_type = 'rlowess';
-    
-    if (independent_multi)
-        multi_on = 'multi';
-    else
-        multi_on = 'single';
-    end
+    settings.num_time_samples = 2;
+    settings.num_multi_sims = 100;
+    settings.smooth_on = false;
+    settings.smooth_type = 'rlowess';
     
     % set the output filename for the .mat
-    filename = sprintf(['Output', filesep, date, ...
-    '-sensitivityOutput-', calc_type, '-', multi_on, '.mat']);
+    settings.filename = sprintf(['Output', filesep, date, ...
+    '-sensitivityOutput-', settings.calc_type, '.mat']);
     
     % store the output settings
-    sensitivityOutput.settings = struct('num_sims', num_sims, ...
-        'calc_type', calc_type, 'num_time_samples', num_time_samples, ...
-        'num_multi_sims', num_multi_sims, ...
-        'indendent_multi', independent_multi);
+    sensitivityOutput.settings = struct('num_sims', settings.num_sims, ...
+        'calc_type', settings.calc_type, ...
+        'num_time_samples', settings.num_time_samples, ...
+        'num_multi_sims', settings.num_multi_sims);
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -73,159 +71,93 @@ function sensitivityAnalysis()
     cd(['..',filesep,'..']);
 
     % acquire initial setup data for the model
-    [all_params, data, ~] = setup;
-    params = all_params.ctrlParams;
+    [settings.all_params, settings.data, ~] = setup;
+    settings.params = settings.all_params.ctrlParams;
     
     % store all times
-    all_t = [data.baseline_times; data.oligo_fccp_times; ...
-        data.inhibit_times];
-    num_times = numel(all_t);
+    settings.all_t = [settings.data.baseline_times; ...
+        settings.data.oligo_fccp_times; settings.data.inhibit_times];
+    settings.num_times = numel(settings.all_t);
 
     cd(curdir);
 
     %Initialize the symbolic variables in the model; vars, params and t
-    parameters = {'f0_Vmax', 'f0_Km', 'fIV_Vmax', 'fIV_K', 'fIV_Km', ...
+    settings.parameters = {'f0_Vmax', 'f0_Km', 'fIV_Vmax', 'fIV_K', 'fIV_Km', ...
         'fV_Vmax', 'fV_K', 'fV_Km', 'r0', 'ox0', 'p_leak', 'amp_1', ...
         'amp_2', 'amp_3', 'amp_4', 'r_attenuate', 'dummy'};
-    initial_params = [params.cytcred, params.oxygen, params.omega, ...
-        params.rho];
-    num_params = numel(parameters);
+    settings.initial_params = [settings.params.cytcred, ...
+        settings.params.oxygen, settings.params.omega, settings.params.rho];
+    settings.num_params = numel(settings.parameters);
 
     %Initialize output parameters
     sensitivityOutput.outputLabels = {'f0_{Vmax}', 'f0_{Km}', 'fIV_{Vmax}', ...
         'fIV_K', 'fIV_{Km}', 'fV_{Vmax}', 'fV_K', 'fV_{Km}', 'r(0)', ...
         'ox(0)', 'p_{leak}', '\alpha_1', '\alpha_2', '\alpha_3', '\alpha_4', ...
         'r_{attenuate}', 'dummy'};
-    sensitivityOutput.finalVals = zeros(num_sims, 1);
+    sensitivityOutput.finalVals = zeros(settings.num_sims, 1);
     sensitivityOutput.prcc = [];
     sensitivityOutput.sensitivity = struct();
     sensitivityOutput.raw_data = struct();
+    
+    %% Run Consistency test if required =============================== %%
+    
+    if (strcmp(settings.check_consistency, 'on'))
+        fprintf(' ===== First checking consistency of results ===== \n');
+        [consistent, min_sims] = consistency_check(settings, ...
+            sensitivityOutput);
+        
+        if consistent
+            fprintf(' ***** CONSISTENT with minimum sims = %d ****** \n', ...
+                min_sims);
+            settings.num_sims = min_sims;
+            settings.num_multi_sims = min_sims;
+        else
+            error('!!!NOT ENOUGH SIMULATIONS TO REACH CONSISTENT RESULTS!!!');
+        end
+    end
+    
 
     %% Run single test ================================================ %%
     
-    disp('Generating overall LHS ...');
-
-    % create the sampling pool using latin hypercube sampling
-    lhsRaw = lhsdesign(num_sims, numel(parameters));
-    lhs = bsxfun(@plus, lb, bsxfun(@times, lhsRaw, (ub-lb))); % rescale
-    sensitivityOutput.raw_data.single_lhs = lhs;
-
-    %% Generate output matrix from simulations
-
-    disp('Simulating outputs from LHS ...');
-
-    % calculate all output vals using simulations
-    [sensitivityOutput.finalVals, all_y] = calc_output(params, lhs, ...
-        data, initial_params, num_times, calc_type, display_interval);
-
-    % firstly, remove all NaN result rows
-    [remove_rows, ~] = find(isnan(sensitivityOutput.finalVals));
-    sensitivityOutput.finalVals(remove_rows) = [];
-    lhs(remove_rows, :) = [];
-    n = numel(lhs(:, 1));
-
-    % calculate rank order matrices
-    rank_lhs = rank_order(lhs);
-    rank_out = rank_order(sensitivityOutput.finalVals);
+    sensitivityOutput = single_prcc(settings, sensitivityOutput, true);
     
-    sensitivityOutput.prcc = calc_prcc(rank_out, rank_lhs);
-
-    % save prcc and sensitivity value to output
-    for p=1:num_params
-        param_name = parameters{p};
-        val = sensitivityOutput.prcc(p);
-        sensitivityOutput.sensitivity.(param_name) = val;
-    end
+    n = numel(sensitivityOutput.raw_data.single_lhs(:, 1));
     
     % calculate significant values for threshold
     [sensitivityOutput.p_vals, sensitivityOutput.sig_val, ...
     sensitivityOutput.significance] = inference(sensitivityOutput, n);
     
-    save(filename, 'sensitivityOutput');
+    % save single rune results to file
+    save(settings.filename, 'sensitivityOutput');
     
     % plot if plot_on is set to do so
-    if plot_on
-        plot_sensitivity(sensitivityOutput, parameters, fig_visibility);
+    if settings.plot_on
+        plot_sensitivity(sensitivityOutput, settings.parameters, ...
+            settings.fig_visibility);
     end
+    
 
     %% Multiple tests at key time points ========================== %%
     
-    % assemble the time points
-    num_time_samples = min([num_time_samples, num_times]);
-    sample_times_idx = round(linspace(1, num_times, num_time_samples));
-    sample_times = all_t(sample_times_idx);
-    % extra the comparison data at these time points
-    compare_data = data.CtrlO2(sample_times_idx);
-    
-    % save time points to output
-    sensitivityOutput.time_points = sample_times;
-    
-    %Initialize output parameters
-    sensitivityOutput.time_prcc = zeros(num_time_samples, num_params);
-    
-    disp('=====Examining time evolution of samples=====');
-    
-    for t_i=1:num_time_samples
-                
-        if independent_multi
-            disp(['Simulating next time point...', num2str(t_i), ...
-                '/', num2str(num_time_samples)]);
-            
-            % create the sampling pool using latin hypercube sampling
-            lhsRaw = lhsdesign(num_multi_sims, numel(parameters));
-            % rescale
-            lhs = bsxfun(@plus, lb, bsxfun(@times, lhsRaw, (ub-lb)));
-
-            % calculate all output vals using simulations
-            [finalVals, all_y] = calc_output(params, lhs, data, ...
-                initial_params, num_times, calc_type, display_interval);
-            
-            % firstly, remove all NaN result rows
-            [remove_rows, ~] = find(isnan(finalVals));
-            lhs(remove_rows, :) = [];
-            finalVals(remove_rows) = [];
-            n = numel(lhs(:, 1));
-        end
-
-        y_vals = all_y(t_i, :)';
-
-        if strcmp(calc_type, 'RMSE')
-            compare_y = compare_data(t_i);
-            sim_y = (y_vals - compare_y) .^ 2;
-        elseif strcmp(calc_type, 'finalO2val')
-            sim_y = y_vals;
-        end
-        
-        rank_lhs = rank_order(lhs);
-        rank_out = rank_order(sim_y);
-
-        new_prcc = calc_prcc(rank_out, rank_lhs);
-        sensitivityOutput.time_prcc(t_i, :) = new_prcc;
-    end
-    if ~independent_multi
-        disp('Finished assembling PRCC evolution...');
-    end
-    
-    % calculate statistics
-    sensitivityOutput.variance = var(sensitivityOutput.time_prcc);
-    sensitivityOutput.means = mean(sensitivityOutput.time_prcc);
+    sensitivityOutput = time_prcc(settings, sensitivityOutput);
     
     % print results
     disp('==================== RESULTS =======================');
-    table(parameters', sensitivityOutput.prcc', ...
+    table(settings.parameters', sensitivityOutput.prcc', ...
         sensitivityOutput.means', sensitivityOutput.variance', ...
         sensitivityOutput.p_vals, 'VariableNames', ...
         {'parameters', 'sensitivity', 'mean', 'variance', 'p'})
     
+    % compute smoothed prcc time evolution in case this is wanted
     sensitivityOutput.smoothed_prcc = smooth_data(sensitivityOutput, ...
-        smooth_type);
+        settings.smooth_type);
 
-    save(filename, 'sensitivityOutput');  % update
+    save(settings.filename, 'sensitivityOutput');  % update
     
     % plot if plot_on is set to do so
     if plot_on
-        plot_prcc_multi(sensitivityOutput, smooth_on, smooth_type, ...
-            fig_visibility, plot_prcc);
+        plot_prcc_multi(sensitivityOutput, settings.smooth_on, ...
+            settings.smooth_type, settings.fig_visibility, settings.plot_prcc);
     end
 
 end
@@ -524,4 +456,176 @@ function [p_vals, sig_val, sig] = inference(sensitivityOutput, n)
     t_cutoff = abs(tinv(b_alpha, df));
     sig_val = sqrt(t_cutoff ^2 / (df + t_cutoff^2));
     
+end
+
+%% function for conducting entire PRCC sensitivity analysis a single instance
+function sensitivityOutput = single_prcc(settings, sensitivityOutput, verbose)
+
+    if verbose
+        fprintf('\n=====Examining single set of samples=====\n');
+    end
+
+    % extract parameters
+    num_sims = settings.num_sims;
+    lb = settings.lb;
+    ub = settings.ub;
+    parameters = settings.parameters;
+    data = settings.data;
+    num_times = settings.num_times;
+    params = settings.params;
+    initial_params = settings.initial_params;
+    calc_type = settings.calc_type;
+    display_interval = num_sims / 4;
+    num_params = settings.num_params;
+
+    if verbose
+        fprintf('Generating overall LHS ...\n');
+    end
+
+    % create the sampling pool using latin hypercube sampling
+    lhsRaw = lhsdesign(num_sims, numel(parameters));
+    lhs = bsxfun(@plus, lb, bsxfun(@times, lhsRaw, (ub-lb))); % rescale
+    sensitivityOutput.raw_data.single_lhs = lhs;
+
+    %% Generate output matrix from simulations
+
+    if verbose
+        fprintf('Simulating outputs from LHS ...\n');
+    end
+
+    % calculate all output vals using simulations
+    [sensitivityOutput.finalVals, ~] = calc_output(params, lhs, ...
+        data, initial_params, num_times, calc_type, display_interval);
+
+    % firstly, remove all NaN result rows
+    [remove_rows, ~] = find(isnan(sensitivityOutput.finalVals));
+    sensitivityOutput.finalVals(remove_rows) = [];
+    lhs(remove_rows, :) = [];
+
+    % calculate rank order matrices
+    rank_lhs = rank_order(lhs);
+    rank_out = rank_order(sensitivityOutput.finalVals);
+    
+    sensitivityOutput.prcc = calc_prcc(rank_out, rank_lhs);
+
+    % save prcc and sensitivity value to output
+    for p=1:num_params
+        param_name = parameters{p};
+        val = sensitivityOutput.prcc(p);
+        sensitivityOutput.sensitivity.(param_name) = val;
+    end
+    
+end
+
+%% function for conducting entire PRCC sensitivity analysis over time
+function sensitivityOutput = time_prcc(settings, sensitivityOutput)
+
+    % extract parameters
+    num_multi_sims = settings.num_multi_sims;
+    lb = settings.lb;
+    ub = settings.ub;
+    parameters = settings.parameters;
+    data = settings.data;
+    all_t = settings.all_t;
+    num_times = settings.num_times;
+    num_time_samples = settings.num_time_samples;
+    params = settings.params;
+    initial_params = settings.initial_params;
+    calc_type = settings.calc_type;
+    display_interval = num_multi_sims / 4;
+    num_params = settings.num_params;
+
+    % assemble the time points
+    num_time_samples = min([num_time_samples, num_times]);
+    sample_times_idx = round(linspace(1, num_times, num_time_samples));
+    sample_times = all_t(sample_times_idx);
+    % extra the comparison data at these time points
+    compare_data = data.CtrlO2(sample_times_idx);
+    
+    % save time points to output
+    sensitivityOutput.time_points = sample_times;
+    
+    %Initialize output parameters
+    sensitivityOutput.time_prcc = zeros(num_time_samples, num_params);
+    
+    fprintf('\n=====Examining time evolution of samples=====\n');
+    
+    for t_i=1:num_time_samples
+                
+        disp(['Simulating next time point...', num2str(t_i), ...
+            '/', num2str(num_time_samples)]);
+
+        % create the sampling pool using latin hypercube sampling
+        lhsRaw = lhsdesign(num_multi_sims, numel(parameters));
+        % rescale
+        lhs = bsxfun(@plus, lb, bsxfun(@times, lhsRaw, (ub-lb)));
+
+        % calculate all output vals using simulations
+        [finalVals, all_y] = calc_output(params, lhs, data, ...
+            initial_params, num_times, calc_type, display_interval);
+
+        % firstly, remove all NaN result rows
+        [remove_rows, ~] = find(isnan(finalVals));
+        lhs(remove_rows, :) = [];
+        finalVals(remove_rows) = [];
+        n = numel(lhs(:, 1));
+
+        y_vals = all_y(t_i, :)';
+
+        if strcmp(calc_type, 'RMSE')
+            compare_y = compare_data(t_i);
+            sim_y = (y_vals - compare_y) .^ 2;
+        elseif strcmp(calc_type, 'finalO2val')
+            sim_y = y_vals;
+        end
+        
+        rank_lhs = rank_order(lhs);
+        rank_out = rank_order(sim_y);
+
+        new_prcc = calc_prcc(rank_out, rank_lhs);
+        sensitivityOutput.time_prcc(t_i, :) = new_prcc;
+    end
+    
+    % calculate statistics
+    sensitivityOutput.variance = var(sensitivityOutput.time_prcc);
+    sensitivityOutput.means = mean(sensitivityOutput.time_prcc);
+end
+
+%% function for consistency checking to make sure enough iterations are done
+function [consistency, num_sims] = consistency_check(settings, sensitivityOutput)
+
+    % extract values and initialize vars
+    threshold = settings.consistency_threshold;
+    error = 100;
+    prcc_vals = zeros(settings.consistency_iterations, settings.num_params);
+    consistency = false;
+    
+    % test different numbers of simulations to find one where ans are
+    % consistent
+    for sim_num=1:numel(settings.consistency_num_sims)
+        
+        % set number of simulations to current val
+        num_sims = settings.consistency_num_sims(sim_num);
+        settings.num_sims = num_sims;
+        
+        % test n times to check for consistency
+        for i=1:settings.consistency_iterations
+
+            sensitivityOutput = single_prcc(settings, sensitivityOutput, ...
+                false);
+            prcc_vals(i, :) = sensitivityOutput.prcc;
+            
+        end
+        
+        % assess error and determine if error is sufficiently close
+        error = sum(std(prcc_vals, 0, 1));
+
+        fprintf('** %d yields avg error: %.6f\n', num_sims, error);
+        
+        % if error is ideal; then this is a sufficient # of sims
+        if error < threshold
+            consistency = true;
+            return;
+        end
+    end
 end
