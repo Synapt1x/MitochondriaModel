@@ -37,7 +37,10 @@ for type=1:2
     hold on
     plot(t(2:end),o2(2:end),graphColor{type},'lineWidth',2);
     lims = get(gca, 'ylim');
-    lims(2) = lims(2) * 1.1;
+    if ~handles.upper_defined(1)
+        lims(2) = lims(2) * 1.1;
+        handles.upper_defined(1) = 1;
+    end
     ylim(lims);
     hold off
     
@@ -46,7 +49,10 @@ for type=1:2
     hold on
     plot(t(2:end),calcOCR(2:end),graphColor{type},'lineWidth',2);
     lims = get(gca, 'ylim');
-    lims(2) = lims(2) * 1.1;
+    if ~handles.upper_defined(2)
+        lims(2) = lims(2) * 1.1;
+        handles.upper_defined(2) = 1;
+    end
     ylim(lims);
     hold off
     
@@ -56,7 +62,10 @@ for type=1:2
         hold on
         plot(t(2:end),cytcred(2:end),graphColor{type},'lineWidth',2);
         lims = get(gca, 'ylim');
-        lims(2) = lims(2) * 1.1;
+        if ~handles.upper_defined(1)
+            lims(2) = lims(2) * 1.1;
+            handles.upper_defined(1) = 1;
+        end
         ylim(lims);
         hold off
         
@@ -65,7 +74,10 @@ for type=1:2
         hold on
         plot(t(2:end),psi(2:end),graphColor{type},'lineWidth',2);
         lims = get(gca, 'ylim');
-        lims(2) = lims(2) * 1.1;
+        if ~handles.upper_defined(2)
+            lims(2) = lims(2) * 1.1;
+            handles.upper_defined(2) = 1;
+        end
         ylim(lims);
         hold off
     else
@@ -74,7 +86,10 @@ for type=1:2
         hold on
         plot(t(2:end),cytcred(2:end),graphColor{type},'lineWidth',2);
         lims = get(gca, 'ylim');
-        lims(2) = lims(2) * 1.1;
+        if ~handles.upper_defined(3)
+            lims(2) = lims(2) * 1.1;
+            handles.upper_defined(3) = 1;
+        end
         ylim(lims);
         hold off
         
@@ -83,7 +98,10 @@ for type=1:2
         hold on
         plot(t(2:end),Hn(2:end),graphColor{type},'lineWidth',2);
         lims = get(gca, 'ylim');
-        lims(2) = lims(2) * 1.1;
+        if ~handles.upper_defined(4)
+            lims(2) = lims(2) * 1.1;
+            handles.upper_defined(4) = 1;
+        end
         ylim(lims);
         hold off
         
@@ -92,7 +110,10 @@ for type=1:2
         hold on
         plot(t(2:end),Hp(2:end),graphColor{type},'lineWidth',2);
         lims = get(gca, 'ylim');
-        lims(2) = lims(2) * 1.1;
+        if ~handles.upper_defined(5)
+            lims(2) = lims(2) * 1.1;
+            handles.upper_defined(5) = 1;
+        end
         ylim(lims);
         hold off
     end

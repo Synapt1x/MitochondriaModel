@@ -121,6 +121,9 @@ set(findall(handles.controlGroup,'-property','Enable'),'Enable','off');
 % validate equations to make sure they are implemented correctly
 testEquations();
 
+% set a flag for denoting that the upper bound for graph limits is not defined
+handles.upper_defined = zeros(1, 5);
+
 guidata(hObject,handles);
 
 % --- Outputs from this function are returned to the command line.
