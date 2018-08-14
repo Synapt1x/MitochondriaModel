@@ -606,6 +606,9 @@ function [consistency, num_sims] = consistency_check(settings, sensitivityOutput
         
         % set number of simulations to current val
         num_sims = settings.consistency_num_sims(sim_num);
+        
+        fprintf('\n ====== testing %d simulations ====== \n', num_sims);
+        
         settings.num_sims = num_sims;
         
         % test n times to check for consistency
@@ -618,9 +621,12 @@ function [consistency, num_sims] = consistency_check(settings, sensitivityOutput
         end
         
         % assess error and determine if error is sufficiently close
-        error = sum(std(prcc_vals, 0, 1));
+        error = mean(std(prcc_vals, 0, 1));
+        
+        fprintf('\n == prcc vals ==\n');
+        disp(prcc_vals);
 
-        fprintf('** %d yields avg error: %.6f\n', num_sims, error);
+        fprintf('\n** %d yields avg error: %.6f\n', num_sims, error);
         
         % if error is ideal; then this is a sufficient # of sims
         if error < threshold
