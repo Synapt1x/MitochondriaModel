@@ -27,23 +27,23 @@ function sensitivityAnalysis()
     settings.calc_type = 'finalO2val';
     %calc_type = 'avgO2';
     % lower bounds for params
-    settings.lb = [0.2, 0.01, ... %f0
-        0.001, 1E-7, 1E-6, ... %fIV
-        1, 1E-6, 1E-6, ... %fV
-        10, 10, 0.00004, 1E-7, 0.04, 1, 1E-4, 1E-8, 0];
+    settings.lb = [2, 0.1, ... %f0
+        0.01, 1E-6, 1E-5, ... %fIV
+        10, 1E-5, 1E-5, ... %fV
+        100, 100, 0.0004, 1E-6, 0.4, 10, 1E-3, 1E-7, 0];
         % last row: r0, ox0, leak, amp1-4, attenuate
     % upper bounds for params
-    settings.ub = [2000, 500, ... %f0
-        10, 1E-4, 1E-2, ... %fIV
-        10000, 1E-2, 1E-2, ... %fV
-        100000, 100000, 0.4, 1E-3, 400, 10000, 1.0, 1E-4, 100];
+    settings.ub = [200, 50, ... %f0
+        1, 1E-4, 1E-3, ... %fIV
+        1000, 1E-3, 1E-3, ... %fV
+        10000, 10000, 0.04, 1E-4, 40, 1000, 0.1, 1E-5, 100];
         % last row: r0, ox0, leak, amp1-4, attenuate
         
     % parameters for checking consistency of method
     settings.check_consistency = 'on';  % set to turn on consistency tests
-    settings.consistency_num_sims = [500, 1E3, 5E3, 1E4, 2E4, 5E4, 1E5];
-    settings.consistency_threshold = 0.01;  % percentage as proportion
-    settings.consistency_iterations = 5;  % number of runs to compare
+    settings.consistency_num_sims = [100, 1E3, 5E3, 1E4, 2E4, 5E4, 1E5, 5E5];
+    settings.consistency_threshold = 0.05;  % percentage as proportion
+    settings.consistency_iterations = 3;  % number of runs to compare
         
     % set parameters for time evolution
     settings.num_time_samples = 2;
@@ -620,11 +620,15 @@ function [consistency, num_sims] = consistency_check(settings, sensitivityOutput
             
         end
         
-        % assess error and determine if error is sufficiently close
-        error = mean(std(prcc_vals, 0, 1));
-        
+        % assess error and determine if error is sufficiently close        
         fprintf('\n == prcc vals ==\n');
         disp(prcc_vals);
+        
+        diff_1 = abs(prcc_vals(2, :) - prcc_vals(1, :));
+        diff_2 = abs(prcc_vals(3, :) - prcc_vals(2, :));
+        diff_3 = abs(prcc_vals(3, :) - prcc_vals(1, :));
+        diffs = [diff_1; diff_2; diff_3];
+        error = sum(mean(diffs));
 
         fprintf('\n** %d yields avg error: %.6f\n', num_sims, error);
         
