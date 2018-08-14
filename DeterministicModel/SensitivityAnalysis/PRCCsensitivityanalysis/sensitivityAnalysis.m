@@ -22,7 +22,7 @@ function sensitivityAnalysis()
         'dummy'};
     settings.fig_visibility = 'off';  % set to on to view figures during run
 
-    settings.num_sims = 40;  % consistency check yields decent vals
+    settings.num_sims = 2E4;  % consistency check yields decent vals
     settings.max_t = 1E3;
     %calc_type = 'RMSE';
     settings.calc_type = 'finalO2val';
@@ -48,7 +48,7 @@ function sensitivityAnalysis()
         
     % set parameters for time evolution
     settings.num_time_samples = 8;  % if == 8 then using data transisions t
-    settings.num_multi_sims = 40; %1E4;
+    settings.num_multi_sims = 2E4;
     settings.smooth_on = false;
     settings.smooth_type = 'rlowess';
     
