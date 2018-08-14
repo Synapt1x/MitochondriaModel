@@ -17,11 +17,12 @@ function sensitivityAnalysis()
 
     % universal and single-run parameters
     settings.plot_on = true;  % whether to plot immediately after or not
-    settings.plot_prcc = {'fIV_Vmax', 'fIV_K', 'fIV_Km', 'fV_Vmax', ...
-        'fV_K', 'fV_Km', 'r0', 'ox0', 'p_leak', 'dummy'};
+    settings.plot_prcc = {'fIV_{Vmax}', 'fIV_K', 'fIV_{Km}', ...
+        'fV_{Vmax}', 'fV_K', 'fV_{Km}', 'r(0)', 'ox(0)', 'p_{leak}', ...
+        'dummy'};
     settings.fig_visibility = 'off';  % set to on to view figures during run
 
-    settings.num_sims = 100;
+    settings.num_sims = 40;  % consistency check yields decent vals
     settings.max_t = 1E3;
     %calc_type = 'RMSE';
     settings.calc_type = 'finalO2val';
@@ -40,14 +41,14 @@ function sensitivityAnalysis()
         % last row: r0, ox0, leak, amp1-4, attenuate
         
     % parameters for checking consistency of method
-    settings.check_consistency = 'on';  % set to turn on consistency tests
+    settings.check_consistency = 'off';  % set to turn on consistency tests
     settings.consistency_num_sims = [100, 1E3, 5E3, 1E4, 2E4, 5E4, 1E5, 5E5];
     settings.consistency_threshold = 0.05;  % percentage as proportion
     settings.consistency_iterations = 3;  % number of runs to compare
         
     % set parameters for time evolution
-    settings.num_time_samples = 2;
-    settings.num_multi_sims = 100;
+    settings.num_time_samples = 8;  % if == 8 then using data transisions t
+    settings.num_multi_sims = 40; %1E4;
     settings.smooth_on = false;
     settings.smooth_type = 'rlowess';
     
@@ -65,6 +66,7 @@ function sensitivityAnalysis()
 
     % clear cmd history for clarity
     clc
+    close all
 
     % store the current directory and move up to acquire model information
     curdir = fileparts(which(mfilename));
@@ -155,9 +157,10 @@ function sensitivityAnalysis()
     save(settings.filename, 'sensitivityOutput');  % update
     
     % plot if plot_on is set to do so
-    if plot_on
+    if settings.plot_on
         plot_prcc_multi(sensitivityOutput, settings.smooth_on, ...
-            settings.smooth_type, settings.fig_visibility, settings.plot_prcc);
+            settings.smooth_type, settings.fig_visibility, ...
+            settings.plot_prcc);
     end
 
 end
@@ -358,6 +361,7 @@ function plot_prcc_multi(sensitivityOutput, smooth_on, smooth_type, ...
     else
         prcc_vals = sensitivityOutput.time_prcc;
     end
+    sig_val = sensitivityOutput.sig_val;
     
     % create filename for plotting all prcc
     all_filename = sprintf(['Images', filesep, date, ...
@@ -366,13 +370,26 @@ function plot_prcc_multi(sensitivityOutput, smooth_on, smooth_type, ...
     % plot
     f2 = figure('Name', 'Figure 2: PRCC Over Time for All Parameters', ...
         'visible', fig_visibility);
-    plot(time_points, prcc_vals);
+    plot(time_points, prcc_vals, 'LineWidth', 1.2);
     title('PRCC values for all parameters over time');
     xlabel('Time (sec)');
     ylabel('Correlation');
     ylim([-1.0, 1.0]);
+    xlim([0, time_points(end)]);
     leg2 = legend(sensitivityOutput.outputLabels);
-    set(leg2,'Location','BestOutside'); 
+    set(leg2,'Location','BestOutside');
+    
+    % add significance patch
+    line([0, (time_points(end) + 1)], [sig_val, sig_val], 'Color', 'red', ...
+        'LineStyle', '--', 'LineWidth', 1.3);
+    line([0, (time_points(end) + 1)], [-sig_val, -sig_val], 'Color', 'red', ...
+        'LineStyle', '--', 'LineWidth', 1.3);
+    x = [0 (time_points(end) + 1) (time_points(end) + 1) 0];
+    y = [-sig_val -sig_val sig_val sig_val];
+    sig_patch = patch(x, y, 'red');
+    alpha(sig_patch, 0.1);
+    % reverse gca children to send bar graph to front
+    set(gca,'children',flipud(get(gca,'children')))
     
     % save all PRCC fig
     savefig(f2, all_filename);
@@ -393,13 +410,26 @@ function plot_prcc_multi(sensitivityOutput, smooth_on, smooth_type, ...
         f3 = figure('Name', ...
             'Figure 3: PRCC Over Time for Selected Parameters', ...
             'visible', fig_visibility);
-        plot(time_points, prcc_vals(:, param_idx));
+        plot(time_points, prcc_vals(:, param_idx), 'LineWidth', 1.2);
         title('PRCC values for selected parameters over time');
         xlabel('Time (sec)');
         ylabel('Correlation');
         ylim([-1.0, 1.0]);
+        xlim([0, time_points(end)]);
         leg3 = legend(plot_params{1});
         set(leg3, 'Location', 'BestOutside');
+        
+        % add significance patch
+        line([0, (time_points(end) + 1)], [sig_val, sig_val], 'Color', ...
+            'red', 'LineStyle', '--', 'LineWidth', 1.3);
+        line([0, (time_points(end) + 1)], [-sig_val, -sig_val], 'Color',...
+            'red', 'LineStyle', '--', 'LineWidth', 1.3);
+        x = [0 (time_points(end) + 1) (time_points(end) + 1) 0];
+        y = [-sig_val -sig_val sig_val sig_val];
+        sig_patch = patch(x, y, 'red');
+        alpha(sig_patch, 0.1);
+        % reverse gca children to send bar graph to front
+        set(gca,'children',flipud(get(gca,'children')))
         
         % save selected PRCC fig
         savefig(f3, select_filename);
@@ -509,7 +539,7 @@ function sensitivityOutput = single_prcc(settings, sensitivityOutput, verbose)
     sensitivityOutput.prcc = calc_prcc(rank_out, rank_lhs);
 
     % save prcc and sensitivity value to output
-    for p=1:num_params
+    for p=1:settings.num_params
         param_name = parameters{p};
         val = sensitivityOutput.prcc(p);
         sensitivityOutput.sensitivity.(param_name) = val;
@@ -534,10 +564,22 @@ function sensitivityOutput = time_prcc(settings, sensitivityOutput)
     calc_type = settings.calc_type;
     display_interval = num_multi_sims / 4;
     num_params = settings.num_params;
-
-    % assemble the time points
-    num_time_samples = min([num_time_samples, num_times]);
-    sample_times_idx = round(linspace(1, num_times, num_time_samples));
+    
+    % check if num_times == 8 for only checking transition times
+    if num_time_samples == 8
+        
+        sample_times_idx = [1, settings.data.oligo_i, ...
+            settings.data.f_25_i, settings.data.f_50_i, ...
+            settings.data.f_75_i, settings.data.f_100_i, ...
+            settings.data.inhibit_i, numel(all_t)];
+    else
+        
+        % assemble the time points
+        num_time_samples = min([num_time_samples, num_times]);
+        sample_times_idx = round(linspace(1, num_times, num_time_samples));
+        sample_times_idx = [1, sample_times_idx];
+    end
+    
     sample_times = all_t(sample_times_idx);
     % extra the comparison data at these time points
     compare_data = data.CtrlO2(sample_times_idx);
@@ -550,7 +592,7 @@ function sensitivityOutput = time_prcc(settings, sensitivityOutput)
     
     fprintf('\n=====Examining time evolution of samples=====\n');
     
-    for t_i=1:num_time_samples
+    for t_i=2:num_time_samples
                 
         disp(['Simulating next time point...', num2str(t_i), ...
             '/', num2str(num_time_samples)]);
@@ -567,8 +609,6 @@ function sensitivityOutput = time_prcc(settings, sensitivityOutput)
         % firstly, remove all NaN result rows
         [remove_rows, ~] = find(isnan(finalVals));
         lhs(remove_rows, :) = [];
-        finalVals(remove_rows) = [];
-        n = numel(lhs(:, 1));
 
         y_vals = all_y(t_i, :)';
 
