@@ -47,8 +47,8 @@ function sensitivityAnalysis()
     settings.consistency_iterations = 3;  % number of runs to compare
         
     % set parameters for time evolution
-    settings.num_time_samples = 8;  % if == 8 then using data transisions t
-    settings.num_multi_sims = 2E4;
+    settings.num_time_samples = 80;  % if == 8 then using data transisions t
+    settings.num_multi_sims = 1E4;
     settings.smooth_on = false;
     settings.smooth_type = 'rlowess';
     
