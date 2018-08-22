@@ -37,12 +37,11 @@ parameters.ctrlParams.fIV_K = 4.301E-4; %bounds: [0.1 1E4]
 parameters.ctrlParams.fV_Vmax = 110.8; %bounds: [1 1E4]
 parameters.ctrlParams.fV_Km = 9.248E-5; %bounds: [1E-6 1]
 parameters.ctrlParams.fV_K = 1E-4; %bounds: [1 1E4]
+parameters.ctrlParams.p_alpha = 0.00384; %bounds: [1E-9 1]
 parameters.ctrlParams.cytcred = 2940 ...
     * parameters.converter; %bounds: [1E-6 1]
 parameters.ctrlParams.cytcox = 3922 ...
     * parameters.converter; %bounds: [1E-6 1]
-parameters.ctrlParams.p_alpha = 0.00384; %bounds: [1E-9 1]
-parameters.ctrlParams.p_fccp = 1.0073; %bounds: [1 1E5]  NO LONGER USED
 
 parameters.ctrlParams.amp_1 = 1.001E-5; % max effect of FCCP in first injection
 parameters.ctrlParams.amp_2 = 4.001; % max effect of FCCP in second injection
@@ -73,7 +72,6 @@ parameters.expParams.fV_Km =parameters.ctrlParams.fV_Km; %bounds: [1E-6 1]
 parameters.expParams.f0_Vmax = parameters.ctrlParams.f0_Vmax; %bounds: [0.01 10]
 parameters.expParams.f0_Km = parameters.ctrlParams.f0_Km; %bounds: [0.1 1E4]
 parameters.expParams.p_alpha = parameters.ctrlParams.p_alpha; %bounds: [1E-3 1E6]
-parameters.expParams.p_fccp = parameters.ctrlParams.p_fccp; %bounds: [1 1E5]
 parameters.expParams.cytcred = parameters.ctrlParams.cytcred; %bounds: [1E-6 1]
 parameters.expParams.cytcox = parameters.ctrlParams.cytcox; %bounds: [1E-6 1]
 
